@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "835DF710C65BF7DC1E2123BBC6BA6C1EB88F09E7",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "835DF710C65BF7DC1E2123BBC6BA6C1EB88F09E7" : 0,
+    "74D53BE69339F8613740A4395AE11D923C8DE6D8" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "8DD0B9BB-4F19-4A69-9CA4-F6B0F2B83646",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "835DF710C65BF7DC1E2123BBC6BA6C1EB88F09E7" : "LianDuoJia\/",
+    "74D53BE69339F8613740A4395AE11D923C8DE6D8" : "O2O\/MeiRongBuyer\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "FeiYong",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "FeiYong\/FeiYong.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/192.168.1.189:5000\/YiZanO2O\/MeiRongBuyer",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74D53BE69339F8613740A4395AE11D923C8DE6D8"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lianduojia\/LianDuoJia.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "835DF710C65BF7DC1E2123BBC6BA6C1EB88F09E7"
+    }
+  ]
+}
