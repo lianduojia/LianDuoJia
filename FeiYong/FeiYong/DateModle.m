@@ -62,3 +62,42 @@
     }
 }
 @end
+
+@interface SResBase()
+
+@property (nonatomic,strong)    id mcoredat;
+
+@end
+
+@implementation SResBase
+
+
+-(id)initWithObj:(NSDictionary *)obj
+{
+    self = [super init];
+    if( self && obj != nil )
+    {
+        [self fetchIt:obj];
+        self.mcoredat = obj;
+    }
+    return self;
+}
+
+-(void)fetchIt:(NSDictionary *)obj
+{
+    _mcode = [[obj objectForKeyMy:@"code"] intValue];
+    _msuccess = _mcode == 0;
+    self.mmsg = [obj objectForKeyMy:@"msg"];
+    self.mdebug = [obj objectForKeyMy:@"debug"];
+    self.mdata = [obj objectForKeyMy:@"data"];
+}
+
++(SResBase*)infoWithError:(NSString*)error
+{
+    SResBase* retobj = SResBase.new;
+    retobj.mcode = 1;
+    retobj.msuccess = NO;
+    retobj.mmsg = error;
+    return retobj;
+}
+@end

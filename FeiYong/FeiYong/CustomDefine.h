@@ -26,5 +26,12 @@
 #define M_TCO  [UIColor colorWithRed:49/255.0f green:50/255.0f blue:51/255.0f alpha:1.000]
 #define M_TCO2  [UIColor colorWithRed:151/255.0f green:151/255.0f blue:151/255.0f alpha:1.000]
 
+#ifdef DEBUG
+#define MLLog(format, ...) NSLog(format, ## __VA_ARGS__)
+#else
+#define MLLog(format, ...)
+#endif
+
+#define MLLog_VC(_Method_)  MLLog(@"%@ %@",[self description],@_Method_);
 
 #endif /* CustomDefine_h */
