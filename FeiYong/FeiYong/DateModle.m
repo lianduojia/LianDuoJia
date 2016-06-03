@@ -8,6 +8,8 @@
 
 #import "DateModle.h"
 #import <objc/message.h>
+#import "DataSigner.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @implementation DateModle
 
@@ -100,4 +102,122 @@
     retobj.mmsg = error;
     return retobj;
 }
+@end
+
+
+@implementation Order
+
+- (NSString *)description {
+    
+    NSMutableString * discription = [NSMutableString string];
+    if (self.partner) {
+        [discription appendFormat:@"partner=\"%@\"", self.partner];
+    }
+    
+    if (self.sellerID) {
+        [discription appendFormat:@"&seller_id=\"%@\"", self.sellerID];
+    }
+    if (self.outTradeNO) {
+        [discription appendFormat:@"&out_trade_no=\"%@\"", self.outTradeNO];
+    }
+    if (self.subject) {
+        [discription appendFormat:@"&subject=\"%@\"", self.subject];
+    }
+    
+    if (self.body) {
+        [discription appendFormat:@"&body=\"%@\"", self.body];
+    }
+    if (self.totalFee) {
+        [discription appendFormat:@"&total_fee=\"%@\"", self.totalFee];
+    }
+    if (self.notifyURL) {
+        [discription appendFormat:@"&notify_url=\"%@\"", self.notifyURL];
+    }
+    
+    if (self.service) {
+        [discription appendFormat:@"&service=\"%@\"",self.service];//mobile.securitypay.pay
+    }
+    if (self.paymentType) {
+        [discription appendFormat:@"&payment_type=\"%@\"",self.paymentType];//1
+    }
+    
+    if (self.inputCharset) {
+        [discription appendFormat:@"&_input_charset=\"%@\"",self.inputCharset];//utf-8
+    }
+    if (self.itBPay) {
+        [discription appendFormat:@"&it_b_pay=\"%@\"",self.itBPay];//30m
+    }
+    if (self.showURL) {
+        [discription appendFormat:@"&show_url=\"%@\"",self.showURL];//m.alipay.com
+    }
+    if (self.appID) {
+        [discription appendFormat:@"&app_id=\"%@\"",self.appID];
+    }
+    for (NSString * key in [self.outContext allKeys]) {
+        [discription appendFormat:@"&%@=\"%@\"", key, [self.outContext objectForKey:key]];
+    }
+    return discription;
+}
+
+
+-(void)aliPay:(void(^)(SResBase* retobj))block{
+
+    /*
+     *商户的唯一的parnter和seller。
+     *签约后，支付宝会为每个商户分配一个唯一的 parnter 和 seller。
+     */
+    
+    /*============================================================================*/
+    /*=======================需要填写商户app申请的===================================*/
+    /*============================================================================*/
+//    NSString *partner = @"";
+//    NSString *seller = @"";
+    NSString *privateKey = @"";
+    /*============================================================================*/
+    /*============================================================================*/
+    /*============================================================================*/
+    
+//    /*
+//     *生成订单信息及签名
+//     */
+//    //将商品信息赋予AlixPayOrder的成员变量
+//    Order *order = [[Order alloc] init];
+//    order.partner = partner;
+//    order.sellerID = seller;
+//    order.outTradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
+//    order.subject = product.subject; //商品标题
+//    order.body = product.body; //商品描述
+//    order.totalFee = [NSString stringWithFormat:@"%.2f",product.price]; //商品价格
+//    order.notifyURL =  @"http://www.xxx.com"; //回调URL
+//    
+//    order.service = @"mobile.securitypay.pay";
+//    order.paymentType = @"1";
+//    order.inputCharset = @"utf-8";
+//    order.itBPay = @"30m";
+//    order.showURL = @"m.alipay.com";
+    
+    //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
+    NSString *appScheme = @"alisdkdemo";
+    
+    //将商品信息拼接成字符串
+    NSString *orderSpec = [self description];
+    NSLog(@"orderSpec = %@",orderSpec);
+    
+    //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
+    id<DataSigner> signer = CreateRSADataSigner(privateKey);
+    NSString *signedString = [signer signString:orderSpec];
+    
+    //将签名成功字符串格式化为订单字符串,请严格按照该格式
+    NSString *orderString = nil;
+    if (signedString != nil) {
+        orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
+                       orderSpec, signedString, @"RSA"];
+        
+        [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+            NSLog(@"reslut = %@",resultDic);
+        }];
+    }
+
+}
+
 @end
