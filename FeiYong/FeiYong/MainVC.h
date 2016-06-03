@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UIView *mMenuView;
 @property (weak, nonatomic) IBOutlet UIView *mAdvView;
 
+- (IBAction)menuClick:(id)sender;
+- (IBAction)explainClick:(id)sender;
 @end
