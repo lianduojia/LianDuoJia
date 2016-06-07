@@ -8,6 +8,7 @@
 
 #import "MainVC.h"
 #import "SDCycleScrollView.h"
+#import "ParentalServiceVC.h"
 
 @interface MainVC ()<SDCycleScrollViewDelegate>{
 
@@ -18,10 +19,18 @@
 
 @implementation MainVC
 
+- (void)viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
+    
+    self.hiddenTabBar = NO;
+}
+
 - (void)viewDidLoad {
+    
+    self.hiddenTabBar = NO;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.navTitle = @"飞佣";
     self.hiddenBackBtn = YES;
     
@@ -35,7 +44,9 @@
     
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Width*(13.0/32.0)) imagesGroup:bannerAry];
     _cycleScrollView.delegate = self;
-    [_mBannerView addSubview:_cycleScrollView];
+//    [_mBannerView addSubview:_cycleScrollView];
+    
+    [_mBannerImg sd_setImageWithURL:[NSURL URLWithString:@"http://img1.gtimg.com/sports/pics/hv1/105/196/1592/103569885.jpg"] placeholderImage:[UIImage imageNamed:@"DefaultBanner"]];
     
 }
 
@@ -64,7 +75,7 @@
 
 - (IBAction)menuClick:(id)sender {
     
-    //初始化提示框；
+   /* //初始化提示框；
     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"暂未开通" preferredStyle:  UIAlertControllerStyleAlert];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -73,18 +84,27 @@
     
     //弹出提示框；
     [self presentViewController:alert animated:true completion:nil];
+    */
+    
+    UIButton *bt = (UIButton *)sender;
+    ParentalServiceVC *ps = [[ParentalServiceVC alloc] initWithNibName:@"ParentalServiceVC" bundle:nil];
+    ps.mType = (int)bt.tag;
+    [self.navigationController pushViewController:ps animated:YES];
+    
 }
 
 - (IBAction)explainClick:(id)sender {
     
-    //初始化提示框；
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"暂未开通" preferredStyle:  UIAlertControllerStyleAlert];
+    [self gotoLogin];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        //点击按钮的响应事件；
-    }]];
-    
-    //弹出提示框；
-    [self presentViewController:alert animated:true completion:nil];
+//    //初始化提示框；
+//    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"暂未开通" preferredStyle:  UIAlertControllerStyleAlert];
+//    
+//    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//        //点击按钮的响应事件；
+//    }]];
+//    
+//    //弹出提示框；
+//    [self presentViewController:alert animated:true completion:nil];
 }
 @end

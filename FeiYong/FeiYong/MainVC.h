@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UIView *mBannerView;
 @property (weak, nonatomic) IBOutlet UIView *mMenuView;
 @property (weak, nonatomic) IBOutlet UIView *mAdvView;
+@property (weak, nonatomic) IBOutlet UIImageView *mBannerImg;
 
 - (IBAction)menuClick:(id)sender;
 - (IBAction)explainClick:(id)sender;

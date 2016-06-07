@@ -13,6 +13,19 @@
 #import "UIImageView+WebCache.h"
 #import "CustomDefine.h"
 #import "NSObject+myobj.h"
+#import "SVProgressHUD.h"
+#import "DateModle.h"
+
+enum {
+    YUESAO = 10,
+    YUERSAO,
+    BUZHUJIABAOMU,
+    ZHUJIABAOMU,
+    LAORENPEIHU,
+    XIAOSHIGONG,
+    CHANGQIXIAOSHIGONG,
+    FEIYONG
+};
 
 #ifdef __OBJC__
 #import <UIKit/UIKit.h>

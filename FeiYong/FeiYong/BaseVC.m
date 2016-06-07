@@ -7,12 +7,29 @@
 //
 
 #import "BaseVC.h"
+#import "LoginVC.h"
+#import "IQKeyboardManager.h"
 
 @interface BaseVC ()<UIGestureRecognizerDelegate>
 
 @end
 
 @implementation BaseVC
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [[IQKeyboardManager sharedManager] setEnable:YES];
+    [[IQKeyboardManager sharedManager]setEnableAutoToolbar:YES];
+    [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[IQKeyboardManager sharedManager] setEnable:NO];
+    [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+}
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
@@ -44,6 +61,15 @@
     
 }
 
+- (void)setHiddenNavBar:(BOOL)hiddenNavBar{
+
+    self.navBar.hidden = hiddenNavBar;
+}
+- (void)setHiddenTabBar:(BOOL)hiddenTabBar{
+
+    self.tabBarController.tabBar.hidden = hiddenTabBar;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -52,7 +78,7 @@
     
     //    self.navigationController.navigationBar.translucent = NO;
     self.navigationController.navigationBarHidden = YES;
-    self.view.backgroundColor = M_BGCO;
+//    self.view.backgroundColor = M_BGCO;
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     //初始化NavBar
@@ -68,6 +94,13 @@
     self.page = 0;
     
 
+}
+
+-(void)gotoLogin{
+    
+    LoginVC *login = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
+
+    [self presentViewController:login animated:YES completion:nil];
 }
 
 -(void)leftBtnTouched:(id)sender

@@ -112,10 +112,19 @@
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ds9-7a-eKt">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HqZ-d4-uFg">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+                                                    </imageView>
+                                                </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="HqZ-d4-uFg" firstAttribute="top" secondItem="Ds9-7a-eKt" secondAttribute="top" id="0LO-go-Ae4"/>
+                                                    <constraint firstItem="HqZ-d4-uFg" firstAttribute="leading" secondItem="Ds9-7a-eKt" secondAttribute="leading" id="Izk-88-JIq"/>
                                                     <constraint firstAttribute="height" constant="130" id="SNZ-AY-Rr1"/>
                                                     <constraint firstAttribute="width" secondItem="Ds9-7a-eKt" secondAttribute="height" multiplier="32:13" id="b6b-v9-jEF"/>
+                                                    <constraint firstAttribute="trailing" secondItem="HqZ-d4-uFg" secondAttribute="trailing" id="jSr-xn-33G"/>
+                                                    <constraint firstAttribute="bottom" secondItem="HqZ-d4-uFg" secondAttribute="bottom" id="sNw-pU-s4j"/>
                                                 </constraints>
                                                 <variation key="default">
                                                     <mask key="constraints">
@@ -582,6 +591,7 @@
                     <size key="freeformSize" width="320" height="800"/>
                     <connections>
                         <outlet property="mAdvView" destination="SA0-Kf-D7z" id="GTv-za-3Bz"/>
+                        <outlet property="mBannerImg" destination="HqZ-d4-uFg" id="rtx-T3-uQ8"/>
                         <outlet property="mBannerView" destination="Ds9-7a-eKt" id="glS-z8-otP"/>
                         <outlet property="mMenuView" destination="dHH-Qz-EEc" id="eLY-TN-18X"/>
                     </connections>

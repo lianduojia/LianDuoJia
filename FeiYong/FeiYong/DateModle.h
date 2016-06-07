@@ -111,4 +111,21 @@
 
 @end
 
+@interface SUser : SAutoEx
+
+@property (nonatomic,strong) NSString *mUserName;
+@property (nonatomic,strong) NSString *mPhoneNum;
+@property (nonatomic,strong) NSString *mPwd;
+
+//注册－－短信验证
++(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
+
+//注册
++(void)regist:(NSString *)name pwd:(NSString *)pwd block:(void(^)(SResBase* retobj))block;
+
+//登陆
++(void)login:(NSString *)name code:(NSString *)pwd block:(void(^)(SResBase* retobj))block;
+
+@end
+
 

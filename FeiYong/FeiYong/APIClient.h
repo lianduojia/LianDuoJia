@@ -9,6 +9,8 @@
 
 @interface APIClient : AFHTTPRequestOperationManager
 
++(NSString*)getDomain;
+
 
 + (APIClient *)sharedClient;
 

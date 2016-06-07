@@ -10,6 +10,7 @@
 #import <objc/message.h>
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "APIClient.h"
 
 @implementation DateModle
 
@@ -87,9 +88,9 @@
 
 -(void)fetchIt:(NSDictionary *)obj
 {
-    _mcode = [[obj objectForKeyMy:@"code"] intValue];
-    _msuccess = _mcode == 0;
-    self.mmsg = [obj objectForKeyMy:@"msg"];
+    _mcode = [[obj objectForKeyMy:@"_no"] intValue];
+//    _msuccess = _mcode;
+    self.mmsg = [obj objectForKeyMy:@"_msg"];
     self.mdebug = [obj objectForKeyMy:@"debug"];
     self.mdata = [obj objectForKeyMy:@"data"];
 }
@@ -172,7 +173,7 @@
     /*============================================================================*/
 //    NSString *partner = @"";
 //    NSString *seller = @"";
-    NSString *privateKey = @"";
+    NSString *privateKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
     /*============================================================================*/
     /*============================================================================*/
     /*============================================================================*/
@@ -221,3 +222,48 @@
 }
 
 @end
+
+@implementation SUser
+
+//注册－－短信验证
++(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block{
+    
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:phone forKey:@"phone"];
+    [param setObject:code forKey:@"code"];
+    [param setObject:@"ios" forKey:@"type"];
+    [[APIClient sharedClient] postUrl:@"regist-msg" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
+//注册
++(void)regist:(NSString *)name pwd:(NSString *)pwd block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:name forKey:@"name"];
+    [param setObject:pwd forKey:@"pwd"];
+    [[APIClient sharedClient] postUrl:@"regist" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
+//登陆
++(void)login:(NSString *)name code:(NSString *)pwd block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:name forKey:@"name"];
+    [param setObject:pwd forKey:@"pwd"];
+    [[APIClient sharedClient] postUrl:@"login" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+    
+}
+
+@end
+
+
+

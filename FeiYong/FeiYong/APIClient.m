@@ -4,12 +4,9 @@
 #import "DateModle.h"
 #import "CustomDefine.h"
 #import "Util.h"
+#import "AFNetworking/AFHTTPSessionManager.h"
 
-static NSString* const  kAFAppDotNetAPIBaseURLString    = @"hair.test.o2o.fanwe.cn/";
-
-
-
-
+ NSString*  kAFAppDotNetAPIBaseURLString    = @"http://ccxhtb.jios.org:8080/BsuGameCenter/";
 @interface APIClient ()
 
 @end
@@ -92,97 +89,32 @@ static NSString* const  kAFAppDotNetAPIBaseURLString    = @"hair.test.o2o.fanwe.
  *  @param parameters 参数
  *  @param callback   返回网络数据
  */
--(void)postUrl:(NSString *)URLString parameters:(id)parameters call:(void (^)(  SResBase* info))callback
+-(void)postUrl:(NSString *)URLString parameters:(NSMutableDictionary *)parameters call:(void (^)(  SResBase* info))callback
 {
+   
     
-    NSMutableDictionary* tparam = NSMutableDictionary.new;
+    NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@",kAFAppDotNetAPIBaseURLString,URLString];
     
-    if( parameters )//真正的参数需要弄到 Data里面
-    {
-        NSData* jj = [NSJSONSerialization dataWithJSONObject:parameters options:NSJSONWritingPrettyPrinted error:nil
-                      ];
-        NSString *str = [[NSString alloc] initWithData:jj encoding:NSUTF8StringEncoding];
-        
-        NSMutableString*  sssss = [NSMutableString stringWithFormat:@"%@%@?",kAFAppDotNetAPIBaseURLString,URLString];
-        
-        for ( NSString* onekey in ((NSDictionary*)parameters).allKeys ) {
-            [sssss appendFormat:@"%@=%@&",onekey,[parameters objectForKey:onekey]];
-        }
-        [sssss replaceCharactersInRange:NSMakeRange(sssss.length-1, 1) withString:@""];
-        
-        MLLog(@"request 请求加密前参数：%@",sssss);
-        
-//#ifdef ENC
-//        if( !binit )
-//        {
-//            int iv = [GInfo shareClient].mivint;
-//            NSString* key = token;//[Util URLDeCode:token];
-//            NSString* userid = [self getUserId];
-//            if( userid.length == 0 )
-//                userid = @"0";
-//            key = [Util md5:[key stringByAppendingString:userid]];
-//            
-//            iv = [Util gettopestV:iv];
-//            str = [CBCUtil CBCEncrypt:str key:key index:iv];
-//            if( str == nil )
-//            {
-//                SResBase* itbase = [SResBase infoWithError:@"程序处理错误"];
-//                callback( itbase );
-//                return;
-//            }
-//        }
-//#endif
-        [tparam setObject:str forKey:@"data"];
-    }
+    NSLog(@"=====%@/%@",Url,parameters);
     
-    MLLog(@"request 所有请求参数：%@",tparam);
+    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
-    [self POST:URLString parameters:tparam success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [session POST:Url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        id fuckdata = [responseObject objectForKeyMy:@"data"];
-        if( responseObject && fuckdata && [fuckdata isKindOfClass:[NSString class]] )
-        {
-            NSMutableDictionary* tresb = [[NSMutableDictionary alloc]initWithDictionary:responseObject];
-            
-            NSError* jsonerrr = nil;
-            id datobj = nil;
-            if( tresb )
-            {
-                datobj = [NSJSONSerialization JSONObjectWithData:[fuckdata dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonerrr];
-            }
-            
-            if( datobj )
-            {
-                [tresb setObject:datobj forKey:@"data"];
-                
-            }
-            else
-            {
-                [tresb setObject:[NSNumber numberWithInt:9997] forKey:@"code"];
-                [tresb setObject:@"程序处理有错误." forKey:@"msg"];
-                [tresb removeObjectForKey:@"data"];
-                MLLog(@"json err:%@",jsonerrr.description);
-            }
-            responseObject = tresb;
-        }
+        NSData *JSONData = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
+        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+
+        SResBase* retob = [[SResBase alloc]initWithObj:responseJSON];
         
-        MLLog(@"URL:%@ data:%@",operation.response.URL,responseObject);
-        
-        SResBase* retob = [[SResBase alloc]initWithObj:responseObject];
-        
-//        if( retob.mcode == 99996 )
-//        {//需要登陆
-//            id oneid = [UIApplication sharedApplication].delegate;
-//            [oneid performSelector:@selector(gotoLogin) withObject:nil afterDelay:0.4f];
-//        }
         callback(  retob );
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"成功");
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
         
-        MLLog(@"url:%@ error:%@",operation.request,error.description);
+        MLLog(@"error:%@",error.description);
         callback( [SResBase infoWithError:@"网络请求错误.."] );
-        
     }];
+    
 }
 
 

@@ -29,6 +29,8 @@
 @property (nonatomic,assign) BOOL haveFooter;           //是否需要上拉加载
 @property (nonatomic,strong) UITableView *tableView;    //列表
 
+-(void)gotoLogin;
+
 -(void)leftBtnTouched:(id)sender;                       //左边navbar事件
 -(void)rightBtnTouched:(id)sender;                      //右边navbar事件
 
