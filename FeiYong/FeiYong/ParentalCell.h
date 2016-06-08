@@ -11,5 +11,6 @@
 @interface ParentalCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *mImg;
 @property (weak, nonatomic) IBOutlet UILabel *mName;
+@property (weak, nonatomic) IBOutlet UILabel *mDetail;
 
 @end

@@ -45,7 +45,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CkR-qq-oK7">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1167"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ai" translatesAutoresizingMaskIntoConstraints="NO" id="zy5-1Z-vhp">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultBanner" translatesAutoresizingMaskIntoConstraints="NO" id="zy5-1Z-vhp">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="174"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="zy5-1Z-vhp" secondAttribute="height" multiplier="125:58" id="o3b-B8-b40"/>
@@ -722,7 +722,7 @@
                     <constraints>
                         <constraint firstAttribute="width" secondItem="xca-Bv-7CA" secondAttribute="height" multiplier="15:2" id="lJ4-sx-8jf"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <state key="normal" title="提交">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -753,7 +753,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ai" width="340" height="190"/>
+        <image name="DefaultBanner" width="720" height="300"/>
         <image name="s_bt" width="105" height="30"/>
         <image name="s_next" width="7" height="12"/>
         <image name="s_pjay" width="34" height="33"/>

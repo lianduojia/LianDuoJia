@@ -11,6 +11,7 @@
 #import "DataSigner.h"
 #import <AlipaySDK/AlipaySDK.h>
 #import "APIClient.h"
+#import "Util.h"
 
 @implementation DateModle
 
@@ -224,6 +225,40 @@
 @end
 
 @implementation SUser
+
+//返回当前用户
++(SUser*)currentUser{
+
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    NSDictionary* dat = [def objectForKey:@"userInfo"];
+    if( dat )
+    {
+        SUser* tu = [[SUser alloc] initWithObj:dat];
+        return tu;
+    }
+    return nil;
+}
+
++(void)saveUserInfo:(id)dccat
+{
+    dccat = [Util delNUll:dccat];
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    [def setObject:dccat forKey:@"userInfo"];
+    [def synchronize];
+}
+
+//判断是否需要登录
++(BOOL)isNeedLogin{
+    return [SUser currentUser] == nil;
+}
+
+//退出登陆
++(void)logout{
+    
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    [def setObject:nil forKey:@"userInfo"];
+    [def synchronize];
+}
 
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block{

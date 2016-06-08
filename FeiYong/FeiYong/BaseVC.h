@@ -28,6 +28,7 @@
 @property (nonatomic,assign) BOOL haveHeader;           //是否需要下拉刷新
 @property (nonatomic,assign) BOOL haveFooter;           //是否需要上拉加载
 @property (nonatomic,strong) UITableView *tableView;    //列表
+-(void)loadTableView:(CGRect)rect delegate:(id<UITableViewDelegate>)delegate dataSource:(id<UITableViewDataSource>)datasource;
 
 -(void)gotoLogin;
 

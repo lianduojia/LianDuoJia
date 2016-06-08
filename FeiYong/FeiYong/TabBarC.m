@@ -33,9 +33,9 @@
     
     self.tabBar.tintColor = [UIColor whiteColor];
     
-    NSDictionary *dic = @{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    NSDictionary *dic = @{NSForegroundColorAttributeName:[UIColor colorWithRed:253/255.0 green:105/255.0 blue:19/255.0 alpha:1],NSFontAttributeName:[UIFont systemFontOfSize:12]};
     
-    [[UITabBarItem appearance] setTitleTextAttributes:dic forState:(UIControlStateNormal)];
+    [[UITabBarItem appearance] setTitleTextAttributes:dic forState:(UIControlStateSelected)];
 
     
 }

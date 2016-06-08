@@ -17,13 +17,13 @@
 #import "DateModle.h"
 
 enum {
-    YUESAO = 10,
-    YUERSAO,
-    BUZHUJIABAOMU,
+    BUZHUJIABAOMU= 10,
     ZHUJIABAOMU,
+    YUESAO,
+    YUERSAO,
     LAORENPEIHU,
     XIAOSHIGONG,
-    CHANGQIXIAOSHIGONG,
+    YANGLAO,
     FEIYONG
 };
 

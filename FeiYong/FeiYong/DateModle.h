@@ -117,6 +117,16 @@
 @property (nonatomic,strong) NSString *mPhoneNum;
 @property (nonatomic,strong) NSString *mPwd;
 
+
+//返回当前用户
++(SUser*)currentUser;
+
+//判断是否需要登录
++(BOOL)isNeedLogin;
+
+//退出登陆
++(void)logout;
+
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
 

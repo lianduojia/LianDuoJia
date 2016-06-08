@@ -12,6 +12,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _mDetail.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

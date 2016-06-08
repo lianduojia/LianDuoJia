@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ParentalServiceVC : BaseVC
+@protocol ParentalServiceDelegate <NSObject>
 
+- (void)selectString:(NSString *)string index:(int)index;
+
+@end
+
+@interface ParentalServiceVC : BaseVC<ParentalServiceDelegate>
 
 @property (nonatomic,assign) int mType;
 

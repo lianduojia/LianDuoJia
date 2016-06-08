@@ -23,6 +23,8 @@
     [[IQKeyboardManager sharedManager]setEnableAutoToolbar:YES];
     [IQKeyboardManager sharedManager].shouldResignOnTouchOutside = YES;
     
+    self.hiddenTabBar = YES;
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

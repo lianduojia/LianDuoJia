@@ -29,20 +29,28 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Flw-SW-dOk">
-                        <rect key="frame" x="303" y="23.5" width="7" height="12"/>
+                        <rect key="frame" x="303" y="24" width="7" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="0YY-rx-wWU"/>
                             <constraint firstAttribute="width" constant="7" id="Oov-HZ-Nva"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="余额：0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6QP-36-uxt">
+                        <rect key="frame" x="240" y="22" width="47.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Flw-SW-dOk" firstAttribute="centerY" secondItem="p65-p3-Dpe" secondAttribute="centerY" id="3lt-42-ElI"/>
                     <constraint firstAttribute="trailing" secondItem="Flw-SW-dOk" secondAttribute="trailing" constant="10" id="BVj-UT-IyB"/>
                     <constraint firstItem="Flw-SW-dOk" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" constant="10" id="FaX-Ks-26M"/>
                     <constraint firstItem="vBj-cQ-Ih9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="GGr-6z-QFi"/>
+                    <constraint firstItem="Flw-SW-dOk" firstAttribute="leading" secondItem="6QP-36-uxt" secondAttribute="trailing" constant="15" id="XUe-ls-h7q"/>
                     <constraint firstItem="p65-p3-Dpe" firstAttribute="leading" secondItem="vBj-cQ-Ih9" secondAttribute="trailing" constant="12" id="dMC-iE-8Vc"/>
                     <constraint firstItem="vBj-cQ-Ih9" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="eKY-72-H4W"/>
+                    <constraint firstItem="6QP-36-uxt" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="fjN-wp-X1C"/>
                     <constraint firstItem="p65-p3-Dpe" firstAttribute="centerY" secondItem="vBj-cQ-Ih9" secondAttribute="centerY" id="uFb-sO-4Ns"/>
                 </constraints>
                 <variation key="default">
@@ -52,6 +60,7 @@
                 </variation>
             </tableViewCellContentView>
             <connections>
+                <outlet property="mDetail" destination="6QP-36-uxt" id="MM9-mW-yM2"/>
                 <outlet property="mImg" destination="vBj-cQ-Ih9" id="j6W-8Q-7eL"/>
                 <outlet property="mName" destination="p65-p3-Dpe" id="BT8-1P-NbI"/>
             </connections>

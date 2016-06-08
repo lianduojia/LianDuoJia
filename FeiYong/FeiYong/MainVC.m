@@ -26,9 +26,9 @@
     self.hiddenTabBar = NO;
 }
 
+
 - (void)viewDidLoad {
     
-    self.hiddenTabBar = NO;
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navTitle = @"飞佣";
@@ -46,7 +46,6 @@
     _cycleScrollView.delegate = self;
 //    [_mBannerView addSubview:_cycleScrollView];
     
-    [_mBannerImg sd_setImageWithURL:[NSURL URLWithString:@"http://img1.gtimg.com/sports/pics/hv1/105/196/1592/103569885.jpg"] placeholderImage:[UIImage imageNamed:@"DefaultBanner"]];
     
 }
 
@@ -73,10 +72,10 @@
 }
 */
 
-- (IBAction)menuClick:(id)sender {
+- (IBAction)extendClick:(id)sender {
     
-   /* //初始化提示框；
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"暂未开通" preferredStyle:  UIAlertControllerStyleAlert];
+    //初始化提示框；
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //点击按钮的响应事件；
@@ -84,9 +83,28 @@
     
     //弹出提示框；
     [self presentViewController:alert animated:true completion:nil];
-    */
+    
+    return;
+
+}
+
+- (IBAction)menuClick:(id)sender {
     
     UIButton *bt = (UIButton *)sender;
+    if(bt.tag == FEIYONG || bt.tag == YANGLAO){
+        //初始化提示框；
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //点击按钮的响应事件；
+        }]];
+        
+        //弹出提示框；
+        [self presentViewController:alert animated:true completion:nil];
+    
+        return;
+    }
+    
     ParentalServiceVC *ps = [[ParentalServiceVC alloc] initWithNibName:@"ParentalServiceVC" bundle:nil];
     ps.mType = (int)bt.tag;
     [self.navigationController pushViewController:ps animated:YES];

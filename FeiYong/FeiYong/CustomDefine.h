@@ -20,11 +20,11 @@
 #define DEVICE_InNavBar_Height          (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0)?[[UIScreen mainScreen] bounds].size.height-64.0:[[UIScreen mainScreen] bounds].size.height-44.0f)
 
 #define M_NAVCO [UIColor whiteColor]
-#define M_CO    [UIColor colorWithRed:164/255.0f green:78/255.0f blue:179/255.0f alpha:1.000]
-#define M_BGCO  [UIColor colorWithRed:248/255.0f green:248/255.0f blue:248/255.0f alpha:1.000]
+#define M_CO    [UIColor colorWithRed:255/255.0f green:188/255.0f blue:6/255.0f alpha:1.000]
+#define M_BGCO  [UIColor colorWithRed:245/255.0f green:245/255.0f blue:245/255.0f alpha:1.000]
 #define M_LINECO  [UIColor colorWithRed:237/255.0f green:237/255.0f blue:237/255.0f alpha:1.000]
-#define M_TCO  [UIColor colorWithRed:49/255.0f green:50/255.0f blue:51/255.0f alpha:1.000]
-#define M_TCO2  [UIColor colorWithRed:151/255.0f green:151/255.0f blue:151/255.0f alpha:1.000]
+#define M_TCO  [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:1.000]
+#define M_TCO2  [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1.000]
 
 #ifdef DEBUG
 #define MLLog(format, ...) NSLog(format, ## __VA_ARGS__)

@@ -2,12 +2,18 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9059"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BombBoxVC">
             <connections>
+                <outlet property="mBgView" destination="Mso-jW-fXb" id="KYK-1c-fJv"/>
+                <outlet property="mBoxView" destination="k33-8I-LMO" id="gZG-Nc-geR"/>
+                <outlet property="mHeight" destination="vbz-VK-mOD" id="Cid-oH-8Q3"/>
+                <outlet property="mSubmitHeight" destination="hlJ-FJ-r7I" id="i98-RW-U20"/>
+                <outlet property="mTableView" destination="FD2-8w-iJX" id="DTS-tg-SjH"/>
+                <outlet property="mTitle" destination="zbH-wr-8dU" id="kgg-Xj-bbH"/>
                 <outlet property="view" destination="TD8-kh-Ofl" id="4UL-qM-a3g"/>
             </connections>
         </placeholder>
@@ -17,14 +23,83 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k33-8I-LMO">
-                    <rect key="frame" x="50" y="151.5" width="275" height="365"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="50" y="151" width="275" height="365"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Mso-jW-fXb">
+                            <rect key="frame" x="0.0" y="0.0" width="275" height="365"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WvG-tO-Z5a">
+                                    <rect key="frame" x="0.0" y="0.0" width="275" height="50"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请选择服务时段" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zbH-wr-8dU">
+                                            <rect key="frame" x="88" y="16" width="98" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="zbH-wr-8dU" firstAttribute="centerY" secondItem="WvG-tO-Z5a" secondAttribute="centerY" id="5jG-Kn-3uj"/>
+                                        <constraint firstAttribute="height" constant="50" id="AmO-RD-JvB"/>
+                                        <constraint firstItem="zbH-wr-8dU" firstAttribute="centerX" secondItem="WvG-tO-Z5a" secondAttribute="centerX" id="WSX-Bi-PVp"/>
+                                    </constraints>
+                                </view>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="FD2-8w-iJX">
+                                    <rect key="frame" x="0.0" y="50" width="275" height="265"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </tableView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d27-SW-LGY">
+                                    <rect key="frame" x="0.0" y="315" width="275" height="50"/>
+                                    <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="50" id="hlJ-FJ-r7I"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" title="确定"/>
+                                    <connections>
+                                        <action selector="mSubmitClick:" destination="-1" eventType="touchUpInside" id="r7a-PB-789"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="WvG-tO-Z5a" secondAttribute="trailing" id="19N-ee-Jie"/>
+                                <constraint firstAttribute="bottom" secondItem="FD2-8w-iJX" secondAttribute="bottom" id="2rX-Br-1GN"/>
+                                <constraint firstItem="FD2-8w-iJX" firstAttribute="top" secondItem="WvG-tO-Z5a" secondAttribute="bottom" id="56n-fj-Gls"/>
+                                <constraint firstItem="WvG-tO-Z5a" firstAttribute="top" secondItem="Mso-jW-fXb" secondAttribute="top" id="9Zw-I3-py8"/>
+                                <constraint firstAttribute="trailing" secondItem="d27-SW-LGY" secondAttribute="trailing" id="G4O-jv-nBH"/>
+                                <constraint firstItem="d27-SW-LGY" firstAttribute="leading" secondItem="Mso-jW-fXb" secondAttribute="leading" id="KKo-p5-ZNU"/>
+                                <constraint firstAttribute="trailing" secondItem="WvG-tO-Z5a" secondAttribute="trailing" id="VFn-LS-oNv"/>
+                                <constraint firstAttribute="bottom" secondItem="d27-SW-LGY" secondAttribute="bottom" id="WKa-Ui-aNU"/>
+                                <constraint firstItem="WvG-tO-Z5a" firstAttribute="leading" secondItem="Mso-jW-fXb" secondAttribute="leading" id="Zbw-gA-Dxx"/>
+                                <constraint firstItem="FD2-8w-iJX" firstAttribute="leading" secondItem="Mso-jW-fXb" secondAttribute="leading" id="bK4-It-ghP"/>
+                                <constraint firstItem="WvG-tO-Z5a" firstAttribute="leading" secondItem="Mso-jW-fXb" secondAttribute="leading" id="dWj-RH-VZe"/>
+                                <constraint firstItem="WvG-tO-Z5a" firstAttribute="top" secondItem="Mso-jW-fXb" secondAttribute="top" id="or9-uI-YFC"/>
+                                <constraint firstItem="d27-SW-LGY" firstAttribute="top" secondItem="FD2-8w-iJX" secondAttribute="bottom" id="owo-Qc-QvB"/>
+                                <constraint firstAttribute="trailing" secondItem="FD2-8w-iJX" secondAttribute="trailing" id="rTo-eO-pn4"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="19N-ee-Jie"/>
+                                    <exclude reference="9Zw-I3-py8"/>
+                                    <exclude reference="dWj-RH-VZe"/>
+                                    <exclude reference="2rX-Br-1GN"/>
+                                </mask>
+                            </variation>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
+                        <constraint firstAttribute="bottom" secondItem="Mso-jW-fXb" secondAttribute="bottom" id="VYP-gp-XNF"/>
+                        <constraint firstAttribute="trailing" secondItem="Mso-jW-fXb" secondAttribute="trailing" id="Yrd-gK-4kY"/>
                         <constraint firstAttribute="width" secondItem="k33-8I-LMO" secondAttribute="height" multiplier="135:179" id="vbz-VK-mOD"/>
+                        <constraint firstItem="Mso-jW-fXb" firstAttribute="top" secondItem="k33-8I-LMO" secondAttribute="top" id="w7e-BJ-kSe"/>
+                        <constraint firstItem="Mso-jW-fXb" firstAttribute="leading" secondItem="k33-8I-LMO" secondAttribute="leading" id="xtV-W1-f9T"/>
                     </constraints>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="k33-8I-LMO" secondAttribute="trailing" constant="50" id="0zb-S1-xrl"/>
                 <constraint firstItem="k33-8I-LMO" firstAttribute="leading" secondItem="TD8-kh-Ofl" secondAttribute="leading" constant="50" id="N2A-nG-7CD"/>
@@ -37,7 +112,7 @@
                     <exclude reference="pWK-3O-W1a"/>
                 </mask>
             </variation>
-            <point key="canvasLocation" x="450" y="355"/>
+            <point key="canvasLocation" x="449.5" y="354.5"/>
         </view>
     </objects>
 </document>

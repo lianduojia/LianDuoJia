@@ -10,10 +10,12 @@
 #import "ParentalCell.h"
 #import "BombBoxVC.h"
 #import "ChoseAddressVC.h"
+#import "ReAuntVC.h"
 
 @interface ParentalServiceVC ()<UITableViewDataSource,UITableViewDelegate>{
 
     BombBoxVC *_mbombbox;
+    BombBoxVC *_mbombbox2;
     NSString *_myctime; //预产期时间/服务时间
     NSString *_maddress;//服务地点
     NSString *_mfwsd;//服务时段
@@ -25,6 +27,11 @@
     UIButton *_mitembt2;
     UIButton *_mitembt3;
     UIButton *_mitembt4;
+    
+    int       _selectindex;
+    int       _backindex1;
+    int       _backindex2;
+    int       _backindex3;
 }
 
 @end
@@ -42,9 +49,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib
-    
+    _backindex1 = 100;
+    _backindex2 = 100;
+    _backindex3 = 100;
     _mbombbox = [[BombBoxVC alloc] initWithNibName:@"BombBoxVC" bundle:nil];
     _mbombbox.view.frame = CGRectMake(0, 0, DEVICE_Width, DEVICE_Height);
+    
+    _mbombbox2 = [[BombBoxVC alloc] initWithNibName:@"BombBoxTwoVC" bundle:nil];
+    _mbombbox2.delegate = self;
     
     UINib *nib = [UINib nibWithNibName:@"ParentalCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
@@ -71,7 +83,7 @@
         case LAORENPEIHU:
             [self loadPeihu];
             break;
-        case XIAOSHIGONG:case CHANGQIXIAOSHIGONG:
+        case XIAOSHIGONG:
             [self loadXiaoshigong];
             break;
 
@@ -101,6 +113,8 @@
     _mItemTwoHeight.constant = 0;
     _mItemThreeHeight.constant = 0;
     
+    _mHeadImg.image = [UIImage imageNamed:@"banner_yuesao"];
+    
 }
 
 //育儿嫂
@@ -115,6 +129,8 @@
     
     _mItemTwoHeight.constant = 0;
     _mItemThreeHeight.constant = 0;
+    
+    _mHeadImg.image = [UIImage imageNamed:@"banner_yuersao"];
     
 }
 
@@ -138,9 +154,11 @@
     _mItemThreeHeight.constant = 0;
     
     _mRemarklb.text = @"您对保姆籍贯 做菜口味等方面的要求";
+    
+    _mHeadImg.image = [UIImage imageNamed:@"banner_baomu"];
 }
 
-//老人陪护
+//陪护
 - (void)loadPeihu{
     
     self.navTitle = @"找陪护";
@@ -153,6 +171,8 @@
     [_mDay setTitle:@"女" forState:UIControlStateNormal];
     
     _mRemarklb.text = @"您对护工籍贯 做菜口味等方面的要求";
+    
+    _mHeadImg.image = [UIImage imageNamed:@"banner_peihu"];
     
 }
 
@@ -180,19 +200,13 @@
     _mItemThreeHeight.constant = 0;
     _mRemarklb.text = @"您对小时工籍贯 做菜口味等方面的要求";
     
+    _mHeadImg.image = [UIImage imageNamed:@"banner_xsg"];
+    
 }
 
 - (void)loadFeiyong{
     
-        //初始化提示框；
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
-    
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //点击按钮的响应事件；
-        }]];
-    
-        //弹出提示框；
-        [self presentViewController:alert animated:true completion:nil];
+        
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -214,8 +228,8 @@
         case XIAOSHIGONG:
             return 5;
             break;
-        case CHANGQIXIAOSHIGONG:
-            return 6;
+        case YANGLAO:
+            return 0;
             break;
         case FEIYONG:
             
@@ -278,7 +292,7 @@
             if (_mfwnum.length == 0) {
                 cell.mName.text = @"请选择服务人数";
             }else{
-                cell.mName.text = _mfwpl;
+                cell.mName.text = _mfwnum;
             }
             
             break;
@@ -300,6 +314,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
 
+    _selectindex = (int)indexPath.row;
+    
     switch (indexPath.row) {
         case 0:
         {
@@ -328,10 +344,64 @@
             [self.navigationController pushViewController:ca animated:YES];
         }
             break;
+        case 2:
+        {
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:[[NSArray alloc] initWithObjects:@"上午", @"下午",nil]];
+        }
+            break;
+            
+        case 3:
+        {
+            
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:[[NSArray alloc] initWithObjects:@"1小时", @"2小时",@"3小时",@"4小时",@"5小时",@"6小时",@"7小时",@"8小时",nil]];
+        }
+            break;
+        case 4:
+        {
+            
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:[[NSArray alloc] initWithObjects:@"1人", @"2人",@"3人",@"4人",@"5人",@"6人",@"7人",@"8人",@"9人",@"10人",nil]];
+        }
+            break;
+        case 5:
+        {
+            
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务频率" index:0 Array:[[NSArray alloc] initWithObjects:@"周一", @"周二",@"周三",@"周四",@"周五",@"周六",@"周日",nil]];
+        }
+            break;
             
         default:
             break;
     }
+}
+
+#pragma ParentalServiceDelegate
+- (void)selectString:(NSString *)string index:(int)index{
+
+    
+    NSLog(@"=====%@",string);
+    
+    switch (_selectindex) {
+        case 2:
+            _mfwsd = string;
+            _backindex1 = index;
+            break;
+        case 3:
+            _mfwsc = string;
+            _backindex2 = index;
+            break;
+        case 4:
+            _mfwnum = string;
+            _backindex3 = index;
+            break;
+        case 5:
+            _mfwpl = string;
+            break;
+            
+        default:
+            break;
+    }
+    
+    [_mTableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -358,7 +428,12 @@
     [bt setBackgroundImage:[UIImage imageNamed:@"s_bt_select"] forState:UIControlStateNormal];
     _mitembt1 = bt;
 }
+
+//提交
 - (IBAction)mSumitClick:(id)sender {
+    
+    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+    [self.navigationController pushViewController:rea animated:YES];
 }
 
 
