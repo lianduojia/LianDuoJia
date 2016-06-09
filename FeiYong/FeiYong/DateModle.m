@@ -90,10 +90,13 @@
 -(void)fetchIt:(NSDictionary *)obj
 {
     _mcode = [[obj objectForKeyMy:@"_no"] intValue];
+    
+    if (_mcode == 1000) {
+        _msuccess = 1;
+    }
 //    _msuccess = _mcode;
     self.mmsg = [obj objectForKeyMy:@"_msg"];
-    self.mdebug = [obj objectForKeyMy:@"debug"];
-    self.mdata = [obj objectForKeyMy:@"data"];
+    self.mdata = [obj objectForKeyMy:@"_data"];
 }
 
 +(SResBase*)infoWithError:(NSString*)error
@@ -226,6 +229,7 @@
 
 @implementation SUser
 
+
 //返回当前用户
 +(SUser*)currentUser{
 
@@ -274,11 +278,12 @@
 }
 
 //注册
-+(void)regist:(NSString *)name pwd:(NSString *)pwd block:(void(^)(SResBase* retobj))block{
++(void)regist:(NSString *)name pwd:(NSString *)pwd phone:(NSString *)phone block:(void(^)(SResBase* retobj))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:name forKey:@"name"];
     [param setObject:pwd forKey:@"pwd"];
+    [param setObject:phone forKey:@"phone"];
     [[APIClient sharedClient] postUrl:@"regist" parameters:param call:^(SResBase *info) {
         
         block(info);
@@ -289,16 +294,109 @@
 +(void)login:(NSString *)name code:(NSString *)pwd block:(void(^)(SResBase* retobj))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:name forKey:@"name"];
+    [param setObject:name forKey:@"phone"];
     [param setObject:pwd forKey:@"pwd"];
     [[APIClient sharedClient] postUrl:@"login" parameters:param call:^(SResBase *info) {
+        
+        if( info.msuccess )
+        {
+            [self saveUserInfo:info.mdata];
+        }
         
         block(info);
     }];
     
 }
 
+//忘记密码
++(void)forgetPwd:(NSString *)phone pwd:(NSString *)pwd code:(NSString *)code block:(void(^)(SResBase* retobj))block{
+    
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:phone forKey:@"phone"];
+    [param setObject:pwd forKey:@"pwd"];
+    [param setObject:code forKey:@"code"];
+    [param setObject:@"ios" forKey:@"type"];
+    [[APIClient sharedClient] postUrl:@"forget-pwd" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
+
 @end
+
+@implementation SAuntInfo
+
+//找保姆
++(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(employer_id) forKey:@"employer_id"];
+    [param setObject:work_province forKey:@"work_province"];
+    [param setObject:work_city forKey:@"work_city"];
+    [param setObject:work_area forKey:@"work_area"];
+    [param setObject:@(min_age) forKey:@"min_age"];
+    [param setObject:@(max_age) forKey:@"max_age"];
+    [param setObject:over_night forKey:@"over_night"];
+    
+    [[APIClient sharedClient] postUrl:@"find-nurse" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }
+        block(info,nil);
+    }];
+
+}
+
+//找护工
++(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,NSArray *arr))block{
+    
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(employer_id) forKey:@"employer_id"];
+    [param setObject:work_province forKey:@"work_province"];
+    [param setObject:work_city forKey:@"work_city"];
+    [param setObject:work_area forKey:@"work_area"];
+    [param setObject:@(min_age) forKey:@"min_age"];
+    [param setObject:@(max_age) forKey:@"max_age"];
+    [param setObject:over_night forKey:@"over_night"];
+    [param setObject:sex forKey:@"sex"];
+    [param setObject:care_type forKey:@"care_type"];
+    
+    [[APIClient sharedClient] postUrl:@"find-accompany" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }
+        block(info,nil);
+    }];
+
+}
+
+@end
+
 
 
 

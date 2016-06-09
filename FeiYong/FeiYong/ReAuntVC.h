@@ -10,5 +10,6 @@
 
 @interface ReAuntVC : BaseVC
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
+- (IBAction)mPayClick:(id)sender;
 
 @end

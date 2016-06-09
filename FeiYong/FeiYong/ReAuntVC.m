@@ -9,6 +9,7 @@
 #import "ReAuntVC.h"
 #import "ReAuntCell.h"
 #import "ReAuntDetailVC.h"
+#import "PayVC.h"
 
 @interface ReAuntVC ()<UITableViewDataSource,UITableViewDelegate>{
 
@@ -49,7 +50,7 @@
 
 - (void)firstLoad{
 
-    bgView = [[UIView alloc] initWithFrame:self.view.bounds];
+    bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
     bgView.backgroundColor = [UIColor blackColor];
     bgView.alpha = 0.6;
     UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
@@ -68,6 +69,15 @@
 - (void)CloseFirst{
     
     [bgView removeFromSuperview];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat sectionHeaderHeight = 8;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -153,4 +163,10 @@
 }
 */
 
+- (IBAction)mPayClick:(id)sender {
+    
+    PayVC *pay = [[PayVC alloc] initWithNibName:@"PayVC" bundle:nil];
+    
+    [self.navigationController pushViewController:pay animated:YES];
+}
 @end

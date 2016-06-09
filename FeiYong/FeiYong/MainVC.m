@@ -113,7 +113,7 @@
 
 - (IBAction)explainClick:(id)sender {
     
-    [self gotoLogin];
+//    [self gotoLogin];
     
 //    //初始化提示框；
 //    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"暂未开通" preferredStyle:  UIAlertControllerStyleAlert];

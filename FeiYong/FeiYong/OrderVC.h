@@ -9,5 +9,17 @@
 #import <UIKit/UIKit.h>
 
 @interface OrderVC : BaseVC
+@property (weak, nonatomic) IBOutlet UIView *mHeadView;
+
+@property (weak, nonatomic) IBOutlet UIButton *mItem1;
+@property (weak, nonatomic) IBOutlet UIButton *mItem2;
+@property (weak, nonatomic) IBOutlet UIButton *mItem3;
+@property (weak, nonatomic) IBOutlet UIButton *mItem4;
+@property (weak, nonatomic) IBOutlet UIScrollView *mScrollView;
+
+@property (weak, nonatomic) IBOutlet UIView *mLine;
+
+- (IBAction)mChoseClick:(id)sender;
+
 
 @end

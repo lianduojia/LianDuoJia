@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface RegisterVC : BaseVC
+
+@property (nonatomic,strong) NSString *mPhonenum;
 @property (weak, nonatomic) IBOutlet UITextField *mName;
 @property (weak, nonatomic) IBOutlet UITextField *mPwd;
 

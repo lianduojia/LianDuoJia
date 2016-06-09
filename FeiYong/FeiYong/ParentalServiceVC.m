@@ -23,7 +23,7 @@
     NSString *_mfwnum;//服务人数
     NSString *_mfwpl;//服务频率
     
-    UIButton *_mitembt1;
+    UIButton *_mitembt1;  //年龄
     UIButton *_mitembt2;
     UIButton *_mitembt3;
     UIButton *_mitembt4;
@@ -419,6 +419,7 @@
 }
 */
 
+//选择年龄
 - (IBAction)mAgeClick:(id)sender {
     
     UIButton *bt = (UIButton *)sender;
@@ -431,6 +432,54 @@
 
 //提交
 - (IBAction)mSumitClick:(id)sender {
+
+//    NSString *_myctime; //预产期时间/服务时间
+//    NSString *_maddress;//服务地点
+//    NSString *_mfwsd;//服务时段
+//    NSString *_mfwsc;//服务时长
+//    NSString *_mfwnum;//服务人数
+//    NSString *_mfwpl;//服务频率
+    
+    if (_myctime.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
+        return;
+    }
+    if (_maddress.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请选择服务地点"];
+        return;
+    }
+    
+    switch (_mType) {
+        case YUESAO:
+            
+            break;
+        case YUERSAO:
+            
+            break;
+        case BUZHUJIABAOMU:
+            
+            if (!_mitembt1) {
+                [SVProgressHUD showErrorWithStatus:@"请选择保姆年龄"];
+            }
+            
+            break;
+        case ZHUJIABAOMU:
+            
+            break;
+        case LAORENPEIHU:
+            
+            break;
+        case XIAOSHIGONG:
+            
+            break;
+            
+        case FEIYONG:
+            
+            break;
+            
+        default:
+            break;
+    }
     
     ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
     [self.navigationController pushViewController:rea animated:YES];

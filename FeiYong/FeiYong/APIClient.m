@@ -6,7 +6,7 @@
 #import "Util.h"
 #import "AFNetworking/AFHTTPSessionManager.h"
 
- NSString*  kAFAppDotNetAPIBaseURLString    = @"http://ccxhtb.jios.org:8080/BsuGameCenter/";
+ NSString*  kAFAppDotNetAPIBaseURLString    = @"http://42.121.120.51:8080/FYCenter/";
 @interface APIClient ()
 
 @end
@@ -95,18 +95,20 @@
     
     NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@",kAFAppDotNetAPIBaseURLString,URLString];
     
-    NSLog(@"=====%@/%@",Url,parameters);
+    NSLog(@"=====%@%@",Url,parameters);
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
     [session POST:Url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        NSData *JSONData = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
-        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
+//        NSData *JSONData = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
+//        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
 
-        SResBase* retob = [[SResBase alloc]initWithObj:responseJSON];
+        NSLog(@"返回数据：%@",responseObject);
         
-        callback(  retob );
+        SResBase* retob = [[SResBase alloc]initWithObj:responseObject];
+        
+        callback(retob);
         
         NSLog(@"成功");
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
@@ -114,6 +116,13 @@
         MLLog(@"error:%@",error.description);
         callback( [SResBase infoWithError:@"网络请求错误.."] );
     }];
+    
+//    NSURL *url = [NSURL URLWithString:@"http://42.121.120.51:8080/FYCenter/regist-msg?phone=18323181527&code=6744&type=ios"];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    config.timeoutIntervalForRequest = 3;
+//    config.timeoutIntervalForResource = 3;
+//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
     
 }
 

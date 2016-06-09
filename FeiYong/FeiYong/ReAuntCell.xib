@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="boG-rd-U8a">
-                        <rect key="frame" x="250" y="9" width="60" height="25"/>
+                        <rect key="frame" x="252" y="9" width="60" height="25"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
                         <state key="normal" title="从业0年" backgroundImage="a_orange_bg">
@@ -35,7 +35,7 @@
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4LT-hE-cw2">
-                        <rect key="frame" x="187" y="9" width="51" height="25"/>
+                        <rect key="frame" x="193" y="9" width="51" height="25"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
                         <state key="normal" title="月嫂" backgroundImage="a_green_bg">
@@ -112,14 +112,14 @@
                     <constraint firstItem="Rlq-u8-ziM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7jc-c7-miE"/>
                     <constraint firstItem="0fS-UT-YJu" firstAttribute="leading" secondItem="KCc-Ha-VB2" secondAttribute="trailing" constant="15" id="9hv-Fb-JLb"/>
                     <constraint firstItem="0fS-UT-YJu" firstAttribute="centerY" secondItem="KCc-Ha-VB2" secondAttribute="centerY" id="BMv-HT-soC"/>
-                    <constraint firstItem="boG-rd-U8a" firstAttribute="leading" secondItem="4LT-hE-cw2" secondAttribute="trailing" constant="12" id="CVr-XO-hh1"/>
+                    <constraint firstItem="boG-rd-U8a" firstAttribute="leading" secondItem="4LT-hE-cw2" secondAttribute="trailing" constant="8" id="CVr-XO-hh1"/>
                     <constraint firstAttribute="bottom" secondItem="dWB-xJ-2v1" secondAttribute="bottom" constant="8" id="EEu-Pw-ljt"/>
                     <constraint firstItem="hVF-oi-dKq" firstAttribute="top" secondItem="KCc-Ha-VB2" secondAttribute="bottom" constant="8" id="FZP-UD-sXN"/>
                     <constraint firstItem="5kz-Y7-QYY" firstAttribute="leading" secondItem="Rlq-u8-ziM" secondAttribute="trailing" constant="12" id="HUg-yy-Xuw"/>
                     <constraint firstItem="HcN-Ub-Pzg" firstAttribute="leading" secondItem="dWB-xJ-2v1" secondAttribute="trailing" constant="2" id="HrB-Bv-09I"/>
                     <constraint firstItem="HcN-Ub-Pzg" firstAttribute="centerY" secondItem="dWB-xJ-2v1" secondAttribute="centerY" id="JO5-94-hmM"/>
                     <constraint firstItem="boG-rd-U8a" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Jpx-zT-iEy"/>
-                    <constraint firstAttribute="trailing" secondItem="boG-rd-U8a" secondAttribute="trailing" constant="10" id="Jw0-LL-Wty"/>
+                    <constraint firstAttribute="trailing" secondItem="boG-rd-U8a" secondAttribute="trailing" constant="8" id="Jw0-LL-Wty"/>
                     <constraint firstItem="4LT-hE-cw2" firstAttribute="centerY" secondItem="5kz-Y7-QYY" secondAttribute="centerY" id="Knv-Kh-q9d"/>
                     <constraint firstItem="dWB-xJ-2v1" firstAttribute="leading" secondItem="Rlq-u8-ziM" secondAttribute="trailing" constant="12" id="MMm-DT-S9Q"/>
                     <constraint firstItem="SId-AF-WPQ" firstAttribute="centerY" secondItem="dWB-xJ-2v1" secondAttribute="centerY" id="Pbs-aI-Vr6"/>

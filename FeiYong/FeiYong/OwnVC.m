@@ -58,12 +58,30 @@
     [_mTableView addSubview:_mHeadView];
     
     [_mHeadClick addTarget:self action:@selector(GoLogin) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self loadMyinfo];
+    
+}
 
+- (void)loadMyinfo{
+
+    SUser *user = [SUser currentUser];
+    
+    if (user) {
+        _mName.text = user.mName;
+    }
+    else{
+        _mName.text = @"请登陆";
+    }
+    
 }
 
 - (void)GoLogin{
 
-//    [self gotoLogin];
+    if ([SUser isNeedLogin]) {
+        [self gotoLogin];
+    }
+    
     
     MyInfoVC *info = [[MyInfoVC alloc] initWithNibName:@"MyInfoVC" bundle:nil];
     [self.navigationController pushViewController:info animated:YES];
@@ -72,10 +90,6 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     
     CGFloat y = scrollView.contentOffset.y;
-    NSLog(@"_______%.2f",y);
-    
-    
-    
     if (y<=-Height) {
         
         CGRect rect = _mHeadView.frame;

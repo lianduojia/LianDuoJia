@@ -121,14 +121,17 @@
     [SUser registers:_mPhone.text code:_mCode.text block:^(SResBase *retobj) {
         
         if (retobj.mcode == 200) {
+            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
             
+            RegisterVC *reg = [[RegisterVC alloc] initWithNibName:@"RegisterTwoVC" bundle:nil];
+            reg.mPhonenum = _mPhone.text;
             
+            [self presentViewController:reg animated:YES completion:nil];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
     }];
     
-    RegisterVC *reg = [[RegisterVC alloc] initWithNibName:@"RegisterTwoVC" bundle:nil];
-    
-    [self presentViewController:reg animated:YES completion:nil];
 }
 
 - (IBAction)mGoXieyiClick:(id)sender {
@@ -159,9 +162,23 @@
     }
     
     [SVProgressHUD showWithStatus:@"注册中" maskType:SVProgressHUDMaskTypeClear];
-    [SUser regist:_mName.text pwd:_mPwd.text block:^(SResBase *retobj) {
+    [SUser regist:_mName.text pwd:_mPwd.text phone:_mPhonenum block:^(SResBase *retobj) {
         
-        
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:@"注册成功"];
+            
+            if ([self respondsToSelector:@selector(presentingViewController)]){
+                [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:YES];
+                return;
+            }
+            else {
+                [self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
+                return;
+            }
+
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
     }];
 }
 

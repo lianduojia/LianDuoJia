@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ForgetPwdVC : UIViewController
+@interface ForgetPwdVC : BaseVC
+@property (weak, nonatomic) IBOutlet UIButton *mCodebt;
+@property (weak, nonatomic) IBOutlet UITextField *mPhone;
+@property (weak, nonatomic) IBOutlet UITextField *mCode;
+@property (weak, nonatomic) IBOutlet UITextField *mPwd;
+- (IBAction)mSubmit:(id)sender;
+- (IBAction)mGetCode:(id)sender;
+- (IBAction)mBackClick:(id)sender;
 
 @end

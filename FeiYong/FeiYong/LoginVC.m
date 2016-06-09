@@ -8,6 +8,7 @@
 
 #import "LoginVC.h"
 #import "RegisterVC.h"
+#import "ForgetPwdVC.h"
 
 @interface LoginVC ()
 
@@ -38,6 +39,10 @@
 */
 
 - (IBAction)ForgetPwdClick:(id)sender {
+    
+    ForgetPwdVC *fgp = [[ForgetPwdVC alloc] initWithNibName:@"ForgetPwdVC" bundle:nil];
+    
+    [self presentViewController:fgp animated:YES completion:nil];
 }
 
 - (IBAction)mLoginClick:(id)sender {
@@ -62,7 +67,13 @@
     [SVProgressHUD showWithStatus:@"登陆中" maskType:SVProgressHUDMaskTypeClear];
     [SUser login:_mPhone.text code:_mPwd.text block:^(SResBase *retobj) {
        
-        [SVProgressHUD dismiss];
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:@"登陆成功"];
+            
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
     }];
 }
 

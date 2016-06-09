@@ -134,13 +134,13 @@
 
 -(void)headerBeganRefresh
 {
-    [self headerEndRefresh];
+//    [self headerEndRefresh];
     
     //todo
 }
 -(void)footetBeganRefresh
 {
-    [self footetEndRefresh];
+//    [self footetEndRefresh];
     //todo
 }
 
@@ -159,9 +159,19 @@
     
 }
 
+-(void)pushViewController:(UIViewController *)controller{
+
+    [self.navigationController pushViewController:controller animated:YES];
+}
+
 -(void)popViewController
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)showStatu:(NSString *)string{
+
+    [SVProgressHUD showWithStatus:string maskType:SVProgressHUDMaskTypeClear];
 }
 
 - (void)didReceiveMemoryWarning {

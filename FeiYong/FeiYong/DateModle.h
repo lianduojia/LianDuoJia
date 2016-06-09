@@ -113,9 +113,9 @@
 
 @interface SUser : SAutoEx
 
-@property (nonatomic,strong) NSString *mUserName;
-@property (nonatomic,strong) NSString *mPhoneNum;
-@property (nonatomic,strong) NSString *mPwd;
+@property (nonatomic,strong)                NSString *mId;
+@property (nonatomic,strong)                NSString *mPhone;
+@property (nonatomic,strong)                NSString *mName;
 
 
 //返回当前用户
@@ -131,11 +131,49 @@
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
 
 //注册
-+(void)regist:(NSString *)name pwd:(NSString *)pwd block:(void(^)(SResBase* retobj))block;
++(void)regist:(NSString *)name pwd:(NSString *)pwd phone:(NSString *)phone block:(void(^)(SResBase* retobj))block;
 
 //登陆
 +(void)login:(NSString *)name code:(NSString *)pwd block:(void(^)(SResBase* retobj))block;
 
+//忘记密码
++(void)forgetPwd:(NSString *)phone pwd:(NSString *)pwd code:(NSString *)code block:(void(^)(SResBase* retobj))block;
+
+@end
+
+@interface SAuntInfo : SAutoEx
+
+//{"living_province":"","id":1,"leave":1,"living_area":"",
+//    "working_years":0,"age":28,"pay":10000,"name":"路人甲","living_city":"",
+//    "work_area":"朝阳区","work_city":"长春市","work_province":"吉林省"}
+
+@property (nonatomic,assign)                int       mId;
+@property (nonatomic,strong)                NSString *mName;                    //姓名
+@property (nonatomic,strong)                NSString *mLeave;                   //星级
+@property (nonatomic,strong)                NSString *mLiving_province;         //籍贯 省
+@property (nonatomic,strong)                NSString *mLiving_city;             //籍贯 市
+@property (nonatomic,strong)                NSString *mLiving_area;             //籍贯 地区
+@property (nonatomic,strong)                NSString *mWork_province;           //工作 省
+@property (nonatomic,strong)                NSString *mWork_city;               //工作 市
+@property (nonatomic,strong)                NSString *mWork_area;               //工作 地区
+@property (nonatomic,assign)                int       mWorking_years;           //工龄
+@property (nonatomic,assign)                int       mAge;                     //年龄
+@property (nonatomic,assign)                int       mPay;                     //月薪
+
+//找保姆   find-nurse
+//employer_id=xx(用户id)
+//work_province=xxx(服务地点-省)
+//&work_city=xxx(服务地点-市)
+//&work_area=xxx(服务地点-区)
+//&min_age=0(最小年龄)
+//&max_age=100(最大年龄)
+//&over_night=住家(是否住家:住家、白班)
+
++(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+
+//找陪护 /find-accompany
++(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,NSArray *arr))block;
 @end
 
 
