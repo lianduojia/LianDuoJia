@@ -23,6 +23,9 @@
     NSString *_mfwnum;//服务人数
     NSString *_mfwpl;//服务频率
     
+    NSMutableArray *_fwscarray;
+    NSMutableArray *_fwrsarray;
+    
     UIButton *_mitembt1;  //年龄
     UIButton *_mitembt2;
     UIButton *_mitembt3;
@@ -32,6 +35,15 @@
     int       _backindex1;
     int       _backindex2;
     int       _backindex3;
+    
+    
+    int  _minage;
+    int  _maxage;
+    
+    NSArray *_auntarr;
+    
+    
+
 }
 
 @end
@@ -49,6 +61,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib
+    _minage = 0;
+    _maxage = 100;
     _backindex1 = 100;
     _backindex2 = 100;
     _backindex3 = 100;
@@ -178,6 +192,20 @@
 
 //小时工
 - (void)loadXiaoshigong{
+    
+    //服务人数数组
+    _fwrsarray = [NSMutableArray new];
+    
+    for (int i = 0; i<10; i++) {
+        [_fwrsarray addObject:[NSString stringWithFormat:@"%d人",i+1]];
+    }
+    
+    //服务时长数组
+    _fwscarray = [NSMutableArray new];
+    for (int i = 0; i<8; i++) {
+        [_fwscarray addObject:[NSString stringWithFormat:@"%d小时",i+1]];
+    }
+    
 
     if(_mType == XIAOSHIGONG){
         self.navTitle = @"找小时工";
@@ -201,6 +229,7 @@
     _mRemarklb.text = @"您对小时工籍贯 做菜口味等方面的要求";
     
     _mHeadImg.image = [UIImage imageNamed:@"banner_xsg"];
+
     
 }
 
@@ -353,13 +382,14 @@
         case 3:
         {
             
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:[[NSArray alloc] initWithObjects:@"1小时", @"2小时",@"3小时",@"4小时",@"5小时",@"6小时",@"7小时",@"8小时",nil]];
+            
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:_fwscarray];
         }
             break;
         case 4:
         {
             
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:[[NSArray alloc] initWithObjects:@"1人", @"2人",@"3人",@"4人",@"5人",@"6人",@"7人",@"8人",@"9人",@"10人",nil]];
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:_fwrsarray];
         }
             break;
         case 5:
@@ -432,13 +462,38 @@
 
 //提交
 - (IBAction)mSumitClick:(id)sender {
+    
+    
+    if ([SUser isNeedLogin]) {
+        
+        [self gotoLogin];
+        
+        return;
+    }
 
-//    NSString *_myctime; //预产期时间/服务时间
-//    NSString *_maddress;//服务地点
-//    NSString *_mfwsd;//服务时段
-//    NSString *_mfwsc;//服务时长
-//    NSString *_mfwnum;//服务人数
-//    NSString *_mfwpl;//服务频率
+    if (_mitembt1) {
+        switch ((int)_mitembt1.tag) {
+            case 10:
+                _minage = 0;
+                _maxage = 100;
+                break;
+            case 11:
+                _minage = 0;
+                _maxage = 35;
+                break;
+            case 12:
+                _minage = 35;
+                _maxage = 48;
+                break;
+            case 13:
+                _minage = 48;
+                _maxage = 100;
+                break;
+                
+            default:
+                break;
+        }
+    }
     
     if (_myctime.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
@@ -450,26 +505,224 @@
     }
     
     switch (_mType) {
-        case YUESAO:
             
-            break;
-        case YUERSAO:
-            
-            break;
-        case BUZHUJIABAOMU:
-            
-            if (!_mitembt1) {
-                [SVProgressHUD showErrorWithStatus:@"请选择保姆年龄"];
+        case YUESAO:{
+        
+            if (!_mitembt2) {
+                [SVProgressHUD showErrorWithStatus:@"请选择证书要求"];
+                
+                return;
             }
             
-            break;
-        case ZHUJIABAOMU:
+            NSString *iszhengshu = @"";
+            switch ((int)_mitembt2.tag) {
+                case 10:
+                    iszhengshu = @"有";
+                    break;
+                case 11:
+                    iszhengshu = @"无";
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findMatron:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" have_auth:iszhengshu block:^(SResBase *retobj, NSArray *arr) {
+                
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+                    rea.mTempArray = (NSMutableArray *)_auntarr;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                }
+            }];
+
+        }
             
             break;
+        case YUERSAO:{
+            
+            if (!_mitembt1) {
+                [SVProgressHUD showErrorWithStatus:@"请选择育儿嫂年龄"];
+                
+                return;
+            }
+            
+            if (!_mitembt2) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务类型"];
+                
+                return;
+            }
+            
+            NSString *type = @"";
+            switch ((int)_mitembt2.tag) {
+                case 10:
+                    type = @"住家";
+                    break;
+                case 11:
+                    type = @"白班";
+                    break;
+                    
+                default:
+                    break;
+            }
+            
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findChildCare:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:type block:^(SResBase *retobj, NSArray *arr) {
+               
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+                    rea.mTempArray = (NSMutableArray *)_auntarr;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+            }];
+
+            
+        }
+            
+            break;
+        case BUZHUJIABAOMU:case ZHUJIABAOMU:
+        {
+        
+            if (!_mitembt1) {
+                [SVProgressHUD showErrorWithStatus:@"请选择保姆年龄"];
+                
+                return;
+            }
+            
+            NSString *iszhujia = @"白班";
+            if(_mType == ZHUJIABAOMU)
+                iszhujia = @"住家";
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findNurse:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:iszhujia block:^(SResBase *retobj, NSArray *arr) {
+                
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+                    rea.mTempArray = (NSMutableArray *)_auntarr;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+            }];
+            
+            
+        }
+            break;
+            
         case LAORENPEIHU:
+        {
+            if (!_mitembt1) {
+                [SVProgressHUD showErrorWithStatus:@"请选择护工年龄"];
+                
+                return;
+            }
+            if (!_mitembt2) {
+                [SVProgressHUD showErrorWithStatus:@"请选择护工性别"];
+                
+                return;
+            }
+            if (!_mitembt3) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务类型"];
+                
+                return;
+            }
+            if (!_mitembt4) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务对象"];
+                
+                return;
+            }
             
+            NSString *sex = @"";
+            NSString *time = @"";
+            NSString *object = @"";
+            if((int)_mitembt2.tag == 10){
+                sex = @"男";
+            }else{
+                sex = @"女";
+            }
+            
+            if((int)_mitembt3.tag == 10){
+                time = @"住家";
+            }else{
+                time = @"白班";
+            }
+
+            
+            if((int)_mitembt4.tag == 10){
+                object = @"老人";
+            }else{
+                object = @"病人";
+            }
+
+            [SAuntInfo findAccompany:0 work_province:@"北京市"  work_city:@"北京市"  work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:time sex:sex care_type:object block:^(SResBase *retobj, NSArray *arr) {
+                
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+                    rea.mTempArray = (NSMutableArray *)_auntarr;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+
+            }];
+            
+        }
             break;
-        case XIAOSHIGONG:
+        case XIAOSHIGONG:{
+        
+            
+            if (_mfwsd.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务时段"];
+                return;
+            }
+            
+            if (_mfwsc.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务时长"];
+                return;
+            }
+            
+            if (_mfwnum.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务人数"];
+                return;
+            }
+            
+            int num = [[_mfwnum stringByReplacingOccurrencesOfString:@"人" withString:@""] intValue];
+            
+            [SAuntInfo findHourWorker:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" count:num block:^(SResBase *retobj, NSArray *arr) {
+                
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+                    rea.mTempArray =(NSMutableArray *) _auntarr;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+                
+            }];
+        }
             
             break;
             
@@ -481,8 +734,6 @@
             break;
     }
     
-    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
-    [self.navigationController pushViewController:rea animated:YES];
 }
 
 

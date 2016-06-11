@@ -22,4 +22,29 @@
     // Configure the view for the selected state
 }
 
+- (void)initCell:(SAuntInfo *)info{
+
+    _mName.text = info.mName;
+    [_mYearBt setTitle:[NSString stringWithFormat:@"从业%d年",info.mWorking_years] forState:UIControlStateNormal];
+    _mAge.text = [NSString stringWithFormat:@"%d岁",info.mAge];
+    _mPlace.text = [NSString stringWithFormat:@"%@人",info.mLiving_province];
+    _mAddress.text = [NSString stringWithFormat:@"现居住于%@%@%@",info.mWork_province,info.mWork_city,info.mWork_area];
+    _mWages.text = [NSString stringWithFormat:@"￥%d/月",info.mPay];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:_mStar1,_mStar2,_mStar3,_mStar4,_mStar5, nil];
+    
+    for (int i = 0; i < 5; i++) {
+        
+        UIImageView *imgV = [array objectAtIndex:i];
+        
+        
+        if (i < [info.mLeave intValue]) {
+            imgV.image = [UIImage imageNamed:@"a_star"];
+        }else{
+            imgV.image = [UIImage imageNamed:@"a_starhui"];
+        }
+    }
+    
+}
+
 @end

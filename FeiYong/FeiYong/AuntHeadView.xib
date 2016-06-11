@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -13,12 +13,14 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_bg" translatesAutoresizingMaskIntoConstraints="NO" id="xvx-y1-tQ2">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="200" id="ftN-kx-JTX"/>
                     </constraints>
                 </imageView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ai" translatesAutoresizingMaskIntoConstraints="NO" id="w90-AD-hNp">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="w90-AD-hNp">
                     <rect key="frame" x="24" y="176" width="75" height="90"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="90" id="NtY-r9-gDi"/>
                         <constraint firstAttribute="width" constant="75" id="cud-43-BfK"/>
@@ -26,12 +28,14 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IuF-5V-IZH">
                     <rect key="frame" x="111" y="212" width="47.5" height="21.5"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_star" translatesAutoresizingMaskIntoConstraints="NO" id="Qx4-AN-Pw0">
                     <rect key="frame" x="111" y="243" width="15" height="15"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="DmF-xn-8vW"/>
                         <constraint firstAttribute="width" constant="15" id="Pqe-vg-ubk"/>
@@ -39,6 +43,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_star" translatesAutoresizingMaskIntoConstraints="NO" id="XpP-UV-HN2">
                     <rect key="frame" x="128" y="243" width="15" height="15"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="15" id="JnL-uG-9H3"/>
                         <constraint firstAttribute="height" constant="15" id="sxs-0w-acY"/>
@@ -46,6 +51,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_star" translatesAutoresizingMaskIntoConstraints="NO" id="bUR-Ji-IsU">
                     <rect key="frame" x="145" y="243" width="15" height="15"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="15" id="6eI-YY-WmT"/>
                         <constraint firstAttribute="height" constant="15" id="LPV-6m-AAy"/>
@@ -53,6 +59,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_star" translatesAutoresizingMaskIntoConstraints="NO" id="cFZ-Ea-3pD">
                     <rect key="frame" x="162" y="243" width="15" height="15"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="width" constant="15" id="eLD-qj-5HE"/>
                         <constraint firstAttribute="height" constant="15" id="ldU-C6-Tpg"/>
@@ -60,6 +67,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_star" translatesAutoresizingMaskIntoConstraints="NO" id="e44-6r-9kO">
                     <rect key="frame" x="179" y="243" width="15" height="15"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="15" id="iBC-xy-IE3"/>
                         <constraint firstAttribute="width" constant="15" id="pQl-Cc-YEY"/>
@@ -67,6 +75,7 @@
                 </imageView>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_pj" translatesAutoresizingMaskIntoConstraints="NO" id="XEa-ux-oOi">
                     <rect key="frame" x="293" y="171" width="58" height="58"/>
+                    <animations/>
                     <constraints>
                         <constraint firstAttribute="height" constant="58" id="FB9-RX-GR6"/>
                         <constraint firstAttribute="width" constant="58" id="uul-us-uEH"/>
@@ -74,14 +83,17 @@
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="查看评价" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5r1-TX-rBV">
                     <rect key="frame" x="294" y="237" width="56" height="17"/>
+                    <animations/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ca-SL-h0F">
                     <rect key="frame" x="294" y="171" width="56" height="83"/>
+                    <animations/>
                 </button>
             </subviews>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="5r1-TX-rBV" firstAttribute="centerX" secondItem="XEa-ux-oOi" secondAttribute="centerX" id="1Qq-bB-tcf"/>
@@ -136,9 +148,9 @@
         </view>
     </objects>
     <resources>
+        <image name="DefaultImg" width="331" height="341"/>
         <image name="a_bg" width="375" height="190"/>
         <image name="a_pj" width="58" height="58"/>
         <image name="a_star" width="15" height="15"/>
-        <image name="ai" width="340" height="190"/>
     </resources>
 </document>

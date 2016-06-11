@@ -89,7 +89,7 @@
  *  @param parameters 参数
  *  @param callback   返回网络数据
  */
--(void)postUrl:(NSString *)URLString parameters:(NSMutableDictionary *)parameters call:(void (^)(  SResBase* info))callback
+-(void)postUrl:(NSString *)URLString parameters:(id)parameters call:(void (^)(  SResBase* info))callback
 {
    
     
@@ -99,7 +99,9 @@
     
     AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
     
-    [session POST:Url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+//    [session.requestSerializer setValue:@"text/html;charset=utf-8" forHTTPHeaderField:@"Content-Type"] ;
+    
+    [session GET:Url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
         
 //        NSData *JSONData = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
 //        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
@@ -116,14 +118,7 @@
         MLLog(@"error:%@",error.description);
         callback( [SResBase infoWithError:@"网络请求错误.."] );
     }];
-    
-//    NSURL *url = [NSURL URLWithString:@"http://42.121.120.51:8080/FYCenter/regist-msg?phone=18323181527&code=6744&type=ios"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    config.timeoutIntervalForRequest = 3;
-//    config.timeoutIntervalForResource = 3;
-//    NSURLSession *session = [NSURLSession sessionWithConfiguration:config];
-    
+
 }
 
 

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ReAuntDetailVC : BaseVC
+@property (nonatomic,strong) SAuntInfo *mAuntInfo;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mButtonHeight;
 

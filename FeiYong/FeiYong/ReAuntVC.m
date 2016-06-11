@@ -16,6 +16,8 @@
     NSMutableArray *_marry;
     
     UIView *bgView;
+    
+    EmptyView *_emptyview;
 }
 
 @end
@@ -45,6 +47,16 @@
     }
     
     [defaults synchronize];
+    
+    if (_mTempArray.count == 0) {
+        _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil];
+        
+        [_emptyview showInView:self.view rect:CGRectMake(0, DEVICE_NavBar_Height, DEVICE_Width, DEVICE_InNavBar_Height) block:^(BOOL close) {
+            
+        }];
+    }
+    
+   
 
 }
 
@@ -94,6 +106,26 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView setEditing:NO animated:YES];
+    
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.row];
+    
+    [self showStatu:@"操作中.."];
+    [aunt deleteThis:^(SResBase *retobj) {
+        if (retobj.mmsg) {
+            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+            [_mTempArray removeObjectAtIndex:indexPath.section];
+            
+            [_mTableView beginUpdates];
+            [_mTableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationRight];
+            [_mTableView endUpdates];
+            
+            [_mTableView reloadData];
+            
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+        
+    }];
     NSLog(@"======放弃推荐");
 }
 
@@ -104,7 +136,7 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 6;
+    return _mTempArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -138,12 +170,19 @@
     ReAuntCell* cell = (ReAuntCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.section];
+    
+    [cell initCell:aunt];
+    
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ReAuntDetailVC *ad = [[ReAuntDetailVC alloc] initWithNibName:@"ReAuntDetailVC" bundle:nil];
+    
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.section];
+    ad.mAuntInfo = aunt;
     [self.navigationController pushViewController:ad animated:YES];
 }
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4FC4FCC91D0AD1350000A9A0 /* EmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4FCC71D0AD1350000A9A0 /* EmptyView.m */; };
+		4FC4FCCA1D0AD1350000A9A0 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCC81D0AD1350000A9A0 /* EmptyView.xib */; };
 		B24B27711D003F7E001BC50A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27701D003F7E001BC50A /* libz.tbd */; };
 		B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27721D003F87001BC50A /* libc++.tbd */; };
 		B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27741D003F8F001BC50A /* CoreMotion.framework */; };
@@ -198,6 +200,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4FC4FCC61D0AD1350000A9A0 /* EmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyView.h; sourceTree = "<group>"; };
+		4FC4FCC71D0AD1350000A9A0 /* EmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyView.m; sourceTree = "<group>"; };
+		4FC4FCC81D0AD1350000A9A0 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
 		B24B27701D003F7E001BC50A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B24B27721D003F87001BC50A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B24B27741D003F8F001BC50A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -1122,6 +1127,9 @@
 				B2DDFBB81CF7035F00D92DEA /* NavBar.h */,
 				B2DDFBB91CF7035F00D92DEA /* NavBar.m */,
 				B2DDFBBD1CF7039000D92DEA /* NavBar.xib */,
+				4FC4FCC61D0AD1350000A9A0 /* EmptyView.h */,
+				4FC4FCC71D0AD1350000A9A0 /* EmptyView.m */,
+				4FC4FCC81D0AD1350000A9A0 /* EmptyView.xib */,
 			);
 			name = BaseVC;
 			sourceTree = "<group>";
@@ -1362,6 +1370,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4FC4FCCA1D0AD1350000A9A0 /* EmptyView.xib in Resources */,
 				B2CF56061D0670F70091B42A /* BombBoxVC.xib in Resources */,
 				B2CEE2CB1D0550240062EC59 /* LICENSE.txt in Resources */,
 				B2CEE2B51D0534FE0062EC59 /* IQKeyboardManager.bundle in Resources */,
@@ -1473,6 +1482,7 @@
 				B2CEE2B41D0534FE0062EC59 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				B291E8511D07BFB60056C7E1 /* AuntDetailCell.m in Sources */,
 				B24B27A11D00473D001BC50A /* DataSigner.m in Sources */,
+				4FC4FCC91D0AD1350000A9A0 /* EmptyView.m in Sources */,
 				B2CEE2B01D0534FE0062EC59 /* IQTextView.m in Sources */,
 				B2CF560E1D06736B0091B42A /* JFCalendarPickerView.m in Sources */,
 				B2DDFC001CF7126600D92DEA /* SDWebImageManager.m in Sources */,
@@ -1673,6 +1683,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FeiYong",
@@ -1688,8 +1700,9 @@
 					"$(PROJECT_DIR)/FeiYong",
 					"$(SRCROOT)/FeiYong",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.FeiYong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -1697,6 +1710,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FeiYong",
@@ -1712,8 +1727,9 @@
 					"$(PROJECT_DIR)/FeiYong",
 					"$(SRCROOT)/FeiYong",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.FeiYong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

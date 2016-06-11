@@ -22,6 +22,8 @@ typedef enum _RelDic
 
 @interface Util : NSObject
 
++(NSString *)JSONString:(NSString *)aString;
+
 +(BOOL)checkSFZ:(NSString *)numStr;                         //验证身份证
 
 

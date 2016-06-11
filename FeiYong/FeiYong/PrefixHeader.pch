@@ -15,6 +15,7 @@
 #import "NSObject+myobj.h"
 #import "SVProgressHUD.h"
 #import "DateModle.h"
+#import "EmptyView.h"
 
 enum {
     BUZHUJIABAOMU= 10,

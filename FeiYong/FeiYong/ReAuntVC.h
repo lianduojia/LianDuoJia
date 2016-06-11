@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ReAuntVC : BaseVC
+@property (nonatomic,strong) NSMutableArray *mTempArray;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 - (IBAction)mPayClick:(id)sender;
 

@@ -293,7 +293,7 @@
 //登陆
 +(void)login:(NSString *)name code:(NSString *)pwd block:(void(^)(SResBase* retobj))block{
 
-    NSMutableDictionary* param =    NSMutableDictionary.new;
+    NSMutableDictionary* param =   NSMutableDictionary.new;
     [param setObject:name forKey:@"phone"];
     [param setObject:pwd forKey:@"pwd"];
     [[APIClient sharedClient] postUrl:@"login" parameters:param call:^(SResBase *info) {
@@ -331,13 +331,14 @@
 +(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:@(employer_id) forKey:@"employer_id"];
-    [param setObject:work_province forKey:@"work_province"];
-    [param setObject:work_city forKey:@"work_city"];
-    [param setObject:work_area forKey:@"work_area"];
+
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
+    [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
+    [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
     [param setObject:@(min_age) forKey:@"min_age"];
     [param setObject:@(max_age) forKey:@"max_age"];
-    [param setObject:over_night forKey:@"over_night"];
+    [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
     
     [[APIClient sharedClient] postUrl:@"find-nurse" parameters:param call:^(SResBase *info) {
         
@@ -355,7 +356,9 @@
             block(info,array);
             
         }
-        block(info,nil);
+        else{
+            block(info,nil);
+        }
     }];
 
 }
@@ -365,14 +368,14 @@
     
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:@(employer_id) forKey:@"employer_id"];
-    [param setObject:work_province forKey:@"work_province"];
-    [param setObject:work_city forKey:@"work_city"];
-    [param setObject:work_area forKey:@"work_area"];
+    [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
+    [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
+    [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
     [param setObject:@(min_age) forKey:@"min_age"];
     [param setObject:@(max_age) forKey:@"max_age"];
-    [param setObject:over_night forKey:@"over_night"];
-    [param setObject:sex forKey:@"sex"];
-    [param setObject:care_type forKey:@"care_type"];
+    [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
+    [param setObject:[Util JSONString:sex] forKey:@"sex"];
+    [param setObject:[Util JSONString:care_type] forKey:@"care_type"];
     
     [[APIClient sharedClient] postUrl:@"find-accompany" parameters:param call:^(SResBase *info) {
         
@@ -390,9 +393,160 @@
             block(info,array);
             
         }
-        block(info,nil);
+        else{
+            block(info,nil);
+        }
     }];
 
+}
+
+//找月嫂
++(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
+    [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
+    [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
+    [param setObject:[Util JSONString:have_auth] forKey:@"have_auth"];
+    
+    [[APIClient sharedClient] postUrl:@"find-maternity-matron" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }else{
+            block(info,nil);
+        }
+    }];
+
+}
+
+//找小时工
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
+    [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
+    [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
+    [param setObject:@(count) forKey:@"count"];
+    
+    [[APIClient sharedClient] postUrl:@"find-hour-worker" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+    }];
+
+}
+
+//找育儿嫂
++(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
+    [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
+    [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
+    [param setObject:@(min_age) forKey:@"min_age"];
+    [param setObject:@(max_age) forKey:@"max_age"];
+    [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
+    
+    [[APIClient sharedClient] postUrl:@"find-child-care" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+    }];
+
+    
+}
+
+//放弃阿姨数据	/delete-maid	employer_id=xx(用户id)&maid_id=xxxx(对应的阿姨数据的id)
+
+-(void)deleteThis:(void(^)(SResBase* retobj))block{
+
+     NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:@(self.mId) forKey:@"maid_id"];
+    
+    [[APIClient sharedClient] postUrl:@"delete-maid" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+
+}
+
+-(void)getComment:(NSString *)comment_type page:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(self.mId) forKey:@"maid_id"];
+    [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
+    [param setObject:@(page) forKey:@"page"];
+    
+    [[APIClient sharedClient] postUrl:@"show-comment" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    
+                    [array addObject:aunt];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+
+    }];
 }
 
 @end

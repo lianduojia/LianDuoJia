@@ -106,7 +106,22 @@
     [_mhead addSubview:line];
     
     [_mTableView setTableHeaderView:_mhead];
-    [_mTableView setTableHeaderView:UIView.new];
+    
+    
+    _mHeadView.mName.text = _mAuntInfo.mName;
+    
+    NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:_mHeadView.mStar1,_mHeadView.mStar2,_mHeadView.mStar3,_mHeadView.mStar4,_mHeadView.mStar5, nil];
+    for (int i = 0; i < 5; i++) {
+        
+        UIImageView *imgV = [array objectAtIndex:i];
+        
+        if (i < [_mAuntInfo.mLeave intValue]) {
+            imgV.image = [UIImage imageNamed:@"a_star"];
+        }else{
+            imgV.image = [UIImage imageNamed:@"a_starhui"];
+        }
+    }
+
 }
 
 
@@ -161,7 +176,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 6;
+    
+    if(_mselect==0)
+        return 6;
+    return 10;
 }
 
 
@@ -172,7 +190,29 @@
         AuntDetailCell* cell = (AuntDetailCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.mLabel.text = @"测试数据测试数据";
+        switch (indexPath.row) {
+            case 0:
+                cell.mLabel.text = [NSString stringWithFormat:@"%d岁",_mAuntInfo.mAge];
+                break;
+            case 1:
+                cell.mLabel.text = @"天蝎座";
+                break;
+            case 2:
+                cell.mLabel.text = [NSString stringWithFormat:@"%@%@%@",_mAuntInfo.mLiving_province,_mAuntInfo.mLiving_city,_mAuntInfo.mLiving_area];
+                break;
+            case 3:
+                cell.mLabel.text = [NSString stringWithFormat:@"从事月嫂工作%d年",_mAuntInfo.mWorking_years];
+                break;
+            case 4:
+                cell.mLabel.text = [NSString stringWithFormat:@"现居住于%@%@%@",_mAuntInfo.mWork_province,_mAuntInfo.mWork_city,_mAuntInfo.mWork_area];
+                break;
+            case 5:
+                cell.mLabel.text = [NSString stringWithFormat:@"%@星月嫂",_mAuntInfo.mLeave];
+                break;
+                
+            default:
+                break;
+        }
         
         return cell;
     }else{

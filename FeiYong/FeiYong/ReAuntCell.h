@@ -23,4 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mStar3;
 @property (weak, nonatomic) IBOutlet UIImageView *mStar4;
 @property (weak, nonatomic) IBOutlet UIImageView *mStar5;
+
+- (void)initCell:(SAuntInfo *)info;
+
 @end
