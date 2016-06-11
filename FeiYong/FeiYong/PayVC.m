@@ -55,7 +55,7 @@
 //定义展示的Section的个数
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return 2;
+    return _mTempArray.count%3==0?_mTempArray.count/3:_mTempArray.count/3+1;
 }
 
 
@@ -63,6 +63,10 @@
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
      payCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"pCell" forIndexPath:indexPath];
+    int index = (int)indexPath.section*3+(int)indexPath.row;
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:index];
+    
+    [cell initCell:aunt];
     
     return cell;
 }

@@ -7,8 +7,12 @@
 //
 
 #import "ChoseAddressVC.h"
+#import "YLPickerView.h"
 
-@interface ChoseAddressVC ()
+@interface ChoseAddressVC (){
+
+    YLPickerView *_picker;
+}
 
 @end
 
@@ -21,6 +25,8 @@
     self.navTitle = @"选择地址";
     
     [self.navBar.mRightButton setImage:[UIImage imageNamed:@"s_address1"] forState:UIControlStateNormal];
+    
+    _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -41,11 +47,19 @@
 - (IBAction)mSubmitClick:(id)sender {
     
     if (_itblock) {
-        _itblock(@"北京市");
+        _itblock(@"开阳桥",@"北京市",@"北京市",@"朝阳区");
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (IBAction)mChoseClick:(id)sender {
+    
+    [_picker initView:self.view block:^(BOOL flag,NSString *province,NSString *city,NSString *area) {
+        
+        if (flag) {
+            
+            _mAdd.text = [NSString stringWithFormat:@"%@%@%@",province,city,area];
+        }
+    }];
 }
 @end

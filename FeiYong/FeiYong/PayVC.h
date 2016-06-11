@@ -10,5 +10,6 @@
 
 @interface PayVC : BaseVC
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
+@property (nonatomic,strong) NSArray *mTempArray;
 
 @end

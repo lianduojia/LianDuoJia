@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="iM7-WO-8CY">
-                    <rect key="frame" x="125" y="165" width="95" height="138"/>
+                    <rect key="frame" x="125" y="50" width="95" height="138"/>
                     <animations/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="iM7-WO-8CY" secondAttribute="height" multiplier="87:127" id="n9a-nh-kWF"/>
@@ -32,7 +32,7 @@
                 </button>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="4ba-Zi-1Er"/>
                 <constraint firstAttribute="trailing" secondItem="30y-TF-M7G" secondAttribute="trailing" id="9sB-rU-MKn"/>
@@ -41,12 +41,14 @@
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="125" id="Ncn-3l-V32"/>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NvF-xM-lfn"/>
                 <constraint firstItem="30y-TF-M7G" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UiT-pO-xey"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="WXp-Mk-xRH"/>
                 <constraint firstAttribute="bottom" secondItem="30y-TF-M7G" secondAttribute="bottom" id="t9M-11-kVY"/>
                 <constraint firstAttribute="trailing" secondItem="iM7-WO-8CY" secondAttribute="trailing" constant="100" id="xI4-Cp-0yf"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">
                 <mask key="constraints">
+                    <exclude reference="4ba-Zi-1Er"/>
                     <exclude reference="GcC-5y-txP"/>
                     <exclude reference="NvF-xM-lfn"/>
                 </mask>

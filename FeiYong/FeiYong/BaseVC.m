@@ -10,7 +10,10 @@
 #import "LoginVC.h"
 #import "IQKeyboardManager.h"
 
-@interface BaseVC ()<UIGestureRecognizerDelegate>
+@interface BaseVC ()<UIGestureRecognizerDelegate>{
+
+    UIView *_emptyview;
+}
 
 @end
 
@@ -47,6 +50,8 @@
         [self.tableView addHeaderWithCallback:^{
             [vc headerBeganRefresh];
         }];
+    }else{
+        [self.tableView removeHeader];
     }
     
 }
@@ -59,6 +64,8 @@
             [vc footetBeganRefresh];
         }];
         
+    }else{
+        [self.tableView removeFooter];
     }
     
 }
@@ -94,8 +101,6 @@
     
     self.tempArray = [[NSMutableArray alloc]init];
     self.page = 0;
-    
-
 }
 
 -(void)gotoLogin{
@@ -150,6 +155,19 @@
 -(void)footetEndRefresh{
     [self.tableView footerEndRefreshing];
 }//footer停止刷新
+
+-(void)addEmpty{
+    _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil].view;
+    
+    _emptyview.frame = CGRectMake(0, 0, DEVICE_Width, 150);
+    
+    self.tableView.tableFooterView = _emptyview;
+}
+-(void)removeEmpty{
+    
+    self.tableView.tableFooterView = [UIView new];
+}
+
 -(void)loadTableView:(CGRect)rect delegate:(id<UITableViewDelegate>)delegate dataSource:(id<UITableViewDataSource>)datasource
 {
     self.tableView = [[UITableView alloc]initWithFrame:rect];

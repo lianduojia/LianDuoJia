@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		4FC4FCC91D0AD1350000A9A0 /* EmptyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4FCC71D0AD1350000A9A0 /* EmptyView.m */; };
 		4FC4FCCA1D0AD1350000A9A0 /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCC81D0AD1350000A9A0 /* EmptyView.xib */; };
+		4FC4FCCE1D0C29C70000A9A0 /* YLPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */; };
+		4FC4FCD01D0C29DB0000A9A0 /* YLPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */; };
+		4FC4FCD21D0C3F490000A9A0 /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCD11D0C3F490000A9A0 /* province_data.xml */; };
 		B24B27711D003F7E001BC50A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27701D003F7E001BC50A /* libz.tbd */; };
 		B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27721D003F87001BC50A /* libc++.tbd */; };
 		B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27741D003F8F001BC50A /* CoreMotion.framework */; };
@@ -203,6 +206,10 @@
 		4FC4FCC61D0AD1350000A9A0 /* EmptyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyView.h; sourceTree = "<group>"; };
 		4FC4FCC71D0AD1350000A9A0 /* EmptyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyView.m; sourceTree = "<group>"; };
 		4FC4FCC81D0AD1350000A9A0 /* EmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
+		4FC4FCCC1D0C29C70000A9A0 /* YLPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLPickerView.h; sourceTree = "<group>"; };
+		4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPickerView.m; sourceTree = "<group>"; };
+		4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YLPickerView.xib; sourceTree = "<group>"; };
+		4FC4FCD11D0C3F490000A9A0 /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
 		B24B27701D003F7E001BC50A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B24B27721D003F87001BC50A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B24B27741D003F8F001BC50A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -985,6 +992,9 @@
 				B2CF56031D0670F70091B42A /* BombBoxVC.m */,
 				B2CF56041D0670F70091B42A /* BombBoxVC.xib */,
 				B2CF56181D06B1870091B42A /* BombBoxTwoVC.xib */,
+				4FC4FCCC1D0C29C70000A9A0 /* YLPickerView.h */,
+				4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */,
+				4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */,
 			);
 			name = Ext;
 			sourceTree = "<group>";
@@ -1090,6 +1100,7 @@
 		B2DDFB601CF6C19B00D92DEA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4FC4FCD11D0C3F490000A9A0 /* province_data.xml */,
 				B2DDFB611CF6C19B00D92DEA /* main.m */,
 				B2DDFBC41CF70AB200D92DEA /* PrefixHeader.pch */,
 			);
@@ -1385,6 +1396,7 @@
 				B291E8571D07CD3A0056C7E1 /* PingJiaCell.xib in Resources */,
 				B2D6A7001D0950DA00899042 /* AppointmentVC.xib in Resources */,
 				B2DDFBAC1CF7001C00D92DEA /* MJRefresh.bundle in Resources */,
+				4FC4FCD21D0C3F490000A9A0 /* province_data.xml in Resources */,
 				B2CF562D1D0704480091B42A /* ReAuntDetailVC.xib in Resources */,
 				B291E8861D084BBE0056C7E1 /* OpinionVC.xib in Resources */,
 				B291E8611D07ED5D0056C7E1 /* PingJiaVC.xib in Resources */,
@@ -1400,6 +1412,7 @@
 				B291E8901D084F010056C7E1 /* SettingCell.xib in Resources */,
 				B2D6A6F61D0940B100899042 /* PayVC.xib in Resources */,
 				B291E85C1D07D68A0056C7E1 /* PingJiaSectionView.xib in Resources */,
+				4FC4FCD01D0C29DB0000A9A0 /* YLPickerView.xib in Resources */,
 				B2CEE2881D05325A0062EC59 /* RegisterTwoVC.xib in Resources */,
 				B291E87A1D083E100056C7E1 /* MyInfoVC.xib in Resources */,
 				B2CF561E1D06B6860091B42A /* JFCollectionViewCell.xib in Resources */,
@@ -1513,6 +1526,7 @@
 				B2CEE2851D051F9E0062EC59 /* RegisterVC.m in Sources */,
 				B2CD75471CFD817500247403 /* SDCollectionViewCell.m in Sources */,
 				B24B27A71D00473D001BC50A /* RSADataVerifier.m in Sources */,
+				4FC4FCCE1D0C29C70000A9A0 /* YLPickerView.m in Sources */,
 				B2DDFBFD1CF7126600D92DEA /* SDWebImageDownloader.m in Sources */,
 				B2CEE2E51D05A8670062EC59 /* ParentalCell.m in Sources */,
 				B2DDFB651CF6C19B00D92DEA /* AppDelegate.m in Sources */,

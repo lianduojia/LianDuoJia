@@ -325,6 +325,12 @@
 
 @end
 
+@implementation SComment
+
+
+
+@end
+
 @implementation SAuntInfo
 
 //找保姆
@@ -522,7 +528,7 @@
 -(void)getComment:(NSString *)comment_type page:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:@(self.mId) forKey:@"maid_id"];
+    [param setObject:@(_mId) forKey:@"maid_id"];
     [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
     [param setObject:@(page) forKey:@"page"];
     
@@ -534,7 +540,7 @@
             if (info.mdata) {
                 for (NSDictionary *dic in info.mdata) {
                     
-                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
+                    SComment *aunt = [[SComment alloc] initWithObj:dic];
                     
                     [array addObject:aunt];
                 }
@@ -546,6 +552,39 @@
             block(info,nil);
         }
 
+    }];
+}
+
+-(void)submitComment:(NSString *)comment_type comment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:@(self.mId) forKey:@"maid_id"];
+    [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
+    [param setObject:[Util JSONString:comment] forKey:@"comment"];
+    [param setObject:@(star_count) forKey:@"star_count"];
+    
+    [[APIClient sharedClient] postUrl:@"submit-comment" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:[Util JSONString:service_date] forKey:@"service_date"];
+    [param setObject:[Util JSONString:service_address] forKey:@"service_address"];
+    [param setObject:[Util JSONString:additional] forKey:@"additional"];
+    
+    for (SAuntInfo *aunt in array) {
+        [param setObject:@(aunt.mId) forKey:@"maid_id"];
+    }
+    
+    [[APIClient sharedClient] postUrl:@"agency-bill" parameters:param call:^(SResBase *info) {
+        
+        block(info);
     }];
 }
 

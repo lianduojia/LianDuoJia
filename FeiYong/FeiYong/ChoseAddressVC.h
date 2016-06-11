@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h> 
 
 @interface ChoseAddressVC : BaseVC
 
-@property (nonatomic,strong) void (^itblock)(NSString *address);
+@property (nonatomic,strong) void (^itblock)(NSString *address,NSString *provice,NSString *city,NSString *area);
 @property (weak, nonatomic) IBOutlet UITextField *mDetailAdd;
 @property (weak, nonatomic) IBOutlet UILabel *mAdd;
 - (IBAction)mSubmitClick:(id)sender;

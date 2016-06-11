@@ -10,6 +10,9 @@
 
 @interface ReAuntVC : BaseVC
 @property (nonatomic,strong) NSMutableArray *mTempArray;
+@property (nonatomic,strong) NSString *mDate;
+@property (nonatomic,strong) NSString *mDetailAddress;
+@property (nonatomic,strong) NSString *mRemark;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 - (IBAction)mPayClick:(id)sender;
 

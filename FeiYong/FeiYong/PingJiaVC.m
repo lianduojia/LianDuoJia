@@ -11,6 +11,7 @@
 @interface PingJiaVC ()<UITextViewDelegate>{
 
     NSArray *_stararray;
+    int _index;
 }
 
 @end
@@ -44,17 +45,19 @@
     
     
     _mPingjia.delegate = self;
+    
+    _index = 4;
 }
 
 - (void)ChoseClick:(UITapGestureRecognizer *)tap{
     
-    int index = (int)tap.view.tag-10;
+    _index = (int)tap.view.tag-10;
     
     for (int i = 0; i < 5; i++) {
         
         UIImageView *imgV = [_stararray objectAtIndex:i];
         
-        if (i<=index) {
+        if (i<=_index) {
             imgV.image = [UIImage imageNamed:@"a_star_big"];
         }else{
             imgV.image = [UIImage imageNamed:@"a_star_bighui"];
@@ -86,4 +89,25 @@
 }
 */
 
+- (IBAction)mSubmitClick:(id)sender {
+    
+    if (_mPingjia.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入评价内容！"];
+        
+        return;
+    }
+    
+    [self showStatu:@"提交中.."];
+    
+    [_mAunt submitComment:_mPjType comment:_mPingjia.text star_count:_index+1 block:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+            
+            [self popViewController];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+}
 @end

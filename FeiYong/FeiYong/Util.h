@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 typedef enum _RelDic
 {
@@ -21,6 +22,7 @@ typedef enum _RelDic
 
 
 @interface Util : NSObject
+
 
 +(NSString *)JSONString:(NSString *)aString;
 
@@ -88,35 +90,8 @@ typedef enum _RelDic
 //
 +(NSString*)makeURL:(NSString*)requrl param:(NSDictionary*)param;
 
-//生成XML
-+(NSString*)makeXML:(NSDictionary*)param;
-
-+(NSString*)getAppVersion;
-
-+(int)gettopestV:(int)v;
-
-+(NSString*)URLEnCode:(NSString*)str;
-
-+(NSString*)URLDeCode:(NSString*)str;
 
 
-
-+ (NSString *)getAPPName;
-
-//星级显示
-+ (void)setXingXing:(CGFloat)score View:(UIImageView *)view with:(float)with juli:(float)j;
-
-
-//自动扩展,基于最后一个view的位置+高度+dif
-+(void)autoExtendH:(UIView*)tagview dif:(CGFloat)dif;
-
-
-//自动扩展,基于subview的位置+高度+dif
-+(void)autoExtendH:(UIView*)tagview blow:(UIView*)subview dif:(CGFloat)dif;
-
-+ (NSString *)makeImgUrl:(NSString *)bigUrl w:(CGFloat)w h:(CGFloat)h;
-
-+ (NSString *)makeImgUrl:(NSString *)bigUrl tagImg:(UIView *)imgV;
 
 
 @end

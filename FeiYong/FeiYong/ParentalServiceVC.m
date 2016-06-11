@@ -11,6 +11,7 @@
 #import "BombBoxVC.h"
 #import "ChoseAddressVC.h"
 #import "ReAuntVC.h"
+#import "Util.h"
 
 @interface ParentalServiceVC ()<UITableViewDataSource,UITableViewDelegate>{
 
@@ -18,6 +19,7 @@
     BombBoxVC *_mbombbox2;
     NSString *_myctime; //预产期时间/服务时间
     NSString *_maddress;//服务地点
+    NSString *_mdetailaddress;
     NSString *_mfwsd;//服务时段
     NSString *_mfwsc;//服务时长
     NSString *_mfwnum;//服务人数
@@ -364,9 +366,10 @@
         case 1:
         {
             ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
-            ca.itblock = ^(NSString *address){
+            ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
                 
-                _maddress = address;
+                _mdetailaddress = address;
+                _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
                 
                 [_mTableView reloadData];
             };
@@ -536,6 +539,9 @@
                     
                     ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
                     rea.mTempArray = (NSMutableArray *)_auntarr;
+                    rea.mDate = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
+                    rea.mDetailAddress = _mdetailaddress;
+                    rea.mRemark = _mRemark.text;
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
                     [SVProgressHUD showErrorWithStatus:retobj.mmsg];

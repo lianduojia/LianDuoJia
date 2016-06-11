@@ -75,7 +75,7 @@
 
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat: bfull ? @"yyyy-MM-dd HH:mm:ss" : @"yyyy-MM-dd HH:mm" ];
+    [dateFormatter setDateFormat: bfull ? @"yyyy年MM月dd日" : @"yyyy-MM-dd" ];
     NSDate *Date = [dateFormatter dateFromString:str];
     return Date;
 }
@@ -83,7 +83,7 @@
 +(NSString*)getTimeString:(NSDate*)dat bfull:(BOOL)bfull
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat: bfull ? @"yyyy-MM-dd HH:mm:ss" : @"yyyy-MM-dd HH:mm" ];
+    [dateFormatter setDateFormat: bfull ? @"yyyy-MM-dd" : @"yyyy年MM月dd日" ];
     NSString *strDate = [dateFormatter stringFromDate:dat];
     if( bfull ) return strDate;
     
@@ -497,174 +497,10 @@
         return @">1000km";
 }
 
-//MARK: sign
-+ (NSString *)genWxSign:(NSDictionary *)signParams parentkey:(NSString*)parentkey
-{
-    // 排序
-    NSArray *keys = [signParams allKeys];
-    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2 options:NSNumericSearch];
-    }];
-    
-    // 生成
-    NSMutableString *sign = [NSMutableString string];
-    for (NSString *key in sortedKeys) {
-        [sign appendString:key];
-        [sign appendString:@"="];
-        [sign appendString:[signParams objectForKey:key]];
-        [sign appendString:@"&"];
-    }
-    [sign appendFormat:@"key=%@",parentkey];
-    
-    return  [[Util md5:sign] uppercaseString];
-}
-
-//MARK: sign
-+ (NSString *)genWXClientSign:(NSDictionary *)signParams
-{
-    // 排序
-    NSArray *keys = [signParams allKeys];
-    NSArray *sortedKeys = [keys sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-        return [obj1 compare:obj2 options:NSNumericSearch];
-    }];
-    
-    // 生成
-    NSMutableString *sign = [NSMutableString string];
-    for (NSString *key in sortedKeys) {
-        [sign appendString:key];
-        [sign appendString:@"="];
-        [sign appendString:[signParams objectForKey:key]];
-        [sign appendString:@"&"];
-    }
-    NSString *signString = [[sign copy] substringWithRange:NSMakeRange(0, sign.length - 1)];
-    
-    return [Util sha1:signString];;
-}
-
-+ (NSString *)sha1:(NSString *)input
-{
-    const char *ptr = [input UTF8String];
-    
-    int i =0;
-    int len = strlen(ptr);
-    Byte byteArray[len];
-    while (i!=len)
-    {
-        unsigned eachChar = *(ptr + i);
-        unsigned low8Bits = eachChar & 0xFF;
-        
-        byteArray[i] = low8Bits;
-        i++;
-    }
-    
-    unsigned char digest[CC_SHA1_DIGEST_LENGTH];
-    
-    CC_SHA1(byteArray, len, digest);
-    
-    NSMutableString *hex = [NSMutableString string];
-    for (int i=0; i<20; i++)
-        [hex appendFormat:@"%02x", digest[i]];
-    
-    NSString *immutableHex = [NSString stringWithString:hex];
-    
-    return immutableHex;
-}
-
-
-//requrl http://api.fun.com/getxxxx
-//
-+(NSString*)makeURL:(NSString*)requrl param:(NSDictionary*)param
-{
-    if( param.count == 0 ) return requrl;
-    
-    NSArray* allk = param.allKeys;
-    NSMutableString* reqstr = NSMutableString.new;
-    for ( NSString* onek in allk ) {
-        [reqstr appendFormat:@"%@=%@&",onek,param[onek]];
-    }
-    return [NSString stringWithFormat:@"%@?%@",requrl,[reqstr substringToIndex:reqstr.length-2]];
-}
-
-//生成XML
-+(NSString*)makeXML:(NSDictionary*)param
-{
-    if( param.count == 0 ) return @"";
-    
-    NSArray* allk = param.allKeys;
-    NSMutableString* reqstr = NSMutableString.new;
-    [reqstr appendString:@"<xml>\n"];
-    for ( NSString* onek in allk ) {
-        [reqstr appendFormat:@"<%@>%@</%@>\n",onek,param[onek],onek];
-    }
-    [reqstr appendString:@"</xml>"];
-    return reqstr;
-}
-
-+(NSString*)getAppVersion
-{
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    return [infoDictionary objectForKey:@"CFBundleShortVersionString"];
-}
 
 
 
 
-
-+(int)gettopestV:(int)v
-{
-    int r = v;
-    while ( r > 10 )
-    {
-        r  = r/10;
-    }
-    return r;
-}
-
-
-+(NSString*)URLEnCode:(NSString*)str
-{
-    NSString *resultStr = str;
-    
-    CFStringRef originalString = (__bridge CFStringRef) str;
-    CFStringRef leaveUnescaped = CFSTR(" ");
-    CFStringRef forceEscaped = CFSTR("!*'();:@&=+$,/?%#[]");
-    
-    CFStringRef escapedStr;
-    escapedStr = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault,
-                                                         originalString,
-                                                         leaveUnescaped,
-                                                         forceEscaped,
-                                                         kCFStringEncodingUTF8);
-    
-    if( escapedStr )
-    {
-        NSMutableString *mutableStr = [NSMutableString stringWithString:(__bridge NSString *)escapedStr];
-        CFRelease(escapedStr);
-        
-        // replace spaces with plusses
-        [mutableStr replaceOccurrencesOfString:@" "
-                                    withString:@"%20"
-                                       options:0
-                                         range:NSMakeRange(0, [mutableStr length])];
-        resultStr = mutableStr;
-    }
-    return resultStr;
-}
-
-+(NSString*)URLDeCode:(NSString*)str
-{
-    return [[str      stringByReplacingOccurrencesOfString:@"+" withString:@" "]
-                            stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-}
-
-
-+ (NSString *)getAPPName{
-    
-    NSString *AppName = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleNameKey];
-    
-    return AppName;
-    
-}
 +(void)autoExtendH:(UIView*)tagview dif:(CGFloat)dif
 {//寻找所有子view,最底部的那个
     
@@ -684,24 +520,7 @@
     f.size.height = offset + dif;
     tagview.frame = f;
 }
-+(void)autoExtendH:(UIView*)tagview blow:(UIView*)subview dif:(CGFloat)dif
-{
-    CGRect f = tagview.frame;
-    
-    f.size.height = subview.frame.origin.y + subview.frame.size.height + dif;
-    
-    tagview.frame = f;
-}
 
-+ (NSString *)makeImgUrl:(NSString *)bigUrl w:(CGFloat)w h:(CGFloat)h{
-
-    return [bigUrl stringByAppendingString:[NSString stringWithFormat:@"@%dw_%dh_1e_1c.jpg",(int)w*2,(int)h*2]];
-}
-
-+ (NSString *)makeImgUrl:(NSString *)bigUrl tagImg:(UIView *)imgV{
-
-    return [self makeImgUrl:bigUrl w:imgV.bounds.size.width h:imgV.bounds.size.height];
-}
 
 +(NSString *)JSONString:(NSString *)aString{
     NSMutableString *s = [NSMutableString stringWithString:aString];
@@ -714,7 +533,6 @@
     [s replaceOccurrencesOfString:@"\t" withString:@"\\t" options:NSCaseInsensitiveSearch range:NSMakeRange(0, [s length])];
     return [NSString stringWithString:s];
 }
-
 
 @end
 

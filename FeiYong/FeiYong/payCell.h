@@ -14,4 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *mPayMoney;
 @property (weak, nonatomic) IBOutlet UILabel *mName;
 
+-(void)initCell:(SAuntInfo *)aunt;
+
 @end

@@ -15,4 +15,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *mContent;
 @property (weak, nonatomic) IBOutlet UILabel *mTime;
 
+-(void)initCell:(SComment *)comment;
+
 @end

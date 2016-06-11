@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -16,24 +16,28 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="oXl-wi-rWi">
                         <rect key="frame" x="8" y="8" width="86" height="93"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="oXl-wi-rWi" secondAttribute="height" multiplier="86:93" id="exn-WI-Jz7"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0m-xV-1YQ">
-                        <rect key="frame" x="32.5" y="106" width="37.5" height="18"/>
+                        <rect key="frame" x="32" y="106" width="37.5" height="18.5"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="571-eO-f30">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="571-eO-f30">
                         <rect key="frame" x="33" y="126" width="37.5" height="18"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中介费：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orc-Ul-ror">
                         <rect key="frame" x="8" y="146" width="48" height="14.5"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="48" id="ty8-po-TgG"/>
                         </constraints>
@@ -42,21 +46,24 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-H2-Kmb">
-                        <rect key="frame" x="58" y="146" width="36" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <rect key="frame" x="56" y="147" width="38" height="13.5"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <animations/>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
+            <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="eoa-H2-Kmb" secondAttribute="bottom" constant="11" id="7II-Qw-DaG"/>
                 <constraint firstItem="eoa-H2-Kmb" firstAttribute="centerY" secondItem="orc-Ul-ror" secondAttribute="centerY" id="7Ob-aI-G8o"/>
                 <constraint firstItem="G0m-xV-1YQ" firstAttribute="top" secondItem="oXl-wi-rWi" secondAttribute="bottom" constant="5" id="7l2-UZ-GxU"/>
                 <constraint firstAttribute="trailing" secondItem="oXl-wi-rWi" secondAttribute="trailing" constant="8" id="FlT-hC-Trt"/>
-                <constraint firstItem="eoa-H2-Kmb" firstAttribute="leading" secondItem="orc-Ul-ror" secondAttribute="trailing" constant="2" id="LMw-WI-Ri0"/>
+                <constraint firstItem="eoa-H2-Kmb" firstAttribute="leading" secondItem="orc-Ul-ror" secondAttribute="trailing" id="LMw-WI-Ri0"/>
                 <constraint firstItem="oXl-wi-rWi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="SoM-iB-e6b"/>
                 <constraint firstAttribute="bottom" secondItem="orc-Ul-ror" secondAttribute="bottom" constant="8" id="WAP-ZQ-712"/>
                 <constraint firstItem="G0m-xV-1YQ" firstAttribute="centerX" secondItem="oXl-wi-rWi" secondAttribute="centerX" id="ecx-rw-2Yp"/>

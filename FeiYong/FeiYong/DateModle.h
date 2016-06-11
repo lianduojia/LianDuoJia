@@ -141,14 +141,26 @@
 
 @end
 
-@interface SAuntInfo : SAutoEx
 
-//{"living_province":"","id":1,"leave":1,"living_area":"",
-//    "working_years":0,"age":28,"pay":10000,"name":"路人甲","living_city":"",
-//    "work_area":"朝阳区","work_city":"长春市","work_province":"吉林省"}
+//评价对象
+//[{"employer_id":2,"maid_id":5,"employer_photo_url":"","employer_name":"18686683694","comment":"工作认真，做事情细致"},
+@interface SComment : SAutoEx
+
+@property (nonatomic,assign)                int mEmployer_id;                    //用户id
+@property (nonatomic,assign)                int mMaid_id;                        //阿姨id
+@property (nonatomic,strong)                NSString* mEmployer_photo_url;       //用户头像
+@property (nonatomic,strong)                NSString* mEmployer_name;            //用户姓名
+@property (nonatomic,strong)                NSString* mComment;                  //评价内容
+@property (nonatomic,strong)                NSString* mComment_type;             //评价类型
+@property (nonatomic,strong)                NSString* mDate;                     //评价时间
+
+@end
+
+@interface SAuntInfo : SAutoEx
 
 @property (nonatomic,assign)                int       mId;
 @property (nonatomic,strong)                NSString *mName;                    //姓名
+@property (nonatomic,strong)                NSString *mPhoto_url;               //头像地址
 @property (nonatomic,strong)                NSString *mLeave;                   //星级
 @property (nonatomic,strong)                NSString *mLiving_province;         //籍贯 省
 @property (nonatomic,strong)                NSString *mLiving_city;             //籍贯 市
@@ -156,6 +168,8 @@
 @property (nonatomic,strong)                NSString *mWork_province;           //工作 省
 @property (nonatomic,strong)                NSString *mWork_city;               //工作 市
 @property (nonatomic,strong)                NSString *mWork_area;               //工作 地区
+@property (nonatomic,strong)                NSString *mConstellation;           //星座
+@property (nonatomic,strong)                NSString *mWork_type;               //工作类型
 @property (nonatomic,assign)                int       mWorking_years;           //工龄
 @property (nonatomic,assign)                int       mAge;                     //年龄
 @property (nonatomic,assign)                int       mPay;                     //月薪
@@ -190,6 +204,29 @@
 //展示阿姨的评价	/show-comment	maid_id=5(阿姨的id)&comment_type=工作评价(评论类型:工作评价、一面之缘、线上评价。该参数为可选参数,不写该参数显示全部类型的评论)&page=0(当前显示第几页的评论,每页返回10条数据)
 -(void)getComment:(NSString *)comment_type page:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
+//提交阿姨评论	/submit-comment	employer_id=xx(用户id)&maid_id=7(阿姨id)&comment_type=一面之缘(评论类型:工作评价、一面之缘、线上评价)&comment=aaaaa(评价内容)&star_count=5(用户的评价星数)
+
+-(void)submitComment:(NSString *)comment_type comment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block;
+
+//点击支付中介费生成订单(小时工以外工种订单)	/agency-bill	employer_id=xx(用户ID)&maid_id=3(准备预约阿姨的id)&maid_id=4(准备预约阿姨的id)&maid_id=5(准备预约阿姨的id)&maid_id=7(准备预约阿姨的id)&service_date=2016-03-03(服务时间,格式为yyyy-MM-dd)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对阿姨的附加要求)
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional block:(void(^)(SResBase* retobj))block;
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

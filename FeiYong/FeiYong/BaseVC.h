@@ -40,10 +40,13 @@
 -(void)headerEndRefresh;                                //header停止刷新
 -(void)footetEndRefresh;                                //footer停止刷新
 
+-(void)addEmpty;
+-(void)removeEmpty;
+
 -(void)pushViewController:(UIViewController *)controller;
 -(void)popViewController;                               //返回上个controller
 
 
--(void)showStatu:(NSString *)string;
+-(void)showStatu:(NSString *)string;                    //显示提示消息
 
 @end

@@ -54,6 +54,8 @@
 
     [_mTableView setTableHeaderView:UIView.new];
     
+    self.tableView = _mTableView;
+    
     [self loadHeadView];
     
     [self initSection];
@@ -76,18 +78,85 @@
     _mTempBt = _msection.mbt1;
 }
 
+
+//评价类型切换
 - (void)ItemClick:(UIButton *)sender{
 
     [_mTempBt setTitleColor:[UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1] forState:UIControlStateNormal];
     [sender setTitleColor:M_CO forState:UIControlStateNormal];
     
     _mselectindex = (int)sender.tag-10;
-    
-    [_mTableView reloadData];
-    
     _mTempBt = sender;
     
+    [self headerBeganRefresh];
 }
+
+- (void)headerBeganRefresh{
+
+    self.page = 0;
+    
+    NSString *typestring = @"";
+    
+    if (_mselectindex != 0) {
+        typestring = _mTempBt.titleLabel.text;
+    }
+    
+    [self showStatu:@"加载中.."];
+    [_mAuntInfo getComment:typestring page:self.page block:^(SResBase *retobj, NSArray *arr) {
+        [self headerEndRefresh];
+        
+        if (retobj.msuccess) {
+            
+            [SVProgressHUD dismiss];
+            
+            if (arr.count == 0) {
+                [SVProgressHUD showErrorWithStatus:@"暂无评论"];
+                
+                [self addEmpty];
+
+            }else{
+                [self removeEmpty];
+            }
+            
+            self.tempArray = (NSMutableArray *)arr;
+            
+            [self.tableView reloadData];
+        }else{
+            
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+}
+
+-(void)footetBeganRefresh{
+
+    self.page ++;
+    
+    [self showStatu:@"加载中.."];
+    [_mAuntInfo getComment:_mTempBt.titleLabel.text page:self.page block:^(SResBase *retobj, NSArray *arr) {
+        [self footetEndRefresh];
+        if (retobj.msuccess) {
+            
+            if (self.tempArray.count == 0 ) {
+                [SVProgressHUD showErrorWithStatus:@"暂无评论"];
+                
+                return;
+            }
+            if (arr.count == 0 ) {
+                [SVProgressHUD showErrorWithStatus:@"暂无新评论"];
+                return;
+            }
+            
+            [self.tempArray addObjectsFromArray:arr];
+            
+            [self.tableView reloadData];
+        }else{
+            
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+}
+
 
 - (void)loadHeadView{
     
@@ -109,6 +178,7 @@
     
     
     _mHeadView.mName.text = _mAuntInfo.mName;
+    [_mHeadView.mHeadImg sd_setImageWithURL:[NSURL URLWithString:_mAuntInfo.mPhoto_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
     
     NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:_mHeadView.mStar1,_mHeadView.mStar2,_mHeadView.mStar3,_mHeadView.mStar4,_mHeadView.mStar5, nil];
     for (int i = 0; i < 5; i++) {
@@ -137,6 +207,10 @@
         [_mTableView setTableHeaderView:_msection];
         _mButtonHeight.constant = 50;
         
+        self.haveHeader = YES;
+        self.haveFooter = YES;
+        [self.tableView bringSubviewToFront:_mHeadView];
+        [self headerBeganRefresh];
     }else{
         _mselect = 0;
         _mHeadView.mYuanImg.image = [UIImage imageNamed:@"a_pj"];
@@ -144,8 +218,15 @@
         _mLine.hidden = NO;
         [_mTableView setTableHeaderView:_mhead];
         _mButtonHeight.constant = 0;
+        
+        
+        self.haveHeader = NO;
+        self.haveFooter = NO;
+        self.tableView.tableFooterView = [UIView new];
+        [_mTableView reloadData];
+        
     }
-    [_mTableView reloadData];
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -179,7 +260,7 @@
     
     if(_mselect==0)
         return 6;
-    return 10;
+    return self.tempArray.count;
 }
 
 
@@ -195,13 +276,13 @@
                 cell.mLabel.text = [NSString stringWithFormat:@"%d岁",_mAuntInfo.mAge];
                 break;
             case 1:
-                cell.mLabel.text = @"天蝎座";
+                cell.mLabel.text = _mAuntInfo.mConstellation;
                 break;
             case 2:
                 cell.mLabel.text = [NSString stringWithFormat:@"%@%@%@",_mAuntInfo.mLiving_province,_mAuntInfo.mLiving_city,_mAuntInfo.mLiving_area];
                 break;
             case 3:
-                cell.mLabel.text = [NSString stringWithFormat:@"从事月嫂工作%d年",_mAuntInfo.mWorking_years];
+                cell.mLabel.text = [NSString stringWithFormat:@"从事%@工作%d年",_mAuntInfo.mWork_type,_mAuntInfo.mWorking_years];
                 break;
             case 4:
                 cell.mLabel.text = [NSString stringWithFormat:@"现居住于%@%@%@",_mAuntInfo.mWork_province,_mAuntInfo.mWork_city,_mAuntInfo.mWork_area];
@@ -220,7 +301,9 @@
         PingJiaCell* cell = (PingJiaCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.mContent.text = @"测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据测试数据";
+        SComment *comment = [self.tempArray objectAtIndex:indexPath.row];
+        
+        [cell initCell:comment];
         
         return cell;
     }
@@ -262,6 +345,8 @@
 - (IBAction)GoPingjiaClick:(id)sender {
     
     PingJiaVC *pj = [[PingJiaVC alloc] initWithNibName:@"PingJiaVC" bundle:nil];
+    pj.mPjType = @"线上评价";
+    pj.mAunt = _mAuntInfo;
     
     [self.navigationController pushViewController:pj animated:YES];
 }

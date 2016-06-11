@@ -25,6 +25,8 @@
 - (void)initCell:(SAuntInfo *)info{
 
     _mName.text = info.mName;
+    [_mImg sd_setImageWithURL:[NSURL URLWithString:info.mPhoto_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
+    [_mWorkBt setTitle:info.mWork_type forState:UIControlStateNormal];
     [_mYearBt setTitle:[NSString stringWithFormat:@"从业%d年",info.mWorking_years] forState:UIControlStateNormal];
     _mAge.text = [NSString stringWithFormat:@"%d岁",info.mAge];
     _mPlace.text = [NSString stringWithFormat:@"%@人",info.mLiving_province];

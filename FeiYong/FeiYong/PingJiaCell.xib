@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -17,6 +17,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="Pt0-Qx-1wG">
                         <rect key="frame" x="10" y="10" width="30" height="30"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="N5b-UG-VsU"/>
                             <constraint firstAttribute="width" constant="30" id="dNa-e5-Cg3"/>
@@ -24,12 +25,14 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2i-k0-3L4">
                         <rect key="frame" x="50" y="13" width="31" height="14.5"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QKS-UH-6Pq">
                         <rect key="frame" x="254" y="8" width="51" height="24"/>
+                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
                         <state key="normal" title="月嫂" backgroundImage="a_green_bg">
@@ -39,17 +42,20 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P6M-7g-6yL">
                         <rect key="frame" x="48" y="35" width="257" height="56"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="a_qipao2" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-4k-AcF">
-                                <rect key="frame" x="0.0" y="0.0" width="249" height="56"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_qipao2" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-4k-AcF">
+                                <rect key="frame" x="0.0" y="0.0" width="257" height="56"/>
+                                <animations/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-t2-alM">
-                                <rect key="frame" x="8" y="8" width="221" height="20"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-t2-alM">
+                                <rect key="frame" x="10" y="8" width="227" height="20"/>
+                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18U-W6-bhc">
-                                <rect key="frame" x="212" y="36" width="28.5" height="12"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18U-W6-bhc">
+                                <rect key="frame" x="220.5" y="36" width="28.5" height="12"/>
+                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="571-WF-h9o"/>
                                 </constraints>
@@ -58,12 +64,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="tQi-t2-alM" secondAttribute="bottom" constant="8" id="JEz-tH-GVB"/>
                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="tQi-t2-alM" secondAttribute="trailing" constant="8" id="LMT-64-N9H"/>
                             <constraint firstItem="18U-W6-bhc" firstAttribute="top" secondItem="tQi-t2-alM" secondAttribute="bottom" constant="8" id="LaR-Gm-8Es"/>
-                            <constraint firstItem="tQi-t2-alM" firstAttribute="leading" secondItem="P6M-7g-6yL" secondAttribute="leading" constant="8" id="Nqd-Wb-bF6"/>
+                            <constraint firstItem="tQi-t2-alM" firstAttribute="leading" secondItem="P6M-7g-6yL" secondAttribute="leading" constant="10" id="Nqd-Wb-bF6"/>
                             <constraint firstAttribute="bottom" secondItem="18U-W6-bhc" secondAttribute="bottom" constant="8" id="OfS-zv-eB0"/>
                             <constraint firstItem="nHd-4k-AcF" firstAttribute="top" secondItem="P6M-7g-6yL" secondAttribute="top" id="Xf4-0E-0aR"/>
                             <constraint firstAttribute="trailing" secondItem="nHd-4k-AcF" secondAttribute="trailing" id="Y0l-nc-aDc"/>
@@ -80,6 +87,7 @@
                         </variation>
                     </view>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="Pt0-Qx-1wG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8ZF-IU-kFE"/>
                     <constraint firstItem="P6M-7g-6yL" firstAttribute="top" secondItem="H2i-k0-3L4" secondAttribute="bottom" constant="8" id="EeT-En-des"/>
@@ -99,6 +107,7 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="mContent" destination="tQi-t2-alM" id="yRV-TX-YIR"/>
                 <outlet property="mHeadImg" destination="Pt0-Qx-1wG" id="4lz-hj-dz0"/>

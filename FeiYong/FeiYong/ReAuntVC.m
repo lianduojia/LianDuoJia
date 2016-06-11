@@ -116,7 +116,7 @@
             [_mTempArray removeObjectAtIndex:indexPath.section];
             
             [_mTableView beginUpdates];
-            [_mTableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationRight];
+            [_mTableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
             [_mTableView endUpdates];
             
             [_mTableView reloadData];
@@ -204,8 +204,20 @@
 
 - (IBAction)mPayClick:(id)sender {
     
-    PayVC *pay = [[PayVC alloc] initWithNibName:@"PayVC" bundle:nil];
+    [self showStatu:@"提交中.."];
+    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark block:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+            
+            PayVC *pay = [[PayVC alloc] initWithNibName:@"PayVC" bundle:nil];
+            pay.mTempArray = _mTempArray;
+            
+            [self.navigationController pushViewController:pay animated:YES];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
     
-    [self.navigationController pushViewController:pay animated:YES];
 }
 @end
