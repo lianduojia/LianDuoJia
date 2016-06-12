@@ -25,8 +25,9 @@
     NSString *_mfwnum;//服务人数
     NSString *_mfwpl;//服务频率
     
-    NSMutableArray *_fwscarray;
-    NSMutableArray *_fwrsarray;
+    NSMutableArray *_fwscarray;  //服务时长数组
+    NSMutableArray *_fwrsarray;  //服务人数
+    NSMutableArray *_fwsdarray;  //服务时段
     
     UIButton *_mitembt1;  //年龄
     UIButton *_mitembt2;
@@ -194,6 +195,13 @@
 
 //小时工
 - (void)loadXiaoshigong{
+    
+    //服务人数数组
+    _fwsdarray = [NSMutableArray new];
+    
+    for (int i = 0; i<24; i++) {
+        [_fwsdarray addObject:[NSString stringWithFormat:@"%.2d:00",i]];
+    }
     
     //服务人数数组
     _fwrsarray = [NSMutableArray new];
@@ -378,7 +386,7 @@
             break;
         case 2:
         {
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:[[NSArray alloc] initWithObjects:@"上午", @"下午",nil]];
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:_fwsdarray];
         }
             break;
             
@@ -473,6 +481,37 @@
         
         return;
     }
+    
+    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+    rea.mDate = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
+    rea.mDetailAddress = _mdetailaddress;
+    rea.mRemark = _mRemark.text;
+    
+    switch (_mType) {
+            
+        case YUESAO:
+            rea.mType = @"月嫂";
+            break;
+        case YUERSAO:
+            rea.mType = @"育儿嫂";
+            break;
+        case BUZHUJIABAOMU:
+            rea.mType = @"不住家保姆";
+            break;
+        case ZHUJIABAOMU:
+            rea.mType = @"住家保姆";
+            break;
+        case LAORENPEIHU:
+            rea.mType = @"陪护";
+            break;
+        case XIAOSHIGONG:
+            rea.mType = @"小时工";
+            break;
+            
+        default:
+            break;
+    }
+
 
     if (_mitembt1) {
         switch ((int)_mitembt1.tag) {
@@ -536,12 +575,10 @@
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
                     _auntarr = arr;
-                    
-                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+        
                     rea.mTempArray = (NSMutableArray *)_auntarr;
-                    rea.mDate = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
-                    rea.mDetailAddress = _mdetailaddress;
-                    rea.mRemark = _mRemark.text;
+                    
+                    
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
                     [SVProgressHUD showErrorWithStatus:retobj.mmsg];
@@ -585,7 +622,6 @@
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
                     _auntarr = arr;
                     
-                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
                     rea.mTempArray = (NSMutableArray *)_auntarr;
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
@@ -616,8 +652,7 @@
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
                     _auntarr = arr;
-                    
-                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+
                     rea.mTempArray = (NSMutableArray *)_auntarr;
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
@@ -680,8 +715,7 @@
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
                     _auntarr = arr;
-                    
-                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+
                     rea.mTempArray = (NSMutableArray *)_auntarr;
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
@@ -718,9 +752,12 @@
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
                     _auntarr = arr;
-                    
-                    ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
+
                     rea.mTempArray =(NSMutableArray *) _auntarr;
+                    rea.mServiceTime = _mfwsd;
+                    rea.mServiceDuration = _mfwsc;
+                    rea.mServiceNum = _mfwnum;
+                    
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{
                     [SVProgressHUD showErrorWithStatus:retobj.mmsg];

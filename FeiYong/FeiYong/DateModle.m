@@ -109,6 +109,12 @@
 }
 @end
 
+@implementation SAddress
+
+
+
+@end
+
 
 @implementation Order
 
@@ -165,7 +171,7 @@
 }
 
 
--(void)aliPay:(void(^)(SResBase* retobj))block{
++(void)aliPay:(NSString *)title orderNo:(NSString *)orderNo price:(float)price block:(void(^)(SResBase* retobj))block{
 
     /*
      *商户的唯一的parnter和seller。
@@ -175,9 +181,9 @@
     /*============================================================================*/
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
-//    NSString *partner = @"";
-//    NSString *seller = @"";
-    NSString *privateKey = @"MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
+    NSString *partner = @"2088221624818651";
+    NSString *seller = @"2789207168@qq.com";
+    NSString *privateKey = @"MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmEwggJdAgEAAoGBAMxDELcUANF42raPmW6NhbinT0uWY+FReaTcrFVOuUngtOfCt0MijtWJarT3S0mvsrKBLZoewwkOToUWCC4aX/rp5M76K9C61fheXqbHDJYu5ndXD6PsAkXUlhtLY0IToA7E2S7viGe2zzBs5SnSj/QQRk3R882ODs6Ygqys1wMFAgMBAAECgYEAw+WJ8VtQ0ZSrhazAxMMbvRVQujh4gA6IsHEnIgWHNHA6b49R/SP2gprw6K/G19uWcRXsq0PXXycGbSLNI5IN+zpdGFVbnrPyL2Ir7o8TXJ7J5wjHdl1w0BHixQ0CgohsKdnsRpZilDmzvXRMwf81Ot/wAQubWgIHqHkyuqkSa8ECQQDsRt3gN/LG865/aa0xtgmHpY9upnmLf8rpvG9JoVwvSc8BnxaOnhm/E98vUrt1n/PKr6ZmUKF9Vc70xpoL0W9xAkEA3VAOHZTzHRhPufgBn5geJOphQHiUy+8pcUF23QIxLnmNfLsjS6t54rtCetVDgMdoxJbM+Z3H8xSr6V6t9zjq1QJAckLPF5hW2qmLUGh9bhXXQ/bnhx4Ql0qEiUYsF1JmLyQlbGZP1UZVsxbcDpmWuApTLkiFUuNZRTBS9gJ5CpAMsQJBAIezg8Q9xchsVM6KNKygQLOQB6vZhBt7/WRVqMWhh3igzdHSibTnYyhUfFIHHIoFO8d3VB4m0ijJ3xOMm41AmDUCQAlgTVGKhKOTr7addFA72cZtO5wtr1FEkwA2B3oDw8Cs9prdL5EtkDRQsIVwR8oBFDJyGvjkpQLcwqO1EMF1QLQ=";
     /*============================================================================*/
     /*============================================================================*/
     /*============================================================================*/
@@ -185,33 +191,33 @@
 //    /*
 //     *生成订单信息及签名
 //     */
-//    //将商品信息赋予AlixPayOrder的成员变量
-//    Order *order = [[Order alloc] init];
-//    order.partner = partner;
-//    order.sellerID = seller;
-//    order.outTradeNO = [self generateTradeNO]; //订单ID（由商家自行制定）
-//    order.subject = product.subject; //商品标题
-//    order.body = product.body; //商品描述
-//    order.totalFee = [NSString stringWithFormat:@"%.2f",product.price]; //商品价格
-//    order.notifyURL =  @"http://www.xxx.com"; //回调URL
-//    
-//    order.service = @"mobile.securitypay.pay";
-//    order.paymentType = @"1";
-//    order.inputCharset = @"utf-8";
-//    order.itBPay = @"30m";
-//    order.showURL = @"m.alipay.com";
+    //将商品信息赋予AlixPayOrder的成员变量
+    Order *order = [[Order alloc] init];
+    order.partner = partner;
+    order.sellerID = seller;
+    order.outTradeNO = orderNo; //订单ID（由商家自行制定）
+    order.subject = title; //商品标题
+    order.body = @"中介费"; //商品描述
+    order.totalFee = [NSString stringWithFormat:@"0.01"]; //商品价格
+    order.notifyURL =  @"http://www.xxx.com"; //回调URL
+    
+    order.service = @"mobile.securitypay.pay";
+    order.paymentType = @"1";
+    order.inputCharset = @"utf-8";
+    order.itBPay = @"30m";
+    order.showURL = @"m.alipay.com";
     
     //应用注册scheme,在AlixPayDemo-Info.plist定义URL types
-    NSString *appScheme = @"alisdkdemo";
+    NSString *appScheme = @"lianduojia";
     
     //将商品信息拼接成字符串
-    NSString *orderSpec = [self description];
+    NSString *orderSpec = [order description];
     NSLog(@"orderSpec = %@",orderSpec);
     
     //获取私钥并将商户信息签名,外部商户可以根据情况存放私钥和签名,只需要遵循RSA签名规范,并将签名字符串base64编码和UrlEncode
     id<DataSigner> signer = CreateRSADataSigner(privateKey);
     NSString *signedString = [signer signString:orderSpec];
-    
+
     //将签名成功字符串格式化为订单字符串,请严格按照该格式
     NSString *orderString = nil;
     if (signedString != nil) {
@@ -328,6 +334,27 @@
 @implementation SComment
 
 
+
+@end
+
+@implementation SOrder
+
+//根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
+-(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(_mId) forKey:@"bill_id"];
+    
+    [[APIClient sharedClient] postUrl:@"query-billno-by-billid" parameters:param call:^(SResBase *info) {
+        if(info.msuccess){
+            block(info,[info.mdata objectForKey:@"no"]);
+        }else{
+            block(info,@"");
+        }
+        
+    }];
+
+}
 
 @end
 
@@ -570,21 +597,48 @@
     }];
 }
 
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional block:(void(^)(SResBase* retobj))block{
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration block:(void(^)(SResBase* retobj,SOrder *order))block{
 
-    NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:[Util JSONString:service_date] forKey:@"service_date"];
-    [param setObject:[Util JSONString:service_address] forKey:@"service_address"];
-    [param setObject:[Util JSONString:additional] forKey:@"additional"];
-    
+    NSMutableArray *keyArr = [NSMutableArray new];
+    NSMutableArray *valueArr = [NSMutableArray new];
     for (SAuntInfo *aunt in array) {
-        [param setObject:@(aunt.mId) forKey:@"maid_id"];
+        [keyArr addObject:@"maid_id"];
+        [valueArr addObject:@(aunt.mId)];
     }
     
-    [[APIClient sharedClient] postUrl:@"agency-bill" parameters:param call:^(SResBase *info) {
+    NSMutableDictionary* param = [[NSMutableDictionary alloc] initWithObjects:valueArr forKeys:keyArr];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:service_date forKey:@"service_date"];
+    [param setObject:service_address forKey:@"service_address"];
+    
+    //小时工
+    if(service_duration){
+        [param setObject:service_duration forKey:@"service_duration"];
+    }
+    if (service_time) {
+          [param setObject:service_time forKey:@"service_time"];
+    }
+    
+    NSString *string = @"";
+    
+    if (service_time || service_duration) {
+        string = @"hour-worker-agency-bill";
+    }else{
+        string = @"agency-bill";
+    }
+    
+    
+    [[APIClient sharedClient] postUrl:string parameters:param call:^(SResBase *info) {
         
-        block(info);
+        if (info.msuccess) {
+            
+            SOrder *order =  [[SOrder alloc] initWithObj:info.mdata];
+            
+            block(info,order);
+        }else{
+        
+            block(info,nil);
+        }
     }];
 }
 

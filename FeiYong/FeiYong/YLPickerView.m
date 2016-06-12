@@ -17,6 +17,10 @@
     NSMutableDictionary *_provinceDic;
     NSMutableDictionary *_cityDic;
     
+    NSString *_provice;
+    NSString *_city;
+    NSString *_area;
+    
 }
 
 @end
@@ -34,6 +38,9 @@
     
     _provinceDic = [NSMutableDictionary new];
     _cityDic = [NSMutableDictionary new];
+    
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    _provinces = [def objectForKey:@"provinces"];
     
     [self start];
 
@@ -123,14 +130,28 @@
     }
     if(1 == component)
         [pickerView reloadComponent:2];
-//    NSInteger rowOne = [pickerView selectedRowInComponent:0];
-//    NSInteger rowTow = [pickerView selectedRowInComponent:1];
-//    NSInteger rowThree = [pickerView selectedRowInComponent:2];
-//    NSString *provinceName = _province[rowOne];
-//    NSArray *citys = _city[provinceName];
-//    NSString *cityName = citys[rowTow];
-//    NSArray *countrys = _country[cityName];
-//    NSLog(@"%@~%@~%@", _province[rowOne], citys[rowTow],countrys[rowThree]);
+    
+    NSInteger rowOne = [pickerView selectedRowInComponent:0];
+    NSInteger rowTow = [pickerView selectedRowInComponent:1];
+    NSInteger rowThree = [pickerView selectedRowInComponent:2];
+    
+    NSDictionary *dic = _provinces[rowOne];
+    
+    _provice = [dic objectForKey:@"province"];
+    
+    NSArray *citys = [dic objectForKey:@"city"];
+    
+    NSDictionary *cityDic = [citys objectAtIndex:rowTow];
+    
+    _city = [cityDic objectForKey:@"city"];
+    
+    NSArray *areas = [cityDic objectForKey:@"area"];
+    
+    NSDictionary *areaDic = [areas objectAtIndex:rowThree];
+    
+    _area = [areaDic objectForKey:@"district"];
+    
+    
 }
 
 
@@ -143,7 +164,7 @@
 - (IBAction)mSubmittClick:(id)sender {
     
     [self closeView];
-    _itblock(YES,@"北京市",@"北京市",@"朝阳区");
+    _itblock(YES,_provice,_city,_area);
 }
 
 -(void)initView:(UIView *)view block:(void(^)(BOOL flag,NSString *province,NSString *city,NSString *area))block{
@@ -288,8 +309,10 @@
 -(void)parserDidEndDocument:(NSXMLParser *)parser{
     //进入该方法就意味着解析完成，需要清理一些成员变量，同时要将数据返回给表示层（表示图控制器） 通过广播机制将数据通过广播通知投送到 表示层
     NSLog(@"====%@",_provinces);
+    
     self.mPicker.delegate = self;
     self.mPicker.dataSource = self;
+
 }
 
 

@@ -9,7 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @interface PayVC : BaseVC
+
+@property (nonatomic,strong) SOrder *mOrder;
+@property (nonatomic,strong) NSString *mTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
 @property (nonatomic,strong) NSArray *mTempArray;
+@property (weak, nonatomic) IBOutlet UILabel *mMoney;
+- (IBAction)PayClick:(id)sender;
 
 @end

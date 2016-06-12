@@ -10,6 +10,7 @@
 
 @interface AddressVC : BaseVC
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
+@property (nonatomic,strong) void(^itblock)(SAddress *address);
 - (IBAction)mAddAddressClick:(id)sender;
 
 @end

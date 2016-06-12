@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "SMS_SDK/SMSSDK.h"
+#import <AlipaySDK/AlipaySDK.h>
 
 @interface AppDelegate ()
 
@@ -25,6 +26,92 @@
     
     return YES;
 }
+
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    //    UIApplicationOpenURLOptionsOpenInPlaceKey = 0;
+    //    UIApplicationOpenURLOptionsSourceApplicationKey = "com.alipay.iphoneclient";com.tencent.xin
+    
+    if ([[options objectForKey:@"UIApplicationOpenURLOptionsSourceApplicationKey"] isEqualToString:@"com.alipay.iphoneclient"]) {
+        
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url
+                                                  standbyCallback:^(NSDictionary *resultDic) {
+                                                      
+                                                      MLLog(@"xxx:%@",resultDic);
+                                                      
+                                                      SResBase* retobj = nil;
+                                                      
+                                                      if (resultDic)
+                                                      {
+                                                          if ( [[resultDic objectForKey:@"resultStatus"] intValue] == 9000 )
+                                                          {
+                                                              SResBase* retobj = [[SResBase alloc]init];
+                                                              retobj.msuccess = YES;
+                                                              retobj.mmsg = @"支付成功";
+                                                              retobj.mcode = 0;
+                                                              [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                                                          }
+                                                          else
+                                                          {
+                                                              retobj = [SResBase infoWithError: [resultDic objectForKey:@"memo" ]];
+                                                              [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                                                          }
+                                                      }
+                                                      else
+                                                      {
+                                                          retobj = [SResBase infoWithError: @"支付出现异常"];
+                                                          [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                                                      }
+                                                  }];
+        return YES;
+        
+    }
+    return YES;
+}
+
+
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    // url:wx206e0a3244b4e469://pay/?returnKey=&ret=0 withsouce url:com.tencent.xin
+    MLLog(@"url:%@ withsouce url:%@",url,sourceApplication);
+    if ([url.host isEqualToString:@"safepay"])
+    {
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url
+                                                  standbyCallback:^(NSDictionary *resultDic) {
+                                                      
+                                                      MLLog(@"xxx:%@",resultDic);
+                                                      
+                                                      SResBase* retobj = nil;
+                                                      
+                                                      if (resultDic)
+                                                      {
+                                                          if ( [[resultDic objectForKey:@"resultStatus"] intValue] == 9000 )
+                                                          {
+                                                              SResBase* retobj = [[SResBase alloc]init];
+                                                              retobj.msuccess = YES;
+                                                              retobj.mmsg = @"支付成功";
+                                                              retobj.mcode = 0;
+                                                              [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                                                          }
+                                                          else
+                                                          {
+                                                              retobj = [SResBase infoWithError: [resultDic objectForKey:@"memo" ]];
+                                                              [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                                                          }
+                                                      }
+                                                      else
+                                                      {
+                                                          retobj = [SResBase infoWithError: @"支付出现异常"];
+                                                          [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                                                      }
+                                                  }];
+        return YES;
+    }
+   
+    return NO;
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

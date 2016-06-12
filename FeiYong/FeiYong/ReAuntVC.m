@@ -205,14 +205,15 @@
 - (IBAction)mPayClick:(id)sender {
     
     [self showStatu:@"提交中.."];
-    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark block:^(SResBase *retobj) {
+    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration block:^(SResBase *retobj,SOrder* order) {
         
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
             
             PayVC *pay = [[PayVC alloc] initWithNibName:@"PayVC" bundle:nil];
             pay.mTempArray = _mTempArray;
-            
+            pay.mOrder = order;
+            pay.mTitle = _mType;
             [self.navigationController pushViewController:pay animated:YES];
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];

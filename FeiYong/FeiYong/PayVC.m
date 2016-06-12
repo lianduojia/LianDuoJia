@@ -42,6 +42,8 @@
     if (DEVICE_Width == 320) {
         _height = 150;
     }
+    
+    _mMoney.text = [NSString stringWithFormat:@"¥%d",_mOrder.mAmount];
 }
 
 #pragma mark -- UICollectionViewDataSource
@@ -108,5 +110,22 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+- (IBAction)PayClick:(id)sender {
+    
+    [_mOrder getOrderNo:^(SResBase *retobj, NSString *orderNo) {
+        if (retobj.msuccess) {
+            
+            [Order aliPay:_mTitle orderNo:orderNo price:_mOrder.mAmount block:^(SResBase *retobj) {
+                if (retobj.msuccess) {
+                    NSLog(@"支付成功");
+                }
+            }];
+        }
+    }];
+}
+
+
+
 
 @end

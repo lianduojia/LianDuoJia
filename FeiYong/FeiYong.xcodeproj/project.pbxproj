@@ -33,7 +33,6 @@
 		B24B27A31D00473D001BC50A /* MD5DataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B27971D00473D001BC50A /* MD5DataSigner.m */; };
 		B24B27A41D00473D001BC50A /* NSDataEx.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B27991D00473D001BC50A /* NSDataEx.m */; };
 		B24B27A51D00473D001BC50A /* openssl_wrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B279B1D00473D001BC50A /* openssl_wrapper.m */; };
-		B24B27A61D00473D001BC50A /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B279D1D00473D001BC50A /* RSADataSigner.m */; };
 		B24B27A71D00473D001BC50A /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B279F1D00473D001BC50A /* RSADataVerifier.m */; };
 		B291E8511D07BFB60056C7E1 /* AuntDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B291E84F1D07BFB60056C7E1 /* AuntDetailCell.m */; };
 		B291E8521D07BFB60056C7E1 /* AuntDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B291E8501D07BFB60056C7E1 /* AuntDetailCell.xib */; };
@@ -131,6 +130,7 @@
 		B2D2C02C1CFE8C1A00D4BF1A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C0211CFE8C1A00D4BF1A /* AFURLResponseSerialization.m */; };
 		B2D2C02D1CFE8C1A00D4BF1A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C0231CFE8C1A00D4BF1A /* AFURLSessionManager.m */; };
 		B2D2C02F1CFE8FFA00D4BF1A /* NSObject+myobj.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C02E1CFE8FFA00D4BF1A /* NSObject+myobj.m */; };
+		B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */; };
 		B2D6A6E11D090EF200899042 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D6A6DF1D090EF200899042 /* OrderCell.m */; };
 		B2D6A6E21D090EF200899042 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D6A6E01D090EF200899042 /* OrderCell.xib */; };
 		B2D6A6E51D091F9700899042 /* OrderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D6A6E41D091F9700899042 /* OrderSectionView.m */; };
@@ -238,8 +238,6 @@
 		B24B27991D00473D001BC50A /* NSDataEx.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataEx.m; sourceTree = "<group>"; };
 		B24B279A1D00473D001BC50A /* openssl_wrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = openssl_wrapper.h; sourceTree = "<group>"; };
 		B24B279B1D00473D001BC50A /* openssl_wrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = openssl_wrapper.m; sourceTree = "<group>"; };
-		B24B279C1D00473D001BC50A /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
-		B24B279D1D00473D001BC50A /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		B24B279E1D00473D001BC50A /* RSADataVerifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataVerifier.h; sourceTree = "<group>"; };
 		B24B279F1D00473D001BC50A /* RSADataVerifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataVerifier.m; sourceTree = "<group>"; };
 		B24B27F51D0049A7001BC50A /* aes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = aes.h; sourceTree = "<group>"; };
@@ -476,6 +474,8 @@
 		B2D2C0231CFE8C1A00D4BF1A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		B2D2C02E1CFE8FFA00D4BF1A /* NSObject+myobj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+myobj.m"; sourceTree = "<group>"; };
 		B2D2C0301CFE901F00D4BF1A /* NSObject+myobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+myobj.h"; sourceTree = "<group>"; };
+		B2D4F0A21D0D6A27001E3B51 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
+		B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		B2D6A6DE1D090EF200899042 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
 		B2D6A6DF1D090EF200899042 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
 		B2D6A6E01D090EF200899042 /* OrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
@@ -650,8 +650,8 @@
 				B24B27991D00473D001BC50A /* NSDataEx.m */,
 				B24B279A1D00473D001BC50A /* openssl_wrapper.h */,
 				B24B279B1D00473D001BC50A /* openssl_wrapper.m */,
-				B24B279C1D00473D001BC50A /* RSADataSigner.h */,
-				B24B279D1D00473D001BC50A /* RSADataSigner.m */,
+				B2D4F0A21D0D6A27001E3B51 /* RSADataSigner.h */,
+				B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */,
 				B24B279E1D00473D001BC50A /* RSADataVerifier.h */,
 				B24B279F1D00473D001BC50A /* RSADataVerifier.m */,
 			);
@@ -1457,6 +1457,7 @@
 				B2DDFBBA1CF7035F00D92DEA /* NavBar.m in Sources */,
 				B2DDFC051CF7126600D92DEA /* UIImage+WebP.m in Sources */,
 				B2D2C02A1CFE8C1A00D4BF1A /* AFURLConnectionOperation.m in Sources */,
+				B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */,
 				B2DDFBB21CF7001C00D92DEA /* UIScrollView+MJRefresh.m in Sources */,
 				B291E88A1D084DDD0056C7E1 /* SettingVC.m in Sources */,
 				B2DDFC061CF7126600D92DEA /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -1491,7 +1492,6 @@
 				B2DDFC091CF7126600D92DEA /* UIView+WebCacheOperation.m in Sources */,
 				B2D2C0291CFE8C1A00D4BF1A /* AFSecurityPolicy.m in Sources */,
 				B291E8851D084BBE0056C7E1 /* OpinionVC.m in Sources */,
-				B24B27A61D00473D001BC50A /* RSADataSigner.m in Sources */,
 				B2CEE2B41D0534FE0062EC59 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				B291E8511D07BFB60056C7E1 /* AuntDetailCell.m in Sources */,
 				B24B27A11D00473D001BC50A /* DataSigner.m in Sources */,
@@ -1708,6 +1708,7 @@
 				GCC_PREFIX_HEADER = FeiYong/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/FeiYong";
 				INFOPLIST_FILE = FeiYong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1735,6 +1736,7 @@
 				GCC_PREFIX_HEADER = FeiYong/PrefixHeader.pch;
 				HEADER_SEARCH_PATHS = "$(SRCROOT)/FeiYong";
 				INFOPLIST_FILE = FeiYong/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

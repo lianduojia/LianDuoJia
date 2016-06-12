@@ -8,10 +8,15 @@
 
 #import "ChoseAddressVC.h"
 #import "YLPickerView.h"
+#import "AddressVC.h"
 
 @interface ChoseAddressVC (){
 
     YLPickerView *_picker;
+    
+    NSString *_province;
+    NSString *_city;
+    NSString *_area;
 }
 
 @end
@@ -27,6 +32,18 @@
     [self.navBar.mRightButton setImage:[UIImage imageNamed:@"s_address1"] forState:UIControlStateNormal];
     
     _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
+}
+
+- (void)rightBtnTouched:(id)sender{
+
+    AddressVC *address = [[AddressVC alloc] initWithNibName:@"AddressVC" bundle:nil];
+    
+    address.itblock = ^(SAddress *adddress){
+    
+        
+    };
+    
+    [self pushViewController:address];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -46,8 +63,21 @@
 
 - (IBAction)mSubmitClick:(id)sender {
     
+    if (_province.length == 0 || _city.length == 0 || _area.length == 0) {
+        
+        [SVProgressHUD showErrorWithStatus:@"请选择地区"];
+        
+        return;
+    }
+    
+    if (_mDetailAdd.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请填写详细地址"];
+        
+        return;
+    }
+    
     if (_itblock) {
-        _itblock(@"开阳桥",@"北京市",@"北京市",@"朝阳区");
+        _itblock(_mDetailAdd.text,_province,_city,_area);
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -58,6 +88,9 @@
         
         if (flag) {
             
+            _province = province;
+            _city = city;
+            _area = area;
             _mAdd.text = [NSString stringWithFormat:@"%@%@%@",province,city,area];
         }
     }];

@@ -39,6 +39,17 @@
 
 @end
 
+@interface SAddress : SAutoEx
+
+@property (nonatomic,strong) NSString*  mName;
+@property (nonatomic,strong) NSString*  mPhone;
+@property (nonatomic,strong) NSString*  mProvince;
+@property (nonatomic,strong) NSString*  mCity;
+@property (nonatomic,strong) NSString*  mArea;
+@property (nonatomic,strong) NSString*  mDetailAddress;
+
+@end
+
 @interface Order : SAutoEx
 
 
@@ -106,7 +117,7 @@
 //业务扩展参数，支付宝特定的业务需要添加该字段，json格式。 商户接入时和支付宝协商确定。
 @property (nonatomic, strong) NSMutableDictionary *outContext;
 
--(void)aliPay:(void(^)(SResBase* retobj))block;
++(void)aliPay:(NSString *)title orderNo:(NSString *)orderNo price:(float)price block:(void(^)(SResBase* retobj))block;
 
 
 @end
@@ -153,6 +164,22 @@
 @property (nonatomic,strong)                NSString* mComment;                  //评价内容
 @property (nonatomic,strong)                NSString* mComment_type;             //评价类型
 @property (nonatomic,strong)                NSString* mDate;                     //评价时间
+
+@end
+
+@interface SOrder : SAutoEx
+
+//"amount":5000,"id":61,"additional":"要求","status":"待支付","no":"-","maid":[{"id":3,"photo_url":"","name":"月嫂1","pay":4000},{"id":4,"photo_url":"","name":"保姆2","pay":5000}],"employer":2,"service_address":"xxxxx","service_date":"2016-03-07","goods_info":"中介费"}}
+@property (nonatomic,assign)                int         mId;
+@property (nonatomic,assign)                int         mAmount;
+@property (nonatomic,strong)                NSString*   mAdditional;
+@property (nonatomic,strong)                NSString*   mStatus;
+@property (nonatomic,strong)                NSString*   mNo;
+@property (nonatomic,strong)                NSArray*    mMaid;
+
+//根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
+-(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block;
+
 
 @end
 
@@ -209,7 +236,9 @@
 -(void)submitComment:(NSString *)comment_type comment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block;
 
 //点击支付中介费生成订单(小时工以外工种订单)	/agency-bill	employer_id=xx(用户ID)&maid_id=3(准备预约阿姨的id)&maid_id=4(准备预约阿姨的id)&maid_id=5(准备预约阿姨的id)&maid_id=7(准备预约阿姨的id)&service_date=2016-03-03(服务时间,格式为yyyy-MM-dd)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对阿姨的附加要求)
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional block:(void(^)(SResBase* retobj))block;
+
+//&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时)
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 @end
 
