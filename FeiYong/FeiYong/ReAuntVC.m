@@ -60,6 +60,7 @@
 
 }
 
+
 - (void)firstLoad{
 
     bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];

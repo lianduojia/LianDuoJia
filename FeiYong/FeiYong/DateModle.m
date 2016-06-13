@@ -109,6 +109,38 @@
 }
 @end
 
+SAppInfo* g_appinfo = nil;
+@implementation SAppInfo
+
++(SAppInfo*)shareClient{
+
+    if( g_appinfo ) return g_appinfo;
+    @synchronized(self) {
+        
+        if ( !g_appinfo )
+        {
+            SAppInfo* t = [SAppInfo loadAppInfo];
+            g_appinfo = t;
+        }
+        return g_appinfo;
+    }
+
+}
+
++(SAppInfo*)loadAppInfo
+{
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    NSDictionary* dat = [def objectForKey:@"gappinfo"];
+    SAppInfo* tt = SAppInfo.new;
+    if( dat )
+    {
+        
+    }
+    return tt;
+}
+
+@end
+
 @implementation SAddress
 
 
@@ -224,8 +256,48 @@
         orderString = [NSString stringWithFormat:@"%@&sign=\"%@\"&sign_type=\"%@\"",
                        orderSpec, signedString, @"RSA"];
         
+        [SAppInfo shareClient].mPayBlock = ^(SResBase *retobj) {
+            block(retobj);//再回调获取
+            [SAppInfo shareClient].mPayBlock = nil;
+            
+        };
+        
         [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
-            NSLog(@"reslut = %@",resultDic);
+            
+            NSLog(@"xxx:%@",resultDic);
+            
+            SResBase* retobj = nil;
+            
+            if (resultDic)
+            {
+                if ( [[resultDic objectForKey:@"resultStatus"] intValue] == 9000 )
+                {
+                    retobj = [[SResBase alloc]init];
+                    retobj.msuccess = YES;
+                    retobj.mmsg = @"支付成功";
+                    retobj.mcode = 0;
+                }
+                else
+                {
+                    retobj = [SResBase infoWithError: [resultDic objectForKey:@"memo" ]];
+                }
+            }
+            else
+            {
+                retobj = [SResBase infoWithError: @"支付出现异常"];
+            }
+            
+            if( [SAppInfo shareClient].mPayBlock )
+            {
+                [SAppInfo shareClient].mPayBlock( retobj );
+            }
+            else
+            {
+                MLLog(@"alipay block nil?");
+            }
+
+
+            block(retobj);
         }];
     }
 
@@ -354,6 +426,76 @@
         
     }];
 
+}
+
+
+-(void)makeAppointment:(NSString *)meet_date meet_time:(NSString *)meet_time meet_location:(NSString *)meet_location block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(_mId) forKey:@"bill_id"];
+    [param setObject:meet_date forKey:@"meet_date"];
+    [param setObject:meet_time forKey:@"meet_time"];
+    [param setObject:meet_location forKey:@"meet_location"];
+    
+    [[APIClient sharedClient] postUrl:@"make-an-appointment" parameters:param call:^(SResBase *info) {
+        block(info);
+    }];
+}
+
+//完成订单中介费支付	/complete-agency-pay	bill_id=xxxx(订单id)
+-(void)payOK:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(_mId) forKey:@"bill_id"];
+    
+    [[APIClient sharedClient] postUrl:@"complete-agency-pay" parameters:param call:^(SResBase *info) {
+        block(info);
+    }];
+
+}
+
+///query-bill	employer_id=2(用户的id)  type=(0:待支付 )
++(void)getOrderList:(int)type block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    
+    NSString *string = @"";
+    
+    switch (type) {
+        case 0:
+            string = @"query-bill";
+            break;
+        case 1:
+            string = @"query-complete-bill";
+            [param setObject:@"中介费" forKey:@"bill_type"];
+            break;
+            
+        default:
+            break;
+    }
+    
+    [[APIClient sharedClient] postUrl:string parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SOrder *order = [[SOrder alloc] initWithObj:dic];
+                    
+                    [array addObject:order];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+
+    }];
 }
 
 @end

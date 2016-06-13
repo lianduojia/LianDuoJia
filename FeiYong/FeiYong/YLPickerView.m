@@ -39,9 +39,6 @@
     _provinceDic = [NSMutableDictionary new];
     _cityDic = [NSMutableDictionary new];
     
-    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
-    _provinces = [def objectForKey:@"provinces"];
-    
     [self start];
 
 }
@@ -178,7 +175,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect rect2 = self.view.frame;
-        rect2.origin.y = DEVICE_Height-216;
+        rect2.origin.y = DEVICE_Height-266;
         self.view.frame = rect2;
     }];
     

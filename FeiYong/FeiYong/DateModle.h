@@ -39,6 +39,15 @@
 
 @end
 
+@interface SAppInfo : SAutoEx
+
+//支付需要跳出到APP,这里记录回调
+@property (nonatomic,strong)    void(^mPayBlock)(SResBase* resb);
+
++(SAppInfo*)shareClient;
+
+@end
+
 @interface SAddress : SAutoEx
 
 @property (nonatomic,strong) NSString*  mName;
@@ -169,6 +178,8 @@
 
 @interface SOrder : SAutoEx
 
+//{"amount":7000,"no":"BL2016061000001","maids":["月嫂3","月嫂3","月嫂3","月嫂3"],"maid_count":4,"goods_info":"中介费"}
+
 //"amount":5000,"id":61,"additional":"要求","status":"待支付","no":"-","maid":[{"id":3,"photo_url":"","name":"月嫂1","pay":4000},{"id":4,"photo_url":"","name":"保姆2","pay":5000}],"employer":2,"service_address":"xxxxx","service_date":"2016-03-07","goods_info":"中介费"}}
 @property (nonatomic,assign)                int         mId;
 @property (nonatomic,assign)                int         mAmount;
@@ -176,10 +187,21 @@
 @property (nonatomic,strong)                NSString*   mStatus;
 @property (nonatomic,strong)                NSString*   mNo;
 @property (nonatomic,strong)                NSArray*    mMaid;
-
+@property (nonatomic,strong)                NSArray*    mMaids;
+@property (nonatomic,assign)                int         mMaid_count;
+@property (nonatomic,strong)                NSString*   mGoods_info;
+@property (nonatomic,strong)                NSString*   mWork_type; //工作类型
 //根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
 -(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block;
 
+//约见阿姨,确定预约日期、时间、地点	/make-an-appointment	bill_id=xxxx(订单id)&meet_date=2016-06-12(预约日期)&meet_time=09:30(预约时间)&meet_location=xxxxxxxxxxx(预约地点)
+-(void)makeAppointment:(NSString *)meet_date meet_time:(NSString *)meet_time meet_location:(NSString *)meet_location block:(void(^)(SResBase* retobj))block;
+
+//完成订单中介费支付	/complete-agency-pay	bill_id=xxxx(订单id)
+-(void)payOK:(void(^)(SResBase* retobj))block;
+
+//订单列表
++(void)getOrderList:(int)type block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 @end
 

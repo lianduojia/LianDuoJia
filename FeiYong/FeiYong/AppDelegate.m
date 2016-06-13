@@ -10,7 +10,11 @@
 #import "SMS_SDK/SMSSDK.h"
 #import <AlipaySDK/AlipaySDK.h>
 
-@interface AppDelegate ()
+@interface AppDelegate (){
+
+    
+    UIScrollView *_scrollView;
+}
 
 @end
 
@@ -24,7 +28,49 @@
     [SMSSDK registerApp:@"1390bb8412ad4"
              withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
     
+    if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
+        
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
+        _scrollView.backgroundColor = [UIColor whiteColor];
+        
+        [self.window.rootViewController.view addSubview:_scrollView];
+        
+        
+        _scrollView.contentSize = CGSizeMake(DEVICE_Width*3, DEVICE_Height);
+        _scrollView.showsHorizontalScrollIndicator = NO;
+        _scrollView.showsVerticalScrollIndicator = NO;
+        _scrollView.pagingEnabled = YES;
+        
+        for (int i = 0; i<3; i++) {
+            UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(i*DEVICE_Width, 0, DEVICE_Width, DEVICE_Height)];
+            
+            if (DeviceIsiPhone4) {
+                imgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"guide4-%d",i+1]];
+            }else{
+                imgV.image = [UIImage imageNamed:[NSString stringWithFormat:@"guide-%d",i+1]];
+            }
+            
+            if (i==2) {
+                
+                imgV.userInteractionEnabled = YES;
+                UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
+                [imgV addGestureRecognizer:tap];
+            }
+            
+            [_scrollView addSubview:imgV];
+        }
+        
+    }else{
+        NSLog(@"不是第一次启动");
+    }
+    
     return YES;
+}
+
+-(void)CloseFirst{
+    
+    [_scrollView removeFromSuperview];
 }
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
@@ -45,7 +91,7 @@
                                                       {
                                                           if ( [[resultDic objectForKey:@"resultStatus"] intValue] == 9000 )
                                                           {
-                                                              SResBase* retobj = [[SResBase alloc]init];
+                                                              retobj = [[SResBase alloc]init];
                                                               retobj.msuccess = YES;
                                                               retobj.mmsg = @"支付成功";
                                                               retobj.mcode = 0;
@@ -62,6 +108,16 @@
                                                           retobj = [SResBase infoWithError: @"支付出现异常"];
                                                           [SVProgressHUD showErrorWithStatus:retobj.mmsg];
                                                       }
+                                                      
+                                                      if( [SAppInfo shareClient].mPayBlock )
+                                                      {
+                                                          [SAppInfo shareClient].mPayBlock( retobj );
+                                                      }
+                                                      else
+                                                      {
+                                                          MLLog(@"alipay block nil?");
+                                                      }
+
                                                   }];
         return YES;
         
@@ -88,7 +144,7 @@
                                                       {
                                                           if ( [[resultDic objectForKey:@"resultStatus"] intValue] == 9000 )
                                                           {
-                                                              SResBase* retobj = [[SResBase alloc]init];
+                                                              retobj = [[SResBase alloc]init];
                                                               retobj.msuccess = YES;
                                                               retobj.mmsg = @"支付成功";
                                                               retobj.mcode = 0;
@@ -105,6 +161,16 @@
                                                           retobj = [SResBase infoWithError: @"支付出现异常"];
                                                           [SVProgressHUD showErrorWithStatus:retobj.mmsg];
                                                       }
+                                                      
+                                                      if( [SAppInfo shareClient].mPayBlock )
+                                                      {
+                                                          [SAppInfo shareClient].mPayBlock( retobj );
+                                                      }
+                                                      else
+                                                      {
+                                                          MLLog(@"alipay block nil?");
+                                                      }
+
                                                   }];
         return YES;
     }

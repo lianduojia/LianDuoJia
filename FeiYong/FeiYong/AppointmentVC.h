@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppointmentVC : UIViewController
+@interface AppointmentVC : BaseVC
 
+@property (nonatomic,strong) SOrder *mOrder;
+@property (nonatomic,strong) NSArray *mTempArray;
+@property (weak, nonatomic) IBOutlet UILabel *mName;
+@property (weak, nonatomic) IBOutlet UILabel *mDay;
+@property (weak, nonatomic) IBOutlet UILabel *mTime;
+@property (weak, nonatomic) IBOutlet UITextField *mAddress;
+- (IBAction)ChoseDayClick:(id)sender;
+- (IBAction)ChoseTimeClick:(id)sender;
+- (IBAction)SubmitClick:(id)sender;
 @end

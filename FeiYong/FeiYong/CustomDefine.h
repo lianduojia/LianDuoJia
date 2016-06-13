@@ -9,6 +9,8 @@
 #ifndef CustomDefine_h
 #define CustomDefine_h
 
+#define DeviceIsiPhone4				([[UIScreen mainScreen] bounds].size.height == 480.0)
+
 #define DEVICE_NavBar_Height            (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0)?64.0:44.0f)
 
 #define DEVICE_TabBar_Height            (50.0)

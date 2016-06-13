@@ -9,6 +9,7 @@
 #import "OrderVC.h"
 #import "OrderCell.h"
 #import "OrderSectionView.h"
+#import "AppointmentVC.h"
 
 #define SECTION_HEIGHT 42
 
@@ -24,6 +25,12 @@
     NSMutableArray *_tablearry;
     
     int _nowindex;
+    
+    //数据
+    NSMutableArray *_dataArr;
+    NSMutableArray *_dataArr2;
+    NSMutableArray *_dataArr3;
+    NSMutableArray *_dataArr4;
 }
 
 @end
@@ -42,6 +49,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    _dataArr = [NSMutableArray new];
+    _dataArr2 = [NSMutableArray new];
+    _dataArr3 = [NSMutableArray new];
+    _dataArr4 = [NSMutableArray new];
+    
     self.hiddenBackBtn = YES;
     self.navTitle = @"订单";
     
@@ -96,9 +109,14 @@
     
     _tempbt = bt;
     
+    if (_nowindex != index) {
+        [_nowtableview headerBeginRefreshing];
+    }
+    
     _nowindex = index;
     
-    NSLog(@"_______%.2f",x);
+    
+    
 }
 
 - (void)loadMyView{
@@ -146,11 +164,33 @@
     }
     
     _nowtableview = [_tablearry objectAtIndex:0];
+    
+    [_nowtableview headerBeginRefreshing];
 }
 
 - (void)headerBeganRefresh{
+    
+    [self showStatu:@"加载中.."];
+    [SOrder getOrderList:_nowindex block:^(SResBase *retobj, NSArray *arr) {
+       
+        [_nowtableview headerEndRefreshing];
+        if (retobj.msuccess){
+            
+            [SVProgressHUD dismiss];
+            if (_nowindex == 0) {
+                
+                _dataArr = (NSMutableArray *)arr;
+            }
+            
+            [_nowtableview reloadData];
+            
+        }else{
+        
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+       
+    }];
 
-    [_nowtableview headerEndRefreshing];
 }
 
 - (void)footetBeganRefresh{
@@ -158,7 +198,25 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 5;
+    
+    switch ((int)tableView.tag) {
+        case 10:
+            return _dataArr.count;
+            break;
+        case 11:
+           
+            break;
+        case 12:
+           
+            break;
+        case 13:
+            
+            break;
+            
+        default:
+            break;
+    }
+    return 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -189,7 +247,15 @@
     
     switch ((int)tableView.tag) {
         case 10:
+        {
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+            
+            SOrder *order = [_dataArr objectAtIndex:indexPath.section];
+            [cell initCell:order];
+            cell.mButton.tag = indexPath.section;
+            [cell.mButton addTarget:self action:@selector(PayClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+        }
             break;
         case 11:
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"yycell"];
@@ -205,10 +271,38 @@
         default:
             break;
     }
+    
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
+}
+
+-(void)PayClick:(UIButton *)sender{
+
+    SOrder *order = [_dataArr objectAtIndex:(int)sender.tag];
+    
+    NSString *string = @"中介费";
+    if (order.mWork_type.length>0) {
+        string = order.mWork_type;
+    }
+    
+    [Order aliPay:string orderNo:order.mNo price:order.mAmount block:^(SResBase *retobj) {
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+            
+            AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
+            appoint.mOrder = order;
+            [self pushViewController:appoint];
+            
+        }else{
+            
+            [SVProgressHUD showErrorWithStatus:@"支付失败"];
+            
+        }
+    }];
+
+
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{

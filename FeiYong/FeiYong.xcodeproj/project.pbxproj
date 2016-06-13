@@ -130,6 +130,8 @@
 		B2D2C02C1CFE8C1A00D4BF1A /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C0211CFE8C1A00D4BF1A /* AFURLResponseSerialization.m */; };
 		B2D2C02D1CFE8C1A00D4BF1A /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C0231CFE8C1A00D4BF1A /* AFURLSessionManager.m */; };
 		B2D2C02F1CFE8FFA00D4BF1A /* NSObject+myobj.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D2C02E1CFE8FFA00D4BF1A /* NSObject+myobj.m */; };
+		B2D4BD0E1D0E62B000B1E3FA /* YLDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D4BD0D1D0E62B000B1E3FA /* YLDatePickerView.xib */; };
+		B2D4BD111D0E65CB00B1E3FA /* YLDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */; };
 		B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */; };
 		B2D6A6E11D090EF200899042 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D6A6DF1D090EF200899042 /* OrderCell.m */; };
 		B2D6A6E21D090EF200899042 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D6A6E01D090EF200899042 /* OrderCell.xib */; };
@@ -474,6 +476,9 @@
 		B2D2C0231CFE8C1A00D4BF1A /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		B2D2C02E1CFE8FFA00D4BF1A /* NSObject+myobj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+myobj.m"; sourceTree = "<group>"; };
 		B2D2C0301CFE901F00D4BF1A /* NSObject+myobj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+myobj.h"; sourceTree = "<group>"; };
+		B2D4BD0D1D0E62B000B1E3FA /* YLDatePickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YLDatePickerView.xib; sourceTree = "<group>"; };
+		B2D4BD0F1D0E65CB00B1E3FA /* YLDatePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLDatePickerView.h; sourceTree = "<group>"; };
+		B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDatePickerView.m; sourceTree = "<group>"; };
 		B2D4F0A21D0D6A27001E3B51 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
 		B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
 		B2D6A6DE1D090EF200899042 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
@@ -995,6 +1000,9 @@
 				4FC4FCCC1D0C29C70000A9A0 /* YLPickerView.h */,
 				4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */,
 				4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */,
+				B2D4BD0F1D0E65CB00B1E3FA /* YLDatePickerView.h */,
+				B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */,
+				B2D4BD0D1D0E62B000B1E3FA /* YLDatePickerView.xib */,
 			);
 			name = Ext;
 			sourceTree = "<group>";
@@ -1420,6 +1428,7 @@
 				B2DDFB6B1CF6C19B00D92DEA /* Main.storyboard in Resources */,
 				B291E8521D07BFB60056C7E1 /* AuntDetailCell.xib in Resources */,
 				B2D6A6FB1D09437700899042 /* payCell.xib in Resources */,
+				B2D4BD0E1D0E62B000B1E3FA /* YLDatePickerView.xib in Resources */,
 				B2CF56231D06EB270091B42A /* ReAuntVC.xib in Resources */,
 				B291E87C1D0843B80056C7E1 /* AddressVC.xib in Resources */,
 				B291E8701D0825A30056C7E1 /* AddressCell.xib in Resources */,
@@ -1476,6 +1485,7 @@
 				B2DDFB6E1CF6C19B00D92DEA /* FeiYong.xcdatamodeld in Sources */,
 				B2DDFBB11CF7001C00D92DEA /* UIScrollView+MJExtension.m in Sources */,
 				B2CF56121D0678650091B42A /* UIColor+JFColor.m in Sources */,
+				B2D4BD111D0E65CB00B1E3FA /* YLDatePickerView.m in Sources */,
 				B2D2C0281CFE8C1A00D4BF1A /* AFNetworkReachabilityManager.m in Sources */,
 				B2CD75491CFD817500247403 /* TAPageControl.m in Sources */,
 				B2D2C0251CFE8C1A00D4BF1A /* AFHTTPRequestOperation.m in Sources */,

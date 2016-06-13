@@ -25,6 +25,10 @@
     NSString *_mfwnum;//服务人数
     NSString *_mfwpl;//服务频率
     
+    NSString *_province;
+    NSString *_city;
+    NSString *_area;
+    
     NSMutableArray *_fwscarray;  //服务时长数组
     NSMutableArray *_fwrsarray;  //服务人数
     NSMutableArray *_fwsdarray;  //服务时段
@@ -376,6 +380,9 @@
             ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
             ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
                 
+                _province = provice;
+                _city = city;
+                _area = area;
                 _mdetailaddress = address;
                 _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
                 
@@ -570,7 +577,7 @@
             }
             
             [self showStatu:@"操作中.."];
-            [SAuntInfo findMatron:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" have_auth:iszhengshu block:^(SResBase *retobj, NSArray *arr) {
+            [SAuntInfo findMatron:0 work_province:_province work_city:_city work_area:_area have_auth:iszhengshu block:^(SResBase *retobj, NSArray *arr) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -616,7 +623,7 @@
             }
             
             [self showStatu:@"操作中.."];
-            [SAuntInfo findChildCare:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:type block:^(SResBase *retobj, NSArray *arr) {
+            [SAuntInfo findChildCare:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:type block:^(SResBase *retobj, NSArray *arr) {
                
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -647,7 +654,7 @@
             if(_mType == ZHUJIABAOMU)
                 iszhujia = @"住家";
             [self showStatu:@"操作中.."];
-            [SAuntInfo findNurse:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:iszhujia block:^(SResBase *retobj, NSArray *arr) {
+            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia block:^(SResBase *retobj, NSArray *arr) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -710,7 +717,8 @@
                 object = @"病人";
             }
 
-            [SAuntInfo findAccompany:0 work_province:@"北京市"  work_city:@"北京市"  work_area:@"朝阳区" min_age:_minage max_age:_maxage over_night:time sex:sex care_type:object block:^(SResBase *retobj, NSArray *arr) {
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findAccompany:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:time sex:sex care_type:object block:^(SResBase *retobj, NSArray *arr) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -747,7 +755,8 @@
             
             int num = [[_mfwnum stringByReplacingOccurrencesOfString:@"人" withString:@""] intValue];
             
-            [SAuntInfo findHourWorker:0 work_province:@"北京市" work_city:@"北京市" work_area:@"朝阳区" count:num block:^(SResBase *retobj, NSArray *arr) {
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num block:^(SResBase *retobj, NSArray *arr) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];

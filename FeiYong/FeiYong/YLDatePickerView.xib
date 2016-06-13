@@ -5,26 +5,12 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="YLPickerView">
-            <connections>
-                <outlet property="mCancel" destination="JfZ-WO-6Wd" id="vit-db-gcZ"/>
-                <outlet property="mPicker" destination="NK3-nK-6mX" id="Y9b-qh-buY"/>
-                <outlet property="mSubmit" destination="R5I-o2-RLr" id="rMV-Ye-LqU"/>
-                <outlet property="view" destination="3sD-pd-7XW" id="lG7-1b-ngC"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="3sD-pd-7XW">
+        <view contentMode="scaleToFill" id="3sD-pd-7XW" customClass="YLDatePickerView">
             <rect key="frame" x="0.0" y="0.0" width="320" height="266"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NK3-nK-6mX">
-                    <rect key="frame" x="0.0" y="50" width="320" height="216"/>
-                    <animations/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="216" id="uMB-So-PbZ"/>
-                    </constraints>
-                </pickerView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Sf8-qG-tcP">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <subviews>
@@ -34,9 +20,6 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                             <state key="normal" title="取消"/>
-                            <connections>
-                                <action selector="mCancelClick:" destination="-1" eventType="touchUpInside" id="lQH-aN-5YE"/>
-                            </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5I-o2-RLr">
                             <rect key="frame" x="258" y="0.0" width="62" height="50"/>
@@ -44,9 +27,6 @@
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <inset key="contentEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                             <state key="normal" title="确定"/>
-                            <connections>
-                                <action selector="mSubmittClick:" destination="-1" eventType="touchUpInside" id="Msy-Ew-Sle"/>
-                            </connections>
                         </button>
                     </subviews>
                     <animations/>
@@ -62,19 +42,33 @@
                         <constraint firstItem="JfZ-WO-6Wd" firstAttribute="top" secondItem="Sf8-qG-tcP" secondAttribute="top" id="wrm-BX-gKq"/>
                     </constraints>
                 </view>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="hjl-6H-D3R">
+                    <rect key="frame" x="0.0" y="50" width="320" height="216"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="216" id="Dmc-XY-8eJ"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="487482054.83509201">
+                        <!--2016-06-13 03:40:54 +0000-->
+                    </date>
+                </datePicker>
             </subviews>
             <animations/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="Sf8-qG-tcP" secondAttribute="trailing" id="28i-Jo-Gn8"/>
-                <constraint firstItem="NK3-nK-6mX" firstAttribute="leading" secondItem="3sD-pd-7XW" secondAttribute="leading" id="AqV-E9-0Uy"/>
                 <constraint firstItem="Sf8-qG-tcP" firstAttribute="top" secondItem="3sD-pd-7XW" secondAttribute="top" id="Dcq-3Q-XFQ"/>
-                <constraint firstAttribute="bottom" secondItem="NK3-nK-6mX" secondAttribute="bottom" id="Mhb-ds-6ph"/>
+                <constraint firstItem="hjl-6H-D3R" firstAttribute="top" secondItem="Sf8-qG-tcP" secondAttribute="bottom" id="OPe-Ve-iPN"/>
                 <constraint firstItem="Sf8-qG-tcP" firstAttribute="leading" secondItem="3sD-pd-7XW" secondAttribute="leading" id="RA8-uw-vdU"/>
-                <constraint firstAttribute="trailing" secondItem="NK3-nK-6mX" secondAttribute="trailing" id="VLl-kY-sEU"/>
-                <constraint firstItem="NK3-nK-6mX" firstAttribute="top" secondItem="Sf8-qG-tcP" secondAttribute="bottom" id="iaj-zn-ReP"/>
+                <constraint firstAttribute="trailing" secondItem="hjl-6H-D3R" secondAttribute="trailing" id="SBB-Xe-26g"/>
+                <constraint firstItem="hjl-6H-D3R" firstAttribute="leading" secondItem="3sD-pd-7XW" secondAttribute="leading" id="dMg-le-u54"/>
+                <constraint firstAttribute="bottom" secondItem="hjl-6H-D3R" secondAttribute="bottom" id="iPG-38-J2q"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="mCancel" destination="JfZ-WO-6Wd" id="LNP-3T-nL9"/>
+                <outlet property="mPicker" destination="hjl-6H-D3R" id="4oy-Nq-syj"/>
+                <outlet property="mSubmit" destination="R5I-o2-RLr" id="HSD-Xl-vOX"/>
+            </connections>
             <point key="canvasLocation" x="201" y="282"/>
         </view>
     </objects>

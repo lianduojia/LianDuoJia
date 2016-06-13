@@ -8,6 +8,7 @@
 
 #import "PayVC.h"
 #import "payCell.h"
+#import "AppointmentVC.h"
 
 
 @interface PayVC ()<UICollectionViewDelegateFlowLayout,UICollectionViewDataSource,UICollectionViewDelegate>{
@@ -112,13 +113,30 @@
 */
 
 - (IBAction)PayClick:(id)sender {
-    
+
+    //支付
     [_mOrder getOrderNo:^(SResBase *retobj, NSString *orderNo) {
         if (retobj.msuccess) {
             
+            _mOrder.mNo = orderNo;
+            
             [Order aliPay:_mTitle orderNo:orderNo price:_mOrder.mAmount block:^(SResBase *retobj) {
                 if (retobj.msuccess) {
-                    NSLog(@"支付成功");
+                    
+                    [_mOrder payOK:^(SResBase *retobj) {
+                        
+                        [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+                        
+                        AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
+                        appoint.mTempArray = _mTempArray;
+                        appoint.mOrder = _mOrder;
+                        [self pushViewController:appoint];
+                    }];
+                    
+                }else{
+                    
+                    [SVProgressHUD showErrorWithStatus:@"支付失败"];
+                    
                 }
             }];
         }

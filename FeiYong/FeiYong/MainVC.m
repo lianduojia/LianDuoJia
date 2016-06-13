@@ -13,6 +13,7 @@
 @interface MainVC ()<SDCycleScrollViewDelegate>{
 
     SDCycleScrollView *_cycleScrollView;
+   
 }
 
 @end
@@ -35,7 +36,9 @@
     self.hiddenBackBtn = YES;
     
     [self loadAndupdateTopAdView:nil];
+    
 }
+
 
 //加载广告
 -(void)loadAndupdateTopAdView:(NSArray *)arr

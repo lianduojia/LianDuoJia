@@ -17,6 +17,9 @@
 //开始解析
 - (void) start ;
 
+@property (nonatomic,assign) BOOL mIsDate;
+
+@property (weak, nonatomic) IBOutlet UIDatePicker *mDatePicker;
 @property (weak, nonatomic) IBOutlet UIButton *mCancel;
 @property (weak, nonatomic) IBOutlet UIButton *mSubmit;
 @property (weak, nonatomic) IBOutlet UIPickerView *mPicker;
