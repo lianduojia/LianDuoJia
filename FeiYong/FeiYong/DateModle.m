@@ -305,7 +305,23 @@ SAppInfo* g_appinfo = nil;
 
 @end
 
+@class SAddress;
 @implementation SUser
+
+- (id)initWithObj:(NSDictionary *)obj{
+
+    SUser *user = [[SUser alloc] init];
+    if ([obj objectForKeyMy:@"id"]) {
+        user.mId = [obj objectForKeyMy:@"id"];
+    }else{
+        user.mId = [obj objectForKeyMy:@"employer_id"];
+    }
+    user.mName = [obj objectForKeyMy:@"name"];
+    user.mSex = [obj objectForKeyMy:@"sex"];
+    user.mPhoto_url = [obj objectForKeyMy:@"photo_url"];
+    
+    return user;
+}
 
 
 //返回当前用户
@@ -340,6 +356,42 @@ SAppInfo* g_appinfo = nil;
     NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
     [def setObject:nil forKey:@"userInfo"];
     [def synchronize];
+}
+
+//查看个人信息
++(void)getDetail:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [[APIClient sharedClient] postUrl:@"query-personal-details" parameters:param call:^(SResBase *info) {
+        
+        if(info.msuccess){
+        
+            [SUser saveUserInfo:info.mdata];
+            
+        }
+        block(info);
+    }];
+
+}
+
++(void)updateInfo:(NSString *)name sex:(NSString *)sex photo_url:(NSString *)photo_url block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:name forKey:@"name"];
+    [param setObject:sex forKey:@"sex"];
+    [param setObject:photo_url forKey:@"photo_url"];
+    [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
+        
+        if(info.msuccess){
+            
+            [SUser saveUserInfo:param];
+            
+        }
+        block(info);
+    }];
+
 }
 
 //注册－－短信验证
@@ -398,6 +450,102 @@ SAppInfo* g_appinfo = nil;
         
         block(info);
     }];
+}
+
++(void)feedBack:(NSString *)salutation content:(NSString *)content block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:salutation forKey:@"salutation"];
+    [param setObject:content forKey:@"content"];
+    [[APIClient sharedClient] postUrl:@"feedback" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
+//查询余额	/query-balance	employer_id=2(雇主ID)
++(void)getBalance:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [[APIClient sharedClient] postUrl:@"query-balance" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
+//查看地址	/query-address	employer_id=2(雇主ID)
++(void)getAddress:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    
+    [[APIClient sharedClient] postUrl:@"query-address" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SAddress *order = [[SAddress alloc] initWithObj:dic];
+                    
+                    [array addObject:order];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+        
+    }];
+}
+
++(void)editAddress:(int)address_id address_province:(NSString *)address_province address_city:(NSString *)address_city address_area:(NSString *)address_area address_detail:(NSString *)address_detail link_man:(NSString *)link_man link_phone:(NSString *)link_phone block:(void(^)(SResBase* retobj))block;{
+    
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:address_province forKey:@"address_province"];
+    [param setObject:address_city forKey:@"address_city"];
+    [param setObject:address_area forKey:@"address_area"];
+    [param setObject:address_detail forKey:@"address_detail"];
+    [param setObject:link_man forKey:@"link_man"];
+    [param setObject:link_phone forKey:@"link_phone"];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    
+    NSString *string = @"add-address";
+    
+    if (address_id !=0) {
+        [param setObject:@(address_id) forKey:@"address_id"];
+        string = @"update-address";
+    }
+    
+    [[APIClient sharedClient] postUrl:string parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
+
++(void)joinShop:(NSString *)address_province address_city:(NSString *)address_city address_area:(NSString *)address_area link_man:(NSString *)link_man link_phone:(NSString *)link_phone block:(void (^)(SResBase *))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:address_province forKey:@"address_province"];
+    [param setObject:address_city forKey:@"address_city"];
+    [param setObject:address_area forKey:@"address_area"];
+    [param setObject:link_man forKey:@"name"];
+    [param setObject:link_phone forKey:@"phone"];
+    if ([SUser currentUser]) {
+        [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    }
+    
+    
+    [[APIClient sharedClient] postUrl:@"shop-join" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+
 }
 
 
@@ -464,11 +612,22 @@ SAppInfo* g_appinfo = nil;
     
     switch (type) {
         case 0:
+            //待支付
             string = @"query-bill";
             break;
         case 1:
+            //待预约
             string = @"query-complete-bill";
             [param setObject:@"中介费" forKey:@"bill_type"];
+            break;
+        case 2:
+            //待评价
+            string = @"query-meet-maid";
+            break;
+        case 3:
+            //待预约
+            string = @"query-complete-bill";
+            [param setObject:@"所有" forKey:@"bill_type"];
             break;
             
         default:
@@ -496,6 +655,21 @@ SAppInfo* g_appinfo = nil;
         }
 
     }];
+}
+
+//雇佣阿姨	/employ-maid	employer_id=2(雇主id)&bill_id=48(订单id)&maid_id=3(阿姨id)
+-(void)employMaid:(void(^)(SResBase* retobj))block{
+
+     NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:@(_mBill_id) forKey:@"bill_id"];
+    [param setObject:@(_mMail_id) forKey:@"maid_id"];
+    
+    [[APIClient sharedClient] postUrl:@"employ-maid" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+
 }
 
 @end
@@ -728,7 +902,7 @@ SAppInfo* g_appinfo = nil;
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:@(self.mId) forKey:@"maid_id"];
+    [param setObject:@(_mId) forKey:@"maid_id"];
     [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
     [param setObject:[Util JSONString:comment] forKey:@"comment"];
     [param setObject:@(star_count) forKey:@"star_count"];
@@ -741,17 +915,17 @@ SAppInfo* g_appinfo = nil;
 
 +(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration block:(void(^)(SResBase* retobj,SOrder *order))block{
 
-    NSMutableArray *keyArr = [NSMutableArray new];
-    NSMutableArray *valueArr = [NSMutableArray new];
+    NSString *idstring = @"";
     for (SAuntInfo *aunt in array) {
-        [keyArr addObject:@"maid_id"];
-        [valueArr addObject:@(aunt.mId)];
+        idstring = [idstring stringByAppendingString:[NSString stringWithFormat:@"%d,",aunt.mId]];
     }
+    idstring = [idstring substringToIndex:([idstring length]-1)];
     
-    NSMutableDictionary* param = [[NSMutableDictionary alloc] initWithObjects:valueArr forKeys:keyArr];
+    NSMutableDictionary* param = [NSMutableDictionary new];
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:service_date forKey:@"service_date"];
     [param setObject:service_address forKey:@"service_address"];
+    [param setObject:idstring forKey:@"maid_id"];
     
     //小时工
     if(service_duration){

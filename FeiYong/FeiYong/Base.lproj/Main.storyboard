@@ -160,7 +160,7 @@
         <!--首页-->
         <scene sceneID="30c-Wx-SSI">
             <objects>
-                <navigationController id="3oB-45-YVQ" sceneMemberID="viewController">
+                <navigationController id="3oB-45-YVQ" customClass="NavC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" id="liR-cc-Po6"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="uak-eD-6ht">
@@ -929,11 +929,11 @@
             </objects>
             <point key="canvasLocation" x="-218" y="774"/>
         </scene>
-        <!--待办-->
+        <!--订单-->
         <scene sceneID="Y8c-v1-VLK">
             <objects>
-                <navigationController id="3aK-rj-LnI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="待办" id="R7f-rA-32B"/>
+                <navigationController id="3aK-rj-LnI" customClass="NavC" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="订单" id="R7f-rA-32B"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="LWS-aN-Qac">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -950,7 +950,7 @@
         <!--我的-->
         <scene sceneID="l5o-ZJ-XRm">
             <objects>
-                <navigationController id="wR9-Qw-jsw" sceneMemberID="viewController">
+                <navigationController id="wR9-Qw-jsw" customClass="NavC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" id="DK1-uT-DQ3"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vKt-Ea-g4R">

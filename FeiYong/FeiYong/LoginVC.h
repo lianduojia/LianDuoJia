@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface LoginVC : BaseVC
+@property (nonatomic,strong) UIViewController *mViewController;
 @property (weak, nonatomic) IBOutlet UITextField *mPhone;
 @property (weak, nonatomic) IBOutlet UITextField *mPwd;
 - (IBAction)ForgetPwdClick:(id)sender;

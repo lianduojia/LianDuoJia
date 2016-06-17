@@ -17,6 +17,8 @@
 @property (nonatomic,strong) NSString *mServiceNum;//服务人数
 @property (nonatomic,strong) NSString *mDetailAddress; //详细地址
 @property (nonatomic,strong) NSString *mRemark;         //备注 附加条件
+@property (weak, nonatomic) IBOutlet UIButton *mPayBt;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mPayBtHeight;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
 - (IBAction)mPayClick:(id)sender;
 

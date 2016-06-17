@@ -48,8 +48,8 @@
 
     }else{
     
-        for (NSString *s in _mOrder.mMaids) {
-            string = [string stringByAppendingString:[NSString stringWithFormat:@"%@ ",s]];
+        for (NSDictionary *s in _mOrder.mMaids) {
+            string = [string stringByAppendingString:[NSString stringWithFormat:@"%@ ",[s objectForKey:@"maid_name"]]];
         }
     }
     

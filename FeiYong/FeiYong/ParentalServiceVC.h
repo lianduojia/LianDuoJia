@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mTableViewHeight;
 
 //年龄
+
 @property (weak, nonatomic) IBOutlet UILabel *mAgelb;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mAgeHeight;
 @property (weak, nonatomic) IBOutlet UIButton *mBuxian;
@@ -45,6 +46,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mTimeHeight;
 @property (weak, nonatomic) IBOutlet UIButton *mHome;
 @property (weak, nonatomic) IBOutlet UIButton *mDay;
+@property (weak, nonatomic) IBOutlet UIButton *mItem2;
+@property (weak, nonatomic) IBOutlet UIButton *mOld;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mItemTwoHeight;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mItemThreeHeight;

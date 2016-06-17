@@ -7,8 +7,12 @@
 //
 
 #import "MyInfoVC.h"
+#import "YLPickerView.h"
 
-@interface MyInfoVC ()
+@interface MyInfoVC (){
+
+    YLPickerView *_picker;
+}
 
 @end
 
@@ -20,7 +24,49 @@
     
     self.navTitle = @"个人信息";
     
+    _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
+    
     [self.navBar.mRightButton setTitle:@"保存" forState:UIControlStateNormal];
+    
+    [self showStatu:@"加载中.."];
+    [SUser getDetail:^(SResBase *retobj) {
+        if (retobj.msuccess) {
+            [SVProgressHUD dismiss];
+            [self loadMyInfo];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+}
+
+-(void)loadMyInfo{
+
+    _mName.text = [SUser currentUser].mName;
+    _mSex.text = [SUser currentUser].mSex;
+    
+}
+
+- (void)rightBtnTouched:(id)sender{
+
+    if (_mName.text.length == 0) {
+        [SVProgressHUD showErrorWithStatus:@"请输入昵称"];
+        
+        return;
+    }
+    if ([_mSex.text isEqualToString:@"选择"]) {
+        [SVProgressHUD showErrorWithStatus:@"请选择性别"];
+        
+        return;
+    }
+    
+    [self showStatu:@"保存中.."];
+    [SUser updateInfo:_mName.text sex:_mSex.text photo_url:@"" block:^(SResBase *retobj) {
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,6 +85,11 @@
 */
 
 - (IBAction)ChoseAgeClick:(id)sender {
+    
+    [_picker initView:self.view block:^(NSString *sex) {
+       
+        _mSex.text = sex;
+    }];
 }
 
 - (IBAction)ChosePhotoClick:(id)sender {

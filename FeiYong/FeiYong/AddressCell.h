@@ -13,4 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *mPhone;
 @property (weak, nonatomic) IBOutlet UILabel *mAddress;
 
+-(void)initCell:(SAddress *)address;
+
 @end

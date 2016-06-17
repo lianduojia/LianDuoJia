@@ -22,6 +22,19 @@
     
     _mBack.layer.masksToBounds = YES;
     _mBack.layer.cornerRadius = 5;
+    _mMoney.text = [NSString stringWithFormat:@"%g",_mBalance];
+    [SUser getBalance:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+            _mMoney.text = [NSString stringWithFormat:@"%g",[[retobj.mdata objectForKey:@"balance"] floatValue]];
+            [SVProgressHUD dismiss];
+            
+        }else{
+        
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+        
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

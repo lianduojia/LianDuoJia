@@ -11,7 +11,10 @@
 #import "AddressCell.h"
 #import "EditAddressVC.h"
 
-@interface AddressVC ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddressVC ()<UITableViewDelegate,UITableViewDataSource>{
+
+    NSMutableArray *_mArray;
+}
 
 @end
 
@@ -31,6 +34,29 @@
     
     UINib *nib = [UINib nibWithNibName:@"AddressCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
+    
+    _mArray = [NSMutableArray new];
+    
+    [self getData];
+}
+
+- (void)getData{
+    
+    [self showStatu:@"获取中.."];
+    [SUser getAddress:^(SResBase *retobj, NSArray *arr) {
+       
+        if (retobj.msuccess) {
+            
+            [SVProgressHUD dismiss];
+            
+            _mArray = (NSMutableArray *)arr;
+            
+            [_mTableView reloadData];
+        }else{
+        
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
     
 }
 
@@ -68,7 +94,7 @@
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return _mArray.count;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -98,14 +124,29 @@
     AddressCell* cell = (AddressCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
+    SAddress *address = [_mArray objectAtIndex:indexPath.section];
+    [cell initCell:address];
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    EditAddressVC *edit = [[EditAddressVC alloc] initWithNibName:@"EditAddressVC" bundle:nil];
+    SAddress *address = [_mArray objectAtIndex:indexPath.section];
+
+    if (_itblock) {
+        _itblock(address);
+        
+        [self popViewController];
+        return;
+    }
     
+    EditAddressVC *edit = [[EditAddressVC alloc] initWithNibName:@"EditAddressVC" bundle:nil];
+    edit.mTempAddress = address;
+    edit.itblcok = ^(BOOL flag){
+    
+        [self getData];
+    };
     [self.navigationController pushViewController:edit animated:YES];
 }
 
@@ -128,7 +169,10 @@
 - (IBAction)mAddAddressClick:(id)sender {
     
     EditAddressVC *edit = [[EditAddressVC alloc] initWithNibName:@"EditAddressVC" bundle:nil];
-    
+    edit.itblcok = ^(BOOL flag){
+        
+        [self getData];
+    };
     [self.navigationController pushViewController:edit animated:YES];
 }
 @end

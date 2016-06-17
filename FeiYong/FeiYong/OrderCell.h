@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mMoneylabel;
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *mButtonTwo;
 
--(void)initCell:(SOrder *)order;
+-(void)initCell:(SOrder *)order index:(int)index;
+-(void)initPjCell:(SOrder *)order;
 
 @end

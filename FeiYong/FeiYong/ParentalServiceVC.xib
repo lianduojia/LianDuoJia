@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
@@ -17,10 +17,12 @@
                 <outlet property="mHome" destination="7Qm-ft-2Yj" id="M7C-55-VBr"/>
                 <outlet property="mImg2" destination="ccm-06-CXe" id="K2s-ZI-PTT"/>
                 <outlet property="mImg3" destination="kTA-CJ-vfE" id="yr6-MG-cGQ"/>
+                <outlet property="mItem2" destination="4Op-b7-bxf" id="li0-id-yEL"/>
                 <outlet property="mItemThreeHeight" destination="m0q-O4-4Ex" id="tIv-Sw-TFL"/>
                 <outlet property="mItemTwoHeight" destination="jUo-nN-nod" id="hJi-CG-LyW"/>
                 <outlet property="mLab2" destination="O7z-d4-gh6" id="g0z-dw-Mmq"/>
                 <outlet property="mLab3" destination="IL9-Vb-Tbh" id="FmW-5m-wKt"/>
+                <outlet property="mOld" destination="0Uw-pI-lJj" id="xDs-Cc-CHv"/>
                 <outlet property="mProcessHeight" destination="TlD-PR-XWS" id="ImZ-jT-PA1"/>
                 <outlet property="mRemark" destination="wEh-OS-Oqj" id="70M-c5-uL4"/>
                 <outlet property="mRemarklb" destination="Ld3-Fv-Dlq" id="pRq-7T-AeX"/>
@@ -317,7 +319,7 @@
                                                 <constraint firstAttribute="width" secondItem="8YQ-TW-es2" secondAttribute="height" multiplier="7:2" id="vpa-mq-KXg"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="不限" backgroundImage="s_bt">
+                                            <state key="normal" title="不限" backgroundImage="s_bt_select">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <variation key="default">
@@ -451,7 +453,7 @@
                                                 <constraint firstAttribute="width" secondItem="7Qm-ft-2Yj" secondAttribute="height" multiplier="7:2" id="sX5-nd-BTp"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="住家" backgroundImage="s_bt">
+                                            <state key="normal" title="住家" backgroundImage="s_bt_select">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <variation key="default">
@@ -568,7 +570,7 @@
                                                 <constraint firstAttribute="width" secondItem="4Op-b7-bxf" secondAttribute="height" multiplier="7:2" id="wgf-TN-Ti2"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="住家" backgroundImage="s_bt">
+                                            <state key="normal" title="住家" backgroundImage="s_bt_select">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <variation key="default">
@@ -646,7 +648,7 @@
                                                 <constraint firstAttribute="width" secondItem="0Uw-pI-lJj" secondAttribute="height" multiplier="105:60" id="U6n-Mv-Hyn"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <state key="normal" title="照顾老人" backgroundImage="s_bt">
+                                            <state key="normal" title="照顾老人" backgroundImage="s_bt_select">
                                                 <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <variation key="default">
@@ -810,6 +812,7 @@
     <resources>
         <image name="DefaultBanner" width="720" height="300"/>
         <image name="s_bt" width="105" height="30"/>
+        <image name="s_bt_select" width="105" height="30"/>
         <image name="s_next" width="7" height="12"/>
         <image name="s_pjay" width="34" height="33"/>
         <image name="s_tjxq" width="33" height="34"/>

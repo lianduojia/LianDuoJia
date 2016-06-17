@@ -10,6 +10,8 @@
 
 @interface EditAddressVC : BaseVC
 
+@property(nonatomic,strong) void (^itblcok)(BOOL flag);
+@property (nonatomic,strong) SAddress *mTempAddress;
 @property (weak, nonatomic) IBOutlet UITextField *mName;
 @property (weak, nonatomic) IBOutlet UITextField *mPhone;
 @property (weak, nonatomic) IBOutlet UITextField *mAddress;

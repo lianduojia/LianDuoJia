@@ -73,6 +73,12 @@
     _backindex1 = 100;
     _backindex2 = 100;
     _backindex3 = 100;
+    
+    _mitembt1 = _mBuxian;
+    _mitembt2 = _mHome;
+    _mitembt3 = _mItem2;
+    _mitembt4 = _mOld;
+    
     _mbombbox = [[BombBoxVC alloc] initWithNibName:@"BombBoxVC" bundle:nil];
     _mbombbox.view.frame = CGRectMake(0, 0, DEVICE_Width, DEVICE_Height);
     
@@ -185,6 +191,7 @@
     self.navTitle = @"找陪护";
     _mTableViewHeight.constant = 60*2+1;
     
+    _mAgeHeight.constant = 0;
     _mAgelb.text = @"请选择护工年龄";
     
     _mTimelb.text = @"请选择护工性别";
@@ -203,7 +210,7 @@
     //服务人数数组
     _fwsdarray = [NSMutableArray new];
     
-    for (int i = 0; i<24; i++) {
+    for (int i = 7; i<23; i++) {
         [_fwsdarray addObject:[NSString stringWithFormat:@"%.2d:00",i]];
     }
     
@@ -216,7 +223,7 @@
     
     //服务时长数组
     _fwscarray = [NSMutableArray new];
-    for (int i = 0; i<8; i++) {
+    for (int i = 0; i<12; i++) {
         [_fwscarray addObject:[NSString stringWithFormat:@"%d小时",i+1]];
     }
     
@@ -232,7 +239,7 @@
     
     _mProcessHeight.constant = 115;
     _mImg2.image = [UIImage imageNamed:@"s_zfzjf"];
-    _mLab2.text = @"支付中介费";
+    _mLab2.text = @"支付工时费";
     _mImg3.image = [UIImage imageNamed:@"s_pjay"];
     _mLab3.text = @"评价阿姨";
     

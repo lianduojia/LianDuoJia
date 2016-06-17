@@ -9,6 +9,7 @@
 #import "LoginVC.h"
 #import "RegisterVC.h"
 #import "ForgetPwdVC.h"
+#import "NavC.h"
 
 @interface LoginVC ()
 
@@ -69,6 +70,14 @@
        
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"登陆成功"];
+            
+            if (_mViewController) {
+                
+                ((NavC *)_mViewController).TabBar.selectedIndex = [(NavC *)_mViewController indexOfTab];
+                
+                NSLog(@"%@",((NavC *)_mViewController).TabBar);
+            }
+            
             
             [self dismissViewControllerAnimated:YES completion:nil];
         }else{

@@ -47,6 +47,10 @@
     _mMoney.text = [NSString stringWithFormat:@"¥%d",_mOrder.mAmount];
 }
 
+-(void)leftBtnTouched:(id)sender{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 #pragma mark -- UICollectionViewDataSource
 
 //定义展示的UICollectionViewCell的个数
@@ -67,10 +71,20 @@
 {
      payCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"pCell" forIndexPath:indexPath];
     int index = (int)indexPath.section*3+(int)indexPath.row;
-    SAuntInfo *aunt = [_mTempArray objectAtIndex:index];
     
-    [cell initCell:aunt];
+    if(index<_mTempArray.count){
+        SAuntInfo *aunt = [_mTempArray objectAtIndex:index];
+        [cell initCell:aunt];
+    }else{
     
+        cell.mImg.hidden = YES;
+        cell.mMoney.hidden = YES;
+        cell.mPayMoney.hidden = YES;
+        cell.mName.hidden = YES;
+        cell.mLabel.hidden = YES;
+        cell.backgroundColor = M_BGCO;
+    }
+
     return cell;
 }
 

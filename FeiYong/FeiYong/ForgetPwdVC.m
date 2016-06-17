@@ -9,6 +9,8 @@
 #import "ForgetPwdVC.h"
 #import "SMS_SDK/SMSSDK.h"
 #import "MZTimerLabel.h"
+#import "WebVC.h"
+#import "APIClient.h"
 
 @interface ForgetPwdVC ()<MZTimerLabelDelegate>{
 
@@ -24,6 +26,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.hiddenNavBar = YES;
+    
+    _mPoint.layer.masksToBounds = YES;
+    _mPoint.layer.cornerRadius = 4.5;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,6 +110,15 @@
 
 - (IBAction)mBackClick:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)goXieyiClick:(id)sender {
+    
+    WebVC *web = [[WebVC alloc] init];
+    web.mName = @"用户协议";
+    web.isMode = YES;
+    web.mUrl = [NSString stringWithFormat:@"%@ra.html",[APIClient getDomain]];
+    [self presentViewController:web animated:YES completion:nil];
 }
 
 - (void)timeCount{//倒计时函数

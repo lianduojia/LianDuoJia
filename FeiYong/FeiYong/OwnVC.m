@@ -15,7 +15,10 @@
 #import "SettingVC.h"
 #define Height 248
 
-@interface OwnVC ()<UITableViewDataSource,UITableViewDelegate>
+@interface OwnVC ()<UITableViewDataSource,UITableViewDelegate>{
+
+    float _balance;
+}
 
 @end
 
@@ -26,6 +29,12 @@
     [super viewWillAppear:animated];
     
     self.hiddenTabBar = NO;
+    
+    if (![SUser isNeedLogin]){
+        [self getbalance];
+    }
+    
+    [self loadMyinfo];
 }
 
 
@@ -34,8 +43,10 @@
     
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+
     self.hiddenNavBar = YES;
+    
+    _balance = 0;
     
     UINib *nib = [UINib nibWithNibName:@"ParentalCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
@@ -59,8 +70,26 @@
     
     [_mHeadClick addTarget:self action:@selector(GoLogin) forControlEvents:UIControlEventTouchUpInside];
     
-    [self loadMyinfo];
-    
+}
+
+-(void)getbalance{
+
+    [SUser getBalance:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+           
+            _balance = [[retobj.mdata objectForKey:@"balance"] floatValue];
+            [SVProgressHUD dismiss];
+            
+            [_mTableView reloadData];
+            
+        }else{
+            
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+        
+    }];
+
 }
 
 - (void)loadMyinfo{
@@ -80,6 +109,8 @@
 
     if ([SUser isNeedLogin]) {
         [self gotoLogin];
+        
+        return;
     }
     
     
@@ -144,6 +175,7 @@
                     cell.mImg.image = [UIImage imageNamed:@"own_wdqb"];
                     cell.mName.text = @"我的钱包";
                     cell.mDetail.hidden = NO;
+                    cell.mDetail.text = [NSString stringWithFormat:@"余额：%g",_balance];
                     break;
                 default:
                     break;
@@ -184,10 +216,10 @@
             
         case 0:
             
-//            if ([SUser isNeedLogin]) {
-//                [self gotoLogin];
-//                return;
-//            }
+            if ([SUser isNeedLogin]) {
+                [self gotoLogin];
+                return;
+            }
             
             switch (indexPath.row) {
                 case 0:
@@ -200,7 +232,7 @@
                 case 1:
                 {
                     BalanceVC *balance = [[BalanceVC alloc] initWithNibName:@"BalanceVC" bundle:nil];
-                    
+                    balance.mBalance = _balance;
                     [self.navigationController pushViewController:balance animated:YES];
                 }
                    

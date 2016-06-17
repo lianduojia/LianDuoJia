@@ -9,6 +9,7 @@
 #import "BaseVC.h"
 #import "LoginVC.h"
 #import "IQKeyboardManager.h"
+#import "UMMobClick/MobClick.h"
 
 @interface BaseVC ()<UIGestureRecognizerDelegate>{
 
@@ -28,12 +29,16 @@
     
     self.hiddenTabBar = YES;
     
+    [MobClick beginLogPageView:self.navTitle];//("PageOne"为页面名称，可自定义)
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[IQKeyboardManager sharedManager] setEnable:NO];
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
+    
+      [MobClick endLogPageView:self.navTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -108,6 +113,14 @@
     LoginVC *login = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
 
     [self presentViewController:login animated:YES completion:nil];
+}
+
+-(void)gotoLoginVC:(UIViewController *)viewcontroller{
+    
+    LoginVC *login = [[LoginVC alloc] initWithNibName:@"LoginVC" bundle:nil];
+    login.mViewController = viewcontroller;
+    [self presentViewController:login animated:YES completion:nil];
+
 }
 
 -(void)leftBtnTouched:(id)sender
@@ -186,6 +199,34 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)popViewController_2
+{
+    NSMutableArray* vcs = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    if( vcs.count > 2 )
+    {
+        [vcs removeLastObject];
+        [vcs removeLastObject];
+        [self.navigationController setViewControllers:vcs   animated:YES];
+    }
+    else
+        [self popViewController];
+}
+
+-(void)popViewController_3
+{
+    NSMutableArray* vcs = [[NSMutableArray alloc]initWithArray:self.navigationController.viewControllers];
+    if( vcs.count > 3 )
+    {
+        [vcs removeLastObject];
+        [vcs removeLastObject];
+        [vcs removeLastObject];
+        [self.navigationController setViewControllers:vcs   animated:YES];
+    }
+    else
+        [self popViewController];
+}
+
 
 -(void)showStatu:(NSString *)string{
 

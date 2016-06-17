@@ -9,6 +9,7 @@
 #import "ChoseAddressVC.h"
 #import "YLPickerView.h"
 #import "AddressVC.h"
+#import "ChoseAddress.h"
 
 @interface ChoseAddressVC (){
 
@@ -36,14 +37,19 @@
 
 - (void)rightBtnTouched:(id)sender{
 
-    AddressVC *address = [[AddressVC alloc] initWithNibName:@"AddressVC" bundle:nil];
+    AddressVC *addressVC = [[AddressVC alloc] initWithNibName:@"AddressVC" bundle:nil];
     
-    address.itblock = ^(SAddress *adddress){
+    addressVC.itblock = ^(SAddress *address){
     
+        _province = address.mAddress_province;
+        _city = address.mAddress_city;
+        _area = address.mAddress_area;
         
+        _mAdd.text = [NSString stringWithFormat:@"%@%@%@",_province,_city,_area];
+        _mDetailAdd.text = address.mAddress_detail;
     };
     
-    [self pushViewController:address];
+    [self pushViewController:addressVC];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -83,16 +89,17 @@
 }
 
 - (IBAction)mChoseClick:(id)sender {
+
     
-    [_picker initView:self.view block:^(BOOL flag,NSString *province,NSString *city,NSString *area) {
-        
-        if (flag) {
-            
-            _province = province;
-            _city = city;
-            _area = area;
-            _mAdd.text = [NSString stringWithFormat:@"%@%@%@",province,city,area];
-        }
-    }];
+    ChoseAddress *ca = [[ChoseAddress alloc] initWithNibName:@"ChoseAddress" bundle:nil];
+    ca.mVC = self;
+    ca.itblock = ^(NSString *province,NSString *city,NSString *area){
+        _province = province;
+        _city = city;
+        _area = area;
+        _mAdd.text = [NSString stringWithFormat:@"%@%@%@",province,city,area];
+ 
+    };
+    [self pushViewController:ca];
 }
 @end

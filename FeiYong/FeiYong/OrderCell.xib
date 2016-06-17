@@ -15,7 +15,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="121.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="zph-rl-L93">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="o_default" translatesAutoresizingMaskIntoConstraints="NO" id="zph-rl-L93">
                         <rect key="frame" x="10" y="10" width="48" height="58"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="58" id="kJ2-54-yVL"/>
@@ -106,7 +106,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="DefaultImg" width="331" height="341"/>
+        <image name="o_default" width="52" height="62"/>
         <image name="o_kuan_yellow" width="52" height="21"/>
     </resources>
 </document>

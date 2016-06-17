@@ -12,7 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *mHeadImg;
 @property (weak, nonatomic) IBOutlet UITextField *mName;
-@property (weak, nonatomic) IBOutlet UITextField *mAge;
+@property (weak, nonatomic) IBOutlet UITextField *mSex;
 - (IBAction)ChoseAgeClick:(id)sender;
 - (IBAction)ChosePhotoClick:(id)sender;
 @end

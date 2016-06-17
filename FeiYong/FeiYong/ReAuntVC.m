@@ -37,16 +37,6 @@
     UINib *nib = [UINib nibWithNibName:@"ReAuntCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    
-    BOOL first = [[defaults objectForKey:@"first"] intValue];
-    
-    if (!first) {
-        [self firstLoad];
-        [defaults setObject:@(1) forKey:@"first"];
-    }
-    
-    [defaults synchronize];
     
     if (_mTempArray.count == 0) {
         _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil];
@@ -54,6 +44,12 @@
         [_emptyview showInView:self.view rect:CGRectMake(0, DEVICE_NavBar_Height, DEVICE_Width, DEVICE_InNavBar_Height) block:^(BOOL close) {
             
         }];
+        
+        
+        
+    }else{
+        
+        [self firstLoad];
     }
     
    
@@ -62,20 +58,29 @@
 
 
 - (void)firstLoad{
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
-    bgView.backgroundColor = [UIColor blackColor];
-    bgView.alpha = 0.6;
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
-    imgV.image = [UIImage imageNamed:@"a_first"];
-    imgV.center = bgView.center;
-    imgV.frame = CGRectMake(imgV.frame.origin.x, 120, 269, 90);
-    [bgView addSubview:imgV];
+    BOOL first = [[defaults objectForKey:@"first"] intValue];
     
-    [self.view addSubview:bgView];
+    if (!first) {
+        bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
+        bgView.backgroundColor = [UIColor blackColor];
+        bgView.alpha = 0.6;
+        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
+        imgV.image = [UIImage imageNamed:@"a_first"];
+        imgV.center = bgView.center;
+        imgV.frame = CGRectMake(imgV.frame.origin.x, 120, 269, 90);
+        [bgView addSubview:imgV];
+        
+        [self.view addSubview:bgView];
+        
+        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
+        [bgView addGestureRecognizer:tap];
+        [defaults setObject:@(1) forKey:@"first"];
+    }
     
-    UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
-    [bgView addGestureRecognizer:tap];
+    [defaults synchronize];
     
 }
 

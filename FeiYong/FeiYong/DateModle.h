@@ -48,14 +48,17 @@
 
 @end
 
+
+//[{"address_id":1,"employer_id":2,"address_area":"南关区","link_man":"XFC","link_phone":"16866888866","address_province":"吉林省","address_city":"长春市","address_detail":"qqqq"}]}
 @interface SAddress : SAutoEx
 
-@property (nonatomic,strong) NSString*  mName;
-@property (nonatomic,strong) NSString*  mPhone;
-@property (nonatomic,strong) NSString*  mProvince;
-@property (nonatomic,strong) NSString*  mCity;
-@property (nonatomic,strong) NSString*  mArea;
-@property (nonatomic,strong) NSString*  mDetailAddress;
+@property (nonatomic,assign) int        mAddress_id;
+@property (nonatomic,strong) NSString*  mLink_man;
+@property (nonatomic,strong) NSString*  mLink_phone;
+@property (nonatomic,strong) NSString*  mAddress_province;
+@property (nonatomic,strong) NSString*  mAddress_city;
+@property (nonatomic,strong) NSString*  mAddress_area;
+@property (nonatomic,strong) NSString*  mAddress_detail;
 
 @end
 
@@ -136,7 +139,8 @@
 @property (nonatomic,strong)                NSString *mId;
 @property (nonatomic,strong)                NSString *mPhone;
 @property (nonatomic,strong)                NSString *mName;
-
+@property (nonatomic,strong)                NSString *mPhoto_url;
+@property (nonatomic,strong)                NSString *mSex;
 
 //返回当前用户
 +(SUser*)currentUser;
@@ -146,6 +150,12 @@
 
 //退出登陆
 +(void)logout;
+
+//查看个人资料	/query-personal-details	employer_id	{"_no":1000,"_msg":"操作成功","_data":{"employer_id":2,"sex":"女","photo_url":"","name":"18686683694"}}
++(void)getDetail:(void(^)(SResBase* retobj))block;
+
+//更新个人资料	/update-persional-details	employer_id=2(雇主id)&name=xxx(要更新的昵称)&sex=男(更新的性别数据:男、女)&photo_url=./aaa/bbb/ccc.png(照片的url数据)
++(void)updateInfo:(NSString *)name sex:(NSString *)sex photo_url:(NSString *)photo_url block:(void(^)(SResBase* retobj))block;
 
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
@@ -159,11 +169,27 @@
 //忘记密码
 +(void)forgetPwd:(NSString *)phone pwd:(NSString *)pwd code:(NSString *)code block:(void(^)(SResBase* retobj))block;
 
+//意见反馈	/feedback	employer_id=2(雇主ID)&salutation=xx(称谓)&content=xxxxxxx(意见反馈内容)
++(void)feedBack:(NSString *)salutation content:(NSString *)content block:(void(^)(SResBase* retobj))block;
+
+//查询余额	/query-balance	employer_id=2(雇主ID)
++(void)getBalance:(void(^)(SResBase* retobj))block;
+
+//查看地址	/query-address	employer_id=2(雇主ID)
++(void)getAddress:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+//新增地址	/add-address	employer_id=2(雇主ID)&address_province=北京市(地址-省)&address_city=北京市(地址-市)&address_area=朝阳区(地址-区)&address_detail=xxxxxx（详细地址)&link_man=cf(联系人)&link_phone=1111111111(联系电话)
++(void)editAddress:(int)address_id address_province:(NSString *)address_province address_city:(NSString *)address_city address_area:(NSString *)address_area address_detail:(NSString *)address_detail link_man:(NSString *)link_man link_phone:(NSString *)link_phone block:(void(^)(SResBase* retobj))block;
+
+//商铺加盟提交信息	/shop-join employer_id=2(雇主ID)&address_id=3&address_province=北京市(地址-省)&address_city=北京市(地址-市)&address_area=朝阳区(地址-区)&address_detail=xxxxxx（详细地址)&link_man=cf(联系人)&link_phone=1111111111(联系电话)
++(void)joinShop:(NSString *)address_province address_city:(NSString *)address_city address_area:(NSString *)address_area link_man:(NSString *)link_man link_phone:(NSString *)link_phone block:(void(^)(SResBase* retobj))block;
+
 @end
 
 
 //评价对象
 //[{"employer_id":2,"maid_id":5,"employer_photo_url":"","employer_name":"18686683694","comment":"工作认真，做事情细致"},
+
 @interface SComment : SAutoEx
 
 @property (nonatomic,assign)                int mEmployer_id;                    //用户id
@@ -174,14 +200,16 @@
 @property (nonatomic,strong)                NSString* mComment_type;             //评价类型
 @property (nonatomic,strong)                NSString* mDate;                     //评价时间
 
+
 @end
 
 @interface SOrder : SAutoEx
 
 //{"amount":7000,"no":"BL2016061000001","maids":["月嫂3","月嫂3","月嫂3","月嫂3"],"maid_count":4,"goods_info":"中介费"}
+//{"meet_location":"万达广场","mail_name":"月嫂1","meet_date":"2016-04-02","mail_work_type":"陪护","meet_time":"09:00","mail_photo_url":"","mail_id":3}
 
-//"amount":5000,"id":61,"additional":"要求","status":"待支付","no":"-","maid":[{"id":3,"photo_url":"","name":"月嫂1","pay":4000},{"id":4,"photo_url":"","name":"保姆2","pay":5000}],"employer":2,"service_address":"xxxxx","service_date":"2016-03-07","goods_info":"中介费"}}
 @property (nonatomic,assign)                int         mId;
+@property (nonatomic,assign)                int         mBill_id;
 @property (nonatomic,assign)                int         mAmount;
 @property (nonatomic,strong)                NSString*   mAdditional;
 @property (nonatomic,strong)                NSString*   mStatus;
@@ -191,6 +219,19 @@
 @property (nonatomic,assign)                int         mMaid_count;
 @property (nonatomic,strong)                NSString*   mGoods_info;
 @property (nonatomic,strong)                NSString*   mWork_type; //工作类型
+@property (nonatomic,strong)                NSString*   mTime;
+
+
+//约见阿姨后的信息
+@property (nonatomic,strong)                NSString* mMeet_location;                     //见面地址
+@property (nonatomic,strong)                NSString* mMail_name;                         //阿姨名称
+@property (nonatomic,strong)                NSString* mMeet_date;                     //见面日期
+@property (nonatomic,strong)                NSString* mMail_work_type;                     //阿姨类型
+@property (nonatomic,strong)                NSString* mMeet_time;                     //见面时间
+@property (nonatomic,strong)                NSString* mMail_photo_url;                     //头像
+@property (nonatomic,assign)                int       mMail_id;                     //阿姨id
+
+
 //根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
 -(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block;
 
@@ -202,6 +243,10 @@
 
 //订单列表
 +(void)getOrderList:(int)type block:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+
+//雇佣阿姨	/employ-maid	employer_id=2(雇主id)&bill_id=48(订单id)&maid_id=3(阿姨id)
+-(void)employMaid:(void(^)(SResBase* retobj))block;
 
 @end
 
@@ -222,6 +267,9 @@
 @property (nonatomic,assign)                int       mWorking_years;           //工龄
 @property (nonatomic,assign)                int       mAge;                     //年龄
 @property (nonatomic,assign)                int       mPay;                     //月薪
+
+@property (nonatomic,assign)                int       mMaid_id;
+@property (nonatomic,strong)                NSString *mMaid_name;                    //姓名
 
 //找保姆   find-nurse
 //employer_id=xx(用户id)

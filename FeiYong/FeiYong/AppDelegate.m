@@ -9,25 +9,59 @@
 #import "AppDelegate.h"
 #import "SMS_SDK/SMSSDK.h"
 #import <AlipaySDK/AlipaySDK.h>
+#import "UMMobClick/MobClick.h"
 
-@interface AppDelegate (){
+@interface AppDelegate ()<NSXMLParserDelegate>{
 
     
     UIScrollView *_scrollView;
+    
+    NSString *_currentTagName;
+    
+    NSMutableArray *_provinces;
+    NSMutableArray *_citys;
+    NSMutableArray *_areas;
+    
+    NSMutableDictionary *_provinceDic;
+    NSMutableDictionary *_cityDic;
 }
 
 @end
 
 @implementation AppDelegate
 
+// 开始解析
+-(void)start{
+    
+    
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    NSArray *provinces = [def objectForKey:@"Province"];
+    if (provinces.count>0) {
+        return;
+    }
+    
+    _provinces = [NSMutableArray new];
+    _citys = [NSMutableArray new];
+    _areas = [NSMutableArray new];
+    
+    _provinceDic = [NSMutableDictionary new];
+    _cityDic = [NSMutableDictionary new];
+    
+    NSString * path = [[NSBundle mainBundle] pathForResource:@"province_data" ofType:@"xml"];
+    NSURL * url = [NSURL fileURLWithPath:path];
+    
+    //开始解析 xml
+    NSXMLParser * parser = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    parser.delegate = self ;
+    
+    [parser parse];
+    
+    NSLog(@"解析搞定...");
+    
+}
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
-    
-    //初始化应用，appKey和appSecret从后台申请得
-    [SMSSDK registerApp:@"1390bb8412ad4"
-             withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
-    
+- (void)firstLoad{
+
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         
@@ -64,6 +98,23 @@
     }else{
         NSLog(@"不是第一次启动");
     }
+
+}
+
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    // Override point for customization after application launch.
+    
+    //初始化应用，appKey和appSecret从后台申请得
+    [SMSSDK registerApp:@"1390bb8412ad4"
+             withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
+    
+    UMConfigInstance.appKey = @"5763b1ed67e58ebebb00260c";
+    
+    //是否第一次打开
+    [self firstLoad];
+    //解析城市地区XML
+    [self start];
     
     return YES;
 }
@@ -282,5 +333,116 @@
         }
     }
 }
+
+//文档开始时触发 ,开始解析时 只触发一次
+-(void)parserDidStartDocument:(NSXMLParser *)parser{
+    
+}
+
+// 文档出错时触发
+-(void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError{
+    NSLog(@"%@",parseError);
+}
+
+//遇到一个开始标签触发
+- (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName attributes:(NSDictionary *)attributeDict{
+    
+    //把elementName 赋值给 成员变量 currentTagName
+    _currentTagName  = elementName ;
+    
+    //如果名字 是Note就取出 id
+    if ([_currentTagName isEqualToString:@"province"]) {
+        
+        NSString * _name = [attributeDict objectForKey:@"name"];
+        //把name放入字典中
+        [_provinceDic setObject:_name forKey:@"name"];
+        
+    }
+    
+    if ([_currentTagName isEqualToString:@"city"]) {
+        
+        NSString * _name = [attributeDict objectForKey:@"name"];
+        
+        //把name放入字典中
+        [_cityDic setObject:_name forKey:@"name"];
+        
+    }
+    
+    if ([_currentTagName isEqualToString:@"district"]) {
+        
+        NSString * _name = [attributeDict objectForKey:@"name"];
+        // 实例化一个可变的字典对象,用于存放
+        NSMutableDictionary *dict = [NSMutableDictionary new];
+        //把name放入字典中
+        [dict setObject:_name forKey:@"name"];
+        
+        // 把可变字典 放入到 可变数组集合_notes 变量中
+        [_areas addObject:dict];
+    }
+    
+}
+#pragma mark 该方法主要是解析元素文本的主要场所，由于换行符和回车符等特殊字符也会触发该方法，因此要判断并剔除换行符和回车符
+// 遇到字符串时 触发
+-(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
+    //替换回车符 和空格,其中 stringByTrimmingCharactersInSet 是剔除字符的方法,[NSCharacterSet whitespaceAndNewlineCharacterSet]指定字符集为换行符和回车符;
+    
+    string  = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([string isEqualToString:@""]) {
+        return;
+    }
+    
+    NSMutableDictionary * dict = [_provinces lastObject];
+    if ([_currentTagName isEqualToString:@"CDate"] && dict) {
+        [dict setObject:string forKey:@"CDate"];
+    }
+    
+    if ([_currentTagName isEqualToString:@"Content"] && dict) {
+        [dict setObject:string forKey:@"Content"];
+    }
+    
+    if ([_currentTagName isEqualToString:@"UserID"] && dict) {
+        [dict setObject:string forKey:@"UserID"];
+    }
+    
+    
+}
+
+//遇到结束标签触发
+- (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{
+    _currentTagName = elementName ;
+    
+    
+    
+    if ([_currentTagName isEqualToString:@"city"]) {
+        
+        [_cityDic setObject:_areas forKey:@"child"];
+        
+        [_citys addObject:_cityDic];
+        _areas = [NSMutableArray new];
+        _cityDic = [NSMutableDictionary new];
+        
+    }
+    
+    if ([_currentTagName isEqualToString:@"province"]) {
+        
+        [_provinceDic setObject:_citys forKey:@"child"];
+        
+        [_provinces addObject:_provinceDic];
+        _citys = [NSMutableArray new];
+        _provinceDic = [NSMutableDictionary new];
+        
+    }
+    
+}
+
+// 遇到文档结束时触发
+-(void)parserDidEndDocument:(NSXMLParser *)parser{
+    //进入该方法就意味着解析完成，需要清理一些成员变量，同时要将数据返回给表示层（表示图控制器） 通过广播机制将数据通过广播通知投送到 表示层
+    NSLog(@"====%@",_provinces);
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    [def setObject:_provinces forKey:@"Province"];
+    [def synchronize];
+}
+
 
 @end

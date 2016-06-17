@@ -7,9 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyInfoVC">
             <connections>
-                <outlet property="mAge" destination="J9D-tO-Vxe" id="Yac-nb-Mwj"/>
                 <outlet property="mHeadImg" destination="KoT-zR-LEP" id="wBs-qU-9Fr"/>
                 <outlet property="mName" destination="uTF-6F-Z22" id="h6s-yn-n7f"/>
+                <outlet property="mSex" destination="J9D-tO-Vxe" id="qE6-Z5-5Qb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

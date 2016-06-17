@@ -11,6 +11,7 @@
                 <outlet property="mCode" destination="cZR-Hg-D7u" id="f9M-k2-wQe"/>
                 <outlet property="mCodebt" destination="Orp-Fo-vAl" id="jDi-NP-3By"/>
                 <outlet property="mPhone" destination="CFb-Zy-tbR" id="aCQ-0K-Ma7"/>
+                <outlet property="mPoint" destination="ppM-gI-Od2" id="JmC-Ct-OG2"/>
                 <outlet property="mPwd" destination="rnd-Va-qcS" id="eKJ-By-Vbj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="8us-SO-DpH"/>
             </connections>
@@ -59,6 +60,9 @@
                     <rect key="frame" x="111" y="521" width="108" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="阅读并接受用户协议"/>
+                    <connections>
+                        <action selector="goXieyiClick:" destination="-1" eventType="touchUpInside" id="awI-fe-d2c"/>
+                    </connections>
                 </button>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ppM-gI-Od2">
                     <rect key="frame" x="97" y="530" width="9" height="9"/>

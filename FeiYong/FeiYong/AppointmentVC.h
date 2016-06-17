@@ -10,6 +10,7 @@
 
 @interface AppointmentVC : BaseVC
 
+@property (nonatomic,strong) NSString *mAuntName;
 @property (nonatomic,strong) SOrder *mOrder;
 @property (nonatomic,strong) NSArray *mTempArray;
 @property (weak, nonatomic) IBOutlet UILabel *mName;

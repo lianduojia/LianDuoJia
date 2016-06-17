@@ -14,6 +14,7 @@
 
 @interface BaseVC : UIViewController
 
+@property (nonatomic,strong)    NSString* mPageName;
 @property (nonatomic,strong) NavBar     *navBar;            //NavBar
 @property (nonatomic,strong) NSString   *navTitle;          //navTitle
 @property (nonatomic,strong) NSString   *navRightText;      //navBar RightText
@@ -31,6 +32,7 @@
 -(void)loadTableView:(CGRect)rect delegate:(id<UITableViewDelegate>)delegate dataSource:(id<UITableViewDataSource>)datasource;
 
 -(void)gotoLogin;
+-(void)gotoLoginVC:(UIViewController *)viewcontroller;
 
 -(void)leftBtnTouched:(id)sender;                       //左边navbar事件
 -(void)rightBtnTouched:(id)sender;                      //右边navbar事件
@@ -44,7 +46,9 @@
 -(void)removeEmpty;
 
 -(void)pushViewController:(UIViewController *)controller;
--(void)popViewController;                               //返回上个controller
+-(void)popViewController;
+-(void)popViewController_2;
+-(void)popViewController_3;
 
 
 -(void)showStatu:(NSString *)string;                    //显示提示消息

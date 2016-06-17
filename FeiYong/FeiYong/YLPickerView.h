@@ -11,22 +11,15 @@
 
 @interface YLPickerView : UIViewController
 
-// 当前标签的名字 ,currentTagName 用于存储正在解析的元素名
-@property (strong ,nonatomic) NSString * currentTagName ;
-
-//开始解析
-- (void) start ;
-
-@property (nonatomic,assign) BOOL mIsDate;
-
-@property (weak, nonatomic) IBOutlet UIDatePicker *mDatePicker;
+@property (nonatomic,strong) void (^itblock)(NSString *sex);
 @property (weak, nonatomic) IBOutlet UIButton *mCancel;
 @property (weak, nonatomic) IBOutlet UIButton *mSubmit;
 @property (weak, nonatomic) IBOutlet UIPickerView *mPicker;
-@property (nonatomic,strong) void (^itblock)(BOOL flag,NSString *provice,NSString *city,NSString *area);
+
+-(void)initView:(UIView *)view block:(void(^)(NSString* sex))block;
 
 - (IBAction)mCancelClick:(id)sender;
 - (IBAction)mSubmittClick:(id)sender;
-- (void)initView:(UIView *)view block:(void(^)(BOOL flag,NSString *provice,NSString *city,NSString *area))block;
+
 
 @end

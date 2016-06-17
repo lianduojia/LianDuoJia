@@ -22,28 +22,41 @@
     // Configure the view for the selected state
 }
 
--(void)initCell:(SOrder *)order{
-
-//    @property (weak, nonatomic) IBOutlet UILabel *mTitle;
-//    @property (weak, nonatomic) IBOutlet UILabel *mDetail;
-//    @property (weak, nonatomic) IBOutlet UILabel *mOrderNo;
-//    @property (weak, nonatomic) IBOutlet UIButton *mButton;
-//    @property (weak, nonatomic) IBOutlet UILabel *mMoney;
-//    @property (weak, nonatomic) IBOutlet UILabel *mMoneylabel;
-//    @property (unsafe_unretained, nonatomic) IBOutlet UIButton *mButtonTwo;
-    if([order.mGoods_info isEqualToString:@"中介费"]){
-       
-        _mTitle.text = [NSString stringWithFormat:@"预约%d位%@",order.mMaid_count,order.mWork_type];
-        _mMoneylabel.text = @"月薪";
-    }else{
-        _mTitle.text = [NSString stringWithFormat:@"聘用%d位%@",order.mMaid_count,order.mWork_type];
-        _mMoneylabel.text = @"中介费";
+-(void)initCell:(SOrder *)order index:(int)index{
+    
+    NSString *type = @"";
+    if (order.mMaids.count>0) {
+        
+        type = [[order.mMaids objectAtIndex:0] objectForKey:@"work_type"];
     }
+
+    if (order.mMaid.count == 1) {
+        [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[order.mMaids objectAtIndex:0] objectForKey:@"mail_photo_ur"]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+    }
+    
+    if([order.mGoods_info isEqualToString:@"中介费"]){
+        
+        _mTitle.text = [NSString stringWithFormat:@"预约%lu位%@",(unsigned long)order.mMaids.count,type];
+        _mMoneylabel.text = @"中介费";
+    }else{
+        _mTitle.text = [NSString stringWithFormat:@"聘用%lu位%@",(unsigned long)order.mMaids.count,type];
+        _mMoneylabel.text = @"月薪";
+    }
+    switch (index) {
+        case 0:
+            
+            
+            break;
+            
+        default:
+            break;
+    }
+    
    
     NSString *stringName = @"";
     if (order.mMaids.count>0) {
-        for (NSString *s in order.mMaids) {
-            stringName = [stringName stringByAppendingString:[NSString stringWithFormat:@"%@ ",s]];
+        for (NSDictionary *s in order.mMaids) {
+            stringName = [stringName stringByAppendingString:[NSString stringWithFormat:@"%@ ",[s objectForKey:@"maid_name"]]];
         }
     }
     _mDetail.text = stringName;
@@ -54,4 +67,21 @@
     
     
 }
+
+-(void)initPjCell:(SOrder *)order{
+    
+    if ([order.mStatus isEqualToString:@"聘用"]) {
+        [_mButtonTwo setTitle:@"已聘用" forState:UIControlStateNormal];
+        _mButtonTwo.userInteractionEnabled = NO;
+    }else{
+        [_mButtonTwo setTitle:@"聘用阿姨" forState:UIControlStateNormal];
+        _mButtonTwo.userInteractionEnabled = YES;
+    }
+    
+    [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:order.mMail_photo_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
+    _mTitle.text = [NSString stringWithFormat:@"预约%@",order.mMail_name];
+    _mOrderNo.text = order.mMail_work_type;
+    _mDetail.text = [NSString stringWithFormat:@"%@见面",order.mMeet_location];
+}
+
 @end

@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BalanceVC : BaseVC
+@property (nonatomic,assign) float mBalance;
 @property (weak, nonatomic) IBOutlet UILabel *mMoney;
 @property (weak, nonatomic) IBOutlet UIButton *mBack;
 - (IBAction)mBackClick:(id)sender;
