@@ -52,7 +52,10 @@
         [self firstLoad];
     }
     
-   
+    if(_mIsHour){
+    
+        [_mPayBt setTitle:@"支付工时费" forState:UIControlStateNormal];
+    }
 
 }
 

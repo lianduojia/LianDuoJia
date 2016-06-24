@@ -11,6 +11,7 @@
 #import "CalculateFileSize.h"
 #import "WebVC.h"
 #import "APIClient.h"
+#import "AboutUsVC.h"
 
 @interface SettingVC ()<UITableViewDataSource,UITableViewDelegate>{
 
@@ -114,11 +115,9 @@
             break;
         case 1:
         {
-            WebVC *web = [[WebVC alloc] init];
-            web.mName = @"关于飞佣";
-            web.isMode = YES;
-            web.mUrl = [NSString stringWithFormat:@"%@introduce.html",[APIClient getDomain]];
-            [self presentViewController:web animated:YES completion:nil];
+            AboutUsVC *au = [[AboutUsVC alloc] initWithNibName:@"AboutUsVC" bundle:nil];
+            
+            [self pushViewController:au];
         }
             
             break;

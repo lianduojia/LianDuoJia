@@ -375,24 +375,108 @@ SAppInfo* g_appinfo = nil;
 
 }
 
-+(void)updateInfo:(NSString *)name sex:(NSString *)sex photo_url:(NSString *)photo_url block:(void(^)(SResBase* retobj))block{
++(void)updateInfo:(NSString *)name sex:(NSString *)sex photo:(NSData *)photo block:(void(^)(SResBase* retobj))block{
+    
+    if (photo) {
+        
+        [SVProgressHUD showWithStatus:@"上传图片中.." maskType:SVProgressHUDMaskTypeClear];
+        
+        [SUser uploadPhoto:photo block:^(SResBase *retobj) {
+            
+            if (retobj.msuccess) {
+                
+                [SVProgressHUD showSuccessWithStatus:@"上传头像成功"];
+                NSMutableDictionary* param =    NSMutableDictionary.new;
+                [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+                [param setObject:name forKey:@"name"];
+                [param setObject:sex forKey:@"sex"];
+                
+                [SVProgressHUD showWithStatus:@"更新个人信息中" maskType:SVProgressHUDMaskTypeClear];
+                [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
+                    
+                    if(info.msuccess){
+                        
+                        [SUser saveUserInfo:param];
+                        
+                        
+                    }
+                    block(info);
+                }];
 
+                
+            }else{
+                
+                [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+            }
+        }];
+    }else{
+        
+        NSMutableDictionary* param =    NSMutableDictionary.new;
+        [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+        [param setObject:name forKey:@"name"];
+        [param setObject:sex forKey:@"sex"];
+        
+        [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
+            
+            if(info.msuccess){
+                
+                [SUser saveUserInfo:param];
+                
+                
+            }
+            block(info);
+        }];
+
+    }
+
+    
+}
+
++(void)uploadPhoto:(NSData *)photo block:(void(^)(SResBase* retobj))block{
+
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    
+    NSString *URLString = @"upload-file";
+    
+    NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@",[APIClient getDomain],URLString];
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:name forKey:@"name"];
-    [param setObject:sex forKey:@"sex"];
-    [param setObject:photo_url forKey:@"photo_url"];
-    [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
+    
+    [manager POST:Url parameters:param constructingBodyWithBlock:^(id _Nonnull formData) {
         
-        if(info.msuccess){
-            
-            [SUser saveUserInfo:param];
-            
-        }
-        block(info);
-    }];
+        //使用日期生成图片名称
+        
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        
+        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+        
+        NSString *fileName = [NSString stringWithFormat:@"%@.png",[formatter stringFromDate:[NSDate date]]];
+        
+        [formData appendPartWithFileData:photo name:@"uploadFile" fileName:fileName mimeType:@"image/png"];
+        
+    } success:^(AFHTTPRequestOperation * _Nonnull operation, id _Nonnull responseObject) {
+        
+        //上传图片成功执行回调
+        SResBase* retob = [[SResBase alloc] init];
+        retob.msuccess = YES;
+        
+        block(retob);
 
+        
+    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
+        
+        //上传图片失败执行回调
+        SResBase* retob = [[SResBase alloc] init];
+        retob.msuccess = NO;
+        retob.mmsg = error.description;
+        
+        block(retob);
+        
+    }];
+    
 }
+
+
 
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block{

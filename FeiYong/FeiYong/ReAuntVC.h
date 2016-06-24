@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface ReAuntVC : BaseVC
+
+@property (nonatomic,assign) BOOL mIsHour;
 @property (nonatomic,strong) NSMutableArray *mTempArray;
 @property (nonatomic,strong) NSString *mType;  //服务类型
 @property (nonatomic,strong) NSString *mDate;  //服务时间

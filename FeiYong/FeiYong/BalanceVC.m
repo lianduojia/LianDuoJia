@@ -23,10 +23,32 @@
     _mBack.layer.masksToBounds = YES;
     _mBack.layer.cornerRadius = 5;
     _mMoney.text = [NSString stringWithFormat:@"%g",_mBalance];
+    
+    
+    if(_mBalance>0){
+        _mTixian.backgroundColor = M_CO;
+        _mTixian.userInteractionEnabled = YES;
+    }else{
+        _mTixian.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
+        _mTixian.userInteractionEnabled = NO;
+    }
+    
     [SUser getBalance:^(SResBase *retobj) {
         
         if (retobj.msuccess) {
-            _mMoney.text = [NSString stringWithFormat:@"%g",[[retobj.mdata objectForKey:@"balance"] floatValue]];
+            
+            float money = [[retobj.mdata objectForKey:@"balance"] floatValue];
+            
+            _mMoney.text = [NSString stringWithFormat:@"%g",money];
+            
+            if(money>0){
+                _mTixian.backgroundColor = M_CO;
+                _mTixian.userInteractionEnabled = YES;
+            }else{
+                _mTixian.backgroundColor = [UIColor colorWithRed:216/255.0 green:216/255.0 blue:216/255.0 alpha:1];
+                _mTixian.userInteractionEnabled = NO;
+            }
+            
             [SVProgressHUD dismiss];
             
         }else{

@@ -12,6 +12,11 @@
 		4FC4FCCE1D0C29C70000A9A0 /* YLPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */; };
 		4FC4FCD01D0C29DB0000A9A0 /* YLPickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */; };
 		4FC4FCD21D0C3F490000A9A0 /* province_data.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4FC4FCD11D0C3F490000A9A0 /* province_data.xml */; };
+		B2457A5E1D1CDA94001E979D /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2457A5D1D1CDA94001E979D /* MobileCoreServices.framework */; };
+		B2457A691D1CE752001E979D /* RSKImageCropViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A621D1CE752001E979D /* RSKImageCropViewController.m */; };
+		B2457A6A1D1CE752001E979D /* RSKImageScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A641D1CE752001E979D /* RSKImageScrollView.m */; };
+		B2457A6B1D1CE752001E979D /* RSKTouchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A661D1CE752001E979D /* RSKTouchView.m */; };
+		B2457A6C1D1CE752001E979D /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A681D1CE752001E979D /* UIImage+FixOrientation.m */; };
 		B24B27711D003F7E001BC50A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27701D003F7E001BC50A /* libz.tbd */; };
 		B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27721D003F87001BC50A /* libc++.tbd */; };
 		B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27741D003F8F001BC50A /* CoreMotion.framework */; };
@@ -137,6 +142,10 @@
 		B2D4BD0E1D0E62B000B1E3FA /* YLDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D4BD0D1D0E62B000B1E3FA /* YLDatePickerView.xib */; };
 		B2D4BD111D0E65CB00B1E3FA /* YLDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */; };
 		B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */; };
+		B2D62FF11D1B93B90045B2B0 /* ChosePlaceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D62FEF1D1B93B90045B2B0 /* ChosePlaceVC.m */; };
+		B2D62FF21D1B93B90045B2B0 /* ChosePlaceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D62FF01D1B93B90045B2B0 /* ChosePlaceVC.xib */; };
+		B2D62FF61D1BB47A0045B2B0 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D62FF41D1BB47A0045B2B0 /* AboutUsVC.m */; };
+		B2D62FF71D1BB47A0045B2B0 /* AboutUsVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D62FF51D1BB47A0045B2B0 /* AboutUsVC.xib */; };
 		B2D6A6E11D090EF200899042 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D6A6DF1D090EF200899042 /* OrderCell.m */; };
 		B2D6A6E21D090EF200899042 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D6A6E01D090EF200899042 /* OrderCell.xib */; };
 		B2D6A6E51D091F9700899042 /* OrderSectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D6A6E41D091F9700899042 /* OrderSectionView.m */; };
@@ -220,6 +229,16 @@
 		4FC4FCCD1D0C29C70000A9A0 /* YLPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLPickerView.m; sourceTree = "<group>"; };
 		4FC4FCCF1D0C29DB0000A9A0 /* YLPickerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YLPickerView.xib; sourceTree = "<group>"; };
 		4FC4FCD11D0C3F490000A9A0 /* province_data.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = province_data.xml; sourceTree = "<group>"; };
+		B2457A5D1D1CDA94001E979D /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		B2457A601D1CE752001E979D /* RSKImageCropper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageCropper.h; sourceTree = "<group>"; };
+		B2457A611D1CE752001E979D /* RSKImageCropViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageCropViewController.h; sourceTree = "<group>"; };
+		B2457A621D1CE752001E979D /* RSKImageCropViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKImageCropViewController.m; sourceTree = "<group>"; };
+		B2457A631D1CE752001E979D /* RSKImageScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKImageScrollView.h; sourceTree = "<group>"; };
+		B2457A641D1CE752001E979D /* RSKImageScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKImageScrollView.m; sourceTree = "<group>"; };
+		B2457A651D1CE752001E979D /* RSKTouchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSKTouchView.h; sourceTree = "<group>"; };
+		B2457A661D1CE752001E979D /* RSKTouchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSKTouchView.m; sourceTree = "<group>"; };
+		B2457A671D1CE752001E979D /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
+		B2457A681D1CE752001E979D /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
 		B24B27701D003F7E001BC50A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B24B27721D003F87001BC50A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B24B27741D003F8F001BC50A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -496,6 +515,12 @@
 		B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDatePickerView.m; sourceTree = "<group>"; };
 		B2D4F0A21D0D6A27001E3B51 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
 		B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
+		B2D62FEE1D1B93B90045B2B0 /* ChosePlaceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChosePlaceVC.h; sourceTree = "<group>"; };
+		B2D62FEF1D1B93B90045B2B0 /* ChosePlaceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChosePlaceVC.m; sourceTree = "<group>"; };
+		B2D62FF01D1B93B90045B2B0 /* ChosePlaceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChosePlaceVC.xib; sourceTree = "<group>"; };
+		B2D62FF31D1BB47A0045B2B0 /* AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUsVC.h; sourceTree = "<group>"; };
+		B2D62FF41D1BB47A0045B2B0 /* AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUsVC.m; sourceTree = "<group>"; };
+		B2D62FF51D1BB47A0045B2B0 /* AboutUsVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutUsVC.xib; sourceTree = "<group>"; };
 		B2D6A6DE1D090EF200899042 /* OrderCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderCell.h; sourceTree = "<group>"; };
 		B2D6A6DF1D090EF200899042 /* OrderCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderCell.m; sourceTree = "<group>"; };
 		B2D6A6E01D090EF200899042 /* OrderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
@@ -606,6 +631,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2457A5E1D1CDA94001E979D /* MobileCoreServices.framework in Frameworks */,
+				B24B27791D003FAC001BC50A /* SystemConfiguration.framework in Frameworks */,
 				B2FD7F131D13F08500539229 /* libsqlite3.tbd in Frameworks */,
 				B24B277B1D003FB4001BC50A /* CoreTelephony.framework in Frameworks */,
 				B2CEE2C21D054B240062EC59 /* libstdc++.tbd in Frameworks */,
@@ -621,7 +648,6 @@
 				B24B277F1D003FC5001BC50A /* CoreText.framework in Frameworks */,
 				B24B277D1D003FBD001BC50A /* QuartzCore.framework in Frameworks */,
 				B24B278D1D0044C1001BC50A /* AlipaySDK.framework in Frameworks */,
-				B24B27791D003FAC001BC50A /* SystemConfiguration.framework in Frameworks */,
 				B24B27771D003F9B001BC50A /* CFNetwork.framework in Frameworks */,
 				B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */,
 				B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */,
@@ -648,6 +674,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B2457A5F1D1CE752001E979D /* RSKImageCropper */ = {
+			isa = PBXGroup;
+			children = (
+				B2457A601D1CE752001E979D /* RSKImageCropper.h */,
+				B2457A611D1CE752001E979D /* RSKImageCropViewController.h */,
+				B2457A621D1CE752001E979D /* RSKImageCropViewController.m */,
+				B2457A631D1CE752001E979D /* RSKImageScrollView.h */,
+				B2457A641D1CE752001E979D /* RSKImageScrollView.m */,
+				B2457A651D1CE752001E979D /* RSKTouchView.h */,
+				B2457A661D1CE752001E979D /* RSKTouchView.m */,
+				B2457A671D1CE752001E979D /* UIImage+FixOrientation.h */,
+				B2457A681D1CE752001E979D /* UIImage+FixOrientation.m */,
+			);
+			path = RSKImageCropper;
+			sourceTree = "<group>";
+		};
 		B24B276B1D0039E9001BC50A /* AliPay */ = {
 			isa = PBXGroup;
 			children = (
@@ -803,6 +845,9 @@
 				B2D6A6FC1D0950DA00899042 /* AppointmentVC.h */,
 				B2D6A6FD1D0950DA00899042 /* AppointmentVC.m */,
 				B2D6A6FE1D0950DA00899042 /* AppointmentVC.xib */,
+				B2D62FEE1D1B93B90045B2B0 /* ChosePlaceVC.h */,
+				B2D62FEF1D1B93B90045B2B0 /* ChosePlaceVC.m */,
+				B2D62FF01D1B93B90045B2B0 /* ChosePlaceVC.xib */,
 			);
 			name = aunt;
 			sourceTree = "<group>";
@@ -836,6 +881,9 @@
 				B291E88E1D084F010056C7E1 /* SettingCell.xib */,
 				B2CFB2FF1D113009007D43BA /* CalculateFileSize.h */,
 				B2CFB3001D113009007D43BA /* CalculateFileSize.m */,
+				B2D62FF31D1BB47A0045B2B0 /* AboutUsVC.h */,
+				B2D62FF41D1BB47A0045B2B0 /* AboutUsVC.m */,
+				B2D62FF51D1BB47A0045B2B0 /* AboutUsVC.xib */,
 			);
 			name = Own;
 			sourceTree = "<group>";
@@ -1188,6 +1236,7 @@
 		B2DDFB9A1CF6FFDA00D92DEA /* OpenSouce */ = {
 			isa = PBXGroup;
 			children = (
+				B2457A5F1D1CE752001E979D /* RSKImageCropper */,
 				B2FD7F101D13EC4200539229 /* UMMobClick.framework */,
 				B2CF56071D0672B80091B42A /* JFCalendarPicker */,
 				B2CEE2CF1D0553750062EC59 /* MZTimerLabel */,
@@ -1300,6 +1349,7 @@
 		C22482086A9AB2B2777AEDA2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2457A5D1D1CDA94001E979D /* MobileCoreServices.framework */,
 				B2FD7F121D13F08500539229 /* libsqlite3.tbd */,
 				B2CEE2C11D054B240062EC59 /* libstdc++.tbd */,
 				B2CEE2BF1D054B190062EC59 /* JavaScriptCore.framework */,
@@ -1450,6 +1500,8 @@
 				B2CEE2861D051F9E0062EC59 /* RegisterVC.xib in Resources */,
 				B291E8751D0837C00056C7E1 /* EditAddressVC.xib in Resources */,
 				B2DD200D1D0FFA9C005F68AB /* ChoseAddress.xib in Resources */,
+				B2D62FF71D1BB47A0045B2B0 /* AboutUsVC.xib in Resources */,
+				B2D62FF21D1B93B90045B2B0 /* ChosePlaceVC.xib in Resources */,
 				B2CEE2E11D058ADF0062EC59 /* ParentalServiceVC.xib in Resources */,
 				B2CF560F1D06736B0091B42A /* JFCalendarPickerView.xib in Resources */,
 				B2CEE2DB1D057EED0062EC59 /* ForgetPwdVC.xib in Resources */,
@@ -1496,6 +1548,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2457A6A1D1CE752001E979D /* RSKImageScrollView.m in Sources */,
 				B24B27A31D00473D001BC50A /* MD5DataSigner.m in Sources */,
 				B2DDFBAF1CF7001C00D92DEA /* MJRefreshFooterView.m in Sources */,
 				B2DDFC011CF7126600D92DEA /* SDWebImagePrefetcher.m in Sources */,
@@ -1538,7 +1591,9 @@
 				B2CFB3011D113009007D43BA /* CalculateFileSize.m in Sources */,
 				B2CEE2AA1D0534FE0062EC59 /* IQNSArray+Sort.m in Sources */,
 				B2DDFC091CF7126600D92DEA /* UIView+WebCacheOperation.m in Sources */,
+				B2D62FF61D1BB47A0045B2B0 /* AboutUsVC.m in Sources */,
 				B2D2C0291CFE8C1A00D4BF1A /* AFSecurityPolicy.m in Sources */,
+				B2457A6C1D1CE752001E979D /* UIImage+FixOrientation.m in Sources */,
 				B291E8851D084BBE0056C7E1 /* OpinionVC.m in Sources */,
 				B2CEE2B41D0534FE0062EC59 /* IQUIView+IQKeyboardToolbar.m in Sources */,
 				B291E8511D07BFB60056C7E1 /* AuntDetailCell.m in Sources */,
@@ -1575,6 +1630,7 @@
 				B2CD75471CFD817500247403 /* SDCollectionViewCell.m in Sources */,
 				B24B27A71D00473D001BC50A /* RSADataVerifier.m in Sources */,
 				4FC4FCCE1D0C29C70000A9A0 /* YLPickerView.m in Sources */,
+				B2457A6B1D1CE752001E979D /* RSKTouchView.m in Sources */,
 				B2DDFBFD1CF7126600D92DEA /* SDWebImageDownloader.m in Sources */,
 				B2CEE2E51D05A8670062EC59 /* ParentalCell.m in Sources */,
 				B2DDFB651CF6C19B00D92DEA /* AppDelegate.m in Sources */,
@@ -1585,8 +1641,10 @@
 				B291E8601D07ED5D0056C7E1 /* PingJiaVC.m in Sources */,
 				B2DD200C1D0FFA9C005F68AB /* ChoseAddress.m in Sources */,
 				B2D2C0271CFE8C1A00D4BF1A /* AFHTTPSessionManager.m in Sources */,
+				B2D62FF11D1B93B90045B2B0 /* ChosePlaceVC.m in Sources */,
 				B2DDFC041CF7126600D92DEA /* UIImage+MultiFormat.m in Sources */,
 				B2DDFB621CF6C19B00D92DEA /* main.m in Sources */,
+				B2457A691D1CE752001E979D /* RSKImageCropViewController.m in Sources */,
 				B2CFB3041D115B88007D43BA /* NavC.m in Sources */,
 				B2DDFBFE1CF7126600D92DEA /* SDWebImageDownloaderOperation.m in Sources */,
 				B2D6A6FF1D0950DA00899042 /* AppointmentVC.m in Sources */,

@@ -155,8 +155,8 @@
 +(void)getDetail:(void(^)(SResBase* retobj))block;
 
 //更新个人资料	/update-persional-details	employer_id=2(雇主id)&name=xxx(要更新的昵称)&sex=男(更新的性别数据:男、女)&photo_url=./aaa/bbb/ccc.png(照片的url数据)
-+(void)updateInfo:(NSString *)name sex:(NSString *)sex photo_url:(NSString *)photo_url block:(void(^)(SResBase* retobj))block;
-
++(void)updateInfo:(NSString *)name sex:(NSString *)sex photo:(NSData *)photo block:(void(^)(SResBase* retobj))block;
++(void)uploadPhoto:(NSData *)photo block:(void(^)(SResBase* retobj))block;
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
 

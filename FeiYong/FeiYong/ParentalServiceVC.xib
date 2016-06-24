@@ -25,6 +25,7 @@
                 <outlet property="mOld" destination="0Uw-pI-lJj" id="xDs-Cc-CHv"/>
                 <outlet property="mProcessHeight" destination="TlD-PR-XWS" id="ImZ-jT-PA1"/>
                 <outlet property="mRemark" destination="wEh-OS-Oqj" id="70M-c5-uL4"/>
+                <outlet property="mRemarkHolder" destination="ixs-95-TsB" id="l6t-Zh-8cZ"/>
                 <outlet property="mRemarklb" destination="Ld3-Fv-Dlq" id="pRq-7T-AeX"/>
                 <outlet property="mSbys" destination="iwq-PD-78c" id="xfj-n5-X7G"/>
                 <outlet property="mSwSb" destination="Kgl-HG-07m" id="evX-EQ-bHU"/>
@@ -81,7 +82,7 @@
                                             </constraints>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_tjxq" translatesAutoresizingMaskIntoConstraints="NO" id="Vfl-jI-hfN">
-                                            <rect key="frame" x="48.5" y="45" width="34" height="34"/>
+                                            <rect key="frame" x="48" y="45" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="6N7-uh-Tcy"/>
@@ -89,7 +90,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_xzay" translatesAutoresizingMaskIntoConstraints="NO" id="ccm-06-CXe">
-                                            <rect key="frame" x="170.5" y="45" width="34" height="34"/>
+                                            <rect key="frame" x="170" y="45" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="34" id="BJc-NR-7pJ"/>
@@ -97,7 +98,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_zfzjf" translatesAutoresizingMaskIntoConstraints="NO" id="kTA-CJ-vfE">
-                                            <rect key="frame" x="292.5" y="45" width="34" height="34"/>
+                                            <rect key="frame" x="292" y="45" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="34" id="TzZ-bX-baZ"/>
@@ -105,7 +106,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_yyjm" translatesAutoresizingMaskIntoConstraints="NO" id="Vuh-pb-Wyn">
-                                            <rect key="frame" x="48.5" y="119" width="34" height="34"/>
+                                            <rect key="frame" x="48" y="119" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="34" id="Vdf-k8-SPC"/>
@@ -113,7 +114,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_pjay" translatesAutoresizingMaskIntoConstraints="NO" id="PTN-S8-fWq">
-                                            <rect key="frame" x="292.5" y="119" width="34" height="34"/>
+                                            <rect key="frame" x="292" y="119" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="34" id="cGC-7g-RQ5"/>
@@ -121,7 +122,7 @@
                                             </constraints>
                                         </imageView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="s_xday" translatesAutoresizingMaskIntoConstraints="NO" id="MZ8-i2-mdQ">
-                                            <rect key="frame" x="170.5" y="119" width="34" height="34"/>
+                                            <rect key="frame" x="170" y="119" width="34" height="34"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="34" id="H5K-tT-P0s"/>
@@ -531,8 +532,8 @@
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Quc-B0-JMu">
                                     <rect key="frame" x="0.0" y="964" width="375" height="203"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您对阿姨籍贯 做菜口味等方面的要求" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld3-Fv-Dlq">
-                                            <rect key="frame" x="10" y="20" width="244" height="18"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您对阿姨的其他要求" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ld3-Fv-Dlq">
+                                            <rect key="frame" x="10" y="20" width="135" height="18"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -546,14 +547,22 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="如做菜口味等" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixs-95-TsB">
+                                            <rect key="frame" x="15" y="61" width="78" height="16"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.70196078429999997" green="0.69803921570000005" blue="0.72549019609999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <animations/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
                                         <constraint firstItem="Ld3-Fv-Dlq" firstAttribute="top" secondItem="Quc-B0-JMu" secondAttribute="top" constant="20" id="1cw-JV-Eqn"/>
                                         <constraint firstAttribute="width" secondItem="Quc-B0-JMu" secondAttribute="height" multiplier="375:203" id="AWd-16-gpB"/>
+                                        <constraint firstItem="ixs-95-TsB" firstAttribute="top" secondItem="wEh-OS-Oqj" secondAttribute="top" constant="8" id="Acf-Qv-lBh"/>
                                         <constraint firstAttribute="trailing" secondItem="wEh-OS-Oqj" secondAttribute="trailing" constant="10" id="Ajy-Nj-AJm"/>
                                         <constraint firstItem="Ld3-Fv-Dlq" firstAttribute="leading" secondItem="Quc-B0-JMu" secondAttribute="leading" constant="10" id="ESD-ma-UyN"/>
+                                        <constraint firstItem="ixs-95-TsB" firstAttribute="leading" secondItem="wEh-OS-Oqj" secondAttribute="leading" constant="5" id="Z0w-OC-jYT"/>
                                         <constraint firstAttribute="bottom" secondItem="wEh-OS-Oqj" secondAttribute="bottom" constant="15" id="d76-Bh-dJ8"/>
                                         <constraint firstItem="wEh-OS-Oqj" firstAttribute="top" secondItem="Ld3-Fv-Dlq" secondAttribute="bottom" constant="15" id="jLQ-Gy-BKV"/>
                                         <constraint firstItem="wEh-OS-Oqj" firstAttribute="leading" secondItem="Quc-B0-JMu" secondAttribute="leading" constant="10" id="tcZ-jc-eVc"/>

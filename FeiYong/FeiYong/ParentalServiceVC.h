@@ -60,6 +60,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *mRemarklb;
 @property (weak, nonatomic) IBOutlet UITextView *mRemark;
+@property (weak, nonatomic) IBOutlet UILabel *mRemarkHolder;
 
 
 - (IBAction)mSumitClick:(id)sender;

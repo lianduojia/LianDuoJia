@@ -12,8 +12,9 @@
 #import "ChoseAddressVC.h"
 #import "ReAuntVC.h"
 #import "Util.h"
+#import "ChosePlaceVC.h"
 
-@interface ParentalServiceVC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface ParentalServiceVC ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>{
 
     BombBoxVC *_mbombbox;
     BombBoxVC *_mbombbox2;
@@ -23,7 +24,7 @@
     NSString *_mfwsd;//服务时段
     NSString *_mfwsc;//服务时长
     NSString *_mfwnum;//服务人数
-    NSString *_mfwpl;//服务频率
+    NSString *_mplace;//户籍
     
     NSString *_province;
     NSString *_city;
@@ -121,7 +122,16 @@
         default:
             break;
     }
-   
+    _mRemark.delegate = self;
+}
+
+- (void)textViewDidChange:(UITextView *)textView
+{
+    if (textView.text.length == 0) {
+        _mRemarkHolder.text = @"如做菜口味等";
+    }else{
+        _mRemarkHolder.text = @"";
+    }
 }
 
 //月嫂
@@ -180,7 +190,7 @@
     _mItemTwoHeight.constant = 0;
     _mItemThreeHeight.constant = 0;
     
-    _mRemarklb.text = @"您对保姆籍贯 做菜口味等方面的要求";
+    _mRemarklb.text = @"您对保姆的其他要求";
     
     _mHeadImg.image = [UIImage imageNamed:@"banner_baomu"];
 }
@@ -189,7 +199,7 @@
 - (void)loadPeihu{
     
     self.navTitle = @"找陪护";
-    _mTableViewHeight.constant = 60*2+1;
+    _mTableViewHeight.constant = 60+1;
     
     _mAgeHeight.constant = 0;
     _mAgelb.text = @"请选择护工年龄";
@@ -198,7 +208,7 @@
     [_mHome setTitle:@"男" forState:UIControlStateNormal];
     [_mDay setTitle:@"女" forState:UIControlStateNormal];
     
-    _mRemarklb.text = @"您对护工籍贯 做菜口味等方面的要求";
+    _mRemarklb.text = @"您对护工的其他要求";
     
     _mHeadImg.image = [UIImage imageNamed:@"banner_peihu"];
     
@@ -247,7 +257,7 @@
     _mTimeHeight.constant = 0;
     _mItemTwoHeight.constant = 0;
     _mItemThreeHeight.constant = 0;
-    _mRemarklb.text = @"您对小时工籍贯 做菜口味等方面的要求";
+    _mRemarklb.text = @"您对小时工的其他要求";
     
     _mHeadImg.image = [UIImage imageNamed:@"banner_xsg"];
 
@@ -271,8 +281,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     switch (_mType) {
-        case YUESAO:case YUERSAO:case BUZHUJIABAOMU: case ZHUJIABAOMU:case LAORENPEIHU:
+        case YUESAO:case YUERSAO:case BUZHUJIABAOMU: case ZHUJIABAOMU:
             return 2;
+            break;
+        case LAORENPEIHU:
+            return 1;
             break;
 
         case XIAOSHIGONG:
@@ -298,46 +311,65 @@
     
     switch (indexPath.row) {
         case 0:
-            cell.mImg.image = [UIImage imageNamed:@"s_time"];
-            if (_myctime.length == 0) {
+            
+            if (_mType == YUESAO){
                 
-                if (_mType == YUESAO)
-                     cell.mName.text = @"请选择预产期时间";
-                else
-                    cell.mName.text = @"请选择服务时间";
+                cell.mImg.image = [UIImage imageNamed:@"s_time"];
+                if (_myctime.length == 0) {
+                    cell.mName.text = @"请选择预产时间";
+                }else{
+                    cell.mName.text = _myctime;
+                }
+                
             }else{
-                cell.mName.text = _myctime;
+            
+                cell.mImg.image = [UIImage imageNamed:@"s_address"];
+                if (_maddress.length == 0) {
+                    cell.mName.text = @"请选择服务地点";
+                }else{
+                    cell.mName.text = _maddress;
+                }
             }
             
             break;
         case 1:
-            cell.mImg.image = [UIImage imageNamed:@"s_address"];
-            if (_maddress.length == 0) {
-                cell.mName.text = @"请选择服务地点";
+            if(_mType == YUESAO){
+            
+                cell.mImg.image = [UIImage imageNamed:@"s_address"];
+                if (_maddress.length == 0) {
+                    cell.mName.text = @"请选择服务地点";
+                }else{
+                    cell.mName.text = _maddress;
+                }
+
+            }else if (_mType == XIAOSHIGONG){
+                cell.mImg.image = [UIImage imageNamed:@"s_fwsd"];
+                if (_mfwsd.length == 0) {
+                    cell.mName.text = @"请选择服务时段";
+                }else{
+                    cell.mName.text = _mfwsd;
+                }
             }else{
-                cell.mName.text = _maddress;
+            
+                cell.mImg.image = [UIImage imageNamed:@"s_huji"];
+                if (_mplace.length == 0) {
+                    cell.mName.text = @"请选择户籍要求";
+                }else{
+                    cell.mName.text = _mplace;
+                }
             }
             
             break;
         case 2:
-            cell.mImg.image = [UIImage imageNamed:@"s_fwsd"];
-            if (_mfwsd.length == 0) {
-                cell.mName.text = @"请选择服务时段";
-            }else{
-                cell.mName.text = _mfwsd;
-            }
             
-            break;
-        case 3:
             cell.mImg.image = [UIImage imageNamed:@"s_fwsc"];
             if (_mfwsc.length == 0) {
                 cell.mName.text = @"请选择服务时长";
             }else{
                 cell.mName.text = _mfwsc;
             }
-            
             break;
-        case 4:
+        case 3:
             cell.mImg.image = [UIImage imageNamed:@"s_fwrs"];
             if (_mfwnum.length == 0) {
                 cell.mName.text = @"请选择服务人数";
@@ -346,15 +378,16 @@
             }
             
             break;
-        case 5:
-            cell.mImg.image = [UIImage imageNamed:@"s_fwpl"];
-            if (_mfwpl.length == 0) {
-                cell.mName.text = @"请选择服务频率";
+        case 4:
+            cell.mImg.image = [UIImage imageNamed:@"s_huji"];
+            if (_mplace.length == 0) {
+                cell.mName.text = @"请选择户籍要求";
             }else{
-                cell.mName.text = _mfwpl;
+                cell.mName.text = _mplace;
             }
             
             break;
+        
         default:
             break;
     }
@@ -369,60 +402,93 @@
     switch (indexPath.row) {
         case 0:
         {
-            [self.view addSubview:_mbombbox.view];
+            if (_mType == YUESAO) {
+                [self.view addSubview:_mbombbox.view];
+                
+                [_mbombbox initCalendarPickView:^(NSInteger day, NSInteger month, NSInteger year) {
+                    
+                    _myctime = [NSString stringWithFormat:@"%ld年%ld月%ld日",year,month,day];
+                    
+                    [_mbombbox closeCalendarPickView];
+                    
+                    [_mTableView reloadData];
+                }];
+
+            }else{
             
-            [_mbombbox initCalendarPickView:^(NSInteger day, NSInteger month, NSInteger year) {
-                
-                _myctime = [NSString stringWithFormat:@"%ld年%ld月%ld日",year,month,day];
-                
-                [_mbombbox closeCalendarPickView];
-                
-                [_mTableView reloadData];
-            }];
+                ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
+                ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
+                    
+                    _province = provice;
+                    _city = city;
+                    _area = area;
+                    _mdetailaddress = address;
+                    _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
+                    
+                    [_mTableView reloadData];
+                };
+                [self.navigationController pushViewController:ca animated:YES];
+            }
+            
         }
             
             break;
         case 1:
         {
-            ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
-            ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
+            if (_mType == YUESAO) {
+                ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
+                ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
+                    
+                    _province = provice;
+                    _city = city;
+                    _area = area;
+                    _mdetailaddress = address;
+                    _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
+                    
+                    [_mTableView reloadData];
+                };
+                [self.navigationController pushViewController:ca animated:YES];
+            }else if(_mType == XIAOSHIGONG){
                 
-                _province = provice;
-                _city = city;
-                _area = area;
-                _mdetailaddress = address;
-                _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
+                 [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:_fwsdarray];
+            }else{
+            
+                ChosePlaceVC *cp = [[ChosePlaceVC alloc] initWithNibName:@"ChosePlaceVC" bundle:nil];
+                cp.itblock = ^(NSString *string){
                 
-                [_mTableView reloadData];
-            };
-            [self.navigationController pushViewController:ca animated:YES];
+                    _mplace = string;
+                    [_mTableView reloadData];
+                };
+                [self pushViewController:cp];
+            }
         }
             break;
         case 2:
         {
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:_fwsdarray];
+           [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:_fwscarray];
         }
             break;
             
         case 3:
         {
             
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:_fwrsarray];
             
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:_fwscarray];
         }
             break;
         case 4:
         {
             
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:_fwrsarray];
+            ChosePlaceVC *cp = [[ChosePlaceVC alloc] initWithNibName:@"ChosePlaceVC" bundle:nil];
+            cp.itblock = ^(NSString *string){
+                
+                _mplace = string;
+                [_mTableView reloadData];
+            };
+            [self pushViewController:cp];
         }
             break;
-        case 5:
-        {
-            
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务频率" index:0 Array:[[NSArray alloc] initWithObjects:@"周一", @"周二",@"周三",@"周四",@"周五",@"周六",@"周日",nil]];
-        }
-            break;
+        
             
         default:
             break;
@@ -447,9 +513,6 @@
         case 4:
             _mfwnum = string;
             _backindex3 = index;
-            break;
-        case 5:
-            _mfwpl = string;
             break;
             
         default:
@@ -773,6 +836,7 @@
                     rea.mServiceTime = _mfwsd;
                     rea.mServiceDuration = _mfwsc;
                     rea.mServiceNum = _mfwnum;
+                    rea.mIsHour = YES;
                     
                     [self.navigationController pushViewController:rea animated:YES];
                 }else{

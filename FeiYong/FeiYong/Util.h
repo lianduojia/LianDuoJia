@@ -23,6 +23,8 @@ typedef enum _RelDic
 
 @interface Util : NSObject
 
++(NSData *)imageData:(UIImage *)myimage;
+
 
 +(NSString *)JSONString:(NSString *)aString;
 

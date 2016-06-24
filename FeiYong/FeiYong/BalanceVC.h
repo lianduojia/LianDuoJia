@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface BalanceVC : BaseVC
+@property (weak, nonatomic) IBOutlet UIButton *mTixian;
 @property (nonatomic,assign) float mBalance;
 @property (weak, nonatomic) IBOutlet UILabel *mMoney;
 @property (weak, nonatomic) IBOutlet UIButton *mBack;
