@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="mButton" destination="gNV-sF-BTJ" id="aVD-yl-jni"/>
                 <outlet property="mContentView" destination="ecs-Jq-KBM" id="gEl-z8-32c"/>
+                <outlet property="mOther" destination="fPZ-hj-yVJ" id="0xA-Ru-J3i"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>

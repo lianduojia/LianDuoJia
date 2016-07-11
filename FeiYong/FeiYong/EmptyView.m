@@ -33,6 +33,7 @@
 
 -(void)closeView{
     
+    
     [self.view removeFromSuperview];
 }
 

@@ -6,7 +6,10 @@
 #import "Util.h"
 #import "AFNetworking/AFHTTPSessionManager.h"
 
- NSString*  kAFAppDotNetAPIBaseURLString    = @"http://42.121.120.51:8080/FYCenter/";
+// NSString*  kAFAppDotNetAPIBaseURLString    = @"http://42.121.120.51:8080/FYCenter/";
+//NSString*  kAFAppDotNetAPIBaseURLString    = @"http://ccxhtb.jios.org:8080/BsuGameCenter/";
+ NSString*  kAFAppDotNetAPIBaseURLString    = @"http://101.200.153.33:8080/FYCenter/";
+
 @interface APIClient ()
 
 @end
@@ -27,23 +30,16 @@
         _sharedClient = [[APIClient alloc] initWithBaseURL:[NSURL URLWithString:kAFAppDotNetAPIBaseURLString]];
         _sharedClient.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeCertificate];
     });
-    _sharedClient.responseSerializer.acceptableContentTypes =  [NSSet setWithObjects:@"text/json",@"text/html",@"charset=UTF-8",@"text/plain",@"application/json",nil];
+    _sharedClient.responseSerializer.acceptableContentTypes =  [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", @"text/plain", nil];
     _sharedClient.requestSerializer.timeoutInterval = 10;
     return _sharedClient;
 }
 
-- (void)cancelHttpOpretion:(AFHTTPRequestOperation *)http
-{
-    for (NSOperation *operation in [self.operationQueue operations]) {
-        if (![operation isKindOfClass:[AFHTTPRequestOperation class]]) {
-            continue;
-        }
-        if ([operation isEqual:http]) {
-            [operation cancel];
-            break;
-        }
-    }
+-(NSString *)photoUrl:(NSString *)string{
+
+    return [NSString stringWithFormat:@"%@uploads/%@",kAFAppDotNetAPIBaseURLString,string];
 }
+
 
 
 #pragma mark -
@@ -63,20 +59,22 @@
         [tparam setObject:str forKey:@"data"];
     }
     
-    [self GET:URLString parameters:tparam success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self GET:URLString parameters:tparam progress:^(NSProgress * _Nonnull downloadProgress) {
         
-        MLLog(@"URL%@ data:%@",operation.response.URL,responseObject);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
+        MLLog(@"data:%@",responseObject);
         
         SResBase* retob = [[SResBase alloc]initWithObj:responseObject];
         
         callback(  retob );
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         MLLog(@"error:%@",error.description);
-        callback( [SResBase infoWithError: @"网络请求错误.."] );
         
     }];
+    
 }
 
 
@@ -96,16 +94,14 @@
     NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@",kAFAppDotNetAPIBaseURLString,URLString];
     
     NSLog(@"=====%@%@",Url,parameters);
-    
-    AFHTTPSessionManager *session = [AFHTTPSessionManager manager];
-    
+
 //    [session.requestSerializer setValue:@"text/html;charset=utf-8" forHTTPHeaderField:@"Content-Type"] ;
     
-    [session GET:Url parameters:parameters success:^(NSURLSessionDataTask *task, id responseObject) {
+    [self GET:Url parameters:parameters progress:^(NSProgress * _Nonnull downloadProgress) {
         
-//        NSData *JSONData = [responseObject dataUsingEncoding:NSUTF8StringEncoding];
-//        NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
-
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        
         NSLog(@"返回数据：%@",responseObject);
         
         SResBase* retob = [[SResBase alloc]initWithObj:responseObject];
@@ -113,10 +109,12 @@
         callback(retob);
         
         NSLog(@"成功");
-    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         
         MLLog(@"error:%@",error.description);
         callback( [SResBase infoWithError:@"网络请求错误.."] );
+        
     }];
 
 }

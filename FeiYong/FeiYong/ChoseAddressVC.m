@@ -36,6 +36,11 @@
 }
 
 - (void)rightBtnTouched:(id)sender{
+    
+    if ([SUser isNeedLogin]) {
+        [self gotoLogin];
+        return;
+    }
 
     AddressVC *addressVC = [[AddressVC alloc] initWithNibName:@"AddressVC" bundle:nil];
     

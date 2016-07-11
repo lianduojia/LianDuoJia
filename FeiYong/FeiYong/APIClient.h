@@ -1,13 +1,13 @@
 
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPRequestOperationManager.h"
+#import "AFNetworking/AFHTTPSessionManager.h"
 #import "AFURLResponseSerialization.h"
 
 
 @class SResBase;
 
-@interface APIClient : AFHTTPRequestOperationManager
+@interface APIClient : AFHTTPSessionManager
 
 +(NSString*)getDomain;
 
@@ -18,6 +18,6 @@
 
 -(void)postUrl:(NSString *)URLString parameters:(id)parameters call:(void (^)( SResBase* info))callback;
 
-- (void)cancelHttpOpretion:(AFHTTPRequestOperation *)http;
+-(NSString *)photoUrl:(NSString *)string;
 
 @end

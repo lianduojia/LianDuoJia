@@ -97,10 +97,13 @@
     SUser *user = [SUser currentUser];
     
     if (user) {
+        
         _mName.text = user.mName;
+        [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[SUser currentUser].mPhoto_url]] placeholderImage:[UIImage imageNamed:@"own_default"]];
     }
     else{
         _mName.text = @"请登陆";
+        _mHeadImg.image = [UIImage imageNamed:@"own_default"];
     }
     
 }

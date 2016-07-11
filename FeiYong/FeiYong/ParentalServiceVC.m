@@ -13,6 +13,7 @@
 #import "ReAuntVC.h"
 #import "Util.h"
 #import "ChosePlaceVC.h"
+#import "HourWorkPayVC.h"
 
 @interface ParentalServiceVC ()<UITableViewDataSource,UITableViewDelegate,UITextViewDelegate>{
 
@@ -240,7 +241,7 @@
 
     if(_mType == XIAOSHIGONG){
         self.navTitle = @"找小时工";
-        _mTableViewHeight.constant = 60*5+1;
+        _mTableViewHeight.constant = 60*6+1;
         
     }else{
         self.navTitle = @"找长期小时工";
@@ -289,7 +290,8 @@
             break;
 
         case XIAOSHIGONG:
-            return 5;
+            return 6;
+            
             break;
         case YANGLAO:
             return 0;
@@ -312,13 +314,20 @@
     switch (indexPath.row) {
         case 0:
             
-            if (_mType == YUESAO){
+            if (_mType == YUESAO || _mType == XIAOSHIGONG){
                 
                 cell.mImg.image = [UIImage imageNamed:@"s_time"];
                 if (_myctime.length == 0) {
-                    cell.mName.text = @"请选择预产时间";
+                    if (_mType == YUESAO) {
+                        cell.mName.text = @"请选择预产时间";
+                    }else{
+                        cell.mName.text = @"请选择服务时间";
+                    }
+                    
+                    cell.mName.textColor = M_TCO2;
                 }else{
                     cell.mName.text = _myctime;
+                    cell.mName.textColor = M_TCO;
                 }
                 
             }else{
@@ -326,8 +335,10 @@
                 cell.mImg.image = [UIImage imageNamed:@"s_address"];
                 if (_maddress.length == 0) {
                     cell.mName.text = @"请选择服务地点";
+                    cell.mName.textColor = M_TCO2;
                 }else{
                     cell.mName.text = _maddress;
+                    cell.mName.textColor = M_TCO;
                 }
             }
             
@@ -338,52 +349,83 @@
                 cell.mImg.image = [UIImage imageNamed:@"s_address"];
                 if (_maddress.length == 0) {
                     cell.mName.text = @"请选择服务地点";
+                    cell.mName.textColor = M_TCO2;
                 }else{
                     cell.mName.text = _maddress;
+                    cell.mName.textColor = M_TCO;
                 }
 
             }else if (_mType == XIAOSHIGONG){
-                cell.mImg.image = [UIImage imageNamed:@"s_fwsd"];
-                if (_mfwsd.length == 0) {
-                    cell.mName.text = @"请选择服务时段";
+                
+                cell.mImg.image = [UIImage imageNamed:@"s_address"];
+                if (_maddress.length == 0) {
+                    cell.mName.text = @"请选择服务地点";
+                    cell.mName.textColor = M_TCO2;
                 }else{
-                    cell.mName.text = _mfwsd;
+                    cell.mName.text = _maddress;
+                    cell.mName.textColor = M_TCO;
                 }
+                
             }else{
             
                 cell.mImg.image = [UIImage imageNamed:@"s_huji"];
                 if (_mplace.length == 0) {
                     cell.mName.text = @"请选择户籍要求";
+                    cell.mName.textColor = M_TCO2;
                 }else{
                     cell.mName.text = _mplace;
+                    cell.mName.textColor = M_TCO;
                 }
             }
             
             break;
         case 2:
             
+            cell.mImg.image = [UIImage imageNamed:@"s_fwsd"];
+            if (_mfwsd.length == 0) {
+                cell.mName.text = @"请选择服务时段";
+                cell.mName.textColor = M_TCO2;
+            }else{
+                cell.mName.text = _mfwsd;
+                cell.mName.textColor = M_TCO;
+            }
+            
+            
+            break;
+        case 3:
+            
             cell.mImg.image = [UIImage imageNamed:@"s_fwsc"];
             if (_mfwsc.length == 0) {
                 cell.mName.text = @"请选择服务时长";
+                cell.mName.textColor = M_TCO2;
             }else{
                 cell.mName.text = _mfwsc;
+                cell.mName.textColor = M_TCO;
             }
-            break;
-        case 3:
-            cell.mImg.image = [UIImage imageNamed:@"s_fwrs"];
-            if (_mfwnum.length == 0) {
-                cell.mName.text = @"请选择服务人数";
-            }else{
-                cell.mName.text = _mfwnum;
-            }
+            
+            
             
             break;
         case 4:
+            
+            cell.mImg.image = [UIImage imageNamed:@"s_fwrs"];
+            if (_mfwnum.length == 0) {
+                cell.mName.text = @"请选择服务人数";
+                cell.mName.textColor = M_TCO2;
+            }else{
+                cell.mName.text = _mfwnum;
+                cell.mName.textColor = M_TCO;
+            }
+            
+            break;
+        case 5:
             cell.mImg.image = [UIImage imageNamed:@"s_huji"];
             if (_mplace.length == 0) {
                 cell.mName.text = @"请选择户籍要求";
+                cell.mName.textColor = M_TCO2;
             }else{
                 cell.mName.text = _mplace;
+                cell.mName.textColor = M_TCO;
             }
             
             break;
@@ -402,7 +444,7 @@
     switch (indexPath.row) {
         case 0:
         {
-            if (_mType == YUESAO) {
+            if (_mType == YUESAO || _mType == XIAOSHIGONG) {
                 [self.view addSubview:_mbombbox.view];
                 
                 [_mbombbox initCalendarPickView:^(NSInteger day, NSInteger month, NSInteger year) {
@@ -449,14 +491,25 @@
                 };
                 [self.navigationController pushViewController:ca animated:YES];
             }else if(_mType == XIAOSHIGONG){
+                ChoseAddressVC *ca = [[ChoseAddressVC alloc] initWithNibName:@"ChoseAddressVC" bundle:nil];
+                ca.itblock = ^(NSString *address,NSString *provice,NSString *city,NSString *area){
+                    
+                    _province = provice;
+                    _city = city;
+                    _area = area;
+                    _mdetailaddress = address;
+                    _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
+                    
+                    [_mTableView reloadData];
+                };
+                [self.navigationController pushViewController:ca animated:YES];
                 
-                 [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:_fwsdarray];
             }else{
             
                 ChosePlaceVC *cp = [[ChosePlaceVC alloc] initWithNibName:@"ChosePlaceVC" bundle:nil];
                 cp.itblock = ^(NSString *string){
-                
-                    _mplace = string;
+                   
+                    _mplace = [string substringToIndex:([string length]-1)];
                     [_mTableView reloadData];
                 };
                 [self pushViewController:cp];
@@ -465,31 +518,35 @@
             break;
         case 2:
         {
-           [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:_fwscarray];
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时段" index:_backindex1 Array:_fwsdarray];
+           
         }
             break;
             
         case 3:
         {
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务时长" index:_backindex2 Array:_fwscarray];
             
-            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:_fwrsarray];
             
         }
             break;
         case 4:
         {
+            [_mbombbox2 initTimeIntervalView:self.view title:@"请选择服务人数" index:_backindex3 Array:_fwrsarray];
             
+        }
+            break;
+        case 5:
+        {
             ChosePlaceVC *cp = [[ChosePlaceVC alloc] initWithNibName:@"ChosePlaceVC" bundle:nil];
             cp.itblock = ^(NSString *string){
                 
-                _mplace = string;
+                _mplace = _mplace = [string substringToIndex:([string length]-1)];
                 [_mTableView reloadData];
             };
             [self pushViewController:cp];
         }
             break;
-        
-            
         default:
             break;
     }
@@ -559,6 +616,7 @@
         return;
     }
     
+    
     ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
     rea.mDate = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
     rea.mDetailAddress = _mdetailaddress;
@@ -614,10 +672,6 @@
         }
     }
     
-    if (_myctime.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
-        return;
-    }
     if (_maddress.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请选择服务地点"];
         return;
@@ -627,6 +681,11 @@
             
         case YUESAO:{
         
+            if (_myctime.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
+                return;
+            }
+            
             if (!_mitembt2) {
                 [SVProgressHUD showErrorWithStatus:@"请选择证书要求"];
                 
@@ -693,7 +752,7 @@
             }
             
             [self showStatu:@"操作中.."];
-            [SAuntInfo findChildCare:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:type block:^(SResBase *retobj, NSArray *arr) {
+            [SAuntInfo findChildCare:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:type prio_province:_mplace block:^(SResBase *retobj, NSArray *arr) {
                
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -724,7 +783,7 @@
             if(_mType == ZHUJIABAOMU)
                 iszhujia = @"住家";
             [self showStatu:@"操作中.."];
-            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia block:^(SResBase *retobj, NSArray *arr) {
+            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia prio_province:_mplace block:^(SResBase *retobj, NSArray *arr) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
@@ -825,26 +884,27 @@
             
             int num = [[_mfwnum stringByReplacingOccurrencesOfString:@"人" withString:@""] intValue];
             
+            
             [self showStatu:@"操作中.."];
-            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num block:^(SResBase *retobj, NSArray *arr) {
+
+            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num service_address:_mdetailaddress additional:_mRemark.text service_time:_mfwsd service_duration:_mfwsc prio_province:_mplace block:^(SResBase *retobj, SOrder *order) {
                 
                 if (retobj.msuccess) {
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
+    
+                    HourWorkPayVC *hpay = [[HourWorkPayVC alloc] initWithNibName:@"HourWorkPayVC" bundle:nil];
+                    hpay.mAddr = _maddress;
 
-                    rea.mTempArray =(NSMutableArray *) _auntarr;
-                    rea.mServiceTime = _mfwsd;
-                    rea.mServiceDuration = _mfwsc;
-                    rea.mServiceNum = _mfwnum;
-                    rea.mIsHour = YES;
+                    hpay.mServiceTime = [NSString stringWithFormat:@"%@ %@",_myctime,_mfwsd];
+                    hpay.mOrder = order;
+                    [self pushViewController:hpay];
                     
-                    [self.navigationController pushViewController:rea animated:YES];
                 }else{
                     [SVProgressHUD showErrorWithStatus:retobj.mmsg];
                     return;
                 }
-                
             }];
+            
         }
             
             break;

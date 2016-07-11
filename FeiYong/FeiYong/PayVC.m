@@ -134,18 +134,18 @@
             
             _mOrder.mNo = orderNo;
             
-            [Order aliPay:_mTitle orderNo:orderNo price:_mOrder.mAmount block:^(SResBase *retobj) {
+            [Order aliPay:_mTitle orderNo:orderNo price:_mOrder.mAmount detail:@"中介费" block:^(SResBase *retobj) {
                 if (retobj.msuccess) {
                     
-                    [_mOrder payOK:^(SResBase *retobj) {
-                        
+//                    [_mOrder payOK:^(SResBase *retobj) {
+                    
                         [SVProgressHUD showSuccessWithStatus:@"支付成功"];
                         
                         AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
                         appoint.mTempArray = _mTempArray;
                         appoint.mOrder = _mOrder;
                         [self pushViewController:appoint];
-                    }];
+//                    }];
                     
                 }else{
                     

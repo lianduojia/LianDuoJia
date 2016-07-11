@@ -24,6 +24,8 @@
     self.navTitle = @"户籍要求";
     
     _mButton.selected = YES;
+    
+    _tempbt = _mButton;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -44,7 +46,26 @@
 - (IBAction)mClick:(id)sender {
     
     UIButton *btn = (UIButton *)sender;
-    btn.selected = !btn.selected;
+     btn.selected = !btn.selected;
+    
+    if (btn != _mButton && btn.selected) {
+        _mButton.selected = NO;
+        [_mButton setBackgroundImage:[UIImage imageNamed:@"s_bt"] forState:UIControlStateNormal];
+    }
+    
+    if (_mButton.selected && btn == _mButton) {
+        
+        for (UIButton *bt in _mContentView.subviews) {
+            
+            bt.selected = NO;
+            [bt setBackgroundImage:[UIImage imageNamed:@"s_bt"] forState:UIControlStateNormal];
+        }
+        
+        _mButton.selected = YES;
+        [_mButton setBackgroundImage:[UIImage imageNamed:@"s_bt_select"] forState:UIControlStateNormal];
+        
+    }
+    
     
     if (btn.selected) {
         [btn setBackgroundImage:[UIImage imageNamed:@"s_bt_select"] forState:UIControlStateNormal];

@@ -20,7 +20,7 @@
     
     self.navTitle = @"意见反馈";
     
-    [self.navBar.mRightButton setTitle:@"完成" forState:UIControlStateNormal];
+    [self.navBar.mRightButton setTitle:@"提交" forState:UIControlStateNormal];
 }
 
 - (void)rightBtnTouched:(id)sender{

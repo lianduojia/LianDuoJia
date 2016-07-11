@@ -9,18 +9,37 @@
 #import "BombBoxVC.h"
 #import "JFCalendarPickerView.h"
 
-@interface BombBoxVC ()<UITableViewDataSource,UITableViewDelegate>{
+@interface BombBoxVC ()<UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate>{
 
     NSArray *_marray;
     
     NSMutableArray *_week;
     
     int _index;
+    
+    BOOL _flag;
 }
 
 @end
 
 @implementation BombBoxVC
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    NSLog(@"%@",NSStringFromClass([touch.view class]));
+    
+//    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+//    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+//        return NO;
+//    }
+//    
+//    return  YES;
+    if (touch.view.tag == 100) {
+        return YES;
+    }
+    return NO;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -39,6 +58,11 @@
     _mTableView.tableFooterView = UIView.new;
     
     _index = 100;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closeView)];
+    self.view.tag = 100;
+     tap.delegate  = self;
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)close{
@@ -56,7 +80,7 @@
     calendarPicker.calendarBlock = ^(NSInteger day, NSInteger month, NSInteger year){
         block(day,month,year);
     };
-    
+    _flag = YES;
 }
 
 //弹出服务时段
@@ -134,6 +158,12 @@
 }
 
 - (void)closeView{
+    
+    if (_flag) {
+        [self close];
+        
+        return;
+    }
 
     [UIView animateWithDuration:0.5 animations:^(void) {
         

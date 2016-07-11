@@ -75,6 +75,7 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.pagingEnabled = YES;
+        _scrollView.bounces = NO;
         
         for (int i = 0; i<3; i++) {
             UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(i*DEVICE_Width, 0, DEVICE_Width, DEVICE_Height)];
@@ -109,8 +110,12 @@
     [SMSSDK registerApp:@"1390bb8412ad4"
              withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
     
-    UMConfigInstance.appKey = @"5763b1ed67e58ebebb00260c";
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
     
+    UMConfigInstance.appKey = @"57748a82e0f55a9255002676";
+    UMConfigInstance.channelId = @"Web";
+    [MobClick startWithConfigure:UMConfigInstance];
     //是否第一次打开
     [self firstLoad];
     //解析城市地区XML

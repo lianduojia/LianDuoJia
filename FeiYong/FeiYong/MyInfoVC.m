@@ -12,11 +12,15 @@
 #import "RSKImageCropper.h"
 #import "Util.h"
 
+
 @interface MyInfoVC ()<UIActionSheetDelegate,RSKImageCropViewControllerDataSource,RSKImageCropViewControllerDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>{
 
     YLPickerView *_picker;
     
     UIImage *_image;
+    
+    NSString *_name;
+    NSString *_sex;
 
 }
 
@@ -41,6 +45,7 @@
     [SUser getDetail:^(SResBase *retobj) {
         if (retobj.msuccess) {
             [SVProgressHUD dismiss];
+            
             [self loadMyInfo];
             _image = _mHeadImg.image;
         }else{
@@ -49,12 +54,19 @@
     }];
     
     _image = _mHeadImg.image;
+    _name = _mName.text;
+    _sex = _mSex.text;
 }
 
 -(void)loadMyInfo{
 
     _mName.text = [SUser currentUser].mName;
     _mSex.text = [SUser currentUser].mSex;
+    [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[SUser currentUser].mPhoto_url]] placeholderImage:[UIImage imageNamed:@"own_default"]];
+    
+    _image = _mHeadImg.image;
+    _name = _mName.text;
+    _sex = _mSex.text;
     
 }
 
@@ -73,14 +85,30 @@
     
     NSData *photoData = nil;
     
+    if(_mHeadImg.image == _image && _name == _mName.text && _sex == _mSex.text){
+    
+        [SVProgressHUD showErrorWithStatus:@"您未做任何修改"];
+        return;
+    }
+    
     if (_mHeadImg.image != _image) {
         photoData = [Util imageData:_mHeadImg.image];
     }
     
+    NSString *name = nil;
+    NSString *sex = nil;
+    if (_name != _mName.text || _sex != _mSex.text) {
+        name = _mName.text;
+        sex = _mSex.text;
+    }
+    
     [self showStatu:@"保存中.."];
-    [SUser updateInfo:_mName.text sex:_mSex.text photo:photoData block:^(SResBase *retobj) {
+    [SUser updateInfo:name sex:sex photo:photoData block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"保存成功"];
+            
+            [self loadMyInfo];
+            
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }

@@ -10,6 +10,7 @@
 
 @interface ChosePlaceVC : BaseVC
 @property (weak, nonatomic) IBOutlet UIView *mContentView;
+@property (weak, nonatomic) IBOutlet UIButton *mOther;
 @property (nonatomic,strong) void (^itblock)(NSString *place);
 @property (weak, nonatomic) IBOutlet UIButton *mButton;
 - (IBAction)mClick:(id)sender;

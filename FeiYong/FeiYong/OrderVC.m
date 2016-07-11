@@ -441,7 +441,7 @@
         string = order.mWork_type;
     }
     
-    [Order aliPay:string orderNo:order.mNo price:order.mAmount block:^(SResBase *retobj) {
+    [Order aliPay:string orderNo:order.mNo price:order.mAmount detail:string block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             
             [order payOK:^(SResBase *retobj) {

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingVC">
@@ -17,19 +18,43 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="j3U-AW-4hV">
-                    <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                    <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                     <color key="backgroundColor" red="0.91764705879999997" green="0.91764705879999997" blue="0.92156862750000001" alpha="1" colorSpace="calibratedRGB"/>
                 </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9lg-OQ-3Gm">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="9lg-OQ-3Gm" secondAttribute="height" multiplier="15:2" id="pQ7-sO-SID"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                    <state key="normal" title="退出登陆">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="LoginOutClick:" destination="-1" eventType="touchUpInside" id="XMZ-wu-UYx"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="bottom" secondItem="9lg-OQ-3Gm" secondAttribute="bottom" id="097-HZ-Jw5"/>
+                <constraint firstItem="9lg-OQ-3Gm" firstAttribute="top" secondItem="j3U-AW-4hV" secondAttribute="bottom" id="At2-x8-KSV"/>
+                <constraint firstItem="9lg-OQ-3Gm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="D9f-Fk-98j"/>
+                <constraint firstAttribute="trailing" secondItem="9lg-OQ-3Gm" secondAttribute="trailing" id="LWP-qT-DMh"/>
                 <constraint firstItem="j3U-AW-4hV" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="Ra1-nW-4Gv"/>
                 <constraint firstAttribute="trailing" secondItem="j3U-AW-4hV" secondAttribute="trailing" id="afa-gh-VyC"/>
+                <constraint firstItem="9lg-OQ-3Gm" firstAttribute="width" secondItem="9lg-OQ-3Gm" secondAttribute="height" multiplier="15:2" id="hNC-0O-D4o"/>
                 <constraint firstItem="j3U-AW-4hV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="o8j-mB-aeZ"/>
                 <constraint firstAttribute="bottom" secondItem="j3U-AW-4hV" secondAttribute="bottom" id="ovV-yb-XF0"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ovV-yb-XF0"/>
+                </mask>
+            </variation>
         </view>
     </objects>
 </document>

@@ -12,6 +12,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "APIClient.h"
 #import "Util.h"
+#import "AFNetworking/AFHTTPSessionManager.h"
 
 @implementation DateModle
 
@@ -95,7 +96,7 @@
         _msuccess = 1;
     }
 //    _msuccess = _mcode;
-    self.mmsg = [obj objectForKeyMy:@"_msg"];
+    self.mmsg = [obj objectForKeyMy:@"_extramsg"];
     self.mdata = [obj objectForKeyMy:@"_data"];
 }
 
@@ -203,7 +204,7 @@ SAppInfo* g_appinfo = nil;
 }
 
 
-+(void)aliPay:(NSString *)title orderNo:(NSString *)orderNo price:(float)price block:(void(^)(SResBase* retobj))block{
++(void)aliPay:(NSString *)title orderNo:(NSString *)orderNo price:(float)price detail:(NSString *)detail block:(void(^)(SResBase* retobj))block{
 
     /*
      *商户的唯一的parnter和seller。
@@ -229,7 +230,7 @@ SAppInfo* g_appinfo = nil;
     order.sellerID = seller;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
-    order.body = @"中介费"; //商品描述
+    order.body = detail; //商品描述
     order.totalFee = [NSString stringWithFormat:@"0.01"]; //商品价格
     order.notifyURL =  @"http://www.xxx.com"; //回调URL
     
@@ -319,6 +320,7 @@ SAppInfo* g_appinfo = nil;
     user.mName = [obj objectForKeyMy:@"name"];
     user.mSex = [obj objectForKeyMy:@"sex"];
     user.mPhoto_url = [obj objectForKeyMy:@"photo_url"];
+    user.mPhone = [obj objectForKeyMy:@"phone"];
     
     return user;
 }
@@ -384,25 +386,31 @@ SAppInfo* g_appinfo = nil;
         [SUser uploadPhoto:photo block:^(SResBase *retobj) {
             
             if (retobj.msuccess) {
-                
-                [SVProgressHUD showSuccessWithStatus:@"上传头像成功"];
-                NSMutableDictionary* param =    NSMutableDictionary.new;
-                [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-                [param setObject:name forKey:@"name"];
-                [param setObject:sex forKey:@"sex"];
-                
-                [SVProgressHUD showWithStatus:@"更新个人信息中" maskType:SVProgressHUDMaskTypeClear];
-                [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
-                    
-                    if(info.msuccess){
-                        
-                        [SUser saveUserInfo:param];
-                        
-                        
-                    }
-                    block(info);
-                }];
 
+                if (name !=nil) {
+                    
+                    [SVProgressHUD showSuccessWithStatus:@"上传头像成功"];
+                    NSMutableDictionary* param =    NSMutableDictionary.new;
+                    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+                    [param setObject:name forKey:@"name"];
+                    [param setObject:sex forKey:@"sex"];
+                    
+                    [SVProgressHUD showWithStatus:@"更新个人信息中" maskType:SVProgressHUDMaskTypeClear];
+                    [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
+                        
+                        if(info.msuccess){
+                            [param setObject:[retobj.mdata objectForKey:@"photo_url"] forKey:@"photo_url"];
+                            [SUser saveUserInfo:param];
+                            
+                        }
+                        block(info);
+                    }];
+
+                }else{
+                
+                    block(retobj);
+                }
+                
                 
             }else{
                 
@@ -433,47 +441,37 @@ SAppInfo* g_appinfo = nil;
 }
 
 +(void)uploadPhoto:(NSData *)photo block:(void(^)(SResBase* retobj))block{
-
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     
     NSString *URLString = @"upload-file";
     
-    NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@",[APIClient getDomain],URLString];
+    NSLog(@"%@", [[NSString alloc] initWithData:photo encoding:NSUTF8StringEncoding]);
+    NSMutableString*  Url = [NSMutableString stringWithFormat:@"%@%@?employer_id=%@",[APIClient getDomain],URLString,[SUser currentUser].mId];
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     
-    [manager POST:Url parameters:param constructingBodyWithBlock:^(id _Nonnull formData) {
+    AFHTTPSessionManager *_afHTTPSessionManager = [APIClient sharedClient];
+
+    [_afHTTPSessionManager.requestSerializer setAuthorizationHeaderFieldWithUsername:@"[USERNAME]" password:@"[PASSWORD]"];
+    
+    [_afHTTPSessionManager POST:Url parameters:param constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
-        //使用日期生成图片名称
+        [formData appendPartWithFileData:photo name:@"screenshot" fileName:@"photo.jpg" mimeType:@"image/jpeg"];
         
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
         
-        formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
-        
-        NSString *fileName = [NSString stringWithFormat:@"%@.png",[formatter stringFromDate:[NSDate date]]];
-        
-        [formData appendPartWithFileData:photo name:@"uploadFile" fileName:fileName mimeType:@"image/png"];
-        
-    } success:^(AFHTTPRequestOperation * _Nonnull operation, id _Nonnull responseObject) {
-        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         //上传图片成功执行回调
-        SResBase* retob = [[SResBase alloc] init];
-        retob.msuccess = YES;
+        SResBase* retob = [[SResBase alloc] initWithObj:responseObject];
         
         block(retob);
-
-        
-    } failure:^(AFHTTPRequestOperation * _Nonnull operation, NSError * _Nonnull error) {
-        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         //上传图片失败执行回调
         SResBase* retob = [[SResBase alloc] init];
         retob.msuccess = NO;
         retob.mmsg = error.description;
         
         block(retob);
-        
     }];
-    
+
 }
 
 
@@ -761,10 +759,13 @@ SAppInfo* g_appinfo = nil;
 @implementation SAuntInfo
 
 //找保姆
-+(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
 
+    if (prio_province == nil) {
+        prio_province = @"不限";
+    }
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
@@ -772,6 +773,7 @@ SAppInfo* g_appinfo = nil;
     [param setObject:@(min_age) forKey:@"min_age"];
     [param setObject:@(max_age) forKey:@"max_age"];
     [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
+    [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
     
     [[APIClient sharedClient] postUrl:@"find-nurse" parameters:param call:^(SResBase *info) {
         
@@ -866,31 +868,32 @@ SAppInfo* g_appinfo = nil;
 
 }
 
+//employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&count=2(服务人数)&prio_province=东三省&prio_province=河北(优先筛选籍贯)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时) 
 //找小时工
-+(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    
+    if (prio_province == nil) {
+        prio_province = @"不限";
+    }
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
     [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
+    [param setObject:[Util JSONString:service_address] forKey:@"service_address"];
+    [param setObject:[Util JSONString:additional] forKey:@"additional"];
+    [param setObject:[Util JSONString:service_time] forKey:@"service_time"];
+    [param setObject:[Util JSONString:service_duration] forKey:@"service_duration"];
+    [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
+    
     [param setObject:@(count) forKey:@"count"];
     
-    [[APIClient sharedClient] postUrl:@"find-hour-worker" parameters:param call:^(SResBase *info) {
+    [[APIClient sharedClient] postUrl:@"simple-hour-worker-agency-bill" parameters:param call:^(SResBase *info) {
         
         if (info.msuccess) {
             
-            NSMutableArray *array = [NSMutableArray new];
-            if (info.mdata) {
-                for (NSDictionary *dic in info.mdata) {
-                    
-                    SAuntInfo *aunt = [[SAuntInfo alloc] initWithObj:dic];
-                    
-                    [array addObject:aunt];
-                }
-            }
-            block(info,array);
+            SOrder *order = [[SOrder alloc] initWithObj:info.mdata];
+            block(info,order);
             
         }
         else{
@@ -901,10 +904,12 @@ SAppInfo* g_appinfo = nil;
 }
 
 //找育儿嫂
-+(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    
+    if (prio_province == nil) {
+        prio_province = @"不限";
+    }
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
@@ -912,6 +917,7 @@ SAppInfo* g_appinfo = nil;
     [param setObject:@(min_age) forKey:@"min_age"];
     [param setObject:@(max_age) forKey:@"max_age"];
     [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
+    [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
     
     [[APIClient sharedClient] postUrl:@"find-child-care" parameters:param call:^(SResBase *info) {
         
@@ -1007,7 +1013,10 @@ SAppInfo* g_appinfo = nil;
     
     NSMutableDictionary* param = [NSMutableDictionary new];
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:service_date forKey:@"service_date"];
+    if (service_date) {
+        [param setObject:service_date forKey:@"service_date"];
+    }
+    
     [param setObject:service_address forKey:@"service_address"];
     [param setObject:idstring forKey:@"maid_id"];
     

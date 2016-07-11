@@ -88,8 +88,9 @@
 }
 
 - (void)CloseFirst{
-    
-    [bgView removeFromSuperview];
+    [UIView animateWithDuration:0.5 animations:^{
+        [bgView removeFromSuperview];
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {

@@ -10,5 +10,6 @@
 
 @interface SettingVC : BaseVC
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;
+- (IBAction)LoginOutClick:(id)sender;
 
 @end

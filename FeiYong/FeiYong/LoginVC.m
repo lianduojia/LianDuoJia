@@ -10,6 +10,7 @@
 #import "RegisterVC.h"
 #import "ForgetPwdVC.h"
 #import "NavC.h"
+#import "UMMobClick/MobClick.h"
 
 @interface LoginVC ()
 
@@ -70,7 +71,8 @@
        
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"登陆成功"];
-            
+            NSString *uid = [NSString stringWithFormat:@"%@",[SUser currentUser].mId];
+            [MobClick profileSignInWithPUID:uid];
             if (_mViewController) {
                 
                 ((NavC *)_mViewController).TabBar.selectedIndex = [(NavC *)_mViewController indexOfTab];
