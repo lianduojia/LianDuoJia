@@ -85,7 +85,7 @@
     
     NSData *photoData = nil;
     
-    if(_mHeadImg.image == _image && _name == _mName.text && _sex == _mSex.text){
+    if(_mHeadImg.image == _image && [_name isEqualToString:_mName.text] && [_sex isEqualToString:_mSex.text]){
     
         [SVProgressHUD showErrorWithStatus:@"您未做任何修改"];
         return;
@@ -97,7 +97,7 @@
     
     NSString *name = nil;
     NSString *sex = nil;
-    if (_name != _mName.text || _sex != _mSex.text) {
+    if (![_name isEqualToString:_mName.text] || ![_sex isEqualToString:_mSex.text]) {
         name = _mName.text;
         sex = _mSex.text;
     }
@@ -106,8 +106,6 @@
     [SUser updateInfo:name sex:sex photo:photoData block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"保存成功"];
-            
-            [self loadMyInfo];
             
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];

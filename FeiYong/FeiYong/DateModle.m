@@ -13,6 +13,7 @@
 #import "APIClient.h"
 #import "Util.h"
 #import "AFNetworking/AFHTTPSessionManager.h"
+#import <CoreLocation/CoreLocation.h>
 
 @implementation DateModle
 
@@ -110,8 +111,15 @@
 }
 @end
 
+@interface SAppInfo()<CLLocationManagerDelegate>
+
+@end
+
 SAppInfo* g_appinfo = nil;
-@implementation SAppInfo
+@implementation SAppInfo{
+    
+    CLLocationManager *_locationManager;
+}
 
 +(SAppInfo*)shareClient{
 
@@ -140,11 +148,175 @@ SAppInfo* g_appinfo = nil;
     return tt;
 }
 
++(int)calcDist:(float)lat lng:(float)lng
+{
+    CLLocation *orig=[[CLLocation alloc] initWithLatitude:lat  longitude:lng];
+    CLLocation* dist=[[CLLocation alloc] initWithLatitude:[SAppInfo shareClient].mlat longitude:[SAppInfo shareClient].mlng];
+    
+    CLLocationDistance kilometers=[orig distanceFromLocation:dist]/1000;
+    NSLog(@"距离:%f",kilometers);
+    
+    return kilometers;
+}
+
+- (void)getLocation{
+    
+    
+//    // 判断的手机的定位功能是否开启
+//    // 开启定位:设置 > 隐私 > 位置 > 定位服务
+//    if ([CLLocationManager locationServicesEnabled]) {
+//        // 启动位置更新
+//        // 开启位置更新需要与服务器进行轮询所以会比较耗电，在不需要时用stopUpdatingLocation方法关闭;
+//        [_locationManager startUpdatingLocation];
+//    }
+//    else {
+//        
+//    }
+    
+    if ([CLLocationManager locationServicesEnabled] &&
+        ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
+         || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+            //定位功能可用，开始定位
+            // 实例化一个位置管理器
+            _locationManager = [[CLLocationManager alloc] init];
+            
+            [_locationManager requestWhenInUseAuthorization];
+            
+            _locationManager.delegate = self;
+            
+            // 设置定位精度
+            // kCLLocationAccuracyNearestTenMeters:精度10米
+            // kCLLocationAccuracyHundredMeters:精度100 米
+            // kCLLocationAccuracyKilometer:精度1000 米
+            // kCLLocationAccuracyThreeKilometers:精度3000米
+            // kCLLocationAccuracyBest:设备使用电池供电时候最高的精度
+            // kCLLocationAccuracyBestForNavigation:导航情况下最高精度，一般要有外接电源时才能使用
+            _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+            
+            // distanceFilter是距离过滤器，为了减少对定位装置的轮询次数，位置的改变不会每次都去通知委托，而是在移动了足够的距离时才通知委托程序
+            // 它的单位是米，这里设置为至少移动1000再通知委托处理更新;
+            _locationManager.distanceFilter = kCLDistanceFilterNone; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
+            if([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
+                [_locationManager  requestWhenInUseAuthorization];
+
+        }
+    else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
+        
+       [[NSNotificationCenter defaultCenter] postNotificationName:@"nogps" object:nil];
+        //发送消息
+    }
+
+}
+
+#pragma mark - CLLocationManagerDelegate
+
+-(void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    
+    [manager stopUpdatingLocation];
+    
+    CLLocation* location = [locations lastObject];
+    
+    [SAppInfo shareClient].mlat = location.coordinate.latitude;
+    [SAppInfo shareClient].mlng = location.coordinate.longitude;
+}
+
+// 地理位置发生改变时触发
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    // 获取经纬度
+    NSLog(@"纬度:%f",newLocation.coordinate.latitude);
+    NSLog(@"经度:%f",newLocation.coordinate.longitude);
+    
+    [SAppInfo shareClient].mlat = newLocation.coordinate.latitude;
+    [SAppInfo shareClient].mlng = newLocation.coordinate.longitude;
+    // 停止位置更新
+    [manager stopUpdatingLocation];
+}
+
+// 定位失误时触发
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"error:%@",error);
+}
+
+
+
 @end
 
 @implementation SAddress
 
 
+
+@end
+
+@implementation SShop
+
+- (id)initWithObj:(NSDictionary *)obj{
+    
+    if( self && obj )
+    {
+        [self fetchIt:obj];
+        
+        NSArray *array = [_mGps componentsSeparatedByString:@","]; //从字符A中分隔成2个元素的数组
+        
+        if (array.count>1) {
+            float _mlng = [[array objectAtIndex:0] floatValue];
+            float _mlat = [[array objectAtIndex:1] floatValue];
+            
+            self.mDistance = [Util getDistStr: [SAppInfo calcDist:_mlat lng:_mlng]];
+        }
+
+    }
+    
+    return self;
+}
+
+@end
+
+@implementation SCity
+
+- (id)initWithObj:(NSDictionary *)obj{
+    
+    if( self && obj )
+    {
+        [self fetchIt:obj];
+        
+        self.mIcon = [[APIClient sharedClient] imgUrl:self.mIcon];
+    }
+    
+    return self;
+}
+
+//根据城市返回门店数据	/query-shop-by-city	city=北京市(城市数据)
+-(void)getShopByCity:(void(^)(SResBase* retobj,NSArray* arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:self.mCity forKey:@"city"];
+    
+    [[APIClient sharedClient] postUrl:@"query-shop-by-city" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SShop *shop = [[SShop alloc] initWithObj:dic];
+                    
+                    [array addObject:shop];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+        
+    }];
+
+}
 
 @end
 
@@ -231,8 +403,8 @@ SAppInfo* g_appinfo = nil;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
     order.body = detail; //商品描述
-    order.totalFee = [NSString stringWithFormat:@"0.01"]; //商品价格
-    order.notifyURL =  @"http://www.xxx.com"; //回调URL
+    order.totalFee = [NSString stringWithFormat:@"%.f",price]; //商品价格
+    order.notifyURL =  [NSString stringWithFormat:@"%@alipay-notify-url",[APIClient getDomain]]; //回调URL
     
     order.service = @"mobile.securitypay.pay";
     order.paymentType = @"1";
@@ -386,14 +558,25 @@ SAppInfo* g_appinfo = nil;
         [SUser uploadPhoto:photo block:^(SResBase *retobj) {
             
             if (retobj.msuccess) {
-
+                
+                [SVProgressHUD showSuccessWithStatus:@"上传头像成功"];
+                
+                NSMutableDictionary* param =    NSMutableDictionary.new;
+                [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+                [param setObject:[SUser currentUser].mName forKey:@"name"];
+                [param setObject:[SUser currentUser].mSex forKey:@"sex"];
+                [param setObject:[SUser currentUser].mPhone forKey:@"phone"];
+                [param setObject:[retobj.mdata objectForKey:@"photo_url"] forKey:@"photo_url"];
+                [SUser saveUserInfo:param];
+                
                 if (name !=nil) {
                     
-                    [SVProgressHUD showSuccessWithStatus:@"上传头像成功"];
-                    NSMutableDictionary* param =    NSMutableDictionary.new;
+                    
+                    
                     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
                     [param setObject:name forKey:@"name"];
                     [param setObject:sex forKey:@"sex"];
+                    [param setObject:[SUser currentUser].mPhone forKey:@"phone"];
                     
                     [SVProgressHUD showWithStatus:@"更新个人信息中" maskType:SVProgressHUDMaskTypeClear];
                     [[APIClient sharedClient] postUrl:@"update-persional-details" parameters:param call:^(SResBase *info) {
@@ -630,6 +813,34 @@ SAppInfo* g_appinfo = nil;
 
 }
 
+//返回门店城市	/shop-city
++(void)getShopCity:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    
+    [[APIClient sharedClient] postUrl:@"shop-group-city" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SCity *city = [[SCity alloc] initWithObj:dic];
+                    
+                    [array addObject:city];
+                }
+            }
+            block(info,array);
+            
+        }
+        else{
+            block(info,nil);
+        }
+        
+    }];
+}
+
 
 @end
 
@@ -640,6 +851,18 @@ SAppInfo* g_appinfo = nil;
 @end
 
 @implementation SOrder
+
+- (id)initWithObj:(NSDictionary *)obj{
+    
+    if( self && obj )
+    {
+        [self fetchIt:obj];
+        
+        self.mMail_photo_url = [[APIClient sharedClient] photoUrl:self.mMail_photo_url];
+    }
+    
+    return self;
+}
 
 //根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
 -(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block{
@@ -707,7 +930,7 @@ SAppInfo* g_appinfo = nil;
             string = @"query-meet-maid";
             break;
         case 3:
-            //待预约
+            //已完成
             string = @"query-complete-bill";
             [param setObject:@"所有" forKey:@"bill_type"];
             break;
@@ -757,6 +980,18 @@ SAppInfo* g_appinfo = nil;
 @end
 
 @implementation SAuntInfo
+
+- (id)initWithObj:(NSDictionary *)obj{
+    
+    if( self && obj )
+    {
+        [self fetchIt:obj];
+        
+        self.mPhoto_url = [[APIClient sharedClient] photoUrl:self.mPhoto_url];
+    }
+    
+    return self;
+}
 
 //找保姆
 +(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block{
@@ -1003,7 +1238,7 @@ SAppInfo* g_appinfo = nil;
     }];
 }
 
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration block:(void(^)(SResBase* retobj,SOrder *order))block{
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type block:(void(^)(SResBase* retobj,SOrder *order))block{
 
     NSString *idstring = @"";
     for (SAuntInfo *aunt in array) {
@@ -1034,6 +1269,9 @@ SAppInfo* g_appinfo = nil;
         string = @"hour-worker-agency-bill";
     }else{
         string = @"agency-bill";
+        if (work_type) {
+            [param setObject:work_type forKey:@"work_type"];
+        }
     }
     
     

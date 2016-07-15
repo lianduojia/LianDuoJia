@@ -25,6 +25,10 @@
 		B2457A801D1D0759001E979D /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A7A1D1D0759001E979D /* AFURLSessionManager.m */; };
 		B2457A841D1D3DDB001E979D /* HourWorkPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2457A821D1D3DDB001E979D /* HourWorkPayVC.m */; };
 		B2457A851D1D3DDB001E979D /* HourWorkPayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2457A831D1D3DDB001E979D /* HourWorkPayVC.xib */; };
+		B2466ACF1D34D0B900911971 /* CityListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2466ACD1D34D0B900911971 /* CityListVC.m */; };
+		B2466AD01D34D0B900911971 /* CityListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2466ACE1D34D0B900911971 /* CityListVC.xib */; };
+		B2466AD41D34D13B00911971 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2466AD21D34D13B00911971 /* CityCell.m */; };
+		B2466AD51D34D13B00911971 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2466AD31D34D13B00911971 /* CityCell.xib */; };
 		B24B27711D003F7E001BC50A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27701D003F7E001BC50A /* libz.tbd */; };
 		B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27721D003F87001BC50A /* libc++.tbd */; };
 		B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27741D003F8F001BC50A /* CoreMotion.framework */; };
@@ -140,6 +144,11 @@
 		B2D4BD0E1D0E62B000B1E3FA /* YLDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D4BD0D1D0E62B000B1E3FA /* YLDatePickerView.xib */; };
 		B2D4BD111D0E65CB00B1E3FA /* YLDatePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */; };
 		B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */; };
+		B2D543531D372D7300F3B7A7 /* ShopListVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D543511D372D7300F3B7A7 /* ShopListVC.m */; };
+		B2D543541D372D7300F3B7A7 /* ShopListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D543521D372D7300F3B7A7 /* ShopListVC.xib */; };
+		B2D543591D372E4100F3B7A7 /* ShopCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D543571D372E4100F3B7A7 /* ShopCell.m */; };
+		B2D5435A1D372E4100F3B7A7 /* ShopCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D543581D372E4100F3B7A7 /* ShopCell.xib */; };
+		B2D5435C1D373A3200F3B7A7 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2D5435B1D373A3200F3B7A7 /* CoreLocation.framework */; };
 		B2D62FF11D1B93B90045B2B0 /* ChosePlaceVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D62FEF1D1B93B90045B2B0 /* ChosePlaceVC.m */; };
 		B2D62FF21D1B93B90045B2B0 /* ChosePlaceVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2D62FF01D1B93B90045B2B0 /* ChosePlaceVC.xib */; };
 		B2D62FF61D1BB47A0045B2B0 /* AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2D62FF41D1BB47A0045B2B0 /* AboutUsVC.m */; };
@@ -253,6 +262,12 @@
 		B2457A811D1D3DDB001E979D /* HourWorkPayVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HourWorkPayVC.h; sourceTree = "<group>"; };
 		B2457A821D1D3DDB001E979D /* HourWorkPayVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HourWorkPayVC.m; sourceTree = "<group>"; };
 		B2457A831D1D3DDB001E979D /* HourWorkPayVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HourWorkPayVC.xib; sourceTree = "<group>"; };
+		B2466ACC1D34D0B900911971 /* CityListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityListVC.h; sourceTree = "<group>"; };
+		B2466ACD1D34D0B900911971 /* CityListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityListVC.m; sourceTree = "<group>"; };
+		B2466ACE1D34D0B900911971 /* CityListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityListVC.xib; sourceTree = "<group>"; };
+		B2466AD11D34D13B00911971 /* CityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
+		B2466AD21D34D13B00911971 /* CityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
+		B2466AD31D34D13B00911971 /* CityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
 		B24B27701D003F7E001BC50A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B24B27721D003F87001BC50A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B24B27741D003F8F001BC50A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -508,6 +523,13 @@
 		B2D4BD101D0E65CB00B1E3FA /* YLDatePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLDatePickerView.m; sourceTree = "<group>"; };
 		B2D4F0A21D0D6A27001E3B51 /* RSADataSigner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSADataSigner.h; sourceTree = "<group>"; };
 		B2D4F0A31D0D6A27001E3B51 /* RSADataSigner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSADataSigner.m; sourceTree = "<group>"; };
+		B2D543501D372D7300F3B7A7 /* ShopListVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopListVC.h; sourceTree = "<group>"; };
+		B2D543511D372D7300F3B7A7 /* ShopListVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopListVC.m; sourceTree = "<group>"; };
+		B2D543521D372D7300F3B7A7 /* ShopListVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopListVC.xib; sourceTree = "<group>"; };
+		B2D543561D372E4100F3B7A7 /* ShopCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShopCell.h; sourceTree = "<group>"; };
+		B2D543571D372E4100F3B7A7 /* ShopCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShopCell.m; sourceTree = "<group>"; };
+		B2D543581D372E4100F3B7A7 /* ShopCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShopCell.xib; sourceTree = "<group>"; };
+		B2D5435B1D373A3200F3B7A7 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B2D62FEE1D1B93B90045B2B0 /* ChosePlaceVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChosePlaceVC.h; sourceTree = "<group>"; };
 		B2D62FEF1D1B93B90045B2B0 /* ChosePlaceVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChosePlaceVC.m; sourceTree = "<group>"; };
 		B2D62FF01D1B93B90045B2B0 /* ChosePlaceVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChosePlaceVC.xib; sourceTree = "<group>"; };
@@ -624,6 +646,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2D5435C1D373A3200F3B7A7 /* CoreLocation.framework in Frameworks */,
 				B2457A5E1D1CDA94001E979D /* MobileCoreServices.framework in Frameworks */,
 				B24B27791D003FAC001BC50A /* SystemConfiguration.framework in Frameworks */,
 				B2FD7F131D13F08500539229 /* libsqlite3.tbd in Frameworks */,
@@ -1056,6 +1079,7 @@
 		B2CEE2DC1D058A4C0062EC59 /* Shouye */ = {
 			isa = PBXGroup;
 			children = (
+				B2D543551D372E1500F3B7A7 /* shop */,
 				B291E84D1D07BEFE0056C7E1 /* aunt */,
 				B2CEE2DD1D058ADF0062EC59 /* ParentalServiceVC.h */,
 				B2CEE2DE1D058ADF0062EC59 /* ParentalServiceVC.m */,
@@ -1114,6 +1138,25 @@
 				B2CF561C1D06B6860091B42A /* JFCollectionViewCell.xib */,
 			);
 			name = JFCalendarPicker;
+			sourceTree = "<group>";
+		};
+		B2D543551D372E1500F3B7A7 /* shop */ = {
+			isa = PBXGroup;
+			children = (
+				B2466ACC1D34D0B900911971 /* CityListVC.h */,
+				B2466ACD1D34D0B900911971 /* CityListVC.m */,
+				B2466ACE1D34D0B900911971 /* CityListVC.xib */,
+				B2466AD11D34D13B00911971 /* CityCell.h */,
+				B2466AD21D34D13B00911971 /* CityCell.m */,
+				B2466AD31D34D13B00911971 /* CityCell.xib */,
+				B2D543501D372D7300F3B7A7 /* ShopListVC.h */,
+				B2D543511D372D7300F3B7A7 /* ShopListVC.m */,
+				B2D543521D372D7300F3B7A7 /* ShopListVC.xib */,
+				B2D543561D372E4100F3B7A7 /* ShopCell.h */,
+				B2D543571D372E4100F3B7A7 /* ShopCell.m */,
+				B2D543581D372E4100F3B7A7 /* ShopCell.xib */,
+			);
+			name = shop;
 			sourceTree = "<group>";
 		};
 		B2D6A6DD1D090ED200899042 /* Order */ = {
@@ -1337,6 +1380,7 @@
 		C22482086A9AB2B2777AEDA2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B2D5435B1D373A3200F3B7A7 /* CoreLocation.framework */,
 				B2457A5D1D1CDA94001E979D /* MobileCoreServices.framework */,
 				B2FD7F121D13F08500539229 /* libsqlite3.tbd */,
 				B2CEE2C11D054B240062EC59 /* libstdc++.tbd */,
@@ -1465,6 +1509,7 @@
 				B2CF56061D0670F70091B42A /* BombBoxVC.xib in Resources */,
 				B2CFB2FE1D110CC9007D43BA /* JoinVC.xib in Resources */,
 				B2CEE2CB1D0550240062EC59 /* LICENSE.txt in Resources */,
+				B2466AD01D34D0B900911971 /* CityListVC.xib in Resources */,
 				B2CEE2B51D0534FE0062EC59 /* IQKeyboardManager.bundle in Resources */,
 				B2CEE2811D0519E30062EC59 /* LoginVC.xib in Resources */,
 				B2CF56281D06ED5F0091B42A /* ReAuntCell.xib in Resources */,
@@ -1472,6 +1517,7 @@
 				B24B278C1D0044C1001BC50A /* AlipaySDK.bundle in Resources */,
 				B2CF56321D0710B30091B42A /* AuntHeadView.xib in Resources */,
 				B2DDFB731CF6C19B00D92DEA /* LaunchScreen.storyboard in Resources */,
+				B2466AD51D34D13B00911971 /* CityCell.xib in Resources */,
 				B2CF56171D0693CC0091B42A /* ChoseAddressVC.xib in Resources */,
 				B2DDFB701CF6C19B00D92DEA /* Assets.xcassets in Resources */,
 				B291E8571D07CD3A0056C7E1 /* PingJiaCell.xib in Resources */,
@@ -1510,9 +1556,11 @@
 				B291E8701D0825A30056C7E1 /* AddressCell.xib in Resources */,
 				B291E8811D0845DA0056C7E1 /* BalanceVC.xib in Resources */,
 				B291E88B1D084DDD0056C7E1 /* SettingVC.xib in Resources */,
+				B2D543541D372D7300F3B7A7 /* ShopListVC.xib in Resources */,
 				B2D6A6F11D093FF400899042 /* OrderPjCell.xib in Resources */,
 				B2457A851D1D3DDB001E979D /* HourWorkPayVC.xib in Resources */,
 				B2DDFBBE1CF7039000D92DEA /* NavBar.xib in Resources */,
+				B2D5435A1D372E4100F3B7A7 /* ShopCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1546,6 +1594,7 @@
 				B2DDFC051CF7126600D92DEA /* UIImage+WebP.m in Sources */,
 				B2D4F0A41D0D6A27001E3B51 /* RSADataSigner.m in Sources */,
 				B2DDFBB21CF7001C00D92DEA /* UIScrollView+MJRefresh.m in Sources */,
+				B2D543531D372D7300F3B7A7 /* ShopListVC.m in Sources */,
 				B291E88A1D084DDD0056C7E1 /* SettingVC.m in Sources */,
 				B2DDFC061CF7126600D92DEA /* UIImageView+HighlightedWebCache.m in Sources */,
 				B2CEE2AF1D0534FE0062EC59 /* IQSegmentedNextPrevious.m in Sources */,
@@ -1559,6 +1608,7 @@
 				B291E8801D0845DA0056C7E1 /* BalanceVC.m in Sources */,
 				B2CEE2D21D0553750062EC59 /* MZTimerLabel.m in Sources */,
 				B2DDFB6E1CF6C19B00D92DEA /* FeiYong.xcdatamodeld in Sources */,
+				B2D543591D372E4100F3B7A7 /* ShopCell.m in Sources */,
 				B2DDFBB11CF7001C00D92DEA /* UIScrollView+MJExtension.m in Sources */,
 				B2CF56121D0678650091B42A /* UIColor+JFColor.m in Sources */,
 				B2D4BD111D0E65CB00B1E3FA /* YLDatePickerView.m in Sources */,
@@ -1569,6 +1619,7 @@
 				B2457A7D1D1D0759001E979D /* AFSecurityPolicy.m in Sources */,
 				B291E8561D07CD3A0056C7E1 /* PingJiaCell.m in Sources */,
 				B291E8661D08229B0056C7E1 /* Util.m in Sources */,
+				B2466AD41D34D13B00911971 /* CityCell.m in Sources */,
 				B291E8931D0852D60056C7E1 /* OrderVC.m in Sources */,
 				B2DDFBAE1CF7001C00D92DEA /* MJRefreshConst.m in Sources */,
 				B2DDFBFF1CF7126600D92DEA /* SDWebImageManager+MJ.m in Sources */,
@@ -1585,6 +1636,7 @@
 				B2457A801D1D0759001E979D /* AFURLSessionManager.m in Sources */,
 				B291E8511D07BFB60056C7E1 /* AuntDetailCell.m in Sources */,
 				B24B27A11D00473D001BC50A /* DataSigner.m in Sources */,
+				B2466ACF1D34D0B900911971 /* CityListVC.m in Sources */,
 				4FC4FCC91D0AD1350000A9A0 /* EmptyView.m in Sources */,
 				B2CEE2B01D0534FE0062EC59 /* IQTextView.m in Sources */,
 				B2CF560E1D06736B0091B42A /* JFCalendarPickerView.m in Sources */,
@@ -1792,8 +1844,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: daqin zhou (KKDMQ27CG9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: daqin zhou (KKDMQ27CG9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: mingguang dong (37U5N4353Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: mingguang dong (37U5N4353Q)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1812,7 +1864,7 @@
 					"$(SRCROOT)/FeiYong",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos9.1;
@@ -1825,8 +1877,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: daqin zhou (KKDMQ27CG9)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: daqin zhou (KKDMQ27CG9)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: mingguang dong (37U5N4353Q)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: mingguang dong (37U5N4353Q)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1845,7 +1897,7 @@
 					"$(SRCROOT)/FeiYong",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos9.1;

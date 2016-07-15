@@ -121,6 +121,9 @@
     //解析城市地区XML
     [self start];
     
+    
+    [[SAppInfo shareClient] getLocation];
+    
     return YES;
 }
 

@@ -129,6 +129,7 @@
 - (IBAction)PayClick:(id)sender {
 
     //支付
+    [self showStatu:@"支付中"];
     [_mOrder getOrderNo:^(SResBase *retobj, NSString *orderNo) {
         if (retobj.msuccess) {
             

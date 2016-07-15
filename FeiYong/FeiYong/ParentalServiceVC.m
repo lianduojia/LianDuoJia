@@ -631,16 +631,22 @@
             rea.mType = @"育儿嫂";
             break;
         case BUZHUJIABAOMU:
-            rea.mType = @"不住家保姆";
+            rea.mType = @"保姆";
             break;
         case ZHUJIABAOMU:
-            rea.mType = @"住家保姆";
+            rea.mType = @"保姆";
             break;
         case LAORENPEIHU:
             rea.mType = @"陪护";
             break;
         case XIAOSHIGONG:
             rea.mType = @"小时工";
+            break;
+        case YANGLAO:
+            rea.mType = @"养老";
+            break;
+        case FEIYONG:
+            rea.mType = @"菲佣";
             break;
             
         default:

@@ -14,6 +14,7 @@
 #import "NavC.h"
 #import "WebVC.h"
 #import "APIClient.h"
+#import "CityListVC.h"
 
 @interface MainVC ()<SDCycleScrollViewDelegate,UITabBarControllerDelegate>{
 
@@ -102,7 +103,7 @@
 - (IBAction)extendClick:(id)sender {
     
     int index = (int)((UIButton *)sender).tag;
-    if(index == 10 || index == 12){
+    if(index == 12){
         
         //初始化提示框；
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待" preferredStyle:  UIAlertControllerStyleAlert];
@@ -113,7 +114,14 @@
         
         //弹出提示框；
         [self presentViewController:alert animated:true completion:nil];
-    }else{
+    }
+    else if (index == 10){
+        
+        CityListVC *cl = [[CityListVC alloc] initWithNibName:@"CityListVC" bundle:nil];
+        
+        [self pushViewController:cl];
+    }
+    else{
         NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"12312"];
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];

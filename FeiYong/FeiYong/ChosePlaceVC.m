@@ -87,6 +87,11 @@
         }
     }
     
+    if(string.length == 0){
+        [SVProgressHUD showErrorWithStatus:@"请选择户籍要求"];
+        return;
+    }
+    
     if (_itblock) {
         _itblock(string);
     }

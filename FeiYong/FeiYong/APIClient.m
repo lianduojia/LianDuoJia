@@ -40,6 +40,11 @@
     return [NSString stringWithFormat:@"%@uploads/%@",kAFAppDotNetAPIBaseURLString,string];
 }
 
+-(NSString *)imgUrl:(NSString *)string{
+    
+    return [NSString stringWithFormat:@"%@%@",kAFAppDotNetAPIBaseURLString,string];
+}
+
 
 
 #pragma mark -

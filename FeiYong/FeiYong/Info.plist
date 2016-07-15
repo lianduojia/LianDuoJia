@@ -36,7 +36,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>7</string>
+	<string>8</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>alipay</string>
@@ -49,6 +49,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<true/>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
 	<key>UIRequiredDeviceCapabilities</key>

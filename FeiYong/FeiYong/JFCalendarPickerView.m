@@ -175,15 +175,18 @@ NSString *const JFCalendarCellIdentifier = @"cell";
 
                 if (day == [self day:_date]) {
                     cell.dateLabel.textColor = [UIColor redColor];
+                    cell.userInteractionEnabled = NO;
                 } else if (day > [self day:_date]) {
                     [cell.dateLabel setTextColor:[UIColor colorWithHexString:@"#6f6f6f"]];
-
+                    cell.userInteractionEnabled = YES;
+                }else{
+                    [cell.dateLabel setTextColor:[UIColor colorWithHexString:@"#999999"]];
+                    cell.userInteractionEnabled = NO;
                 }
             } else if ([_today compare:_date] == NSOrderedAscending) {
                 [cell.dateLabel setTextColor:[UIColor colorWithHexString:@"#6f6f6f"]];
-
+                cell.userInteractionEnabled = YES;
             }
-            cell.userInteractionEnabled = YES;
         }
     }
 

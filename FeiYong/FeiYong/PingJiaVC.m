@@ -102,7 +102,7 @@
     [_mAunt submitComment:_mPjType comment:_mPingjia.text star_count:_index+1 block:^(SResBase *retobj) {
         
         if (retobj.msuccess) {
-            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+            [SVProgressHUD showSuccessWithStatus:@"评价成功"];
             
             [self popViewController];
         }else{

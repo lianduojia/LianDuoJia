@@ -20,4 +20,6 @@
 
 -(NSString *)photoUrl:(NSString *)string;
 
+-(NSString *)imgUrl:(NSString *)string;
+
 @end

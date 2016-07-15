@@ -46,9 +46,10 @@
     
     self.hiddenTabBar = NO;
     
-    if (_nowtableview) {
-        [_nowtableview headerBeginRefreshing];
-    }
+//    if (_nowtableview) {
+//        [_nowtableview headerBeginRefreshing];
+//    }
+    [_nowtableview headerBeginRefreshing];
 }
 
 
@@ -294,7 +295,7 @@
             break;
         case 12:{
             SOrder *order = [_dataArr3 objectAtIndex:section];
-            _sectionview.mLabel.text = order.mMeet_time;
+            _sectionview.mLabel.text = [NSString stringWithFormat:@"%@ %@",order.mMeet_date,order.mMeet_time];
         }
             break;
         case 13:
@@ -331,7 +332,6 @@
             [cell initCell:order index:0];
             cell.mButton.tag = indexPath.section;
             [cell.mButton addTarget:self action:@selector(PayClick:) forControlEvents:UIControlEventTouchUpInside];
-            
         }
             break;
         case 11:
@@ -380,7 +380,7 @@
 //评价
 -(void)PingJiaClick:(UIButton *)sender{
     
-    SOrder *order = [_dataArr objectAtIndex:(int)sender.tag];
+    SOrder *order = [_dataArr3 objectAtIndex:(int)sender.tag];
     
     PingJiaVC *pj = [[PingJiaVC alloc] initWithNibName:@"PingJiaVC" bundle:nil];
     
@@ -436,11 +436,19 @@
 
     SOrder *order = [_dataArr objectAtIndex:(int)sender.tag];
     
-    NSString *string = @"中介费";
+    NSString *string = @"";
+    if([order.mGoods_info isEqualToString:@"中介费"]){
+        
+        string = @"中介费";
+    }else{
+        string = @"月薪";
+    }
+    
+    
     if (order.mWork_type.length>0) {
         string = order.mWork_type;
     }
-    
+    [self showStatu:@"支付中"];
     [Order aliPay:string orderNo:order.mNo price:order.mAmount detail:string block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             

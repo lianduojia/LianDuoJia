@@ -215,7 +215,7 @@
 - (IBAction)mPayClick:(id)sender {
     
     [self showStatu:@"提交中.."];
-    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration block:^(SResBase *retobj,SOrder* order) {
+    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType block:^(SResBase *retobj,SOrder* order) {
         
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];

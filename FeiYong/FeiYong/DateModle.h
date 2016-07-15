@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreLocation/CoreLocation.h>
 
 @interface DateModle : NSObject
 
@@ -41,10 +42,17 @@
 
 @interface SAppInfo : SAutoEx
 
+
+@property (nonatomic,assign)  float mlat;
+@property (nonatomic,assign)  float mlng;
 //支付需要跳出到APP,这里记录回调
 @property (nonatomic,strong)    void(^mPayBlock)(SResBase* resb);
 
 +(SAppInfo*)shareClient;
+
+-(void)getLocation;
+
++(int)calcDist:(float)lat lng:(float)lng;
 
 @end
 
@@ -59,6 +67,29 @@
 @property (nonatomic,strong) NSString*  mAddress_city;
 @property (nonatomic,strong) NSString*  mAddress_area;
 @property (nonatomic,strong) NSString*  mAddress_detail;
+
+@end
+
+@interface SShop : SAutoEx
+@property (nonatomic,strong) NSString*  mDistance;
+@property (nonatomic,strong) NSString*  mGps;
+@property (nonatomic,strong) NSString*  mPhone;
+@property (nonatomic,strong) NSString*  mP_province;
+@property (nonatomic,strong) NSString*  mP_city;
+@property (nonatomic,strong) NSString*  mP_area;
+@property (nonatomic,strong) NSString*  mP_address;
+@property (nonatomic,strong) NSString*  mName;
+
+@end
+
+@interface SCity : SAutoEx
+
+@property (nonatomic,strong) NSString*  mProvince;
+@property (nonatomic,strong) NSString*  mCity;
+@property (nonatomic,strong) NSString*  mIcon;
+
+//根据城市返回门店数据	/query-shop-by-city	city=北京市(城市数据)
+-(void)getShopByCity:(void(^)(SResBase* retobj,NSArray* arr))block;
 
 @end
 
@@ -184,6 +215,10 @@
 //商铺加盟提交信息	/shop-join employer_id=2(雇主ID)&address_id=3&address_province=北京市(地址-省)&address_city=北京市(地址-市)&address_area=朝阳区(地址-区)&address_detail=xxxxxx（详细地址)&link_man=cf(联系人)&link_phone=1111111111(联系电话)
 +(void)joinShop:(NSString *)address_province address_city:(NSString *)address_city address_area:(NSString *)address_area link_man:(NSString *)link_man link_phone:(NSString *)link_phone block:(void(^)(SResBase* retobj))block;
 
+//返回门店城市	/shop-city
++(void)getShopCity:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+
 @end
 
 
@@ -308,7 +343,7 @@
 //点击支付中介费生成订单(小时工以外工种订单)	/agency-bill	employer_id=xx(用户ID)&maid_id=3(准备预约阿姨的id)&maid_id=4(准备预约阿姨的id)&maid_id=5(准备预约阿姨的id)&maid_id=7(准备预约阿姨的id)&service_date=2016-03-03(服务时间,格式为yyyy-MM-dd)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对阿姨的附加要求)
 
 //&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时)
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration block:(void(^)(SResBase* retobj,SOrder *order))block;
++(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 @end
 
