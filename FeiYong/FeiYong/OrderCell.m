@@ -78,7 +78,7 @@
         _mButtonTwo.userInteractionEnabled = YES;
     }
     
-    [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:order.mMail_photo_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
+    [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:order.mMail_photo_url] placeholderImage:[UIImage imageNamed:@"o_default"]];
     _mTitle.text = [NSString stringWithFormat:@"预约%@",order.mMail_name];
     _mOrderNo.text = order.mMail_work_type;
     _mDetail.text = [NSString stringWithFormat:@"%@见面",order.mMeet_location];
