@@ -153,7 +153,7 @@ SAppInfo* g_appinfo = nil;
     CLLocation *orig=[[CLLocation alloc] initWithLatitude:lat  longitude:lng];
     CLLocation* dist=[[CLLocation alloc] initWithLatitude:[SAppInfo shareClient].mlat longitude:[SAppInfo shareClient].mlng];
     
-    CLLocationDistance kilometers=[orig distanceFromLocation:dist]/1000;
+    CLLocationDistance kilometers=[orig distanceFromLocation:dist];
     NSLog(@"距离:%f",kilometers);
     
     return kilometers;
@@ -173,9 +173,8 @@ SAppInfo* g_appinfo = nil;
 //        
 //    }
     
-    if ([CLLocationManager locationServicesEnabled] &&
-        ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized
-         || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)) {
+    if ([CLLocationManager locationServicesEnabled] && ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways
+         || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse)) {
             //定位功能可用，开始定位
             // 实例化一个位置管理器
             _locationManager = [[CLLocationManager alloc] init];
@@ -198,8 +197,10 @@ SAppInfo* g_appinfo = nil;
             _locationManager.distanceFilter = kCLDistanceFilterNone; // 如果设为kCLDistanceFilterNone，则每秒更新一次;
             if([_locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)])
                 [_locationManager  requestWhenInUseAuthorization];
+        
+        [_locationManager startUpdatingLocation];
 
-        }
+    }
     else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied){
         
        [[NSNotificationCenter defaultCenter] postNotificationName:@"nogps" object:nil];

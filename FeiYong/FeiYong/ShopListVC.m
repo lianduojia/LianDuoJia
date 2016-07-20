@@ -113,7 +113,7 @@
     ShopCell* cell = (ShopCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    SShop *shop = [_mTempArray objectAtIndex:indexPath.section];
+    SShop *shop = [_mTempArray objectAtIndex:indexPath.row];
 
     cell.mName.text = shop.mName;
     cell.mAddress.text = [NSString stringWithFormat:@"%@%@%@",shop.mP_province,shop.mP_city,shop.mP_area];

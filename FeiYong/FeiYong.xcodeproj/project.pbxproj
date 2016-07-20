@@ -1469,7 +1469,7 @@
 				TargetAttributes = {
 					B2DDFB5C1CF6C19B00D92DEA = {
 						CreatedOnToolsVersion = 7.1;
-						DevelopmentTeam = NAYEXM7JU6;
+						DevelopmentTeam = Y7U433XN4R;
 					};
 					B2DDFB781CF6C19B00D92DEA = {
 						CreatedOnToolsVersion = 7.1;
@@ -1865,7 +1865,7 @@
 					"$(SRCROOT)/FeiYong",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos9.1;
@@ -1898,7 +1898,7 @@
 					"$(SRCROOT)/FeiYong",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lianduojia.feiyong;
+				PRODUCT_BUNDLE_IDENTIFIER = com.ldj.feiyong;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos9.1;
