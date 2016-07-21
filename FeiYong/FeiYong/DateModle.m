@@ -404,7 +404,7 @@ SAppInfo* g_appinfo = nil;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
     order.body = detail; //商品描述
-    order.totalFee = [NSString stringWithFormat:@"%.f",0.01]; //商品价格
+    order.totalFee = [NSString stringWithFormat:@"%.f",price]; //商品价格
     order.notifyURL =  [NSString stringWithFormat:@"%@alipay-notify-url",[APIClient getDomain]]; //回调URL
     
     order.service = @"mobile.securitypay.pay";
@@ -965,9 +965,9 @@ SAppInfo* g_appinfo = nil;
 
 //雇佣阿姨	/employ-maid	employer_id=2(雇主id)&bill_id=48(订单id)&maid_id=3(阿姨id)
 -(void)employMaid:(void(^)(SResBase* retobj))block{
-
      NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:mMail_work_type forKey:@"work_type"];
     [param setObject:@(_mBill_id) forKey:@"bill_id"];
     [param setObject:@(_mMail_id) forKey:@"maid_id"];
     

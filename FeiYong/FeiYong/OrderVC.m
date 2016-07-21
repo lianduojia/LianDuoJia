@@ -402,6 +402,7 @@
     SOrder *order = [_dataArr3 objectAtIndex:(int)sender.tag];
     
     [self showStatu:@"操作中.."];
+    
     [order employMaid:^(SResBase *retobj) {
         if (retobj.msuccess) {
             
@@ -454,8 +455,9 @@
             
             [order payOK:^(SResBase *retobj) {
                 
+                [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+                
                 if ([order.mGoods_info isEqualToString:@"中介费"]) {
-                    [SVProgressHUD showSuccessWithStatus:@"支付成功"];
                     
                     AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
                     appoint.mOrder = order;

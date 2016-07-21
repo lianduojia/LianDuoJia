@@ -174,6 +174,8 @@
                                                       }
                                                       else
                                                       {
+                                                          retobj = [SResBase infoWithError: @"支付出现异常"];
+                                                          [SVProgressHUD showErrorWithStatus:retobj.mmsg];
                                                           MLLog(@"alipay block nil?");
                                                       }
 
@@ -227,6 +229,8 @@
                                                       }
                                                       else
                                                       {
+                                                          retobj = [SResBase infoWithError: @"支付出现异常"];
+                                                          [SVProgressHUD showErrorWithStatus:retobj.mmsg];
                                                           MLLog(@"alipay block nil?");
                                                       }
 
