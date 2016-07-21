@@ -967,7 +967,7 @@ SAppInfo* g_appinfo = nil;
 -(void)employMaid:(void(^)(SResBase* retobj))block{
      NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:mMail_work_type forKey:@"work_type"];
+    [param setObject:_mMail_work_type forKey:@"work_type"];
     [param setObject:@(_mBill_id) forKey:@"bill_id"];
     [param setObject:@(_mMail_id) forKey:@"maid_id"];
     
