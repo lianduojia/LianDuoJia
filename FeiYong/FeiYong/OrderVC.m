@@ -350,8 +350,11 @@
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
             SOrder *order = [_dataArr3 objectAtIndex:indexPath.section];
             [cell initPjCell:order];
+            
             cell.mButton.tag = indexPath.section;
             [cell.mButton addTarget:self action:@selector(PingJiaClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.mButtonTwo.tag = indexPath.section;
             [cell.mButtonTwo addTarget:self action:@selector(PingYongClick:) forControlEvents:UIControlEventTouchUpInside];
             break;
             

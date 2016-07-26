@@ -22,7 +22,7 @@
                             <constraint firstAttribute="width" constant="48" id="w5u-9n-89X"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIw-cx-zgZ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aIw-cx-zgZ">
                         <rect key="frame" x="66" y="10" width="35.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -58,7 +58,7 @@
                         </state>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoX-l0-erB">
-                        <rect key="frame" x="153" y="88" width="72" height="23"/>
+                        <rect key="frame" x="150" y="86.5" width="72" height="23"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="yoX-l0-erB" secondAttribute="height" multiplier="72:23" id="oiK-JF-yIQ"/>
                         </constraints>
@@ -89,6 +89,11 @@
                     <constraint firstItem="c5B-VM-MGp" firstAttribute="top" secondItem="aIw-cx-zgZ" secondAttribute="bottom" constant="5" id="vao-o2-bdc"/>
                     <constraint firstItem="huY-90-w8r" firstAttribute="leading" secondItem="zph-rl-L93" secondAttribute="trailing" constant="8" id="xuI-8Y-ZdM"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="W0j-hu-hqn"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>

@@ -28,10 +28,7 @@
     if (order.mMaids.count>0) {
         
         type = [[order.mMaids objectAtIndex:0] objectForKey:@"work_type"];
-    }
-
-    if (order.mMaid.count == 1) {
-        [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[order.mMaids objectAtIndex:0] objectForKey:@"mail_photo_ur"]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+        [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[[order.mMaids objectAtIndex:0] objectForKey:@"photo_url"]]] placeholderImage:[UIImage imageNamed:@"o_default"]];
     }
     
     if([order.mGoods_info isEqualToString:@"中介费"]){
@@ -70,6 +67,7 @@
 
 -(void)initPjCell:(SOrder *)order{
     
+    _mButtonTwo.hidden = NO;
     if ([order.mStatus isEqualToString:@"聘用"]) {
         [_mButtonTwo setTitle:@"已聘用" forState:UIControlStateNormal];
         _mButtonTwo.userInteractionEnabled = NO;
