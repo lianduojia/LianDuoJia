@@ -163,7 +163,7 @@ NSString * const ID = @"cycleCell";
 //    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]] placeholderImage:[UIImage imageNamed:@"DefaultBanner"]];
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]]placeholderImage:[UIImage imageNamed:@"DefaultBanner"]];
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]]placeholderImage:[UIImage imageNamed:@""]];
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }

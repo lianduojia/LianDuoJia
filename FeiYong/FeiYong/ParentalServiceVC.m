@@ -137,6 +137,8 @@
 
 //月嫂
 - (void)loadYuesao{
+    
+    _mProcessHeight2.constant = 0;//流程高度
 
      self.navTitle = @"找月嫂";
     _myctime = @"";
@@ -157,6 +159,8 @@
 
 //育儿嫂
 - (void)loadYuersao{
+    
+    _mProcessHeight2.constant = 0;//流程高度
 
      self.navTitle = @"找育儿嫂";
     _mTableViewHeight.constant = 60*2+1;
@@ -175,7 +179,7 @@
 //保姆
 - (void)loadBaomu{
     
-    
+    _mProcessHeight2.constant = 0;//流程高度
     if (_mType == ZHUJIABAOMU)
         self.navTitle = @"找住家保姆";
     else
@@ -198,6 +202,8 @@
 
 //陪护
 - (void)loadPeihu{
+    
+    _mProcessHeight2.constant = 0;//流程高度
     
     self.navTitle = @"找陪护";
     _mTableViewHeight.constant = 60+1;
@@ -248,11 +254,7 @@
         _mTableViewHeight.constant = 60*6+1;
     }
     
-    _mProcessHeight.constant = 115;
-    _mImg2.image = [UIImage imageNamed:@"s_zfzjf"];
-    _mLab2.text = @"支付工时费";
-    _mImg3.image = [UIImage imageNamed:@"s_pjay"];
-    _mLab3.text = @"评价阿姨";
+    _mProcessHeight.constant = 0;//流程高度
     
     _mAgeHeight.constant = 0;
     _mTimeHeight.constant = 0;

@@ -21,10 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *mHeadImg;
 //流程
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mProcessHeight;
-@property (weak, nonatomic) IBOutlet UIImageView *mImg2;
-@property (weak, nonatomic) IBOutlet UILabel *mLab2;
-@property (weak, nonatomic) IBOutlet UIImageView *mImg3;
-@property (weak, nonatomic) IBOutlet UILabel *mLab3;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mProcessHeight2;
 
 
 //需求
