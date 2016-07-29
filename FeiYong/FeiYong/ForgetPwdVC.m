@@ -101,7 +101,7 @@
             [self timeCount];
             
         }else{
-            [self timeCount];
+//            [self timeCount];
             [SVProgressHUD showErrorWithStatus:error.description];
         }
     }];
@@ -138,8 +138,8 @@
 }
 //倒计时结束后的代理方法
 - (void)timerLabel:(MZTimerLabel *)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime{
-    [_mCodebt setTitle:@"获取验证码" forState:UIControlStateNormal];//倒计时结束后按钮名称改为"发送验证码"
     [timer_show removeFromSuperview];//移除倒计时模块
+    [_mCodebt setTitle:@"获取验证码" forState:UIControlStateNormal];//倒计时结束后按钮名称改为"发送验证码"
     _mCodebt.userInteractionEnabled = YES;//按钮可以点击
     
 }

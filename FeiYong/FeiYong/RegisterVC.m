@@ -68,7 +68,7 @@
             [self timeCount];
             
         }else{
-            [self timeCount];
+//            [self timeCount];
             [SVProgressHUD showErrorWithStatus:error.description];
         }
     }];
@@ -77,7 +77,9 @@
 - (void)timeCount{//倒计时函数
     
     [_mCodeBt setTitle:nil forState:UIControlStateNormal];//把按钮原先的名字消掉
+    
     timer_show = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, _mCodeBt.frame.size.width, _mCodeBt.frame.size.height)];//UILabel设置成和UIButton一样的尺寸和位置
+    
     [_mCodeBt addSubview:timer_show];//把timer_show添加到_dynamicCode_btn按钮上
     MZTimerLabel *timer_cutDown = [[MZTimerLabel alloc] initWithLabel:timer_show andTimerType:MZTimerLabelTypeTimer];//创建MZTimerLabel类的对象timer_cutDown
     [timer_cutDown setCountDownTime:60];//倒计时时间60s
@@ -91,8 +93,8 @@
 }
 //倒计时结束后的代理方法
 - (void)timerLabel:(MZTimerLabel *)timerLabel finshedCountDownTimerWithTime:(NSTimeInterval)countTime{
-    [_mCodeBt setTitle:@"获取验证码" forState:UIControlStateNormal];//倒计时结束后按钮名称改为"发送验证码"
     [timer_show removeFromSuperview];//移除倒计时模块
+    [_mCodeBt setTitle:@"获取验证码" forState:UIControlStateNormal];//倒计时结束后按钮名称改为"发送验证码"
     _mCodeBt.userInteractionEnabled = YES;//按钮可以点击
     
 }

@@ -116,7 +116,7 @@
     SShop *shop = [_mTempArray objectAtIndex:indexPath.row];
 
     cell.mName.text = shop.mName;
-    cell.mAddress.text = [NSString stringWithFormat:@"%@%@%@",shop.mP_province,shop.mP_city,shop.mP_area];
+    cell.mAddress.text = [NSString stringWithFormat:@"%@%@%@%@",shop.mP_province,shop.mP_city,shop.mP_area,shop.mP_address];
     
     if (_flag) {
         cell.mDistances.hidden = YES;
