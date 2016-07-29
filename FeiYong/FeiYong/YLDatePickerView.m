@@ -59,7 +59,28 @@
     NSDate *selectTime = [_mPicker date];
     
     NSString *date = [_dateFormatter stringFromDate:selectTime];
-    self.m_pTextDate.text = date;
+    NSArray *array = [date componentsSeparatedByString:@":"];
+    
+    if (array.count == 2) {
+        int h = [[array objectAtIndex:0] intValue];
+        int m = [[array objectAtIndex:1] intValue];
+        
+        if (m <= 15) {
+            m = 0;
+        }else if(m>15 && m<45){
+            m = 30;
+        }else{
+            m = 0;
+            if (h<24) {
+                h++;
+            }
+        }
+        self.m_pTextDate.text = [NSString stringWithFormat:@"%.2d:%.2d",h,m];
+    }else{
+        self.m_pTextDate.text = date;
+    }
+    
+    
     
     [self close];
     
