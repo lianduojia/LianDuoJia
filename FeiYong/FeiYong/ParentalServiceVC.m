@@ -898,6 +898,7 @@
             [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num service_address:_mdetailaddress additional:_mRemark.text service_time:_mfwsd service_duration:_mfwsc prio_province:_mplace block:^(SResBase *retobj, SOrder *order) {
                 
                 if (retobj.msuccess) {
+                    
                     [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
     
                     HourWorkPayVC *hpay = [[HourWorkPayVC alloc] initWithNibName:@"HourWorkPayVC" bundle:nil];

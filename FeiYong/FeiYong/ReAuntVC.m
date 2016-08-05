@@ -41,7 +41,7 @@
     if (_mTempArray.count == 0) {
         _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil];
         
-        [_emptyview showInView:self.view rect:CGRectMake(0, DEVICE_NavBar_Height, DEVICE_Width, DEVICE_InNavBar_Height) block:^(BOOL close) {
+        [_emptyview showInView:self.view rect:CGRectMake(0, DEVICE_NavBar_Height, DEVICE_Width, DEVICE_InNavBar_Height-50) block:^(BOOL close) {
             
         }];
         
@@ -213,6 +213,13 @@
 */
 
 - (IBAction)mPayClick:(id)sender {
+    
+    
+    if (_mTempArray.count == 0) {
+        
+        [SVProgressHUD showErrorWithStatus:@"暂无匹配阿姨,无法支付中介费"];
+        return;
+    }
     
     [self showStatu:@"提交中.."];
     [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType block:^(SResBase *retobj,SOrder* order) {

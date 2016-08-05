@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -17,33 +17,30 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="iM7-WO-8CY">
-                    <rect key="frame" x="125" y="50" width="95" height="138"/>
-                    <animations/>
+                    <rect key="frame" x="130" y="50" width="85" height="123"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="iM7-WO-8CY" secondAttribute="height" multiplier="87:127" id="n9a-nh-kWF"/>
                     </constraints>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30y-TF-M7G">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                    <animations/>
                     <connections>
                         <action selector="buttonClick:" destination="-1" eventType="touchUpInside" id="iUY-sz-hFq"/>
                     </connections>
                 </button>
             </subviews>
-            <animations/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="4ba-Zi-1Er"/>
                 <constraint firstAttribute="trailing" secondItem="30y-TF-M7G" secondAttribute="trailing" id="9sB-rU-MKn"/>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="top" secondItem="30y-TF-M7G" secondAttribute="bottom" id="GcC-5y-txP"/>
                 <constraint firstItem="30y-TF-M7G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HuA-7n-Twr"/>
-                <constraint firstItem="iM7-WO-8CY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="125" id="Ncn-3l-V32"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="130" id="Ncn-3l-V32"/>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NvF-xM-lfn"/>
                 <constraint firstItem="30y-TF-M7G" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="UiT-pO-xey"/>
                 <constraint firstItem="iM7-WO-8CY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="WXp-Mk-xRH"/>
                 <constraint firstAttribute="bottom" secondItem="30y-TF-M7G" secondAttribute="bottom" id="t9M-11-kVY"/>
-                <constraint firstAttribute="trailing" secondItem="iM7-WO-8CY" secondAttribute="trailing" constant="100" id="xI4-Cp-0yf"/>
+                <constraint firstAttribute="trailing" secondItem="iM7-WO-8CY" secondAttribute="trailing" constant="105" id="xI4-Cp-0yf"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
             <variation key="default">

@@ -10,6 +10,8 @@
 
 @interface PayVC : BaseVC
 
+@property (weak, nonatomic) IBOutlet UIView *mContentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mCollectionHeight;
 @property (nonatomic,strong) SOrder *mOrder;
 @property (nonatomic,strong) NSString *mTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;

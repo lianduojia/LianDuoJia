@@ -22,6 +22,7 @@
 @implementation PayVC
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
@@ -44,8 +45,15 @@
         _height = 150;
     }
     
+    if (_mTempArray.count/3<=1) {
+        _mCollectionHeight.constant = DEVICE_Width/2;
+    }else{
+        _mCollectionHeight.constant = DEVICE_Width;
+    }
     _mMoney.text = [NSString stringWithFormat:@"¥%d",_mOrder.mAmount];
+    
 }
+
 
 -(void)leftBtnTouched:(id)sender{
     [self.navigationController popToRootViewControllerAnimated:YES];
