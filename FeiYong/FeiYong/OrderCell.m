@@ -28,7 +28,11 @@
     if (order.mMaids.count>0) {
         
         type = [[order.mMaids objectAtIndex:0] objectForKey:@"work_type"];
-        [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[[order.mMaids objectAtIndex:0] objectForKey:@"photo_url"]]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+        
+        if (order.mMaids.count == 0) {
+            
+            [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[[order.mMaids objectAtIndex:0] objectForKey:@"photo_url"]]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+        }
     }
     
     if([order.mGoods_info isEqualToString:@"中介费"]){
@@ -38,15 +42,6 @@
     }else{
         _mTitle.text = [NSString stringWithFormat:@"聘用%lu位%@",(unsigned long)order.mMaids.count,type];
         _mMoneylabel.text = @"月薪";
-    }
-    switch (index) {
-        case 0:
-            
-            
-            break;
-            
-        default:
-            break;
     }
     
    

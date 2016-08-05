@@ -122,7 +122,7 @@
         [self pushViewController:cl];
     }
     else{
-        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"12312"];
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"057912312"];
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];
@@ -158,7 +158,7 @@
     int index = (int)((UIButton *)sender).tag;
     
     if(index == 20){
-        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"12312"];
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"057912312"];
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];
