@@ -452,7 +452,7 @@
     if (order.mWork_type.length>0) {
         string = order.mWork_type;
     }
-    [self showStatu:@"支付中"];
+//    [self showStatu:@"支付中"];
     [Order aliPay:string orderNo:order.mNo price:order.mAmount detail:string block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             

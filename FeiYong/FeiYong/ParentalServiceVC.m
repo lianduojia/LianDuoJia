@@ -124,6 +124,17 @@
             break;
     }
     _mRemark.delegate = self;
+    
+    [self.navBar.mRightButton setImage:[UIImage imageNamed:@"kefu"] forState:UIControlStateNormal];
+}
+
+- (void)rightBtnTouched:(id)sender{
+    
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"057912312"];
+    UIWebView * callWebview = [[UIWebView alloc] init];
+    [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
+    [self.view addSubview:callWebview];
+
 }
 
 - (void)textViewDidChange:(UITextView *)textView
@@ -874,7 +885,10 @@
             break;
         case XIAOSHIGONG:{
         
-            
+            if (_myctime.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
+                return;
+            }
             if (_mfwsd.length == 0) {
                 [SVProgressHUD showErrorWithStatus:@"请选择服务时段"];
                 return;
@@ -895,7 +909,8 @@
             
             [self showStatu:@"操作中.."];
 
-            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num service_address:_mdetailaddress additional:_mRemark.text service_time:_mfwsd service_duration:_mfwsc prio_province:_mplace block:^(SResBase *retobj, SOrder *order) {
+            NSString* date = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
+            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area count:num service_address:_mdetailaddress additional:_mRemark.text service_date:date service_time:_mfwsd service_duration:_mfwsc prio_province:_mplace block:^(SResBase *retobj, SOrder *order) {
                 
                 if (retobj.msuccess) {
                     

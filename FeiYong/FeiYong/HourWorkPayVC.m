@@ -47,7 +47,7 @@
 
 - (IBAction)mPayClick:(id)sender {
     
-    [self showStatu:@"支付中"];
+//    [self showStatu:@"支付中"];
     [Order aliPay:@"小时工" orderNo:_mOrder.mNo price:_mOrder.mAmount detail:@"薪水" block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             

@@ -45,6 +45,11 @@
 
 @property (nonatomic,assign)  float mlat;
 @property (nonatomic,assign)  float mlng;
+@property (nonatomic,strong)  NSString *mProvince;
+@property (nonatomic,strong)  NSString *mCity;
+@property (nonatomic,strong)  NSString *mArea;
+@property (nonatomic,strong)  NSString *mAddress;
+
 //支付需要跳出到APP,这里记录回调
 @property (nonatomic,strong)    void(^mPayBlock)(SResBase* resb);
 
@@ -188,6 +193,9 @@
 //更新个人资料	/update-persional-details	employer_id=2(雇主id)&name=xxx(要更新的昵称)&sex=男(更新的性别数据:男、女)&photo_url=./aaa/bbb/ccc.png(照片的url数据)
 +(void)updateInfo:(NSString *)name sex:(NSString *)sex photo:(NSData *)photo block:(void(^)(SResBase* retobj))block;
 +(void)uploadPhoto:(NSData *)photo block:(void(^)(SResBase* retobj))block;
+
+//获取验证码
++(void)getCode:(NSString *)phone block:(void(^)(SResBase* retobj))block;
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block;
 
@@ -325,7 +333,7 @@
 +(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 //找小时工
-+(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block;
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_date:(NSString *)service_date service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 //找育儿嫂  /find-child-care    employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&min_age=0(最小年龄)&max_age=100(最大年龄)&over_night=住家(是否住家:住家、白班)
 +(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block;

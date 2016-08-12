@@ -94,15 +94,24 @@
     }
     
     
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_mPhone.text zone:@"86" customIdentifier:@"" result:^(NSError *error) {
-        
-        if (!error) {
-            
-            [self timeCount];
-            
-        }else{
+//    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_mPhone.text zone:@"86" customIdentifier:@"" result:^(NSError *error) {
+//        
+//        if (!error) {
+//            
 //            [self timeCount];
-            [SVProgressHUD showErrorWithStatus:error.description];
+//            
+//        }else{
+////            [self timeCount];
+//            [SVProgressHUD showErrorWithStatus:error.description];
+//        }
+//    }];
+    [SUser getCode:_mPhone.text block:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+            [self timeCount];
+        }else{
+            //            [self timeCount];
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
     }];
 

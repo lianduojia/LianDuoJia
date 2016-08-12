@@ -10,6 +10,7 @@
 #import "YLPickerView.h"
 #import "AddressVC.h"
 #import "ChoseAddress.h"
+#import "DateModle.h"
 
 @interface ChoseAddressVC (){
 
@@ -33,6 +34,17 @@
     [self.navBar.mRightButton setImage:[UIImage imageNamed:@"s_address1"] forState:UIControlStateNormal];
     
     _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
+    
+    if([SAppInfo shareClient].mAddress.length>0){
+        
+        _province = [SAppInfo shareClient].mProvince;
+        _city = [SAppInfo shareClient].mCity;
+        _area = [SAppInfo shareClient].mArea;
+        
+        _mAdd.text = [NSString stringWithFormat:@"%@%@%@",_province,_city,_area];
+        _mDetailAdd.text = [SAppInfo shareClient].mAddress;
+
+    }
 }
 
 - (void)rightBtnTouched:(id)sender{

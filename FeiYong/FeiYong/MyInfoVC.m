@@ -77,7 +77,7 @@
         
         return;
     }
-    if ([_mSex.text isEqualToString:@"选择"]) {
+    if ([_mSex.text isEqualToString:@"选择"] || _mSex.text.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请选择性别"];
         
         return;

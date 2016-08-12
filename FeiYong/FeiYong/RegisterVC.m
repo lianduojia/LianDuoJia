@@ -11,6 +11,7 @@
 #import "MZTimerLabel.h"
 #import "WebVC.h"
 #import "APIClient.h"
+#import "UMMobClick/MobClick.h"
 
 @interface RegisterVC ()<MZTimerLabelDelegate>{
 
@@ -61,15 +62,24 @@
     }
     
     
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_mPhone.text zone:@"86" customIdentifier:@"" result:^(NSError *error) {
-        
-        if (!error) {
-            
+//    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:_mPhone.text zone:@"86" customIdentifier:@"" result:^(NSError *error) {
+//        
+//        if (!error) {
+//            
+//            [self timeCount];
+//            
+//        }else{
+////            [self timeCount];
+//            [SVProgressHUD showErrorWithStatus:error.description];
+//        }
+//    }];
+    [SUser getCode:_mPhone.text block:^(SResBase *retobj) {
+       
+        if (retobj.msuccess) {
             [self timeCount];
-            
         }else{
 //            [self timeCount];
-            [SVProgressHUD showErrorWithStatus:error.description];
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
     }];
 }
@@ -122,7 +132,7 @@
     [SVProgressHUD showWithStatus:@"加载中" maskType:SVProgressHUDMaskTypeClear];
     [SUser registers:_mPhone.text code:_mCode.text block:^(SResBase *retobj) {
         
-        if (retobj.mcode == 200) {
+        if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
             
             RegisterVC *reg = [[RegisterVC alloc] initWithNibName:@"RegisterTwoVC" bundle:nil];
@@ -169,14 +179,28 @@
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"注册成功"];
             
-            if ([self respondsToSelector:@selector(presentingViewController)]){
-                [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:YES];
-                return;
-            }
-            else {
-                [self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
-                return;
-            }
+            [SUser login:_mPhonenum code:_mPwd.text block:^(SResBase *retobj) {
+                
+                if (retobj.msuccess) {
+                    [SVProgressHUD showSuccessWithStatus:@"登陆成功"];
+                    NSString *uid = [NSString stringWithFormat:@"%@",[SUser currentUser].mId];
+                    [MobClick profileSignInWithPUID:uid];
+                    [self.presentingViewController.presentingViewController.presentingViewController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                }
+            }];
+//            if ([self respondsToSelector:@selector(presentingViewController)]){
+//                
+//                [self.presentingViewController.presentingViewController dismissModalViewControllerAnimated:YES];
+//                return;
+//            }
+//            else {
+//                [self.parentViewController.parentViewController dismissModalViewControllerAnimated:YES];
+//                return;
+//            }
 
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];

@@ -37,6 +37,8 @@
     
     _mArray = [NSMutableArray new];
     
+    self.tableView = _mTableView;
+    
     [self getData];
 }
 
@@ -56,6 +58,12 @@
         
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
+        
+        if (_mArray.count == 0) {
+            [self addEmpty];
+        }else{
+            [self removeEmpty];
+        }
     }];
     
 }
@@ -71,7 +79,7 @@
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
+    return NO;
 }
 //定义编辑样式
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath

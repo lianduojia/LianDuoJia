@@ -44,6 +44,10 @@
         _mMoneylabel.text = @"月薪";
     }
     
+    if ([type isEqualToString:@"小时工"]) {
+        _mMoneylabel.text = @"工时费";
+    }
+    
    
     NSString *stringName = @"";
     if (order.mMaids.count>0) {
@@ -72,8 +76,14 @@
     }
     
     [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:order.mMail_photo_url] placeholderImage:[UIImage imageNamed:@"o_default"]];
-    _mTitle.text = [NSString stringWithFormat:@"预约%@",order.mMail_name];
+    
     _mOrderNo.text = order.mMail_work_type;
+    if ([order.mMail_work_type isEqualToString:@"小时工"]) {
+        _mTitle.text = [NSString stringWithFormat:@"%@",order.mMail_name];
+    }else{
+        _mTitle.text = [NSString stringWithFormat:@"预约%@",order.mMail_name];
+    }
+
     _mDetail.text = [NSString stringWithFormat:@"%@见面",order.mMeet_location];
 }
 

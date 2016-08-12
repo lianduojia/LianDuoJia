@@ -220,6 +220,33 @@ SAppInfo* g_appinfo = nil;
     
     [SAppInfo shareClient].mlat = location.coordinate.latitude;
     [SAppInfo shareClient].mlng = location.coordinate.longitude;
+    
+    // 获取当前所在的城市名
+    CLGeocoder *geocoder = [[CLGeocoder alloc] init];
+    //根据经纬度反向地理编译出地址信息
+    [geocoder reverseGeocodeLocation:location completionHandler:^(NSArray *array, NSError *error){
+        if (array.count > 0){
+            CLPlacemark *placemark = [array objectAtIndex:0];
+
+            NSDictionary *dic = placemark.addressDictionary;
+            
+            [SAppInfo shareClient].mAddress = [dic objectForKeyMy:@"Name"];
+            [SAppInfo shareClient].mArea = [dic objectForKeyMy:@"SubLocality"];
+            [SAppInfo shareClient].mCity = [dic objectForKeyMy:@"City"];
+            [SAppInfo shareClient].mProvince = [dic objectForKeyMy:@"State"];
+    
+        }
+        else if (error == nil && [array count] == 0)
+        {
+            NSLog(@"No results were returned.");
+        }
+        else if (error != nil)
+        {
+            NSLog(@"An error occurred = %@", error);
+        }
+    }];
+    //系统会一直更新数据，直到选择停止更新，因为我们只需要获得一次经纬度即可，所以获取之后就停止更新
+    [manager stopUpdatingLocation];
 }
 
 // 地理位置发生改变时触发
@@ -231,6 +258,10 @@ SAppInfo* g_appinfo = nil;
     
     [SAppInfo shareClient].mlat = newLocation.coordinate.latitude;
     [SAppInfo shareClient].mlng = newLocation.coordinate.longitude;
+    
+    
+    
+    
     // 停止位置更新
     [manager stopUpdatingLocation];
 }
@@ -570,7 +601,13 @@ SAppInfo* g_appinfo = nil;
                 NSMutableDictionary* param =    NSMutableDictionary.new;
                 [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
                 [param setObject:[SUser currentUser].mName forKey:@"name"];
-                [param setObject:[SUser currentUser].mSex forKey:@"sex"];
+                
+                if ([SUser currentUser].mSex) {
+                    [param setObject:[SUser currentUser].mSex forKey:@"sex"];
+                }else{
+                    [param setObject:@"" forKey:@"sex"];
+                }
+                
                 [param setObject:[SUser currentUser].mPhone forKey:@"phone"];
                 [param setObject:[retobj.mdata objectForKey:@"photo_url"] forKey:@"photo_url"];
                 [SUser saveUserInfo:param];
@@ -581,7 +618,11 @@ SAppInfo* g_appinfo = nil;
                     
                     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
                     [param setObject:name forKey:@"name"];
-                    [param setObject:sex forKey:@"sex"];
+                    if ([SUser currentUser].mSex) {
+                        [param setObject:[SUser currentUser].mSex forKey:@"sex"];
+                    }else{
+                        [param setObject:@"" forKey:@"sex"];
+                    }
                     [param setObject:[SUser currentUser].mPhone forKey:@"phone"];
                     
                     [SVProgressHUD showWithStatus:@"更新个人信息中" maskType:SVProgressHUDMaskTypeClear];
@@ -663,7 +704,16 @@ SAppInfo* g_appinfo = nil;
 
 }
 
+//获取验证码
++(void)getCode:(NSString *)phone block:(void(^)(SResBase* retobj))block{
 
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:phone forKey:@"phone"];
+    [[APIClient sharedClient] postUrl:@"request-verify-code" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+}
 
 //注册－－短信验证
 +(void)registers:(NSString *)phone code:(NSString *)code block:(void(^)(SResBase* retobj))block{
@@ -671,7 +721,6 @@ SAppInfo* g_appinfo = nil;
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:phone forKey:@"phone"];
     [param setObject:code forKey:@"code"];
-    [param setObject:@"ios" forKey:@"type"];
     [[APIClient sharedClient] postUrl:@"regist-msg" parameters:param call:^(SResBase *info) {
         
         block(info);
@@ -716,7 +765,6 @@ SAppInfo* g_appinfo = nil;
     [param setObject:phone forKey:@"phone"];
     [param setObject:pwd forKey:@"pwd"];
     [param setObject:code forKey:@"code"];
-    [param setObject:@"ios" forKey:@"type"];
     [[APIClient sharedClient] postUrl:@"forget-pwd" parameters:param call:^(SResBase *info) {
         
         block(info);
@@ -1111,7 +1159,7 @@ SAppInfo* g_appinfo = nil;
 
 //employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&count=2(服务人数)&prio_province=东三省&prio_province=河北(优先筛选籍贯)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时) 
 //找小时工
-+(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block{
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_date:(NSString *)service_date service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
     if (prio_province == nil) {
@@ -1124,8 +1172,10 @@ SAppInfo* g_appinfo = nil;
     [param setObject:[Util JSONString:service_address] forKey:@"service_address"];
     [param setObject:[Util JSONString:additional] forKey:@"additional"];
     [param setObject:[Util JSONString:service_time] forKey:@"service_time"];
+    [param setObject:[Util JSONString:service_date] forKey:@"service_date"];
     [param setObject:[Util JSONString:service_duration] forKey:@"service_duration"];
     [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
+    
     
     [param setObject:@(count) forKey:@"count"];
     
