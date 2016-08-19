@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F1808" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jJj-me-h16">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jJj-me-h16">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -418,14 +418,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y09-32-bX9">
                                                         <rect key="frame" x="281" y="0.0" width="93.5" height="84.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu2" translatesAutoresizingMaskIntoConstraints="NO" id="kJH-RT-BlB">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu5" translatesAutoresizingMaskIntoConstraints="NO" id="kJH-RT-BlB">
                                                                 <rect key="frame" x="28" y="23" width="37.5" height="37.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="kJH-RT-BlB" secondAttribute="height" multiplier="1:1" id="CEN-Id-89z"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="育儿嫂" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIP-VP-lus">
-                                                                <rect key="frame" x="28" y="65" width="36" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="陪护" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EIP-VP-lus">
+                                                                <rect key="frame" x="34" y="65" width="24" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -454,14 +454,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b8X-A2-Z7S">
                                                         <rect key="frame" x="0.0" y="84" width="94" height="97.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu5" translatesAutoresizingMaskIntoConstraints="NO" id="gyW-fp-kKV">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu6" translatesAutoresizingMaskIntoConstraints="NO" id="gyW-fp-kKV">
                                                                 <rect key="frame" x="28" y="18" width="38" height="38"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="gyW-fp-kKV" secondAttribute="height" multiplier="1:1" id="XYo-5n-mQU"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="陪护" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdo-1s-Iku">
-                                                                <rect key="frame" x="35" y="64" width="24" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小时工" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mdo-1s-Iku">
+                                                                <rect key="frame" x="29" y="64" width="36" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -490,14 +490,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nT5-jp-8je">
                                                         <rect key="frame" x="94" y="84" width="93.5" height="97.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu6" translatesAutoresizingMaskIntoConstraints="NO" id="sK4-S2-wSq">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu9" translatesAutoresizingMaskIntoConstraints="NO" id="sK4-S2-wSq">
                                                                 <rect key="frame" x="28" y="18" width="37.5" height="38"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="sK4-S2-wSq" secondAttribute="height" multiplier="1:1" id="ZcE-NH-p3g"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="小时工" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYU-M0-qwV">
-                                                                <rect key="frame" x="28" y="64" width="36" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="居家养老" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hYU-M0-qwV">
+                                                                <rect key="frame" x="22" y="64" width="48" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -526,14 +526,14 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ye6-Jb-wKP">
                                                         <rect key="frame" x="187" y="84" width="94" height="97.5"/>
                                                         <subviews>
-                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu9" translatesAutoresizingMaskIntoConstraints="NO" id="8cI-rf-jcH">
+                                                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menu2" translatesAutoresizingMaskIntoConstraints="NO" id="8cI-rf-jcH">
                                                                 <rect key="frame" x="28" y="18" width="38" height="38"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="8cI-rf-jcH" secondAttribute="height" multiplier="1:1" id="gmT-PZ-Zov"/>
                                                                 </constraints>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="养老" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IwR-qC-dPg">
-                                                                <rect key="frame" x="35" y="64" width="24" height="14.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="养生养老" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IwR-qC-dPg">
+                                                                <rect key="frame" x="23" y="64" width="48" height="14.5"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                 <color key="textColor" red="0.42352941179999998" green="0.42352941179999998" blue="0.42352941179999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -1014,12 +1014,12 @@
         <image name="banner" width="752" height="304"/>
         <image name="csmd" width="76" height="58"/>
         <image name="explain1" width="166" height="50"/>
-        <image name="explain2" width="249" height="75"/>
+        <image name="explain2" width="166" height="50"/>
         <image name="explain3" width="166" height="50"/>
         <image name="explain4" width="166" height="50"/>
         <image name="fydt" width="52" height="44"/>
         <image name="menu1" width="35" height="34"/>
-        <image name="menu2" width="35" height="39"/>
+        <image name="menu2" width="31" height="36"/>
         <image name="menu3" width="33" height="39"/>
         <image name="menu4" width="39" height="39"/>
         <image name="menu5" width="39" height="38"/>

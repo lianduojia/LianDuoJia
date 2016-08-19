@@ -298,8 +298,8 @@
 @property (nonatomic,assign)                int       mId;
 @property (nonatomic,strong)                NSString *mName;                    //姓名
 @property (nonatomic,strong)                NSString *mPhoto_url;               //头像地址
-@property (nonatomic,strong)                NSString *mLeave;                   //星级
-@property (nonatomic,strong)                NSString *mLiving_province;         //籍贯 省
+@property (nonatomic,strong)                NSString *mStar;                   //星级
+@property (nonatomic,strong)                NSString *mProvince;         //籍贯 省
 @property (nonatomic,strong)                NSString *mLiving_city;             //籍贯 市
 @property (nonatomic,strong)                NSString *mLiving_area;             //籍贯 地区
 @property (nonatomic,strong)                NSString *mWork_province;           //工作 省
@@ -307,12 +307,14 @@
 @property (nonatomic,strong)                NSString *mWork_area;               //工作 地区
 @property (nonatomic,strong)                NSString *mConstellation;           //星座
 @property (nonatomic,strong)                NSString *mWork_type;               //工作类型
+@property (nonatomic,strong)                NSString *mEducation;               //学历
 @property (nonatomic,assign)                int       mWorking_years;           //工龄
 @property (nonatomic,assign)                int       mAge;                     //年龄
 @property (nonatomic,assign)                int       mPay;                     //月薪
 
 @property (nonatomic,assign)                int       mMaid_id;
-@property (nonatomic,strong)                NSString *mMaid_name;                    //姓名
+@property (nonatomic,strong)                NSString *mMaid_name;                   //姓名
+@property (nonatomic,assign)                int       mCheck;                     //是否被选中
 
 //找保姆   find-nurse
 //employer_id=xx(用户id)
@@ -323,14 +325,14 @@
 //&max_age=100(最大年龄)
 //&over_night=住家(是否住家:住家、白班)
 
-+(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block;
++(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 
 //找陪护 /find-accompany
 +(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 ///找月嫂  find-maternity-matron	employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&have_auth=xxx(有无证书:有、无)
-+(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth block:(void(^)(SResBase* retobj,NSArray *arr))block;
++(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 //找小时工
 +(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_date:(NSString *)service_date service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block;
@@ -351,7 +353,7 @@
 //点击支付中介费生成订单(小时工以外工种订单)	/agency-bill	employer_id=xx(用户ID)&maid_id=3(准备预约阿姨的id)&maid_id=4(准备预约阿姨的id)&maid_id=5(准备预约阿姨的id)&maid_id=7(准备预约阿姨的id)&service_date=2016-03-03(服务时间,格式为yyyy-MM-dd)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对阿姨的附加要求)
 
 //&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时)
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type block:(void(^)(SResBase* retobj,SOrder *order))block;
++(void)submitOrder:(NSString *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 @end
 

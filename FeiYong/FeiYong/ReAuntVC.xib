@@ -30,8 +30,8 @@
                         <action selector="mPayClick:" destination="-1" eventType="touchUpInside" id="ekv-fY-WXQ"/>
                     </connections>
                 </button>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eaI-nS-LjL">
-                    <rect key="frame" x="8" y="64" width="359" height="553"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="eaI-nS-LjL">
+                    <rect key="frame" x="0.0" y="64" width="375" height="553"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </tableView>
@@ -41,8 +41,8 @@
                 <constraint firstAttribute="trailing" secondItem="fm8-x8-bbA" secondAttribute="trailing" id="Unu-ua-1xV"/>
                 <constraint firstItem="eaI-nS-LjL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="WN6-Am-RLN"/>
                 <constraint firstItem="fm8-x8-bbA" firstAttribute="top" secondItem="eaI-nS-LjL" secondAttribute="bottom" id="YBr-0Q-9Bs"/>
-                <constraint firstAttribute="trailing" secondItem="eaI-nS-LjL" secondAttribute="trailing" constant="8" id="Zce-lq-U0n"/>
-                <constraint firstItem="eaI-nS-LjL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="gLg-Fj-tf7"/>
+                <constraint firstAttribute="trailing" secondItem="eaI-nS-LjL" secondAttribute="trailing" id="Zce-lq-U0n"/>
+                <constraint firstItem="eaI-nS-LjL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gLg-Fj-tf7"/>
                 <constraint firstAttribute="bottom" secondItem="fm8-x8-bbA" secondAttribute="bottom" id="p4J-6u-CB9"/>
                 <constraint firstItem="fm8-x8-bbA" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tBb-0N-fQf"/>
             </constraints>

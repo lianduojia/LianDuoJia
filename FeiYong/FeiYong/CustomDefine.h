@@ -27,6 +27,7 @@
 #define M_LINECO  [UIColor colorWithRed:237/255.0f green:237/255.0f blue:237/255.0f alpha:1.000]
 #define M_TCO  [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:1.000]
 #define M_TCO2  [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1.000]
+#define M_TCO3  [UIColor colorWithRed:195/255.0f green:195/255.0f blue:195/255.0f alpha:1.000]
 
 #ifdef DEBUG
 #define MLLog(format, ...) NSLog(format, ## __VA_ARGS__)

@@ -15,6 +15,7 @@
 #import "WebVC.h"
 #import "APIClient.h"
 #import "CityListVC.h"
+#import "FindNannyVC.h"
 
 @interface MainVC ()<SDCycleScrollViewDelegate,UITabBarControllerDelegate>{
 
@@ -133,23 +134,52 @@
 - (IBAction)menuClick:(id)sender {
     
     UIButton *bt = (UIButton *)sender;
-    if(bt.tag == FEIYONG || bt.tag == YANGLAO){
-        //初始化提示框；
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
+
+    if (bt.tag == ZHUJIABAOMU || bt.tag == BUZHUJIABAOMU) {
+        FindNannyVC *find = [[FindNannyVC alloc] initWithNibName:@"FindNannyVC" bundle:nil];
+        find.mType = (int)bt.tag;;
+        [self pushViewController:find];
         
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //点击按钮的响应事件；
-        }]];
-        
-        //弹出提示框；
-        [self presentViewController:alert animated:true completion:nil];
-    
         return;
     }
     
-    ParentalServiceVC *ps = [[ParentalServiceVC alloc] initWithNibName:@"ParentalServiceVC" bundle:nil];
-    ps.mType = (int)bt.tag;
-    [self.navigationController pushViewController:ps animated:YES];
+    if (bt.tag == YUESAO) {
+        FindNannyVC *find = [[FindNannyVC alloc] initWithNibName:@"FindYueSaoVC" bundle:nil];
+        find.mType = (int)bt.tag;;
+        [self pushViewController:find];
+        
+        return;
+    }
+    
+    if (bt.tag == PEIHU) {
+        FindNannyVC *find = [[FindNannyVC alloc] initWithNibName:@"FindHuGongVC" bundle:nil];
+        find.mType = (int)bt.tag;;
+        [self pushViewController:find];
+        
+        return;
+    }
+    
+    if (bt.tag == XIAOSHIGONG) {
+        FindNannyVC *find = [[FindNannyVC alloc] initWithNibName:@"FindHourVC" bundle:nil];
+        find.mType = (int)bt.tag;;
+        [self pushViewController:find];
+        
+        return;
+    }
+    
+    
+    //初始化提示框；
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        //点击按钮的响应事件；
+    }]];
+    
+    //弹出提示框；
+    [self presentViewController:alert animated:true completion:nil];
+    
+    return;
+
     
 }
 

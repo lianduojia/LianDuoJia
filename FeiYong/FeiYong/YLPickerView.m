@@ -9,10 +9,8 @@
 #import "YLPickerView.h"
 
 @interface YLPickerView ()<UIPickerViewDelegate,UIPickerViewDataSource>{
-    
-    NSArray *_array;
-    
     NSString *_sex;
+    int     _selectrow;
 }
 
 @end
@@ -24,11 +22,15 @@
     
     [super viewDidLoad];
     
-    _array = [[NSArray alloc] initWithObjects:@"男",@"女", nil];
- 
+    if (_mArray.count > 0) {
+        _sex = [_mArray objectAtIndex:_mSelectRow];
+    }else{
+        _sex = @"";
+    }
+    [_mPicker selectRow:_mSelectRow inComponent:0 animated:YES];
     _mPicker.delegate = self;
     
-    _sex = @"男";
+    
 }
 
 
@@ -44,17 +46,18 @@
 }
 #pragma mark - 该方法的返回值决定该控件指定列包含多少个列表项
 -(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-    return 2;
+    return _mArray.count;
 }
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
 {
-    return [_array objectAtIndex:row];
+    return [_mArray objectAtIndex:row];
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
-    _sex = [_array objectAtIndex:row];
+    _sex = [_mArray objectAtIndex:row];
+    _selectrow = (int)row;
 }
 
 
@@ -67,15 +70,24 @@
 - (IBAction)mSubmittClick:(id)sender {
     
     if (_itblock) {
-        _itblock(_sex);
+        _itblock(_sex,_selectrow);
     }
     
     [self closeView];
     
 }
 
--(void)initView:(UIView *)view block:(void(^)(NSString* sex))block{
+-(void)initView:(UIView *)view block:(void(^)(NSString* sex,int row))block{
 
+    if (_mArray.count > 0) {
+        _sex = [_mArray objectAtIndex:_mSelectRow];
+    }else{
+        _sex = @"";
+    }
+    _mPicker.delegate = self;
+    [_mPicker selectRow:_mSelectRow inComponent:0 animated:YES];
+    
+    
     CGRect rect = self.view.frame;
     rect.origin.y = DEVICE_Height;
     rect.size.width = DEVICE_Width;
@@ -89,9 +101,9 @@
         self.view.frame = rect2;
     }];
     
-    self.itblock = ^(NSString *sex){
+    self.itblock = ^(NSString *sex,int row){
     
-        block(sex);
+        block(sex,row);
     };
 }
 

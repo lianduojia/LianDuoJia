@@ -35,7 +35,7 @@
     
     _picker =  [[[NSBundle mainBundle]loadNibNamed:@"YLDatePickerView" owner:self options:nil]objectAtIndex:0];
     
-    [_picker SetTextFieldDate:_mTime];
+    [_picker SetLabelDate:_mTime];
     
     [_picker setDatePickerType:UIDatePickerModeTime dateFormat:@"HH:mm"];
     

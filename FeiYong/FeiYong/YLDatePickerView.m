@@ -7,6 +7,7 @@
 //
 
 #import "YLDatePickerView.h"
+#import "Util.h"
 
 @implementation YLDatePickerView
 
@@ -20,11 +21,24 @@
     NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"zh_CH"];
     _mPicker.locale = locale;
     
+    //最小时间延后15分钟
+    NSDate *date = [NSDate date];
+    
+    int time = [date timeIntervalSince1970];
+//    time = time-3600*8+12*3600;
+    time = time-3600*8;
+    
+    NSDate *miniDate = [Util dateWithInt:time];
+    _mPicker.minimumDate = miniDate;
+    
     [self.mSubmit addTarget:self action:@selector(submit) forControlEvents:UIControlEventTouchUpInside];
     [self.mCancel addTarget:self action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
 }
+-(void)SetLabelDate:(UILabel *)textLabel{
+    self.m_pTextDate = textLabel;
+}
 
--(void)SetTextFieldDate:(UILabel *)textLabel
+-(void)SetTextFieldDate:(UITextField *)textLabel
 {
     self.m_pTextDate = textLabel;
 }
@@ -61,7 +75,7 @@
     NSString *date = [_dateFormatter stringFromDate:selectTime];
     NSArray *array = [date componentsSeparatedByString:@":"];
     
-    if (array.count == 2) {
+    if (_mPicker.datePickerMode == UIDatePickerModeTime) {
         int h = [[array objectAtIndex:0] intValue];
         int m = [[array objectAtIndex:1] intValue];
         
@@ -75,9 +89,22 @@
                 h++;
             }
         }
-        self.m_pTextDate.text = [NSString stringWithFormat:@"%.2d:%.2d",h,m];
+        
+        if ([self.m_pTextDate isKindOfClass:[UILabel class]]) {
+            ((UILabel *)self.m_pTextDate).text = [NSString stringWithFormat:@"%.2d:%.2d",h,m];
+        }
+        
+        if ([self.m_pTextDate isKindOfClass:[UITextField class]]) {
+            ((UITextField *)self.m_pTextDate).text = [NSString stringWithFormat:@"%.2d:%.2d",h,m];
+        }
+        
     }else{
-        self.m_pTextDate.text = date;
+        if ([self.m_pTextDate isKindOfClass:[UILabel class]]) {
+            ((UILabel *)self.m_pTextDate).text = date;
+        }
+        if ([self.m_pTextDate isKindOfClass:[UITextField class]]) {
+             ((UILabel *)self.m_pTextDate).text = date;
+        }
     }
     
     

@@ -28,8 +28,9 @@
     [_mImg sd_setImageWithURL:[NSURL URLWithString:info.mPhoto_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
     [_mWorkBt setTitle:info.mWork_type forState:UIControlStateNormal];
     [_mYearBt setTitle:[NSString stringWithFormat:@"从业%d年",info.mWorking_years] forState:UIControlStateNormal];
+    [_mEducationBt setTitle:[NSString stringWithFormat:@"%@",info.mEducation] forState:UIControlStateNormal];
     _mAge.text = [NSString stringWithFormat:@"%d岁",info.mAge];
-    _mPlace.text = [NSString stringWithFormat:@"%@人",info.mLiving_province];
+    _mPlace.text = [NSString stringWithFormat:@"%@人",info.mProvince];
     _mAddress.text = [NSString stringWithFormat:@"现居住于%@%@%@",info.mWork_province,info.mWork_city,info.mWork_area];
     _mWages.text = [NSString stringWithFormat:@"￥%d/月",info.mPay];
     
@@ -40,11 +41,17 @@
         UIImageView *imgV = [array objectAtIndex:i];
         
         
-        if (i < [info.mLeave intValue]) {
+        if (i < [info.mStar intValue]) {
             imgV.image = [UIImage imageNamed:@"a_star"];
         }else{
             imgV.image = [UIImage imageNamed:@"a_starhui"];
         }
+    }
+    
+    if (info.mCheck) {
+        [_mCheckBt setImage:[UIImage imageNamed:@"a_quan_select"] forState:UIControlStateNormal];
+    }else{
+        [_mCheckBt setImage:[UIImage imageNamed:@"a_quan"] forState:UIControlStateNormal];
     }
     
 }

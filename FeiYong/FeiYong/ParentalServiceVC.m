@@ -101,15 +101,13 @@
         case YUESAO:
             [self loadYuesao];
             break;
-        case YUERSAO:
-            [self loadYuersao];
             break;
         case BUZHUJIABAOMU:case ZHUJIABAOMU:
             
             [self loadBaomu];
             break;
 
-        case LAORENPEIHU:
+        case PEIHU:
             [self loadPeihu];
             break;
         case XIAOSHIGONG:
@@ -295,10 +293,10 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
 
     switch (_mType) {
-        case YUESAO:case YUERSAO:case BUZHUJIABAOMU: case ZHUJIABAOMU:
+        case YUESAO:case BUZHUJIABAOMU: case ZHUJIABAOMU:
             return 2;
             break;
-        case LAORENPEIHU:
+        case PEIHU:
             return 1;
             break;
 
@@ -306,8 +304,7 @@
             return 6;
             
             break;
-        case YANGLAO:
-            return 0;
+
             break;
         case FEIYONG:
             
@@ -632,7 +629,7 @@
     
     ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
     rea.mDate = [Util getTimeString:[Util getDataString:_myctime bfull:YES] bfull:YES];
-    rea.mDetailAddress = _mdetailaddress;
+    rea.mAddress = _mdetailaddress;
     rea.mRemark = _mRemark.text;
     
     switch (_mType) {
@@ -640,24 +637,19 @@
         case YUESAO:
             rea.mType = @"月嫂";
             break;
-        case YUERSAO:
-            rea.mType = @"育儿嫂";
-            break;
         case BUZHUJIABAOMU:
             rea.mType = @"保姆";
             break;
         case ZHUJIABAOMU:
             rea.mType = @"保姆";
             break;
-        case LAORENPEIHU:
+        case PEIHU:
             rea.mType = @"陪护";
             break;
         case XIAOSHIGONG:
             rea.mType = @"小时工";
             break;
-        case YANGLAO:
-            rea.mType = @"养老";
-            break;
+
         case FEIYONG:
             rea.mType = @"菲佣";
             break;
@@ -724,72 +716,26 @@
                     break;
             }
             
-            [self showStatu:@"操作中.."];
-            [SAuntInfo findMatron:0 work_province:_province work_city:_city work_area:_area have_auth:iszhengshu block:^(SResBase *retobj, NSArray *arr) {
-                
-                if (retobj.msuccess) {
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
-        
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    
-                    
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                }
-            }];
+//            [self showStatu:@"操作中.."];
+//            [SAuntInfo findMatron:0 work_province:_province work_city:_city work_area:_area have_auth:iszhengshu block:^(SResBase *retobj, NSArray *arr) {
+//                
+//                if (retobj.msuccess) {
+//                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+//                    _auntarr = arr;
+//        
+//                    rea.mTempArray = (NSMutableArray *)_auntarr;
+//                    
+//                    
+//                    [self.navigationController pushViewController:rea animated:YES];
+//                }else{
+//                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+//                }
+//            }];
 
         }
             
             break;
-        case YUERSAO:{
-            
-            if (!_mitembt1) {
-                [SVProgressHUD showErrorWithStatus:@"请选择育儿嫂年龄"];
-                
-                return;
-            }
-            
-            if (!_mitembt2) {
-                [SVProgressHUD showErrorWithStatus:@"请选择服务类型"];
-                
-                return;
-            }
-            
-            NSString *type = @"";
-            switch ((int)_mitembt2.tag) {
-                case 10:
-                    type = @"住家";
-                    break;
-                case 11:
-                    type = @"白班";
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-            [self showStatu:@"操作中.."];
-            [SAuntInfo findChildCare:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:type prio_province:_mplace block:^(SResBase *retobj, NSArray *arr) {
-               
-                if (retobj.msuccess) {
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
-                    
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                    return;
-                }
-            }];
-
-            
-        }
-            
-            break;
-        case BUZHUJIABAOMU:case ZHUJIABAOMU:
+                case BUZHUJIABAOMU:case ZHUJIABAOMU:
         {
         
             if (!_mitembt1) {
@@ -802,25 +748,25 @@
             if(_mType == ZHUJIABAOMU)
                 iszhujia = @"住家";
             [self showStatu:@"操作中.."];
-            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia prio_province:_mplace block:^(SResBase *retobj, NSArray *arr) {
-                
-                if (retobj.msuccess) {
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
-
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                    return;
-                }
-            }];
+//            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia prio_province:_mplace block:^(SResBase *retobj, NSArray *arr) {
+//                
+//                if (retobj.msuccess) {
+//                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+//                    _auntarr = arr;
+//
+//                    rea.mTempArray = (NSMutableArray *)_auntarr;
+//                    [self.navigationController pushViewController:rea animated:YES];
+//                }else{
+//                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+//                    return;
+//                }
+//            }];
             
             
         }
             break;
             
-        case LAORENPEIHU:
+        case PEIHU:
         {
             if (!_mitembt1) {
                 [SVProgressHUD showErrorWithStatus:@"请选择护工年龄"];

@@ -185,7 +185,7 @@
         
         UIImageView *imgV = [array objectAtIndex:i];
         
-        if (i < [_mAuntInfo.mLeave intValue]) {
+        if (i < [_mAuntInfo.mStar intValue]) {
             imgV.image = [UIImage imageNamed:@"a_star"];
         }else{
             imgV.image = [UIImage imageNamed:@"a_starhui"];
@@ -279,7 +279,7 @@
                 cell.mLabel.text = _mAuntInfo.mConstellation;
                 break;
             case 2:
-                cell.mLabel.text = [NSString stringWithFormat:@"%@%@%@",_mAuntInfo.mLiving_province,_mAuntInfo.mLiving_city,_mAuntInfo.mLiving_area];
+//                cell.mLabel.text = [NSString stringWithFormat:@"%@%@%@",_mAuntInfo.mLiving_province,_mAuntInfo.mLiving_city,_mAuntInfo.mLiving_area];
                 break;
             case 3:
                 cell.mLabel.text = [NSString stringWithFormat:@"从事%@工作%d年",_mAuntInfo.mWork_type,_mAuntInfo.mWorking_years];
@@ -288,7 +288,7 @@
                 cell.mLabel.text = [NSString stringWithFormat:@"现居住于%@%@%@",_mAuntInfo.mWork_province,_mAuntInfo.mWork_city,_mAuntInfo.mWork_area];
                 break;
             case 5:
-                cell.mLabel.text = [NSString stringWithFormat:@"%@星月嫂",_mAuntInfo.mLeave];
+                cell.mLabel.text = [NSString stringWithFormat:@"%@星月嫂",_mAuntInfo.mStar];
                 break;
                 
             default:

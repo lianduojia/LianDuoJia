@@ -1048,7 +1048,7 @@ SAppInfo* g_appinfo = nil;
 }
 
 //找保姆
-+(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findNurse:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
 
@@ -1061,6 +1061,7 @@ SAppInfo* g_appinfo = nil;
     [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
     [param setObject:@(min_age) forKey:@"min_age"];
     [param setObject:@(max_age) forKey:@"max_age"];
+    [param setObject:@(star) forKey:@"star"];
     [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
     [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
     
@@ -1125,7 +1126,7 @@ SAppInfo* g_appinfo = nil;
 }
 
 //找月嫂
-+(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
 
@@ -1133,7 +1134,7 @@ SAppInfo* g_appinfo = nil;
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
     [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
-    [param setObject:[Util JSONString:have_auth] forKey:@"have_auth"];
+    [param setObject:@(star) forKey:@"star"];
     
     [[APIClient sharedClient] postUrl:@"find-maternity-matron" parameters:param call:^(SResBase *info) {
         
@@ -1294,13 +1295,9 @@ SAppInfo* g_appinfo = nil;
     }];
 }
 
-+(void)submitOrder:(NSArray *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type block:(void(^)(SResBase* retobj,SOrder *order))block{
++(void)submitOrder:(NSString *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block{
 
-    NSString *idstring = @"";
-    for (SAuntInfo *aunt in array) {
-        idstring = [idstring stringByAppendingString:[NSString stringWithFormat:@"%d,",aunt.mId]];
-    }
-    idstring = [idstring substringToIndex:([idstring length]-1)];
+    
     
     NSMutableDictionary* param = [NSMutableDictionary new];
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
@@ -1309,7 +1306,7 @@ SAppInfo* g_appinfo = nil;
     }
     
     [param setObject:service_address forKey:@"service_address"];
-    [param setObject:idstring forKey:@"maid_id"];
+    [param setObject:array forKey:@"maid_ids"];
     
     //小时工
     if(service_duration){
@@ -1319,9 +1316,22 @@ SAppInfo* g_appinfo = nil;
           [param setObject:service_time forKey:@"service_time"];
     }
     
+    if (over_night) {
+        [param setObject:over_night forKey:@"over_night"];
+    }
+    
+    if (care_type) {
+        [param setObject:care_type forKey:@"care_type"];
+    }
+    
+    if (additional) {
+        [param setObject:additional forKey:@"additional"];
+    }
+    
+    
     NSString *string = @"";
     
-    if (service_time || service_duration) {
+    if ([work_type isEqualToString:@"小时工"]) {
         string = @"hour-worker-agency-bill";
     }else{
         string = @"agency-bill";

@@ -11,6 +11,11 @@
 
 @interface ChoseAddressVC : BaseVC
 
+@property (nonatomic,strong) NSString *mProvince;
+@property (nonatomic,strong) NSString *mCity;
+@property (nonatomic,strong) NSString *mArea;
+@property (nonatomic,strong) NSString *mDetailAddress;
+
 @property (nonatomic,strong) void (^itblock)(NSString *address,NSString *provice,NSString *city,NSString *area);
 @property (weak, nonatomic) IBOutlet UITextField *mDetailAdd;
 @property (weak, nonatomic) IBOutlet UILabel *mAdd;

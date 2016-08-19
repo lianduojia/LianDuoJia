@@ -12,12 +12,16 @@
 
 @property (nonatomic,assign) BOOL mIsHour;
 @property (nonatomic,strong) NSMutableArray *mTempArray;
+@property (nonatomic,strong) NSString *mOverNight;  //住家  白班
+@property (nonatomic,strong) NSString *mCareType;  //老人、病人
 @property (nonatomic,strong) NSString *mType;  //服务类型
 @property (nonatomic,strong) NSString *mDate;  //服务时间
 @property (nonatomic,strong) NSString *mServiceTime;//服务时段 09:00
 @property (nonatomic,strong) NSString *mServiceDuration;//服务时长 1小时
 @property (nonatomic,strong) NSString *mServiceNum;//服务人数
-@property (nonatomic,strong) NSString *mDetailAddress; //详细地址
+
+
+@property (nonatomic,strong) NSString *mAddress;//详细地址
 @property (nonatomic,strong) NSString *mRemark;         //备注 附加条件
 @property (weak, nonatomic) IBOutlet UIButton *mPayBt;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *mPayBtHeight;

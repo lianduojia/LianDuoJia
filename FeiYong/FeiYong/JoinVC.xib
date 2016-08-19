@@ -84,7 +84,7 @@
                                         <action selector="mChoseAddress:" destination="-1" eventType="touchUpInside" id="ogn-0y-0Jj"/>
                                     </connections>
                                 </button>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="join_jiantou" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-jM-oYa">
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jiantou_down" translatesAutoresizingMaskIntoConstraints="NO" id="Wq7-jM-oYa">
                                     <rect key="frame" x="283" y="360" width="17" height="11"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="11" id="6kQ-k9-eih"/>
@@ -202,7 +202,7 @@
         </view>
     </objects>
     <resources>
+        <image name="jiantou_down" width="17" height="11"/>
         <image name="join" width="375" height="176"/>
-        <image name="join_jiantou" width="17" height="11"/>
     </resources>
 </document>

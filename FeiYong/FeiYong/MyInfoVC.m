@@ -21,7 +21,10 @@
     
     NSString *_name;
     NSString *_sex;
+    
+    BOOL _show;
 
+    int _index;
 }
 
 @end
@@ -38,6 +41,7 @@
     self.navTitle = @"个人信息";
     
     _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
+    _picker.mArray = [NSMutableArray arrayWithObjects:@"男",@"女", nil];
     
     [self.navBar.mRightButton setTitle:@"保存" forState:UIControlStateNormal];
     
@@ -221,10 +225,18 @@
 
 - (IBAction)ChoseAgeClick:(id)sender {
     
-    [_picker initView:self.view block:^(NSString *sex) {
-       
-        _mSex.text = sex;
-    }];
+    if (_show) {
+        [_picker mCancelClick:nil];
+        _show = NO;
+    }else{
+        _picker.mSelectRow = _index;
+        [_picker initView:self.view block:^(NSString *sex,int row) {
+            _index = row;
+            _mSex.text = sex;
+        }];
+        _show = YES;
+    }
+    
 }
 
 - (IBAction)ChosePhotoClick:(id)sender {

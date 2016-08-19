@@ -12,13 +12,14 @@
 @property (weak, nonatomic) IBOutlet UIButton *mCancel;
 @property (weak, nonatomic) IBOutlet UIButton *mSubmit;
 @property (weak, nonatomic) IBOutlet UIDatePicker *mPicker;
-@property (strong, nonatomic) UILabel* m_pTextDate;
+@property (strong, nonatomic) id m_pTextDate;
 @property (strong, nonatomic) NSDateFormatter *dateFormatter;
 
 -(void)submit;
 -(void)close;
 
--(void)SetTextFieldDate:(UILabel *)textLabel;
+-(void)SetLabelDate:(UILabel *)textLabel;
+-(void)SetTextFieldDate:(UITextField *)textLabel;
 - (void)showInView:(UIView *) view;
 - (void) setDatePickerType:(UIDatePickerMode)datePickerType dateFormat:(NSString *)dateFormat;
 

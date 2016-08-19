@@ -14,6 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *mName;
 @property (weak, nonatomic) IBOutlet UIButton *mWorkBt;
 @property (weak, nonatomic) IBOutlet UIButton *mYearBt;
+@property (weak, nonatomic) IBOutlet UIButton *mEducationBt;
+@property (weak, nonatomic) IBOutlet UIButton *mCheckBt;
 @property (weak, nonatomic) IBOutlet UILabel *mAge;
 @property (weak, nonatomic) IBOutlet UILabel *mPlace;
 @property (weak, nonatomic) IBOutlet UILabel *mAddress;

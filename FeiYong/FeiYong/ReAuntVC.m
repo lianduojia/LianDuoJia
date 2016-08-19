@@ -32,7 +32,6 @@
     
     _mTableView.delegate = self;
     _mTableView.dataSource = self;
-    _mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UINib *nib = [UINib nibWithNibName:@"ReAuntCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
@@ -49,7 +48,7 @@
         
     }else{
         
-        [self firstLoad];
+//        [self firstLoad];
     }
     
     if(_mIsHour){
@@ -60,47 +59,47 @@
 }
 
 
-- (void)firstLoad{
-    
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    BOOL first = [[defaults objectForKey:@"first"] intValue];
-    
-    if (!first) {
-        bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
-        bgView.backgroundColor = [UIColor blackColor];
-        bgView.alpha = 0.6;
-        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
-        imgV.image = [UIImage imageNamed:@"a_first"];
-        imgV.center = bgView.center;
-        imgV.frame = CGRectMake(imgV.frame.origin.x, 120, 269, 90);
-        [bgView addSubview:imgV];
-        
-        [self.view addSubview:bgView];
-        
-        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
-        [bgView addGestureRecognizer:tap];
-        [defaults setObject:@(1) forKey:@"first"];
-    }
-    
-    [defaults synchronize];
-    
-}
-
-- (void)CloseFirst{
-    [UIView animateWithDuration:0.5 animations:^{
-        [bgView removeFromSuperview];
-    }];
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat sectionHeaderHeight = 8;
-    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-    }
-}
+//- (void)firstLoad{
+//    
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//
+//    BOOL first = [[defaults objectForKey:@"first"] intValue];
+//    
+//    if (!first) {
+//        bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
+//        bgView.backgroundColor = [UIColor blackColor];
+//        bgView.alpha = 0.6;
+//        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
+//        imgV.image = [UIImage imageNamed:@"a_first"];
+//        imgV.center = bgView.center;
+//        imgV.frame = CGRectMake(imgV.frame.origin.x, 120, 269, 90);
+//        [bgView addSubview:imgV];
+//        
+//        [self.view addSubview:bgView];
+//        
+//        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
+//        [bgView addGestureRecognizer:tap];
+//        [defaults setObject:@(1) forKey:@"first"];
+//    }
+//    
+//    [defaults synchronize];
+//    
+//}
+//
+//- (void)CloseFirst{
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [bgView removeFromSuperview];
+//    }];
+//}
+//
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    CGFloat sectionHeaderHeight = 8;
+//    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+//        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+//    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+//        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+//    }
+//}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -146,31 +145,31 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return _mTempArray.count;
+    return 1;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    return 110;
+    return 123;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 1;
+    return _mTempArray.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
 
-    return 8;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-
-    return 0;
+    return 37;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, 8)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, 37)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, DEVICE_Width-10, 37)];
+    lab.text = @"请选中您想预约见面的阿姨";
+    lab.textColor = M_TCO2;
+    lab.font = [UIFont systemFontOfSize:13];
+    [view addSubview:lab];
     view.backgroundColor = [UIColor colorWithRed:232/255.0 green:232/255.0 blue:234/255.0 alpha:1];
     return view;
 }
@@ -180,18 +179,28 @@
     ReAuntCell* cell = (ReAuntCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
-    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.section];
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.row];
+    cell.mCheckBt.tag = indexPath.row;
+    [cell.mCheckBt addTarget:self action:@selector(CheckClick:) forControlEvents:UIControlEventTouchUpInside];
     
     [cell initCell:aunt];
     
     return cell;
 }
 
+-(void)CheckClick:(UIButton *)sender{
+    
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:sender.tag];
+    aunt.mCheck = !aunt.mCheck;
+    
+    [self.mTableView reloadData];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
     ReAuntDetailVC *ad = [[ReAuntDetailVC alloc] initWithNibName:@"ReAuntDetailVC" bundle:nil];
     
-    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.section];
+    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.row];
     ad.mAuntInfo = aunt;
     [self.navigationController pushViewController:ad animated:YES];
 }
@@ -217,18 +226,35 @@
     
     if (_mTempArray.count == 0) {
         
-        [SVProgressHUD showErrorWithStatus:@"暂无匹配阿姨,无法支付中介费"];
+        [SVProgressHUD showErrorWithStatus:@"暂无匹配阿姨,无法支付月薪"];
         return;
     }
     
+    NSMutableArray *array = [NSMutableArray new];
+    NSString *idstring = @"";
+    for (SAuntInfo *aunt in _mTempArray) {
+        
+        if (aunt.mCheck) {
+            idstring = [idstring stringByAppendingString:[NSString stringWithFormat:@"%d,",aunt.mId]];
+            [array addObject:aunt];
+        }
+    }
+    if (idstring.length>1) {
+        idstring = [idstring substringToIndex:([idstring length]-1)];
+    }else{
+        [SVProgressHUD showErrorWithStatus:@"请选择您想预约见面的阿姨"];
+        return;
+    }
+    
+    
     [self showStatu:@"提交中.."];
-    [SAuntInfo submitOrder:_mTempArray service_date:_mDate service_address:_mDetailAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType block:^(SResBase *retobj,SOrder* order) {
+    [SAuntInfo submitOrder:idstring service_date:_mDate service_address:_mAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType over_night:_mOverNight care_type:_mCareType block:^(SResBase *retobj,SOrder* order) {
         
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
             
             PayVC *pay = [[PayVC alloc] initWithNibName:@"PayVC" bundle:nil];
-            pay.mTempArray = _mTempArray;
+            pay.mTempArray = array;
             pay.mOrder = order;
             pay.mTitle = _mType;
             [self.navigationController pushViewController:pay animated:YES];

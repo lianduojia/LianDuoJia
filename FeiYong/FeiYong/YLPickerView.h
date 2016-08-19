@@ -11,12 +11,14 @@
 
 @interface YLPickerView : UIViewController
 
-@property (nonatomic,strong) void (^itblock)(NSString *sex);
+@property (nonatomic,strong) NSMutableArray *mArray;
+@property (nonatomic,strong) void (^itblock)(NSString *sex,int row);
 @property (weak, nonatomic) IBOutlet UIButton *mCancel;
 @property (weak, nonatomic) IBOutlet UIButton *mSubmit;
 @property (weak, nonatomic) IBOutlet UIPickerView *mPicker;
+@property (nonatomic,assign) int mSelectRow;
 
--(void)initView:(UIView *)view block:(void(^)(NSString* sex))block;
+-(void)initView:(UIView *)view block:(void(^)(NSString* sex,int row))block;
 
 - (IBAction)mCancelClick:(id)sender;
 - (IBAction)mSubmittClick:(id)sender;

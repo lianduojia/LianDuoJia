@@ -56,7 +56,7 @@
 
 
 -(void)leftBtnTouched:(id)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self popViewController_2];
 }
 
 #pragma mark -- UICollectionViewDataSource

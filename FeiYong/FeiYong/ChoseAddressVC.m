@@ -35,16 +35,26 @@
     
     _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
     
-    if([SAppInfo shareClient].mAddress.length>0){
-        
-        _province = [SAppInfo shareClient].mProvince;
-        _city = [SAppInfo shareClient].mCity;
-        _area = [SAppInfo shareClient].mArea;
-        
+    if(_mProvince.length>0) {
+        _province = _mProvince;
+        _city = _mCity;
+        _area = _mArea;
         _mAdd.text = [NSString stringWithFormat:@"%@%@%@",_province,_city,_area];
-        _mDetailAdd.text = [SAppInfo shareClient].mAddress;
-
+        _mDetailAdd.text = _mDetailAddress;
+    }else{
+    
+        if([SAppInfo shareClient].mAddress.length>0){
+            
+            _province = [SAppInfo shareClient].mProvince;
+            _city = [SAppInfo shareClient].mCity;
+            _area = [SAppInfo shareClient].mArea;
+            
+            _mAdd.text = [NSString stringWithFormat:@"%@%@%@",_province,_city,_area];
+            _mDetailAdd.text = [SAppInfo shareClient].mAddress;
+            
+        }
     }
+    
 }
 
 - (void)rightBtnTouched:(id)sender{

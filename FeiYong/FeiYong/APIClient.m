@@ -6,9 +6,9 @@
 #import "Util.h"
 #import "AFNetworking/AFHTTPSessionManager.h"
 
-// NSString*  kAFAppDotNetAPIBaseURLString    = @"http://42.121.120.51:8080/FYCenter/";
+ NSString*  kAFAppDotNetAPIBaseURLString    = @"http://114.215.101.20:8080/FYCenter/";
 //NSString*  kAFAppDotNetAPIBaseURLString    = @"http://ccxhtb.jios.org:8080/BsuGameCenter/";
- NSString*  kAFAppDotNetAPIBaseURLString    = @"http://101.200.153.33:8080/FYCenter/";
+// NSString*  kAFAppDotNetAPIBaseURLString    = @"http://101.200.153.33:8080/FYCenter/";
 
 @interface APIClient ()
 
