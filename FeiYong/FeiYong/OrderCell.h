@@ -20,6 +20,6 @@
 @property (unsafe_unretained, nonatomic) IBOutlet UIButton *mButtonTwo;
 
 -(void)initCell:(SOrder *)order index:(int)index;
--(void)initPjCell:(SOrder *)order;
+-(void)initPjCell:(SOrder *)order isGet:(BOOL)get;
 
 @end

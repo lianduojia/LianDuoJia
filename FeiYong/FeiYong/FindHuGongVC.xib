@@ -34,7 +34,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VuI-Cf-8zv">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="953"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_baomu" translatesAutoresizingMaskIntoConstraints="NO" id="w6d-JS-n2p">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_peihu" translatesAutoresizingMaskIntoConstraints="NO" id="w6d-JS-n2p">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="w6d-JS-n2p" secondAttribute="height" multiplier="25:8" id="uVx-gU-So3"/>
@@ -184,7 +184,7 @@
                                         <constraint firstAttribute="height" constant="40" id="4jT-ph-li9"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <state key="normal" title="男" backgroundImage="f_kuan_hui">
+                                    <state key="normal" title="男护工" backgroundImage="f_kuan_hui">
                                         <color key="titleColor" red="0.76470588235294112" green="0.76470588235294112" blue="0.76470588235294112" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
@@ -286,10 +286,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_qipao1" translatesAutoresizingMaskIntoConstraints="NO" id="zAA-73-W7v">
-                                            <rect key="frame" x="154" y="119" width="68" height="38"/>
+                                            <rect key="frame" x="108" y="119" width="160" height="38"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-SE-N1j">
-                                            <rect key="frame" x="162" y="127" width="52" height="22"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在所有阿姨中为您挑选推荐" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CyY-SE-N1j">
+                                            <rect key="frame" x="116" y="127" width="144" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -464,7 +464,7 @@
     </objects>
     <resources>
         <image name="a_qipao1" width="68" height="38"/>
-        <image name="banner_baomu" width="375" height="174"/>
+        <image name="banner_peihu" width="375" height="120"/>
         <image name="f_address" width="17" height="23"/>
         <image name="f_btn" width="339" height="45"/>
         <image name="f_day" width="21" height="21"/>

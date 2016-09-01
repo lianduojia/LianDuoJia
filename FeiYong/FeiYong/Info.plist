@@ -15,7 +15,7 @@
 		<string>zh</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>飞佣</string>
+	<string>飞佣管家</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -36,11 +36,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>0</string>
+	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>alipay</string>
 		<string>alipayshare</string>
+		<string>taobao</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

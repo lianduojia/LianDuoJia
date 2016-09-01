@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *mItem2;
 @property (weak, nonatomic) IBOutlet UIButton *mItem3;
 @property (weak, nonatomic) IBOutlet UIButton *mItem4;
+@property (weak, nonatomic) IBOutlet UIButton *mItem5;
 @property (weak, nonatomic) IBOutlet UIScrollView *mScrollView;
 
 @property (weak, nonatomic) IBOutlet UIView *mLine;

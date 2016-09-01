@@ -138,30 +138,23 @@
 
     //支付
 //    [self showStatu:@"支付中"];
-    [_mOrder getOrderNo:^(SResBase *retobj, NSString *orderNo) {
+    [Order aliPay:_mTitle orderNo:_mOrder.mNo price:_mOrder.mAmount detail:@"月薪" block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             
-            _mOrder.mNo = orderNo;
+            //                    [_mOrder payOK:^(SResBase *retobj) {
             
-            [Order aliPay:_mTitle orderNo:orderNo price:_mOrder.mAmount detail:@"中介费" block:^(SResBase *retobj) {
-                if (retobj.msuccess) {
-                    
-//                    [_mOrder payOK:^(SResBase *retobj) {
-                    
-                        [SVProgressHUD showSuccessWithStatus:@"支付成功"];
-                        
-                        AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
-                        appoint.mTempArray = _mTempArray;
-                        appoint.mOrder = _mOrder;
-                        [self pushViewController:appoint];
-//                    }];
-                    
-                }else{
-                    
-                    [SVProgressHUD showErrorWithStatus:@"支付失败"];
-                    
-                }
-            }];
+            [SVProgressHUD showSuccessWithStatus:@"支付成功"];
+            
+            AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
+            appoint.mTempArray = _mTempArray;
+            appoint.mOrder = _mOrder;
+            [self pushViewController:appoint];
+            //                    }];
+            
+        }else{
+            
+            [SVProgressHUD showErrorWithStatus:@"支付失败"];
+            
         }
     }];
 }

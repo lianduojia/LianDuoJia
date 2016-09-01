@@ -32,17 +32,23 @@
                         <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="中介费：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orc-Ul-ror">
-                        <rect key="frame" x="8" y="146" width="48" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月薪：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orc-Ul-ror">
+                        <rect key="frame" x="8" y="146" width="40" height="15"/>
                         <constraints>
+                            <constraint firstAttribute="width" constant="40" id="lZW-7e-ymJ"/>
                             <constraint firstAttribute="width" constant="48" id="ty8-po-TgG"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="ty8-po-TgG"/>
+                            </mask>
+                        </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-H2-Kmb">
-                        <rect key="frame" x="56" y="147" width="38" height="13.5"/>
+                        <rect key="frame" x="48" y="147" width="46" height="13.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>

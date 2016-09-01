@@ -99,12 +99,13 @@
     
     [self showStatu:@"提交中.."];
     
-    [_mAunt submitComment:_mPjType comment:_mPingjia.text star_count:_index+1 block:^(SResBase *retobj) {
+    [_mAunt submitComment:_mPingjia.text star_count:_index+1 block:^(SResBase *retobj) {
         
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:@"评价成功"];
             
-            [self popViewController];
+            [self performSelector:@selector(popViewController) withObject:nil afterDelay:1];
+            
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }

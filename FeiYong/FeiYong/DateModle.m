@@ -435,7 +435,7 @@ SAppInfo* g_appinfo = nil;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
     order.body = detail; //商品描述
-    order.totalFee = [NSString stringWithFormat:@"%.2f",price]; //商品价格
+    order.totalFee = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
     order.notifyURL =  [NSString stringWithFormat:@"%@alipay-notify-url",[APIClient getDomain]]; //回调URL
     
     order.service = @"mobile.securitypay.pay";
@@ -944,12 +944,12 @@ SAppInfo* g_appinfo = nil;
     [param setObject:meet_time forKey:@"meet_time"];
     [param setObject:meet_location forKey:@"meet_location"];
     
-    [[APIClient sharedClient] postUrl:@"make-an-appointment" parameters:param call:^(SResBase *info) {
+    [[APIClient sharedClient] postUrl:@"meet-maid" parameters:param call:^(SResBase *info) {
         block(info);
     }];
 }
 
-//完成订单中介费支付	/complete-agency-pay	bill_id=xxxx(订单id)
+//完成订单支付	/complete-agency-pay	bill_id=xxxx(订单id)
 -(void)payOK:(void(^)(SResBase* retobj))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
@@ -972,21 +972,24 @@ SAppInfo* g_appinfo = nil;
     switch (type) {
         case 0:
             //待支付
-            string = @"query-bill";
+            string = @"query-to-be-paid-bill";
             break;
         case 1:
             //待预约
-            string = @"query-complete-bill";
-            [param setObject:@"中介费" forKey:@"bill_type"];
+            string = @"query-appointment-maid";
+        
             break;
         case 2:
-            //待评价
-            string = @"query-meet-maid";
+            //待聘用
+            string = @"query-to-be-hire-maid";
             break;
         case 3:
+            //已聘用
+            string = @"query-hired-maid";
+            break;
+        case 4:
             //已完成
             string = @"query-complete-bill";
-            [param setObject:@"所有" forKey:@"bill_type"];
             break;
             
         default:
@@ -1019,12 +1022,24 @@ SAppInfo* g_appinfo = nil;
 //雇佣阿姨	/employ-maid	employer_id=2(雇主id)&bill_id=48(订单id)&maid_id=3(阿姨id)
 -(void)employMaid:(void(^)(SResBase* retobj))block{
      NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
-    [param setObject:_mMail_work_type forKey:@"work_type"];
     [param setObject:@(_mBill_id) forKey:@"bill_id"];
     [param setObject:@(_mMail_id) forKey:@"maid_id"];
     
-    [[APIClient sharedClient] postUrl:@"employ-maid" parameters:param call:^(SResBase *info) {
+    [[APIClient sharedClient] postUrl:@"hire-maid" parameters:param call:^(SResBase *info) {
+        
+        block(info);
+    }];
+
+}
+
+//解聘阿姨	/dismiss-maid	bill_id=48(订单id)&maid_id=3(阿姨id)
+-(void)dismissMaid:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param =    NSMutableDictionary.new;
+    [param setObject:@(_mBill_id) forKey:@"bill_id"];
+    [param setObject:@(_mMail_id) forKey:@"maid_id"];
+    
+    [[APIClient sharedClient] postUrl:@"dismiss-maid" parameters:param call:^(SResBase *info) {
         
         block(info);
     }];
@@ -1089,15 +1104,14 @@ SAppInfo* g_appinfo = nil;
 }
 
 //找护工
-+(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,NSArray *arr))block{
++(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area  over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block{
     
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    [param setObject:@(employer_id) forKey:@"employer_id"];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:@(star) forKey:@"star"];
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
     [param setObject:[Util JSONString:work_area] forKey:@"work_area"];
-    [param setObject:@(min_age) forKey:@"min_age"];
-    [param setObject:@(max_age) forKey:@"max_age"];
     [param setObject:[Util JSONString:over_night] forKey:@"over_night"];
     [param setObject:[Util JSONString:sex] forKey:@"sex"];
     [param setObject:[Util JSONString:care_type] forKey:@"care_type"];
@@ -1160,12 +1174,10 @@ SAppInfo* g_appinfo = nil;
 
 //employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&count=2(服务人数)&prio_province=东三省&prio_province=河北(优先筛选籍贯)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时) 
 //找小时工
-+(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_date:(NSString *)service_date service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block{
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area service_address:(NSString *)service_address additional:(NSString *)additional service_items:(NSString *)service_items service_time:(NSString *)service_time service_duration:(int)service_duration service_count:(int)service_count block:(void(^)(SResBase* retobj,SOrder *order))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
-    if (prio_province == nil) {
-        prio_province = @"不限";
-    }
+
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:[Util JSONString:work_province] forKey:@"work_province"];
     [param setObject:[Util JSONString:work_city] forKey:@"work_city"];
@@ -1173,14 +1185,11 @@ SAppInfo* g_appinfo = nil;
     [param setObject:[Util JSONString:service_address] forKey:@"service_address"];
     [param setObject:[Util JSONString:additional] forKey:@"additional"];
     [param setObject:[Util JSONString:service_time] forKey:@"service_time"];
-    [param setObject:[Util JSONString:service_date] forKey:@"service_date"];
-    [param setObject:[Util JSONString:service_duration] forKey:@"service_duration"];
-    [param setObject:[Util JSONString:prio_province] forKey:@"prio_provinces"];
-    
-    
-    [param setObject:@(count) forKey:@"count"];
-    
-    [[APIClient sharedClient] postUrl:@"simple-hour-worker-agency-bill" parameters:param call:^(SResBase *info) {
+    [param setObject:@(service_duration) forKey:@"service_duration"];
+    [param setObject:@(service_count) forKey:@"service_count"];
+    [param setObject:[Util JSONString:service_items] forKey:@"service_items"];
+
+    [[APIClient sharedClient] postUrl:@"hour-worker-agency-bill" parameters:param call:^(SResBase *info) {
         
         if (info.msuccess) {
             
@@ -1250,11 +1259,10 @@ SAppInfo* g_appinfo = nil;
 
 }
 
--(void)getComment:(NSString *)comment_type page:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block{
+-(void)getComment:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:@(_mId) forKey:@"maid_id"];
-    [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
     [param setObject:@(page) forKey:@"page"];
     
     [[APIClient sharedClient] postUrl:@"show-comment" parameters:param call:^(SResBase *info) {
@@ -1280,12 +1288,11 @@ SAppInfo* g_appinfo = nil;
     }];
 }
 
--(void)submitComment:(NSString *)comment_type comment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block{
+-(void)submitComment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block{
 
     NSMutableDictionary* param =    NSMutableDictionary.new;
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
     [param setObject:@(_mId) forKey:@"maid_id"];
-    [param setObject:[Util JSONString:comment_type] forKey:@"comment_type"];
     [param setObject:[Util JSONString:comment] forKey:@"comment"];
     [param setObject:@(star_count) forKey:@"star_count"];
     

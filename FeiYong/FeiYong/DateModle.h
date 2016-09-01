@@ -248,8 +248,7 @@
 
 @interface SOrder : SAutoEx
 
-//{"amount":7000,"no":"BL2016061000001","maids":["月嫂3","月嫂3","月嫂3","月嫂3"],"maid_count":4,"goods_info":"中介费"}
-//{"meet_location":"万达广场","mail_name":"月嫂1","meet_date":"2016-04-02","mail_work_type":"陪护","meet_time":"09:00","mail_photo_url":"","mail_id":3}
+
 
 @property (nonatomic,assign)                int         mId;
 @property (nonatomic,assign)                int         mBill_id;
@@ -263,7 +262,7 @@
 @property (nonatomic,strong)                NSString*   mGoods_info;
 @property (nonatomic,strong)                NSString*   mWork_type; //工作类型
 @property (nonatomic,strong)                NSString*   mTime;
-
+@property (nonatomic,assign)                int         mFirst;
 
 //约见阿姨后的信息
 @property (nonatomic,strong)                NSString* mMeet_location;                     //见面地址
@@ -281,7 +280,7 @@
 //约见阿姨,确定预约日期、时间、地点	/make-an-appointment	bill_id=xxxx(订单id)&meet_date=2016-06-12(预约日期)&meet_time=09:30(预约时间)&meet_location=xxxxxxxxxxx(预约地点)
 -(void)makeAppointment:(NSString *)meet_date meet_time:(NSString *)meet_time meet_location:(NSString *)meet_location block:(void(^)(SResBase* retobj))block;
 
-//完成订单中介费支付	/complete-agency-pay	bill_id=xxxx(订单id)
+//完成订单支付	/complete-agency-pay	bill_id=xxxx(订单id)
 -(void)payOK:(void(^)(SResBase* retobj))block;
 
 //订单列表
@@ -290,6 +289,9 @@
 
 //雇佣阿姨	/employ-maid	employer_id=2(雇主id)&bill_id=48(订单id)&maid_id=3(阿姨id)
 -(void)employMaid:(void(^)(SResBase* retobj))block;
+
+//解聘阿姨	/dismiss-maid	bill_id=48(订单id)&maid_id=3(阿姨id)
+-(void)dismissMaid:(void(^)(SResBase* retobj))block;
 
 @end
 
@@ -329,13 +331,13 @@
 
 
 //找陪护 /find-accompany
-+(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,NSArray *arr))block;
++(void)findAccompany:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area  over_night:(NSString *)over_night sex:(NSString *)sex care_type:(NSString *)care_type star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 ///找月嫂  find-maternity-matron	employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&have_auth=xxx(有无证书:有、无)
 +(void)findMatron:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area have_auth:(NSString *)have_auth star:(int)star block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 //找小时工
-+(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area count:(int)count service_address:(NSString *)service_address additional:(NSString *)additional service_date:(NSString *)service_date service_time:(NSString *)service_time service_duration:(NSString *)service_duration prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,SOrder *order))block;
++(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area service_address:(NSString *)service_address additional:(NSString *)additional service_items:(NSString *)service_items service_time:(NSString *)service_time service_duration:(int)service_duration service_count:(int)service_count block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 //找育儿嫂  /find-child-care    employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&min_age=0(最小年龄)&max_age=100(最大年龄)&over_night=住家(是否住家:住家、白班)
 +(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block;
@@ -344,15 +346,13 @@
 -(void)deleteThis:(void(^)(SResBase* retobj))block;
 
 //展示阿姨的评价	/show-comment	maid_id=5(阿姨的id)&comment_type=工作评价(评论类型:工作评价、一面之缘、线上评价。该参数为可选参数,不写该参数显示全部类型的评论)&page=0(当前显示第几页的评论,每页返回10条数据)
--(void)getComment:(NSString *)comment_type page:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block;
+-(void)getComment:(int)page block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
 //提交阿姨评论	/submit-comment	employer_id=xx(用户id)&maid_id=7(阿姨id)&comment_type=一面之缘(评论类型:工作评价、一面之缘、线上评价)&comment=aaaaa(评价内容)&star_count=5(用户的评价星数)
 
--(void)submitComment:(NSString *)comment_type comment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block;
+-(void)submitComment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block;
 
-//点击支付中介费生成订单(小时工以外工种订单)	/agency-bill	employer_id=xx(用户ID)&maid_id=3(准备预约阿姨的id)&maid_id=4(准备预约阿姨的id)&maid_id=5(准备预约阿姨的id)&maid_id=7(准备预约阿姨的id)&service_date=2016-03-03(服务时间,格式为yyyy-MM-dd)&service_address=xxxxx(服务地点详细地址)&additional=xxx(对阿姨的附加要求)
 
-//&additional=xxx(对小时工的附加要求)&service_time=09:00(服务时段,格式为hh:MM)&service_duration=1小时(服务时长,值为:1小时、2小时、3小时、4小时、5小时、6小时、7小时、8小时)
 +(void)submitOrder:(NSString *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 @end

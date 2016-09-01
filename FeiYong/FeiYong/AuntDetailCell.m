@@ -2,7 +2,7 @@
 //  AuntDetailCell.m
 //  FeiYong
 //
-//  Created by 周大钦 on 16/6/8.
+//  Created by 周大钦 on 16/8/23.
 //  Copyright © 2016年 ldj. All rights reserved.
 //
 
@@ -11,10 +11,8 @@
 @implementation AuntDetailCell
 
 - (void)awakeFromNib {
+    [super awakeFromNib];
     // Initialization code
-    UIImage * img= [UIImage imageNamed:@"a_qipao1"];
-    img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3) resizingMode:UIImageResizingModeStretch];
-    _mQipao.image = img;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

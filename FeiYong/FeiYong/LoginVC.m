@@ -23,6 +23,9 @@
     // Do any additional setup after loading the view from its nib.
     
     self.hiddenNavBar = YES;
+    
+    [_mPhone setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [_mPwd setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 - (void)didReceiveMemoryWarning {

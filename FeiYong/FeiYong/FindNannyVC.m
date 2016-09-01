@@ -16,6 +16,7 @@
 #import "Util.h"
 #import "RemarkVC.h"
 #import "OhterNeedCell.h"
+#import "HourWorkPayVC.h"
 
 @interface FindNannyVC ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -24,7 +25,7 @@
     BOOL _show;
 
     NSString *_maddress;//服务地点
-    NSString *_mdetailaddress;
+    NSString *_mdetailaddress;//详细地址（门牌号）
    
     NSString *_mfwsc;//服务时长
     NSString *_mfwnum;//服务人数
@@ -42,9 +43,9 @@
     
     NSArray *_auntarr;
     
-    UIButton *_item1;
-    UIButton *_item2;
-    UIButton *_item3;
+    UIButton *_item1;  //性别
+    UIButton *_item2;   //白班夜班
+    UIButton *_item3;   //照顾类型
     
     int _indexage;
     int _indexstar;
@@ -162,7 +163,7 @@
             case ZHUJIABAOMU:
                 if (value < 1) {
                     _mStar.text = @"不限";
-                    _mStarDetail.text = @"具备基础家庭工作技能";
+                    _mStarDetail.text = @"在所有阿姨中为您挑选推荐";
                     _mstar = 0;
                     return;
                 }
@@ -207,7 +208,7 @@
             case YUESAO:
                 if (value < 1) {
                     _mStar.text = @"不限";
-                    _mStarDetail.text = @"看管过至少6名以上婴儿，无差错";
+                    _mStarDetail.text = @"在所有阿姨中为您挑选推荐";
                     _mstar = 0;
                     return;
                 }
@@ -256,7 +257,7 @@
             case PEIHU:
                 if (value < 1) {
                     _mStar.text = @"不限";
-                    _mStarDetail.text = @"具备基础护理工作技能";
+                    _mStarDetail.text = @"在所有阿姨中为您挑选推荐";
                     _mstar = 0;
                     return;
                 }
@@ -290,7 +291,7 @@
                 }
                 
                 if (value == 5) {
-                    _mStar.text = @"5星陪护";
+                    _mStar.text = @"5星护工";
                     _mStarDetail.text = @"技能全面，工作经验丰富";
                     _mstar = 5;
                     return;
@@ -376,6 +377,8 @@
         case ZHUJIABAOMU:{
             self.navTitle = @"找住家保姆";
             
+            _mBanner.image = [UIImage imageNamed:@"banner_baomu_ye"];
+            
             NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
             NSDictionary *dic = [def objectForKey:@"bminfo"];
             if (dic) {
@@ -453,35 +456,86 @@
         }
             break;
         case PEIHU:
+        {
             self.navTitle = @"找陪护";
-            if([SAppInfo shareClient].mAddress.length>0){
-                
-                _province = [SAppInfo shareClient].mProvince;
-                _city = [SAppInfo shareClient].mCity;
-                _area = [SAppInfo shareClient].mArea;
-                _mdetailaddress = [SAppInfo shareClient].mAddress;
-                _maddress = [NSString stringWithFormat:@"%@%@%@%@",_province,_city,_area,_mdetailaddress];
-                
+            NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+            NSDictionary *dic = [def objectForKey:@"hginfo"];
+            if (dic) {
+                _maddress = [dic objectForKey:@"address"];
+                _province = [dic objectForKey:@"province"];
+                _city = [dic objectForKey:@"city"];
+                _area = [dic objectForKey:@"area"];
                 _mAddress.text = _maddress;
+                _mdetailaddress = [dic objectForKey:@"detailaddress"];
                 
+                if ([dic objectForKey:@"remark"]) {
+                    _mRemark.text = [dic objectForKey:@"remark"];
+                    _mPholder.text = @"";
+                }
+                _mstar = [[dic objectForKey:@"star"] intValue];
                 
+            }else{
+                if([SAppInfo shareClient].mAddress.length>0){
+                    
+                    _province = [SAppInfo shareClient].mProvince;
+                    _city = [SAppInfo shareClient].mCity;
+                    _area = [SAppInfo shareClient].mArea;
+                    _mdetailaddress = [SAppInfo shareClient].mAddress;
+                    _maddress = [NSString stringWithFormat:@"%@%@%@%@",_province,_city,_area,_mdetailaddress];
+                    
+                    _mAddress.text = _maddress;
+                    _mstar = 0;
+                    
+                }
             }
+
+        }
             break;
             
         case XIAOSHIGONG:
+        {
             self.navTitle = @"找小时工";
-            if([SAppInfo shareClient].mAddress.length>0){
-                
-                _province = [SAppInfo shareClient].mProvince;
-                _city = [SAppInfo shareClient].mCity;
-                _area = [SAppInfo shareClient].mArea;
-                _mdetailaddress = [SAppInfo shareClient].mAddress;
-                _maddress = [NSString stringWithFormat:@"%@%@%@%@",_province,_city,_area,_mdetailaddress];
-                
+            NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+            NSDictionary *dic = [def objectForKey:@"hourinfo"];
+            if (dic) {
+                _maddress = [dic objectForKey:@"address"];
+                _province = [dic objectForKey:@"province"];
+                _city = [dic objectForKey:@"city"];
+                _area = [dic objectForKey:@"area"];
                 _mAddress.text = _maddress;
+                _mdetailaddress = [dic objectForKey:@"detailaddress"];
                 
+                if ([dic objectForKey:@"remark"]) {
+                    _mRemark.text = [dic objectForKey:@"remark"];
+                    _mPholder.text = @"";
+                }
                 
+                _indexnum = [[dic objectForKey:@"num"] intValue];
+                _indexhour = [[dic objectForKey:@"hour"] intValue];
+                
+                _mfwsc = [NSString stringWithFormat:@"%d小时",_indexhour+1];
+                _mfwnum = [NSString stringWithFormat:@"%d人",_indexnum+1];
+                
+                _mTime.text = [dic objectForKey:@"time"];
+                
+                [_mHourBT setTitle:_mfwsc forState:UIControlStateNormal];
+                [_mNumBT setTitle:_mfwnum forState:UIControlStateNormal];
+                
+            }else{
+                if([SAppInfo shareClient].mAddress.length>0){
+                    
+                    _province = [SAppInfo shareClient].mProvince;
+                    _city = [SAppInfo shareClient].mCity;
+                    _area = [SAppInfo shareClient].mArea;
+                    _mdetailaddress = [SAppInfo shareClient].mAddress;
+                    _maddress = [NSString stringWithFormat:@"%@%@%@%@",_province,_city,_area,_mdetailaddress];
+                    
+                    _mAddress.text = _maddress;
+                }
+                _mfwsc = @"1小时";
+                _mfwnum = @"1人";
             }
+
             _mOtherHeight.constant = 0;
             
             
@@ -494,6 +548,7 @@
             _mContentView.layer.cornerRadius = 4;
             
             
+        }
             
             break;
         case JUJIAYANFLAO:
@@ -708,7 +763,7 @@
         _show = NO;
     }else{
         _picker.mSelectRow = _indextimelength;
-        _picker.mArray = [NSMutableArray arrayWithObjects:@"26天",@"48天", nil];
+        _picker.mArray = [NSMutableArray arrayWithObjects:@"26天",@"42天", nil];
         [_picker initView:self.view block:^(NSString *length,int row) {
             _indextimelength = row;
             _mTimeLength.text = length;
@@ -823,14 +878,7 @@
         return;
     }
 
-    if (_mStar.text.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
-        
-        return;
-    }
-    
-   
-    
+
     if([_mAge.text isEqualToString:@"不限"]){
         _minage = 0;
         _maxage = 100;
@@ -898,6 +946,13 @@
         case BUZHUJIABAOMU:
         case ZHUJIABAOMU:
         {
+            if (_mStar.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
+                
+                return;
+            }
+            
+            
             if (_mHuji.text.length == 0) {
                 [SVProgressHUD showErrorWithStatus:@"请选择户籍要求"];
                 
@@ -938,7 +993,14 @@
             break;
             
         case YUESAO:{
-        
+            
+            if (_mStar.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
+                
+                return;
+            }
+            
+            
             if (_mTime.text.length == 0) {
                 [SVProgressHUD showErrorWithStatus:@"请选择预产期时间"];
                 
@@ -974,11 +1036,126 @@
             
             break;
         case PEIHU:
-            rea.mType = @"陪护";
-            break;
+        {
+            if (_mStar.text.length == 0) {
+                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
+                
+                return;
+            }
+            
+            NSString *sex = @"";
+            NSString *day = @"";
+            NSString *type = @"";
+            
+            if (_item1.tag == 10) {
+                sex = @"不限";
+            }else if (_item1.tag == 11){
+                sex = @"男";
+            }else{
+                sex = @"女";
+            }
+            
+            if(_item2.tag == 10){
+                day = @"白班";
+            }else{
+                day = @"住家";
+            }
+            
+            if (_item3.tag == 10) {
+                type = @"老人";
+            }else{
+                type = @"病人";
+            }
+            
+            [self showStatu:@"操作中.."];
+            [SAuntInfo findAccompany:0 work_province:_province work_city:_city work_area:_area over_night:day sex:sex care_type:type star:_mstar block:^(SResBase *retobj, NSArray *arr) {
+               
+                if (retobj.msuccess) {
+                    
+                    [self saveHuGongInfo];
+                    
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    _auntarr = arr;
+                    
+                    rea.mTempArray = (NSMutableArray *)_auntarr;
+                    rea.mOverNight = day;
+                    rea.mCareType = type;
+                    [self.navigationController pushViewController:rea animated:YES];
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+
+            }];
+
+        }
+            
+        break;
             
         case XIAOSHIGONG:
-            rea.mType = @"小时工";
+        {
+            if (_mTime.text.length == 0) {
+            [SVProgressHUD showErrorWithStatus:@"请选择服务时间"];
+            return;
+            }
+            
+            int hour = [[_mfwsc stringByReplacingOccurrencesOfString:@"小时" withString:@""] intValue];
+            int num = [[_mfwnum stringByReplacingOccurrencesOfString:@"人" withString:@""] intValue];
+            
+            NSString *other = @"";
+            
+            if (_mCheck1.selected) {
+                other = [other stringByAppendingString:@"抹布,"];
+            }
+            
+            if (_mCheck2.selected) {
+                other = [other stringByAppendingString:@"清洁剂,"];
+            }
+            
+            if (_mCheck3.selected) {
+                other = [other stringByAppendingString:@"杀虫剂,"];
+            }
+            
+            for (int i = 0; i < _selectothers.count; i++) {
+                
+                int flag = [[_selectothers objectAtIndex:i] intValue];
+                if (flag) {
+                    other = [other stringByAppendingString:[NSString stringWithFormat:@"%@,",[self.tempArray objectAtIndex:i]]];
+                }
+            }
+            
+            if (other.length>0) {
+                
+                other = [other substringToIndex:([other length]-1)];
+            }
+            
+            [self showStatu:@"操作中.."];
+            
+            [SAuntInfo findHourWorker:0 work_province:_province work_city:_city work_area:_area service_address:_mdetailaddress additional:_mRemark.text service_items:other service_time:_mTime.text service_duration:hour service_count:num block:^(SResBase *retobj, SOrder *order) {
+                
+                if (retobj.msuccess) {
+                    
+                    [self saveHourInfo];
+                    
+                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+                    
+                    HourWorkPayVC *hpay = [[HourWorkPayVC alloc] initWithNibName:@"HourWorkPayVC" bundle:nil];
+                    hpay.mAddr = _maddress;
+                    
+                    hpay.mServiceTime = _mTime.text;
+                    hpay.mOrder = order;
+                    [self pushViewController:hpay];
+                    
+                }else{
+                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+                    return;
+                }
+
+            }];
+            
+        }
+
+            
             break;
         case JUJIAYANFLAO:
             rea.mType = @"居家养老";
@@ -998,7 +1175,7 @@
 
 }
 
-//保存所填需求 以便下次使用
+//保存保姆所填需求 以便下次使用
 - (void)saveInfo{
     NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *dic = [NSMutableDictionary new];
@@ -1018,7 +1195,7 @@
     [def synchronize];
 }
 
-//保存所填需求 以便下次使用
+//保存月嫂所填需求 以便下次使用
 - (void)saveYueSaoInfo{
     NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
     NSMutableDictionary *dic = [NSMutableDictionary new];
@@ -1035,6 +1212,46 @@
     }
     
     [def setObject:dic forKey:@"ysinfo"];
+    [def synchronize];
+}
+
+//保存护工所填需求 以便下次使用
+- (void)saveHuGongInfo{
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    [dic setObject:_province forKey:@"province"];
+    [dic setObject:_city forKey:@"city"];
+    [dic setObject:_area forKey:@"area"];
+    [dic setObject:_mdetailaddress forKey:@"detailaddress"];
+    [dic setObject:_maddress forKey:@"address"];
+    [dic setObject:@(_mstar) forKey:@"star"];
+    if (_mRemark.text.length>0) {
+        [dic setObject:_mRemark.text forKey:@"remark"];
+    }
+    
+    [def setObject:dic forKey:@"hginfo"];
+    [def synchronize];
+}
+
+//保存小时工所填需求 以便下次使用
+- (void)saveHourInfo{
+    NSUserDefaults* def = [NSUserDefaults standardUserDefaults];
+    NSMutableDictionary *dic = [NSMutableDictionary new];
+    [dic setObject:_province forKey:@"province"];
+    [dic setObject:_city forKey:@"city"];
+    [dic setObject:_area forKey:@"area"];
+    [dic setObject:_mdetailaddress forKey:@"detailaddress"];
+    [dic setObject:_maddress forKey:@"address"];
+    [dic setObject:_mTime.text forKey:@"time"];
+    
+    [dic setObject:@(_indexhour) forKey:@"hour"];
+    [dic setObject:@(_indexnum) forKey:@"num"];
+    
+    if (_mRemark.text.length>0) {
+        [dic setObject:_mRemark.text forKey:@"remark"];
+    }
+    
+    [def setObject:dic forKey:@"hourinfo"];
     [def synchronize];
 }
 

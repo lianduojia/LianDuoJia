@@ -37,7 +37,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VuI-Cf-8zv">
                             <rect key="frame" x="0.0" y="0.0" width="375" height="1083"/>
                             <subviews>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_baomu" translatesAutoresizingMaskIntoConstraints="NO" id="w6d-JS-n2p">
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_xsg" translatesAutoresizingMaskIntoConstraints="NO" id="w6d-JS-n2p">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="120"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="w6d-JS-n2p" secondAttribute="height" multiplier="25:8" id="uVx-gU-So3"/>
@@ -182,7 +182,7 @@
                                         <constraint firstAttribute="height" constant="40" id="J0b-vJ-yJO"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <state key="normal" title="服务2小时">
+                                    <state key="normal" title="服务1小时">
                                         <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
@@ -463,7 +463,7 @@
         </view>
     </objects>
     <resources>
-        <image name="banner_baomu" width="375" height="174"/>
+        <image name="banner_xsg" width="375" height="120"/>
         <image name="f_address" width="17" height="23"/>
         <image name="f_btn" width="339" height="45"/>
         <image name="f_day" width="21" height="21"/>

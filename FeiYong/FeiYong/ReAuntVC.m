@@ -36,6 +36,7 @@
     UINib *nib = [UINib nibWithNibName:@"ReAuntCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
     
+    _mTableView.tableFooterView = [UIView new];
     
     if (_mTempArray.count == 0) {
         _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil];

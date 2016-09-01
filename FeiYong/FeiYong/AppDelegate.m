@@ -124,6 +124,9 @@
     
     [[SAppInfo shareClient] getLocation];
     
+    [NSThread sleepForTimeInterval:1.5];
+    [_window makeKeyAndVisible];
+    
     return YES;
 }
 

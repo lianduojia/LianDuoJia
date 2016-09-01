@@ -32,6 +32,7 @@
     NSMutableArray *_dataArr2;
     NSMutableArray *_dataArr3;
     NSMutableArray *_dataArr4;
+    NSMutableArray *_dataArr5;
     
     NSMutableArray *_mainData;
 }
@@ -62,6 +63,7 @@
     _dataArr2 = [NSMutableArray new];
     _dataArr3 = [NSMutableArray new];
     _dataArr4 = [NSMutableArray new];
+    _dataArr5 = [NSMutableArray new];
     
     self.hiddenBackBtn = YES;
     self.navTitle = @"订单";
@@ -70,11 +72,12 @@
     
     
     _mScrollView.pagingEnabled = YES;
-    _mScrollView.contentSize = CGSizeMake(DEVICE_Width*4, _mScrollView.frame.size.height);
+    _mScrollView.contentSize = CGSizeMake(DEVICE_Width*5, _mScrollView.frame.size.height);
     
     _mScrollView.delegate = self;
     
-    _items = [[NSArray alloc] initWithObjects:_mItem1,_mItem2,_mItem3,_mItem4, nil];
+    _items = [[NSArray alloc] initWithObjects:_mItem1,_mItem2,_mItem3,_mItem4,_mItem5
+              ,nil];
     _tablearry = [NSMutableArray new];
     
     [self loadMyView];
@@ -141,6 +144,11 @@
                     [_nowtableview headerBeginRefreshing];
                 }
                 break;
+            case 4:
+                if (_dataArr5.count==0) {
+                    [_nowtableview headerBeginRefreshing];
+                }
+                break;
                 
             default:
                 break;
@@ -152,7 +160,7 @@
 
 - (void)loadMyView{
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         
         UIView *contentView = [[UIView alloc] initWithFrame:CGRectMake(i*DEVICE_Width, 0, DEVICE_Width, DEVICE_InNavTabBar_Height-40)];
         contentView.backgroundColor = M_BGCO;
@@ -225,6 +233,8 @@
                 _dataArr3 = (NSMutableArray *)arr;
             }else if(_nowindex == 3){
                 _dataArr4 = (NSMutableArray *)arr;
+            }else if(_nowindex == 4){
+                _dataArr5 = (NSMutableArray *)arr;
             }
             
             [_nowtableview reloadData];
@@ -256,6 +266,8 @@
             break;
         case 13:
             return _dataArr4.count;
+        case 14:
+            return _dataArr5.count;
             break;
             
         default:
@@ -301,6 +313,12 @@
         case 13:
         {
             SOrder *order = [_dataArr4 objectAtIndex:section];
+            _sectionview.mLabel.text = [NSString stringWithFormat:@"%@ %@",order.mMeet_date,order.mMeet_time];
+        }
+            break;
+        case 14:
+        {
+            SOrder *order = [_dataArr5 objectAtIndex:section];
             _sectionview.mLabel.text = order.mTime;
         }
             break;
@@ -349,21 +367,40 @@
         case 12:{
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
             SOrder *order = [_dataArr3 objectAtIndex:indexPath.section];
-            [cell initPjCell:order];
+            [cell initPjCell:order isGet:NO];
             
             cell.mButton.tag = indexPath.section;
             [cell.mButton addTarget:self action:@selector(PingJiaClick:) forControlEvents:UIControlEventTouchUpInside];
-            
-            cell.mButtonTwo.tag = indexPath.section;
-            [cell.mButtonTwo addTarget:self action:@selector(PingYongClick:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.mButton setTitle:@"聘用" forState:UIControlStateNormal];
+            cell.mButtonTwo.hidden = YES;
+//            cell.mButtonTwo.tag = indexPath.section;
+//            [cell.mButtonTwo addTarget:self action:@selector(PingYongClick:) forControlEvents:UIControlEventTouchUpInside];
             break;
             
         }
             
         case 13:
         {
-            cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+            cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
+            
             SOrder *order = [_dataArr4 objectAtIndex:indexPath.section];
+            [cell initPjCell:order isGet:YES];
+            
+            cell.mButton.tag = indexPath.section;
+            [cell.mButton setTitle:@"评价" forState:UIControlStateNormal];
+            [cell.mButton addTarget:self action:@selector(PingJiaClick:) forControlEvents:UIControlEventTouchUpInside];
+            
+            cell.mButtonTwo.hidden = NO;
+            cell.mButtonTwo.tag = indexPath.section;
+            [cell.mButtonTwo addTarget:self action:@selector(PingYongClick:) forControlEvents:UIControlEventTouchUpInside];
+
+        }
+            break;
+            
+        case 14:
+        {
+            cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"cell"];
+            SOrder *order = [_dataArr5 objectAtIndex:indexPath.section];
             [cell initCell:order index:3];
             cell.mButton.tag = indexPath.section;
             cell.mButton.hidden = YES;
@@ -380,36 +417,52 @@
     return cell;
 }
 
-//评价
+//评价/聘用
 -(void)PingJiaClick:(UIButton *)sender{
     
-    SOrder *order = [_dataArr3 objectAtIndex:(int)sender.tag];
+    if(_nowindex == 2){
     
-    PingJiaVC *pj = [[PingJiaVC alloc] initWithNibName:@"PingJiaVC" bundle:nil];
-    
-    if([order.mStatus isEqualToString:@"聘用"])
-        pj.mPjType = @"工作评价";
-    else
-        pj.mPjType = @"一面之缘";
-    
-    SAuntInfo *aunt = [[SAuntInfo alloc] init];
-    aunt.mId = order.mMail_id;
-    pj.mAunt = aunt;
-    
-    [self.navigationController pushViewController:pj animated:YES];
+        SOrder *order = [_dataArr3 objectAtIndex:(int)sender.tag];
+        
+        [self showStatu:@"操作中.."];
+        
+        [order employMaid:^(SResBase *retobj) {
+            if (retobj.msuccess) {
+                
+                [SVProgressHUD showSuccessWithStatus:@"聘用成功"];
+                
+                [self performSelector:@selector(reload) withObject:nil afterDelay:1];
+                
+            }else{
+                [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+            }
+        }];
+    }else{
+        SOrder *order = [_dataArr4 objectAtIndex:(int)sender.tag];
+        
+        PingJiaVC *pj = [[PingJiaVC alloc] initWithNibName:@"PingJiaVC" bundle:nil];
+        
+        
+        
+        SAuntInfo *aunt = [[SAuntInfo alloc] init];
+        aunt.mId = order.mMail_id;
+        pj.mAunt = aunt;
+        
+        [self.navigationController pushViewController:pj animated:YES];
+    }
     
 }
-//聘用
+//解聘
 -(void)PingYongClick:(UIButton *)sender{
     
-    SOrder *order = [_dataArr3 objectAtIndex:(int)sender.tag];
+    SOrder *order = [_dataArr4 objectAtIndex:(int)sender.tag];
     
     [self showStatu:@"操作中.."];
     
-    [order employMaid:^(SResBase *retobj) {
+    [order dismissMaid:^(SResBase *retobj) {
         if (retobj.msuccess) {
             
-            [SVProgressHUD showSuccessWithStatus:@"聘用成功"];
+            [SVProgressHUD showSuccessWithStatus:@"解聘成功"];
             
             [self performSelector:@selector(reload) withObject:nil afterDelay:1];
             
@@ -417,6 +470,7 @@
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
     }];
+
 }
 
 -(void)reload{
@@ -440,14 +494,7 @@
 
     SOrder *order = [_dataArr objectAtIndex:(int)sender.tag];
     
-    NSString *string = @"";
-    if([order.mGoods_info isEqualToString:@"中介费"]){
-        
-        string = @"中介费";
-    }else{
-        string = @"月薪";
-    }
-    
+    NSString *string = @"月薪";
     
     if (order.mWork_type.length>0) {
         string = order.mWork_type;
@@ -460,7 +507,7 @@
                 
                 [SVProgressHUD showSuccessWithStatus:@"支付成功"];
                 
-                if ([order.mGoods_info isEqualToString:@"中介费"]) {
+                if (order.mFirst) {
                     
                     AppointmentVC *appoint = [[AppointmentVC alloc] initWithNibName:@"AppointmentVC" bundle:nil];
                     appoint.mOrder = order;

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -15,9 +15,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="Pt0-Qx-1wG">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="Pt0-Qx-1wG">
                         <rect key="frame" x="10" y="10" width="30" height="30"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="30" id="N5b-UG-VsU"/>
                             <constraint firstAttribute="width" constant="30" id="dNa-e5-Cg3"/>
@@ -25,37 +24,24 @@
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H2i-k0-3L4">
                         <rect key="frame" x="50" y="13" width="31" height="14.5"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QKS-UH-6Pq">
-                        <rect key="frame" x="254" y="8" width="51" height="24"/>
-                        <animations/>
-                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <inset key="contentEdgeInsets" minX="8" minY="5" maxX="8" maxY="5"/>
-                        <state key="normal" title="月嫂" backgroundImage="a_green_bg">
-                            <color key="titleColor" red="0.49803921569999998" green="0.6588235294" blue="0.33333333329999998" alpha="1" colorSpace="calibratedRGB"/>
-                        </state>
-                    </button>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P6M-7g-6yL">
                         <rect key="frame" x="48" y="35" width="257" height="56"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_qipao2" translatesAutoresizingMaskIntoConstraints="NO" id="nHd-4k-AcF">
                                 <rect key="frame" x="0.0" y="0.0" width="257" height="56"/>
-                                <animations/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tQi-t2-alM">
                                 <rect key="frame" x="10" y="8" width="227" height="20"/>
-                                <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="18U-W6-bhc">
                                 <rect key="frame" x="220.5" y="36" width="28.5" height="12"/>
-                                <animations/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="571-WF-h9o"/>
                                 </constraints>
@@ -64,7 +50,6 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="tQi-t2-alM" secondAttribute="bottom" constant="8" id="JEz-tH-GVB"/>
@@ -87,7 +72,6 @@
                         </variation>
                     </view>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="Pt0-Qx-1wG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="8ZF-IU-kFE"/>
                     <constraint firstItem="P6M-7g-6yL" firstAttribute="top" secondItem="H2i-k0-3L4" secondAttribute="bottom" constant="8" id="EeT-En-des"/>
@@ -95,11 +79,9 @@
                     <constraint firstAttribute="bottom" secondItem="P6M-7g-6yL" secondAttribute="bottom" constant="8" id="Ra4-6v-zbj"/>
                     <constraint firstItem="H2i-k0-3L4" firstAttribute="leading" secondItem="Pt0-Qx-1wG" secondAttribute="trailing" constant="10" id="iFm-un-Uw4"/>
                     <constraint firstAttribute="trailingMargin" secondItem="P6M-7g-6yL" secondAttribute="trailing" constant="15" id="iqd-tY-THD"/>
-                    <constraint firstAttribute="trailing" secondItem="QKS-UH-6Pq" secondAttribute="trailing" constant="15" id="lBd-Tk-9wB"/>
                     <constraint firstItem="H2i-k0-3L4" firstAttribute="top" secondItem="Pt0-Qx-1wG" secondAttribute="top" constant="3" id="mwH-ho-40N"/>
                     <constraint firstAttribute="trailing" secondItem="P6M-7g-6yL" secondAttribute="trailing" constant="15" id="o2u-42-EEi"/>
                     <constraint firstItem="P6M-7g-6yL" firstAttribute="leading" secondItem="Pt0-Qx-1wG" secondAttribute="trailing" constant="8" id="pHS-Cf-gpz"/>
-                    <constraint firstItem="QKS-UH-6Pq" firstAttribute="centerY" secondItem="H2i-k0-3L4" secondAttribute="centerY" id="vNO-0J-Ami"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
@@ -107,19 +89,16 @@
                     </mask>
                 </variation>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="mContent" destination="tQi-t2-alM" id="yRV-TX-YIR"/>
                 <outlet property="mHeadImg" destination="Pt0-Qx-1wG" id="4lz-hj-dz0"/>
                 <outlet property="mName" destination="H2i-k0-3L4" id="CId-xL-9Ud"/>
                 <outlet property="mTime" destination="18U-W6-bhc" id="GtW-hj-503"/>
-                <outlet property="mWork" destination="QKS-UH-6Pq" id="gEx-x8-BcE"/>
             </connections>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="DefaultImg" width="331" height="341"/>
-        <image name="a_green_bg" width="51" height="24"/>
+        <image name="DefaultImg" width="101" height="134"/>
         <image name="a_qipao2" width="319" height="56"/>
     </resources>
 </document>

@@ -30,6 +30,11 @@
     
     _mQuan.layer.masksToBounds = YES;
     _mQuan.layer.cornerRadius = 4.5;
+    
+    [_mName setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [_mPwd setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [_mPhone setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
+    [_mCode setValue:[UIColor whiteColor] forKeyPath:@"_placeholderLabel.textColor"];
 }
 
 - (void)didReceiveMemoryWarning {

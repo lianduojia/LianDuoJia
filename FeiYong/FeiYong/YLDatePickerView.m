@@ -25,8 +25,8 @@
     NSDate *date = [NSDate date];
     
     int time = [date timeIntervalSince1970];
-//    time = time-3600*8+12*3600;
-    time = time-3600*8;
+    time = time-3600*8+3600;
+//    time = time-3600*8;
     
     NSDate *miniDate = [Util dateWithInt:time];
     _mPicker.minimumDate = miniDate;
@@ -99,11 +99,30 @@
         }
         
     }else{
+        
+        NSString *one = [array objectAtIndex:0];
+        NSArray *array2 = [one componentsSeparatedByString:@" "];
+        
+        NSString *day = [array2 objectAtIndex:0];
+        int h = [[array2 objectAtIndex:1] intValue];
+        int m = [[array objectAtIndex:1] intValue];
+        
+        if (m <= 15) {
+            m = 0;
+        }else if(m>15 && m<45){
+            m = 30;
+        }else{
+            m = 0;
+            if (h<24) {
+                h++;
+            }
+        }
+        
         if ([self.m_pTextDate isKindOfClass:[UILabel class]]) {
-            ((UILabel *)self.m_pTextDate).text = date;
+            ((UILabel *)self.m_pTextDate).text = [NSString stringWithFormat:@"%@ %.2d:%.2d",day,h,m];
         }
         if ([self.m_pTextDate isKindOfClass:[UITextField class]]) {
-             ((UILabel *)self.m_pTextDate).text = date;
+             ((UITextField *)self.m_pTextDate).text = [NSString stringWithFormat:@"%@ %.2d:%.2d",day,h,m];
         }
     }
     
@@ -117,7 +136,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         
-        self.frame = CGRectMake(0, DEVICE_InNavBar_Height, DEVICE_Width, 266);
+        self.frame = CGRectMake(0, DEVICE_Height, DEVICE_Width, 266);
         
     }];
     

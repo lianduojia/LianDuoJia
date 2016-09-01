@@ -25,7 +25,7 @@
                         <constraint firstAttribute="height" constant="50" id="vo4-8B-qQM"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="18"/>
-                    <state key="normal" title="支付中介费"/>
+                    <state key="normal" title="支付月薪"/>
                     <connections>
                         <action selector="mPayClick:" destination="-1" eventType="touchUpInside" id="ekv-fY-WXQ"/>
                     </connections>

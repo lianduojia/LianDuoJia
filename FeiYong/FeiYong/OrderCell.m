@@ -25,24 +25,26 @@
 -(void)initCell:(SOrder *)order index:(int)index{
     
     NSString *type = @"";
-    if (order.mMaids.count>0) {
+    
+    if (order.mWork_type.length>0) {
+        type = order.mWork_type;
+    }else{
         
-        type = [[order.mMaids objectAtIndex:0] objectForKey:@"work_type"];
-        
-        if (order.mMaids.count == 0) {
+        if (order.mMaids.count>0) {
             
-            [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[[order.mMaids objectAtIndex:0] objectForKey:@"photo_url"]]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+            type = [[order.mMaids objectAtIndex:0] objectForKey:@"work_type"];
+            
+            if (order.mMaids.count == 0) {
+                
+                [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:[[APIClient sharedClient] photoUrl:[[order.mMaids objectAtIndex:0] objectForKey:@"photo_url"]]] placeholderImage:[UIImage imageNamed:@"o_default"]];
+            }
         }
+        
     }
     
-    if([order.mGoods_info isEqualToString:@"中介费"]){
-        
-        _mTitle.text = [NSString stringWithFormat:@"预约%lu位%@",(unsigned long)order.mMaids.count,type];
-        _mMoneylabel.text = @"中介费";
-    }else{
-        _mTitle.text = [NSString stringWithFormat:@"聘用%lu位%@",(unsigned long)order.mMaids.count,type];
-        _mMoneylabel.text = @"月薪";
-    }
+    
+    _mTitle.text = [NSString stringWithFormat:@"聘用%d位%@",order.mMaid_count,type];
+    _mMoneylabel.text = @"月薪";
     
     if ([type isEqualToString:@"小时工"]) {
         _mMoneylabel.text = @"工时费";
@@ -64,27 +66,20 @@
     
 }
 
--(void)initPjCell:(SOrder *)order{
-    
-    _mButtonTwo.hidden = NO;
-    if ([order.mStatus isEqualToString:@"聘用"]) {
-        [_mButtonTwo setTitle:@"已聘用" forState:UIControlStateNormal];
-        _mButtonTwo.userInteractionEnabled = NO;
-    }else{
-        [_mButtonTwo setTitle:@"聘用阿姨" forState:UIControlStateNormal];
-        _mButtonTwo.userInteractionEnabled = YES;
-    }
+-(void)initPjCell:(SOrder *)order isGet:(BOOL)get{
     
     [_mHeadImg sd_setImageWithURL:[NSURL URLWithString:order.mMail_photo_url] placeholderImage:[UIImage imageNamed:@"o_default"]];
     
     _mOrderNo.text = order.mMail_work_type;
-    if ([order.mMail_work_type isEqualToString:@"小时工"]) {
+    if ([order.mMail_work_type isEqualToString:@"小时工"] || get) {
         _mTitle.text = [NSString stringWithFormat:@"%@",order.mMail_name];
+        _mDetail.text = @"上门服务";
     }else{
         _mTitle.text = [NSString stringWithFormat:@"预约%@",order.mMail_name];
+        _mDetail.text = [NSString stringWithFormat:@"%@见面",order.mMeet_location];
     }
 
-    _mDetail.text = [NSString stringWithFormat:@"%@见面",order.mMeet_location];
+    
 }
 
 @end

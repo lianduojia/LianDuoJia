@@ -7,11 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ParentalServiceVC.h"
 
 @interface BombBoxVC : UIViewController
 
-@property (nonatomic,strong) id<ParentalServiceDelegate>delegate;
 @property (weak, nonatomic) IBOutlet UIView *mBoxView;
 @property (weak, nonatomic) IBOutlet UILabel *mTitle;
 @property (weak, nonatomic) IBOutlet UITableView *mTableView;

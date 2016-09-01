@@ -11,6 +11,7 @@
 
 @interface FindNannyVC : BaseVC
 
+@property (weak, nonatomic) IBOutlet UIImageView *mBanner;
 @property (nonatomic,assign) int mType;
 @property (weak, nonatomic) IBOutlet UIImageView *mJiantou;
 @property (weak, nonatomic) IBOutlet UITextField *mAddress;

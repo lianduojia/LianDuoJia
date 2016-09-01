@@ -10,6 +10,7 @@
             <connections>
                 <outlet property="mAddress" destination="fQY-4z-G3z" id="v47-BM-gQm"/>
                 <outlet property="mAge" destination="uQB-Ca-qfe" id="fyM-FS-AkE"/>
+                <outlet property="mBanner" destination="w6d-JS-n2p" id="sIe-n0-oY9"/>
                 <outlet property="mGroupHeight" destination="1Gt-Dv-4m9" id="IgI-Zy-yhD"/>
                 <outlet property="mHuji" destination="GiG-Xa-2Cl" id="tnU-pc-mky"/>
                 <outlet property="mJiantou" destination="uBg-Zo-eWG" id="YPY-gb-MwE"/>
@@ -217,10 +218,10 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a_qipao1" translatesAutoresizingMaskIntoConstraints="NO" id="cVk-9L-YgV">
-                                            <rect key="frame" x="154" y="119" width="68" height="38"/>
+                                            <rect key="frame" x="108" y="119" width="160" height="38"/>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWV-7Y-QZJ">
-                                            <rect key="frame" x="162" y="127" width="52" height="22"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在所有阿姨中为您挑选推荐" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iWV-7Y-QZJ">
+                                            <rect key="frame" x="116" y="127" width="144" height="22"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                             <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -382,7 +383,7 @@
     </objects>
     <resources>
         <image name="a_qipao1" width="68" height="38"/>
-        <image name="banner_baomu" width="375" height="174"/>
+        <image name="banner_baomu" width="375" height="120"/>
         <image name="f_address" width="17" height="23"/>
         <image name="f_age" width="22" height="16"/>
         <image name="f_btn" width="339" height="45"/>

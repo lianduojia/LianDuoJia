@@ -11,14 +11,10 @@
 @interface AuntHeadView : UIView
 @property (weak, nonatomic) IBOutlet UIImageView *mHeadImg;
 @property (weak, nonatomic) IBOutlet UILabel *mName;
-@property (weak, nonatomic) IBOutlet UIImageView *mStar1;
-@property (weak, nonatomic) IBOutlet UIImageView *mStar2;
-@property (weak, nonatomic) IBOutlet UIImageView *mStar3;
-@property (weak, nonatomic) IBOutlet UIImageView *mStar4;
-@property (weak, nonatomic) IBOutlet UIImageView *mStar5;
-@property (weak, nonatomic) IBOutlet UIButton *mPjBt;
-@property (weak, nonatomic) IBOutlet UIImageView *mYuanImg;
-@property (weak, nonatomic) IBOutlet UILabel *mLabel;
+@property (weak, nonatomic) IBOutlet UILabel *mAge;
+@property (weak, nonatomic) IBOutlet UILabel *mConstellation;
+@property (weak, nonatomic) IBOutlet UILabel *mAddress;
+
 
 + (AuntHeadView *)shareView;
 

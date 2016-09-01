@@ -239,7 +239,7 @@
     
         _index = (int)indexPath.row;
         
-        [self.delegate selectString:[_marray objectAtIndex:indexPath.row] index:_index];
+//        [self.delegate selectString:[_marray objectAtIndex:indexPath.row] index:_index];
         
         
         [self closeView];
@@ -277,7 +277,7 @@
         }
     }
     
-    [self.delegate selectString:string index:_index];
+//    [self.delegate selectString:string index:_index];
     
     
     [self closeView];

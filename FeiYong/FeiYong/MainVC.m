@@ -8,7 +8,6 @@
 
 #import "MainVC.h"
 #import "SDCycleScrollView.h"
-#import "ParentalServiceVC.h"
 #import "JoinVC.h"
 #import "OrderVC.h"
 #import "NavC.h"
@@ -16,8 +15,10 @@
 #import "APIClient.h"
 #import "CityListVC.h"
 #import "FindNannyVC.h"
+#import "AddressVC.h"
+#import "AddressCity.h"
 
-@interface MainVC ()<SDCycleScrollViewDelegate,UITabBarControllerDelegate>{
+@interface MainVC ()<SDCycleScrollViewDelegate,UITabBarControllerDelegate,UIScrollViewDelegate>{
 
     SDCycleScrollView *_cycleScrollView;
    
@@ -40,12 +41,27 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navTitle = @"飞佣";
-    self.hiddenBackBtn = YES;
+    self.hiddenNavBar = YES;
     
     [self loadAndupdateTopAdView:nil];
     
     self.tabBarController.delegate = self;
     
+    _mScrollView.delegate = self;
+    
+    
+    [self loadCity];
+}
+
+- (void)loadCity{
+
+    if([SAppInfo shareClient].mCity.length > 0){
+        
+        [_mCityBt setTitle:[SAppInfo shareClient].mCity forState:UIControlStateNormal];
+    }else{
+        
+        [self performSelector:@selector(loadCity) withObject:nil afterDelay:2];
+    }
 }
 
 - (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController{
@@ -187,13 +203,13 @@
     
     int index = (int)((UIButton *)sender).tag;
     
-    if(index == 20){
+    if(index == 10){
         NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"057912312"];
         UIWebView * callWebview = [[UIWebView alloc] init];
         [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
         [self.view addSubview:callWebview];
         
-    }else if(index == 21){
+    }else if(index == 11){
         
 //        WebVC *web = [[WebVC alloc] init];
 //        web.mName = @"平台介绍";
@@ -211,7 +227,7 @@
         [self presentViewController:alert animated:true completion:nil];
         
         
-    }else if(index == 22){
+    }else if(index == 12){
     
         WebVC *web = [[WebVC alloc] init];
         web.mName = @"资费说明";
@@ -227,5 +243,26 @@
     }
 
     
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView{
+    
+    CGFloat y = scrollView.contentOffset.y;
+    if (y>=100) {
+        
+        _mHeadView.hidden = YES;
+    }else{
+        _mHeadView.hidden = NO;
+    }
+}
+
+- (IBAction)ChoseCityClick:(id)sender {
+    
+    AddressCity *ac = [[AddressCity alloc] initWithNibName:@"AddressCity" bundle:nil];
+    ac.itblock = ^(NSString *city){
+        [_mCityBt setTitle:city forState:UIControlStateNormal];
+    };
+    
+    [self pushViewController:ac];
 }
 @end
