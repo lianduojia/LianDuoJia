@@ -63,6 +63,9 @@
 - (void)firstLoad{
 
     if(![[NSUserDefaults standardUserDefaults] boolForKey:@"firstStart"]){
+        
+//        [SUser logout];
+        
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstStart"];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];

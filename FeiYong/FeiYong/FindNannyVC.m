@@ -870,6 +870,10 @@
 //提交需求
 - (IBAction)mSubmitClick:(id)sender {
     
+    if ([SUser isNeedLogin]) {
+        [self gotoLogin];
+        return;
+    }
     
     
     if (_mAddress.text.length == 0) {

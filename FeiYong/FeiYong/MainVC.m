@@ -211,28 +211,19 @@
         
     }else if(index == 11){
         
-//        WebVC *web = [[WebVC alloc] init];
-//        web.mName = @"平台介绍";
-//        web.isMode = YES;
-//        web.mUrl = [NSString stringWithFormat:@"%@introduce.html",[APIClient getDomain]];
-//        [self presentViewController:web animated:YES completion:nil];
-        //初始化提示框；
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"敬请期待！" preferredStyle:  UIAlertControllerStyleAlert];
-        
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //点击按钮的响应事件；
-        }]];
-        
-        //弹出提示框；
-        [self presentViewController:alert animated:true completion:nil];
+        WebVC *web = [[WebVC alloc] init];
+        web.mName = @"常见问题";
+        web.isMode = YES;
+        web.mUrl = [NSString stringWithFormat:@"%@faq.html",[APIClient getDomain]];
+        [self presentViewController:web animated:YES completion:nil];
         
         
     }else if(index == 12){
     
         WebVC *web = [[WebVC alloc] init];
-        web.mName = @"资费说明";
+        web.mName = @"星级说明";
         web.isMode = YES;
-        web.mUrl = [NSString stringWithFormat:@"%@charge.html",[APIClient getDomain]];
+        web.mUrl = [NSString stringWithFormat:@"%@maidstar.html",[APIClient getDomain]];
         [self presentViewController:web animated:YES completion:nil];
         
     }else{

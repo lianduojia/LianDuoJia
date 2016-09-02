@@ -12,6 +12,8 @@
 #import "PingJiaCell.h"
 #import "PingJiaVC.h"
 #import "AuntDetailCell.h"
+#import "MJPhoto.h"
+#import "MJPhotoBrowser.h"
 
 #define Height 222
 
@@ -136,9 +138,32 @@
     _mHeadView.mConstellation.text = _mAuntInfo.mConstellation;
     _mHeadView.mAddress.text = _mAuntInfo.mProvince;
     [_mHeadView.mHeadImg sd_setImageWithURL:[NSURL URLWithString:_mAuntInfo.mPhoto_url] placeholderImage:[UIImage imageNamed:@"DefaultImg"]];
+    
+    _mHeadView.mHeadImg.userInteractionEnabled = YES;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(PhotoClick:)];
+    [_mHeadView.mHeadImg addGestureRecognizer:tap];
 
 }
 
+- (void)PhotoClick:(UITapGestureRecognizer *)tap{
+
+    UIImageView* tagv = (UIImageView*)tap.view;
+    
+    
+    NSMutableArray* allimgs = NSMutableArray.new;
+    
+    MJPhoto* onemj = [[MJPhoto alloc]init];
+    onemj.url = [NSURL URLWithString:_mAuntInfo.mPhoto_url];
+    onemj.srcImageView = tagv;
+    [allimgs addObject: onemj];
+    
+    MJPhotoBrowser* browser = [[MJPhotoBrowser alloc]init];
+    browser.currentPhotoIndex = 0;
+    browser.photos  = allimgs;
+    [browser show];
+
+}
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
     

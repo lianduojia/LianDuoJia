@@ -23,7 +23,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    self.navTitle = @"商户加盟";
+    self.navTitle = @"合作加盟";
     
     _mName.layer.masksToBounds = YES;
     _mName.layer.cornerRadius = 3;

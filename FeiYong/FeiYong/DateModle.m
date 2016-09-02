@@ -435,7 +435,7 @@ SAppInfo* g_appinfo = nil;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
     order.body = detail; //商品描述
-    order.totalFee = [NSString stringWithFormat:@"%.2f",0.01]; //商品价格
+    order.totalFee = [NSString stringWithFormat:@"%.2f",price]; //商品价格
     order.notifyURL =  [NSString stringWithFormat:@"%@alipay-notify-url",[APIClient getDomain]]; //回调URL
     
     order.service = @"mobile.securitypay.pay";

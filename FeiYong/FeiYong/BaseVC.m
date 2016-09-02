@@ -39,6 +39,8 @@
     [[IQKeyboardManager sharedManager] setEnableAutoToolbar:NO];
     
       [MobClick endLogPageView:self.navTitle];
+    
+//    [SVProgressHUD dismiss];
 }
 
 - (void)viewDidAppear:(BOOL)animated{

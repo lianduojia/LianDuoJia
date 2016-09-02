@@ -44,11 +44,11 @@
     
     
     _mTitle.text = [NSString stringWithFormat:@"聘用%d位%@",order.mMaid_count,type];
-    _mMoneylabel.text = @"月薪";
+    _mMoneylabel.text = order.mGoods_info;
     
-    if ([type isEqualToString:@"小时工"]) {
-        _mMoneylabel.text = @"工时费";
-    }
+//    if ([type isEqualToString:@"小时工"]) {
+//        _mMoneylabel.text = @"工时费";
+//    }
     
    
     NSString *stringName = @"";

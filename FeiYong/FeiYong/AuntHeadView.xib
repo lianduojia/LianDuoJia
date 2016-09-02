@@ -85,6 +85,6 @@
     </objects>
     <resources>
         <image name="DefaultImg" width="101" height="134"/>
-        <image name="a_bg" width="375" height="190"/>
+        <image name="a_bg" width="375" height="148"/>
     </resources>
 </document>
