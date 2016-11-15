@@ -10,7 +10,7 @@
 
 @interface ChoseAddress : BaseVC
 
-@property (nonatomic,strong) NSArray *mTempArray;
+@property (nonatomic,strong) NSMutableArray *mTempArray;
 @property (nonatomic,strong) UIViewController *mVC;
 @property (nonatomic,strong) NSString *mProvince;
 @property (nonatomic,strong) NSString *mCity;

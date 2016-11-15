@@ -14,13 +14,22 @@
 
 @implementation EmptyView
 
+@synthesize mImage=_mImage;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+}
+
+-(void)setImage:(UIImage *)image{
+
+    self.mImage.image = image;
 }
 
 -(void)showInView:(UIView *)view rect:(CGRect)rect block:(void(^)(BOOL close))block{
 
+    
     self.view.frame = rect;
     [view addSubview:self.view];
     

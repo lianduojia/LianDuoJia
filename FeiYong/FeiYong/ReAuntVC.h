@@ -20,7 +20,9 @@
 @property (nonatomic,strong) NSString *mServiceDuration;//服务时长 1小时
 @property (nonatomic,strong) NSString *mServiceNum;//服务人数
 
-
+@property (nonatomic,strong) NSString *mProvince;
+@property (nonatomic,strong) NSString *mCity;
+@property (nonatomic,strong) NSString *mArea;
 @property (nonatomic,strong) NSString *mAddress;//详细地址
 @property (nonatomic,strong) NSString *mRemark;         //备注 附加条件
 @property (weak, nonatomic) IBOutlet UIButton *mPayBt;

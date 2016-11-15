@@ -45,7 +45,7 @@ NSString * const ID = @"cycleCell";
 {
     if (self = [super initWithFrame:frame]) {
         self.pageControlAliment = SDCycleScrollViewPageContolAlimentCenter;
-        _autoScrollTimeInterval = 3.0;
+        _autoScrollTimeInterval = 5.0;
         [self setupMainView];
     }
     return self;
@@ -162,8 +162,10 @@ NSString * const ID = @"cycleCell";
     long itemIndex = indexPath.item % self.imagesGroup.count;
 //    [cell.imageView setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]] placeholderImage:[UIImage imageNamed:@"DefaultBanner"]];
     cell.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    cell.imageView.clipsToBounds = YES;
     
-    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]]placeholderImage:[UIImage imageNamed:@""]];
+    cell.imageView.backgroundColor = randomColor;
+    [cell.imageView sd_setImageWithURL:[NSURL URLWithString:self.imagesGroup[itemIndex]] placeholderImage:[UIImage imageNamed:@"banner_default"]];
     if (_titlesGroup.count) {
         cell.title = _titlesGroup[itemIndex];
     }

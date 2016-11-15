@@ -25,35 +25,13 @@
     itwebview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 64, DEVICE_Width, DEVICE_InNavBar_Height)];
     [self.view addSubview:itwebview];
     
-    
+    [itwebview setScalesPageToFit:NO];
     itwebview.delegate = self;
     [SVProgressHUD showWithStatus:@"加载中..."];
     [itwebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:self.mUrl]]];
     
    
     
-}
--(void)rightBtnTouched:(id)sender
-{
-    if( self.itblock )
-    {
-        NSString* retobj  = [itwebview stringByEvaluatingJavaScriptFromString:@"getMapPos()"];
-        
-        NSError* jsonerrr = nil;
-        NSDictionary* datobj = [NSJSONSerialization JSONObjectWithData:[retobj dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&jsonerrr];
-        
-        NSString* addr = [datobj objectForKey:@"address"];
-        NSString* points = [datobj objectForKey:@"mapPos"];
-        if( addr.length == 0 || points.length == 0 )
-        {
-            [SVProgressHUD showErrorWithStatus:@"请先设置范围"];
-            return;
-        }
-        
-        self.itblock( addr,points );
-        [self leftBtnTouched:nil];
-        
-    }
 }
 
 

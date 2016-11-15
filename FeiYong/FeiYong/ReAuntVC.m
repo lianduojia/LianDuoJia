@@ -32,24 +32,22 @@
     
     _mTableView.delegate = self;
     _mTableView.dataSource = self;
+    self.tableView = _mTableView;
     
     UINib *nib = [UINib nibWithNibName:@"ReAuntCell" bundle:nil];
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
     
-    _mTableView.tableFooterView = [UIView new];
-    
     if (_mTempArray.count == 0) {
-        _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil];
+
+        [self addEmpty2:CGRectMake(0, 0, DEVICE_Width, DEVICE_InNavBar_Height-150)];
         
-        [_emptyview showInView:self.view rect:CGRectMake(0, DEVICE_NavBar_Height, DEVICE_Width, DEVICE_InNavBar_Height-50) block:^(BOOL close) {
-            
-        }];
         
         
         
     }else{
         
 //        [self firstLoad];
+        _mTableView.tableFooterView = UIView.new;
     }
     
     if(_mIsHour){
@@ -60,90 +58,6 @@
 }
 
 
-//- (void)firstLoad{
-//    
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//
-//    BOOL first = [[defaults objectForKey:@"first"] intValue];
-//    
-//    if (!first) {
-//        bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Height)];
-//        bgView.backgroundColor = [UIColor blackColor];
-//        bgView.alpha = 0.6;
-//        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 120, 269, 90)];
-//        imgV.image = [UIImage imageNamed:@"a_first"];
-//        imgV.center = bgView.center;
-//        imgV.frame = CGRectMake(imgV.frame.origin.x, 120, 269, 90);
-//        [bgView addSubview:imgV];
-//        
-//        [self.view addSubview:bgView];
-//        
-//        UITapGestureRecognizer *tap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(CloseFirst)];
-//        [bgView addGestureRecognizer:tap];
-//        [defaults setObject:@(1) forKey:@"first"];
-//    }
-//    
-//    [defaults synchronize];
-//    
-//}
-//
-//- (void)CloseFirst{
-//    [UIView animateWithDuration:0.5 animations:^{
-//        [bgView removeFromSuperview];
-//    }];
-//}
-//
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    CGFloat sectionHeaderHeight = 8;
-//    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
-//        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
-//    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
-//        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
-//    }
-//}
-
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-//定义编辑样式
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
-
-//进入编辑模式，按下出现的编辑按钮后
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [tableView setEditing:NO animated:YES];
-    
-    SAuntInfo *aunt = [_mTempArray objectAtIndex:indexPath.row];
-    
-    [self showStatu:@"操作中.."];
-    [aunt deleteThis:^(SResBase *retobj) {
-        if (retobj.mmsg) {
-            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-            [_mTempArray removeObjectAtIndex:indexPath.section];
-            
-            [_mTableView beginUpdates];
-            [_mTableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
-            [_mTableView endUpdates];
-            
-            [_mTableView reloadData];
-            
-        }else{
-            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-        }
-        
-    }];
-    NSLog(@"======放弃推荐");
-}
-
-//修改编辑按钮文字
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"放弃推荐";
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
@@ -249,7 +163,7 @@
     
     
     [self showStatu:@"提交中.."];
-    [SAuntInfo submitOrder:idstring service_date:_mDate service_address:_mAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType over_night:_mOverNight care_type:_mCareType block:^(SResBase *retobj,SOrder* order) {
+    [SAuntInfo submitOrder:idstring work_province:_mProvince work_city:_mCity work_area:_mArea  service_date:_mDate service_address:_mAddress additional:_mRemark service_time:_mServiceTime service_duration:_mServiceDuration work_type:_mType over_night:_mOverNight care_type:_mCareType block:^(SResBase *retobj,SOrder* order) {
         
         if (retobj.msuccess) {
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];

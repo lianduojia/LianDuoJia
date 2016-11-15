@@ -32,7 +32,17 @@
     _mTableView.tableFooterView = [UIView new];
     
     if (_mTempArray.count == 0) {
-        _mTempArray = _province;
+        _mTempArray = [[NSMutableArray alloc] initWithArray:_province];
+    }
+    
+    for(NSDictionary *dic in _mTempArray){
+        
+        if ([[dic objectForKey:@"name"] isEqualToString:@"浙江省"]) {
+            [_mTempArray removeObject:dic];
+            [_mTempArray insertObject:dic atIndex:0];
+            
+            return;
+        }
     }
 }
 
@@ -76,7 +86,7 @@
     if(array.count > 0){
     
         ChoseAddress *ca = [[ChoseAddress alloc] initWithNibName:@"ChoseAddress" bundle:nil];
-        ca.mTempArray = array;
+        ca.mTempArray = (NSMutableArray *)array;
         
         if (_mProvince.length == 0) {
             ca.mProvince = [dic objectForKey:@"name"];

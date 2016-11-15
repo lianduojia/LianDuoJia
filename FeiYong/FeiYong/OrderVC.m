@@ -11,6 +11,7 @@
 #import "OrderSectionView.h"
 #import "AppointmentVC.h"
 #import "PingJiaVC.h"
+#import "OrderDetailVC.h"
 
 #define SECTION_HEIGHT 42
 
@@ -51,13 +52,38 @@
 //        [_nowtableview headerBeginRefreshing];
 //    }
     [_nowtableview headerBeginRefreshing];
+    
+    
 }
 
+- (void)reloadNewNum{
 
+    [SOrder getNewOrder:^(SResBase* retobj,int paid,int apointment,int waithire){
+    
+        if (paid>0) {
+            _mPayPoint.hidden = NO;
+        }else{
+            _mPayPoint.hidden = YES;
+        }
+        
+        if (apointment>0) {
+            _mapointmentPoint.hidden = NO;
+        }else{
+            _mapointmentPoint.hidden = YES;
+        }
+        
+        if (waithire>0) {
+            _mHirePoint.hidden = NO;
+        }else{
+            _mHirePoint.hidden = YES;
+        }
+    }];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     
     _dataArr = [NSMutableArray new];
     _dataArr2 = [NSMutableArray new];
@@ -70,9 +96,9 @@
     
     _tempbt = _mItem1;
     
-    
+    _mScrollView.bounces = NO;
     _mScrollView.pagingEnabled = YES;
-    _mScrollView.contentSize = CGSizeMake(DEVICE_Width*5, _mScrollView.frame.size.height);
+    _mScrollView.contentSize = CGSizeMake(DEVICE_Width*5, DEVICE_InNavTabBar_Height-40);
     
     _mScrollView.delegate = self;
     
@@ -81,6 +107,16 @@
     _tablearry = [NSMutableArray new];
     
     [self loadMyView];
+    
+    _mPayPoint.layer.masksToBounds = YES;
+    _mPayPoint.layer.cornerRadius = 4;
+    _mPayPoint.hidden = YES;
+    _mapointmentPoint.layer.masksToBounds = YES;
+    _mapointmentPoint.layer.cornerRadius = 4;
+    _mapointmentPoint.hidden = YES;
+    _mHirePoint.layer.masksToBounds = YES;
+    _mHirePoint.layer.cornerRadius = 4;
+    _mHirePoint.hidden = YES;
   
 }
 
@@ -221,7 +257,7 @@
             
             if (arr.count==0) {
                 
-                [self addEmpty];
+                [self addEmpty:CGRectMake(0, 0, DEVICE_Width, DEVICE_InNavTabBar_Height-50) image:nil];
             }else{
                 [self removeEmpty];
             }
@@ -239,8 +275,10 @@
             
             [_nowtableview reloadData];
             
+            [self reloadNewNum];
+            
         }else{
-        
+            [self reloadNewNum];
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }
        
@@ -364,7 +402,8 @@
         }
             
             break;
-        case 12:{
+        case 12:
+        {
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
             SOrder *order = [_dataArr3 objectAtIndex:indexPath.section];
             [cell initPjCell:order isGet:NO];
@@ -375,10 +414,10 @@
             cell.mButtonTwo.hidden = YES;
 //            cell.mButtonTwo.tag = indexPath.section;
 //            [cell.mButtonTwo addTarget:self action:@selector(PingYongClick:) forControlEvents:UIControlEventTouchUpInside];
-            break;
+            
             
         }
-            
+           break;
         case 13:
         {
             cell= (OrderCell *)[tableView dequeueReusableCellWithIdentifier:@"pjcell"];
@@ -500,7 +539,7 @@
         string = order.mWork_type;
     }
 //    [self showStatu:@"支付中"];
-    [Order aliPay:string orderNo:order.mNo price:order.mAmount detail:string block:^(SResBase *retobj) {
+    [Order aliPay:string orderNo:order.mNo price:order.mAll_amount detail:string block:^(SResBase *retobj) {
         if (retobj.msuccess) {
             
             [order payOK:^(SResBase *retobj) {
@@ -534,6 +573,57 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     
+    
+    SOrder *order;
+    
+    switch ((int)tableView.tag) {
+        case 10:
+        {
+            order = [_dataArr objectAtIndex:indexPath.section];
+        }
+            break;
+        case 11:
+        {
+            order = [_dataArr2 objectAtIndex:indexPath.section];
+        }
+            
+            break;
+        case 12:
+        {
+            order = [_dataArr3 objectAtIndex:indexPath.section];
+        }
+            break;
+
+        case 13:
+        {
+            order = [_dataArr4 objectAtIndex:indexPath.section];
+  
+        }
+            break;
+            
+        case 14:
+        {
+            order = [_dataArr5 objectAtIndex:indexPath.section];
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    OrderDetailVC *od = [[OrderDetailVC alloc] initWithNibName:@"OrderDetailVC" bundle:nil];
+    
+    if (order.mBill_id>0) {
+        od.mBill_id = order.mBill_id;
+    }
+    
+    if (order.mId>0) {
+        od.mBill_id = order.mId;
+    }
+    od.mOrder = order;
+    [self pushViewController:od];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -559,9 +649,9 @@
     
     _nowtableview = [_tablearry objectAtIndex:index];
     
-    [UIView animateWithDuration:0.2 animations:^{
-        
+//    [UIView animateWithDuration:0.2 animations:^{
+    
         _mScrollView.contentOffset = CGPointMake(DEVICE_Width*index, 0);
-    }];
+//    }];
 }
 @end

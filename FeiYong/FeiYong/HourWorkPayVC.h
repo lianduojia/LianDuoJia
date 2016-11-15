@@ -18,5 +18,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *mPhone;
 @property (weak, nonatomic) IBOutlet UILabel *mMoney;
 - (IBAction)mPayClick:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *mCheck;
+@property (weak, nonatomic) IBOutlet UILabel *mGoodsText;
+- (IBAction)mCheckClick:(id)sender;
 
+- (IBAction)mGoodsClick:(id)sender;
 @end

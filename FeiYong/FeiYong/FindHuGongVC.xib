@@ -270,8 +270,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="u8l-sp-mxm"/>
                                             </constraints>
-                                            <color key="minimumTrackTintColor" red="0.94509803920000002" green="0.94117647059999998" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            <color key="maximumTrackTintColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="minimumTrackTintColor" red="1" green="0.7725490196" blue="0.0078431372550000003" alpha="1" colorSpace="calibratedRGB"/>
                                         </slider>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="不限" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYW-04-yGO">
                                             <rect key="frame" x="37" y="89" width="28" height="17"/>
@@ -340,8 +339,8 @@
                                     <variation key="default">
                                         <mask key="constraints">
                                             <exclude reference="U10-N6-Z0b"/>
-                                            <exclude reference="UMS-JH-88n"/>
                                             <exclude reference="5aD-B2-95r"/>
+                                            <exclude reference="UMS-JH-88n"/>
                                         </mask>
                                     </variation>
                                 </view>

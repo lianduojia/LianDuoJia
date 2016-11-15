@@ -37,7 +37,7 @@
 
 -(NSString *)photoUrl:(NSString *)string{
 
-    return [NSString stringWithFormat:@"%@uploads/%@",kAFAppDotNetAPIBaseURLString,string];
+    return [NSString stringWithFormat:@"%@%@",kAFAppDotNetAPIBaseURLString,string];
 }
 
 -(NSString *)imgUrl:(NSString *)string{

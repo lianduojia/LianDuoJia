@@ -75,7 +75,7 @@
         
         if (arr.count==0) {
             
-            [self addEmpty];
+            [self addEmpty:CGRectMake(0, 0, DEVICE_Width, DEVICE_InNavBar_Height) image:nil];
         }else{
             [self removeEmpty];
         }

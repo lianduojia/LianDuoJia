@@ -109,9 +109,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
-    //初始化应用，appKey和appSecret从后台申请得
-    [SMSSDK registerApp:@"1390bb8412ad4"
-             withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
+//    //初始化应用，appKey和appSecret从后台申请得
+//    [SMSSDK registerApp:@"1390bb8412ad4"
+//             withSecret:@"d5be49608b1ee6ef7798cf5bbe521a73"];
     
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -119,6 +119,8 @@
     UMConfigInstance.appKey = @"57748a82e0f55a9255002676";
     UMConfigInstance.channelId = @"Web";
     [MobClick startWithConfigure:UMConfigInstance];
+    
+    
     //是否第一次打开
     [self firstLoad];
     //解析城市地区XML

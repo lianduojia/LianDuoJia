@@ -62,6 +62,9 @@
 - (IBAction)mDayClick:(id)sender;
 - (IBAction)mManClick:(id)sender;
 
+//小时工资费说明
+- (IBAction)mHourExplainClick:(id)sender;
+
 //小时工
 - (IBAction)mHourClick:(id)sender;
 - (IBAction)mNumClick:(id)sender;

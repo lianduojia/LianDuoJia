@@ -17,6 +17,7 @@
 #import "RemarkVC.h"
 #import "OhterNeedCell.h"
 #import "HourWorkPayVC.h"
+#import "HourExplainVC.h"
 
 @interface FindNannyVC ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -54,6 +55,8 @@
     int _indexnum;
     
     NSMutableArray *_selectothers;
+    
+    int _minhour;
 }
 
 @end
@@ -65,6 +68,7 @@
     // Do any additional setup after loading the view from its nib.
     _minage = 0;
     _maxage = 100;
+    _minhour = 2;
     
     [self loadMyView];
     
@@ -80,7 +84,7 @@
 
 - (void)rightBtnTouched:(id)sender{
     
-    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",@"057912312"];
+    NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel:%@",TEL];
     UIWebView * callWebview = [[UIWebView alloc] init];
     [callWebview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:str]]];
     [self.view addSubview:callWebview];
@@ -146,9 +150,14 @@
     UIImage * img= [UIImage imageNamed:@"a_qipao1"];
     img = [img resizableImageWithCapInsets:UIEdgeInsetsMake(3, 3, 3, 3) resizingMode:UIImageResizingModeStretch];
     _mQipao.image = img;
+    
+//    _mSlider.layer.masksToBounds = YES;
+//    [_mSlider setMinimumTrackImage:[UIImage imageNamed:@"f_slider_left"] forState:UIControlStateNormal];
     [_mSlider setMaximumTrackImage:[UIImage imageNamed:@"f_slider_right"] forState:UIControlStateNormal];
     [_mSlider addTarget:self action:@selector(sliderChange:) forControlEvents:UIControlEventValueChanged];
 
+    //杀虫剂暂时不提供
+    _mCheck3.hidden = YES;
 }
 
 
@@ -308,7 +317,7 @@
                 
                 break;
                 
-            case FEIYONG:
+            case GAOJIBAOMU:
                 
                 break;
                 
@@ -510,16 +519,21 @@
                     _mPholder.text = @"";
                 }
                 
-                _indexnum = [[dic objectForKey:@"num"] intValue];
-                _indexhour = [[dic objectForKey:@"hour"] intValue];
+                _mfwsc = @"2小时";
+                _mfwnum = @"1人";
                 
-                _mfwsc = [NSString stringWithFormat:@"%d小时",_indexhour+1];
-                _mfwnum = [NSString stringWithFormat:@"%d人",_indexnum+1];
+                if ([[dic objectForKey:@"hour"] isKindOfClass:[NSString class]]) {
+                    _mfwsc = [dic objectForKey:@"hour"];
+                    _mfwnum = [dic objectForKey:@"num"];
+                    
+                    _minhour =  [[_mfwsc stringByReplacingOccurrencesOfString:@"小时" withString:@""] intValue];
+                    
+                    _mTime.text = [dic objectForKey:@"time"];
+                    
+                    [_mHourBT setTitle:_mfwsc forState:UIControlStateNormal];
+                    [_mNumBT setTitle:_mfwnum forState:UIControlStateNormal];
+                }
                 
-                _mTime.text = [dic objectForKey:@"time"];
-                
-                [_mHourBT setTitle:_mfwsc forState:UIControlStateNormal];
-                [_mNumBT setTitle:_mfwnum forState:UIControlStateNormal];
                 
             }else{
                 if([SAppInfo shareClient].mAddress.length>0){
@@ -532,14 +546,14 @@
                     
                     _mAddress.text = _maddress;
                 }
-                _mfwsc = @"1小时";
+                _mfwsc = @"2小时";
                 _mfwnum = @"1人";
             }
 
             _mOtherHeight.constant = 0;
             
             
-            self.tempArray = [NSMutableArray arrayWithObjects:@"开荒",@"擦玻璃",@"做饭",@"家电清洗",@"皮具护理",nil];
+            self.tempArray = [NSMutableArray arrayWithObjects:@"开荒",@"擦玻璃",@"做饭",nil];
             _selectothers = [NSMutableArray arrayWithObjects:@(0),@(0),@(0),@(0),@(0),nil];
             _mTableView.delegate = self;
             _mTableView.dataSource = self;
@@ -558,7 +572,7 @@
             self.navTitle = @"找养生养老";
             break;
             
-        case FEIYONG:
+        case GAOJIBAOMU:
             self.navTitle = @"找菲佣";
             break;
             
@@ -658,7 +672,12 @@
         _maddress = [NSString stringWithFormat:@"%@%@%@%@",provice,city,area,address];
         
         _mAddress.text = _maddress;
-
+        
+        [SAuntInfo findHourByAddress:_province city:_city area:_area block:^(SResBase *retobj, int hour) {
+            _minhour = hour;
+            _mfwsc = [NSString stringWithFormat:@"%d小时",hour];
+            [_mHourBT setTitle:_mfwsc forState:UIControlStateNormal];
+        }];
     };
     [self.navigationController pushViewController:ca animated:YES];
 }
@@ -725,7 +744,7 @@
             remark.mItemsArray = [NSArray arrayWithObjects:	@"老实",@"勤快",@"诚实",@"学历高",@"做饭好",@"做面食",@"会煲汤",@"会带小孩",@"会辅食",nil];
             break;
             
-        case FEIYONG:
+        case GAOJIBAOMU:
             remark.mItemsArray = [NSArray arrayWithObjects:	@"老实",@"勤快",@"诚实",@"学历高",@"做饭好",@"做面食",@"会煲汤",@"会带小孩",@"会辅食",nil];
             break;
             
@@ -806,6 +825,12 @@
     _item3 = btn;
 }
 
+- (IBAction)mHourExplainClick:(id)sender {
+    
+    HourExplainVC *he = [[HourExplainVC alloc] initWithNibName:@"HourExplainVC" bundle:nil];
+    [self pushViewController:he];
+}
+
 //小时工 时长选择
 - (IBAction)mHourClick:(id)sender {
     
@@ -815,8 +840,8 @@
     }else{
         
         NSMutableArray *array = [NSMutableArray new];
-        for (int i = 0; i < 12; i++) {
-            [array addObject:[NSString stringWithFormat:@"%d小时",i+1]];
+        for (int i = _minhour; i < 13; i++) {
+            [array addObject:[NSString stringWithFormat:@"%d小时",i]];
         }
         _picker.mSelectRow = _indexhour;
         _picker.mArray = array;
@@ -910,8 +935,10 @@
     }
     
     ReAuntVC *rea = [[ReAuntVC alloc] initWithNibName:@"ReAuntVC" bundle:nil];
-    
-    rea.mAddress = _maddress;
+    rea.mProvince = _province;
+    rea.mCity = _city;
+    rea.mArea = _area;
+    rea.mAddress = _mdetailaddress;
     rea.mRemark = _mRemark.text;
     switch (_mType) {
             
@@ -937,7 +964,7 @@
             rea.mType = @"养生养老";
             break;
             
-        case FEIYONG:
+        case GAOJIBAOMU:
             rea.mType = @"菲佣";
             break;
             
@@ -1168,8 +1195,8 @@
             rea.mType = @"养生养老";
             break;
             
-        case FEIYONG:
-            rea.mType = @"菲佣";
+        case GAOJIBAOMU:
+            rea.mType = @"高级保姆";
             break;
             
         default:
@@ -1248,8 +1275,8 @@
     [dic setObject:_maddress forKey:@"address"];
     [dic setObject:_mTime.text forKey:@"time"];
     
-    [dic setObject:@(_indexhour) forKey:@"hour"];
-    [dic setObject:@(_indexnum) forKey:@"num"];
+    [dic setObject:_mfwsc forKey:@"hour"];
+    [dic setObject:_mfwnum forKey:@"num"];
     
     if (_mRemark.text.length>0) {
         [dic setObject:_mRemark.text forKey:@"remark"];

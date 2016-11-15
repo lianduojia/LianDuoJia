@@ -44,7 +44,7 @@
     
     
     _mTitle.text = [NSString stringWithFormat:@"聘用%d位%@",order.mMaid_count,type];
-    _mMoneylabel.text = order.mGoods_info;
+    
     
 //    if ([type isEqualToString:@"小时工"]) {
 //        _mMoneylabel.text = @"工时费";
@@ -60,8 +60,12 @@
     _mDetail.text = stringName;
     
     _mOrderNo.text = [NSString stringWithFormat:@"订单号：%@",order.mNo];
-    
-    _mMoney.text = [NSString stringWithFormat:@"¥%d",order.mAmount];
+    if (order.mAmount == order.mAll_amount) {
+        _mMoneylabel.text = order.mGoods_info;
+    }else{
+        _mMoneylabel.text = @"金额";
+    }
+    _mMoney.text = [NSString stringWithFormat:@"¥%g",order.mAll_amount];
     
     
 }

@@ -13,7 +13,9 @@
 #import "BalanceVC.h"
 #import "OpinionVC.h"
 #import "SettingVC.h"
+#import "ShopCartVC.h"
 #define Height 248
+
 
 @interface OwnVC ()<UITableViewDataSource,UITableViewDelegate>{
 
@@ -143,6 +145,10 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    
+    if (section == 0) {
+        return 3;
+    }
     return 2;
 }
 
@@ -179,6 +185,12 @@
                     cell.mName.text = @"我的钱包";
                     cell.mDetail.hidden = NO;
                     cell.mDetail.text = [NSString stringWithFormat:@"余额：%g",_balance];
+                    break;
+                case 2:
+                    
+                    cell.mImg.image = [UIImage imageNamed:@"own_shopcar"];
+                    cell.mName.text = @"购物车";
+
                     break;
                 default:
                     break;
@@ -238,7 +250,13 @@
                     balance.mBalance = _balance;
                     [self.navigationController pushViewController:balance animated:YES];
                 }
-                   
+                    break;
+                case 2:{
+                
+                    ShopCartVC *sc = [[ShopCartVC alloc] initWithNibName:@"ShopCartVC" bundle:nil];
+                    sc.mOwn = YES;
+                    [self pushViewController:sc];
+                }
                     break;
                 default:
                     break;

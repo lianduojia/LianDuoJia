@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="EmptyView">
+            <connections>
+                <outlet property="mImage" destination="iM7-WO-8CY" id="hh6-bV-fUI"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="empty_aunt" translatesAutoresizingMaskIntoConstraints="NO" id="iM7-WO-8CY">
+                    <rect key="frame" x="130" y="221" width="85" height="126"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="iM7-WO-8CY" secondAttribute="height" multiplier="87:127" id="n9a-nh-kWF"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="n9a-nh-kWF"/>
+                        </mask>
+                    </variation>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" constant="-50" id="4ba-Zi-1Er"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="130" id="Ncn-3l-V32"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="NvF-xM-lfn"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="WXp-Mk-xRH"/>
+                <constraint firstItem="iM7-WO-8CY" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="qlI-2l-A6z"/>
+                <constraint firstAttribute="trailing" secondItem="iM7-WO-8CY" secondAttribute="trailing" constant="105" id="xI4-Cp-0yf"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="4ba-Zi-1Er"/>
+                    <exclude reference="NvF-xM-lfn"/>
+                    <exclude reference="WXp-Mk-xRH"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="empty_aunt" width="133" height="126"/>
+    </resources>
+</document>

@@ -9,6 +9,7 @@
 #ifndef CustomDefine_h
 #define CustomDefine_h
 
+#define TEL @"4008261256"
 #define DeviceIsiPhone4				([[UIScreen mainScreen] bounds].size.height == 480.0)
 
 #define DEVICE_NavBar_Height            (([[[UIDevice currentDevice] systemVersion] doubleValue] >= 7.0)?64.0:44.0f)
@@ -28,6 +29,10 @@
 #define M_TCO  [UIColor colorWithRed:51/255.0f green:51/255.0f blue:51/255.0f alpha:1.000]
 #define M_TCO2  [UIColor colorWithRed:153/255.0f green:153/255.0f blue:153/255.0f alpha:1.000]
 #define M_TCO3  [UIColor colorWithRed:195/255.0f green:195/255.0f blue:195/255.0f alpha:1.000]
+
+#define random(r, g, b, a) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:(a)/255.0]
+
+#define randomColor random(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256))
 
 #ifdef DEBUG
 #define MLLog(format, ...) NSLog(format, ## __VA_ARGS__)

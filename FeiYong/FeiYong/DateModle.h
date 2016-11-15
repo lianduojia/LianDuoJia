@@ -61,6 +61,15 @@
 
 @end
 
+@interface SBanner : SAutoEx
+
+@property (nonatomic,strong) NSString *mBanner_url;
+@property (nonatomic,strong) NSString *mBanner_img_path;
+
++(void)getBanner:(void(^)(SResBase* retobj,NSArray* arr))block;
+
+@end
+
 
 //[{"address_id":1,"employer_id":2,"address_area":"南关区","link_man":"XFC","link_phone":"16866888866","address_province":"吉林省","address_city":"长春市","address_detail":"qqqq"}]}
 @interface SAddress : SAutoEx
@@ -226,6 +235,10 @@
 //返回门店城市	/shop-city
 +(void)getShopCity:(void(^)(SResBase* retobj,NSArray *arr))block;
 
+//提交养老需求
++(void)uploadAdvancedBill:(NSString *)province city:(NSString *)city area:(NSString *)area name:(NSString *)name phone:(NSString *)phone submit_type:(NSString *)submit_type submit_content:(NSString *)submit_content block:(void(^)(SResBase* retobj))block;
+
+
 
 @end
 
@@ -252,6 +265,7 @@
 
 @property (nonatomic,assign)                int         mId;
 @property (nonatomic,assign)                int         mBill_id;
+@property (nonatomic,assign)                float       mAll_amount; //总价格
 @property (nonatomic,assign)                int         mAmount;
 @property (nonatomic,strong)                NSString*   mAdditional;
 @property (nonatomic,strong)                NSString*   mStatus;
@@ -273,12 +287,16 @@
 @property (nonatomic,strong)                NSString* mMail_photo_url;                     //头像
 @property (nonatomic,assign)                int       mMail_id;                     //阿姨id
 
++(void)getNewOrder:(void(^)(SResBase* retobj,int paid,int apointment,int waithire))block;
 
 //根据订单id获得订单号	/query-billno-by-billid	bill_id=62(订单id)
 -(void)getOrderNo:(void(^)(SResBase* retobj,NSString *orderNo))block;
 
+//查看默认见面地点	/query-default-meet-location
+-(void)getDefaultAddress:(void(^)(SResBase* retobj,NSString *address))block;
+
 //约见阿姨,确定预约日期、时间、地点	/make-an-appointment	bill_id=xxxx(订单id)&meet_date=2016-06-12(预约日期)&meet_time=09:30(预约时间)&meet_location=xxxxxxxxxxx(预约地点)
--(void)makeAppointment:(NSString *)meet_date meet_time:(NSString *)meet_time meet_location:(NSString *)meet_location block:(void(^)(SResBase* retobj))block;
+-(void)makeAppointment:(NSString *)meet_date_time meet_location:(NSString *)meet_location block:(void(^)(SResBase* retobj))block;
 
 //完成订单支付	/complete-agency-pay	bill_id=xxxx(订单id)
 -(void)payOK:(void(^)(SResBase* retobj))block;
@@ -293,6 +311,37 @@
 //解聘阿姨	/dismiss-maid	bill_id=48(订单id)&maid_id=3(阿姨id)
 -(void)dismissMaid:(void(^)(SResBase* retobj))block;
 
+//重新计算订单价格（包括了商品与折扣卷）	/recalculate-amount	bill_id=1301(订单id)&goods_ids=1,3,2(商品id)&goods_count=1,1,2(商品对应的数量&app_trancation_amount=320(app端计算的交易金额)
+-(void)recalculateAmount:(NSString *)goods_ids goods_count:(NSString *)goods_count app_trancation_amount:(float)app_trancation_amount block:(void(^)(SResBase* retobj,float trancation_amount))block;
+
+@end
+
+@interface SOrderDetail : SAutoEx
+
+//查看订单详情	/query-bill-detail	bill_id=1301(订单id)	{ "_no":1000,"_msg":"操作成功","_data":{ "amount":1,"id":1301,"back_amount":0,"time":"2016-09-27 17:17:38.0","status":"已完成","no":"BL2016092700002","goods":[ ],"maid":"任丽娟","all_amount":1 } }
+@property (nonatomic,assign)                float     mAmount;   //阿姨价格
+@property (nonatomic,assign)                float     mId;       //订单ID
+@property (nonatomic,assign)                float     mBack_amount; //差价
+@property (nonatomic,strong)                NSString* mTime;   //下单时间
+@property (nonatomic,strong)                NSString* mStatus; //订单状态
+@property (nonatomic,strong)                NSString* mNo;   //订单号
+@property (nonatomic,strong)                NSString* mMaid;  //雇佣的阿姨
+@property (nonatomic,assign)                float     mAll_amount; //总价格
+@property (nonatomic,strong)                NSArray* mGoods;  //雇佣的阿姨
+
++(void)getOrderDetail:(int)bill_id block:(void(^)(SResBase* retobj,SOrderDetail *order))block;
+
+//订单投诉反馈	/submit-bill-suggest	employer_id=2(雇主ID)&bill_id=1760(订单ID)&content=aaa(投诉内容)&refund=true(是否退款，值为2个:true、false)
+-(void)submitSuggest:(NSString *)content refund:(int)refund block:(void(^)(SResBase* retobj))block;
+
+
+@end
+
+@interface SHour : SAutoEx
+
+@property (nonatomic,assign)                int       mCount;
+@property (nonatomic,strong)                NSString *mService_item;
+
 @end
 
 @interface SAuntInfo : SAutoEx
@@ -301,9 +350,10 @@
 @property (nonatomic,strong)                NSString *mName;                    //姓名
 @property (nonatomic,strong)                NSString *mPhoto_url;               //头像地址
 @property (nonatomic,strong)                NSString *mStar;                   //星级
-@property (nonatomic,strong)                NSString *mProvince;         //籍贯 省
-@property (nonatomic,strong)                NSString *mLiving_city;             //籍贯 市
-@property (nonatomic,strong)                NSString *mLiving_area;             //籍贯 地区
+@property (nonatomic,strong)                NSString *mProvince;                //籍贯 省
+@property (nonatomic,strong)                NSString *mLiving_area;
+@property (nonatomic,strong)                NSString *mLiving_city;
+@property (nonatomic,strong)                NSString *mLiving_province;
 @property (nonatomic,strong)                NSString *mWork_province;           //工作 省
 @property (nonatomic,strong)                NSString *mWork_city;               //工作 市
 @property (nonatomic,strong)                NSString *mWork_area;               //工作 地区
@@ -339,6 +389,12 @@
 //找小时工
 +(void)findHourWorker:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area service_address:(NSString *)service_address additional:(NSString *)additional service_items:(NSString *)service_items service_time:(NSString *)service_time service_duration:(int)service_duration service_count:(int)service_count block:(void(^)(SResBase* retobj,SOrder *order))block;
 
+//根据地区查找小时工起做小时 query-hourworker-atleast-duration
++(void)findHourByAddress:(NSString *)province city:(NSString *)city area:(NSString *)area block:(void(^)(SResBase* retobj,int hour))block;
+
+//查看各地区小时工各项价格
++(void)hourWorkerByAddress:(NSString *)province city:(NSString *)city area:(NSString *)area block:(void(^)(SResBase* retobj,NSArray *hours))block;
+
 //找育儿嫂  /find-child-care    employer_id=xx(用户id)&work_province=xxx(服务地点-省)&work_city=xxx(服务地点-市)&work_area=xxx(服务地点-区)&min_age=0(最小年龄)&max_age=100(最大年龄)&over_night=住家(是否住家:住家、白班)
 +(void)findChildCare:(int)employer_id work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area min_age:(int)min_age max_age:(int)max_age over_night:(NSString *)over_night prio_province:(NSString *)prio_province block:(void(^)(SResBase* retobj,NSArray *arr))block;
 
@@ -353,12 +409,67 @@
 -(void)submitComment:(NSString *)comment star_count:(int)star_count block:(void(^)(SResBase* retobj))block;
 
 
-+(void)submitOrder:(NSString *)array service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block;
++(void)submitOrder:(NSString *)array work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block;
 
 @end
 
 
+@interface SGoods : SAutoEx
 
+@property (nonatomic,assign) int      mGoods_id;         //商品ID
+@property (nonatomic,strong) NSString *mPreview_img_path;        //商品图片
+@property (nonatomic,assign) float    mPrice;           //价格
+@property (nonatomic,strong) NSString *mCategory_name;   //类别名称
+@property (nonatomic,strong) NSString *mGoods_name;      //商品名称
+@property (nonatomic,strong) NSString *mIntroduction;    //商品详情
+@property (nonatomic,strong) NSArray  *mPoll_img_path;   //轮播图
+@property (nonatomic,strong) NSArray  *mDetail_img_path; //详情图
+@property (nonatomic,assign) int      mCount;           //数量
+@property (nonatomic,assign) BOOL      mCheck;           //数量
+
+
+//根据类别查看商城的商品	/query-goods-by-category	category=全部(值为4个:全部、洗涤用品、养生保健、母婴用品)
++(void)getGoodsByCategory:(NSString *)category block:(void(^)(SResBase* retobj,NSArray *arr))block;
+
++(void)searchByKey:(NSString *)search_key block:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+//根据商品id查询商品详情	/query-goods-by-id	goods_id=1
+-(void)getDetail:(void(^)(SResBase* retobj,SGoods *goods))block;
+
+///add-goods-to-cart	employer_id=2(雇主id)&goods_ids=2,3(商品的id)&goods_increments=1,2(商品的增量)
+-(void)addGoods:(int)num block:(void(^)(SResBase* retobj))block;
+
+-(void)delGoods:(void(^)(SResBase* retobj))block;
+
+-(void)delAllGoods:(void(^)(SResBase* retobj))block;
+
+//查看购物车	/query-cart-by-employer-id	employer_id=2(雇主id)
++(void)getCartData:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+
+@end
+
+//group_name":"厨卫清洁剂","group_img_path":"upload/goods/groups/img_group1.png","group_content":"威猛先生厨房卫生间好帮手","group_goods_id":"2,3","group_title":"厨卫清洁剂"
+@interface SRecomend : SAutoEx
+
+@property (nonatomic,strong) NSString *mGroup_name;
+@property (nonatomic,strong) NSString *mGroup_img_path;
+@property (nonatomic,strong) NSString *mGroup_content;
+@property (nonatomic,strong) NSString *mGroup_goods_id;
+@property (nonatomic,strong) NSString *mGroup_title;
+
+@end
+
+
+@interface SShops : SAutoEx
+
+@property (nonatomic,strong) NSArray *mGoods_banner;
+@property (nonatomic,strong) NSArray *mGoods_recommend;
+
+//商城首页需要的数据	/goods-index-page
++(void)getShopData:(void(^)(SResBase* retobj,SShops *shops))block;
+
+@end
 
 
 

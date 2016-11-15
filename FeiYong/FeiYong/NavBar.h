@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *mTitle;
 @property (weak, nonatomic) IBOutlet UIButton *mLeftButton;
 @property (weak, nonatomic) IBOutlet UIButton *mRightButton;
+@property (weak, nonatomic) IBOutlet UIButton *mRightButton2;
 
 + (NavBar *)shareView;
 

@@ -1,45 +1,38 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="payCell">
-            <rect key="frame" x="0.0" y="0.0" width="102" height="172"/>
+            <rect key="frame" x="0.0" y="0.0" width="102" height="164"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="102" height="172"/>
+                <rect key="frame" x="0.0" y="0.0" width="102" height="164"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DefaultImg" translatesAutoresizingMaskIntoConstraints="NO" id="oXl-wi-rWi">
-                        <rect key="frame" x="8" y="8" width="86" height="100"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="oXl-wi-rWi" secondAttribute="height" multiplier="80:93" id="exn-WI-Jz7"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G0m-xV-1YQ">
-                        <rect key="frame" x="32" y="113" width="37.5" height="11.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="571-eO-f30">
-                        <rect key="frame" x="32" y="126" width="37.5" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="月薪：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orc-Ul-ror">
-                        <rect key="frame" x="8" y="146" width="40" height="15"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="40" id="lZW-7e-ymJ"/>
                             <constraint firstAttribute="width" constant="48" id="ty8-po-TgG"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                         <variation key="default">
                             <mask key="constraints">
@@ -48,31 +41,31 @@
                         </variation>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eoa-H2-Kmb">
-                        <rect key="frame" x="48" y="147" width="46" height="13.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="14" id="VwD-gt-bZY"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                        <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="1" green="0.74901960779999999" blue="0.058823529409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
-                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="eoa-H2-Kmb" secondAttribute="bottom" constant="11" id="7II-Qw-DaG"/>
                 <constraint firstItem="eoa-H2-Kmb" firstAttribute="centerY" secondItem="orc-Ul-ror" secondAttribute="centerY" id="7Ob-aI-G8o"/>
                 <constraint firstItem="G0m-xV-1YQ" firstAttribute="top" secondItem="oXl-wi-rWi" secondAttribute="bottom" constant="5" id="7l2-UZ-GxU"/>
+                <constraint firstItem="eoa-H2-Kmb" firstAttribute="top" secondItem="G0m-xV-1YQ" secondAttribute="bottom" constant="8" id="Bnp-04-aQG"/>
                 <constraint firstAttribute="trailing" secondItem="oXl-wi-rWi" secondAttribute="trailing" constant="8" id="FlT-hC-Trt"/>
                 <constraint firstItem="eoa-H2-Kmb" firstAttribute="leading" secondItem="orc-Ul-ror" secondAttribute="trailing" id="LMw-WI-Ri0"/>
                 <constraint firstItem="oXl-wi-rWi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="SoM-iB-e6b"/>
+                <constraint firstAttribute="bottom" secondItem="eoa-H2-Kmb" secondAttribute="bottom" constant="11" id="T13-n7-54o"/>
                 <constraint firstAttribute="bottom" secondItem="orc-Ul-ror" secondAttribute="bottom" constant="8" id="WAP-ZQ-712"/>
                 <constraint firstItem="G0m-xV-1YQ" firstAttribute="centerX" secondItem="oXl-wi-rWi" secondAttribute="centerX" id="ecx-rw-2Yp"/>
-                <constraint firstItem="orc-Ul-ror" firstAttribute="top" secondItem="571-eO-f30" secondAttribute="bottom" constant="2" id="ehi-BT-z5Z"/>
-                <constraint firstItem="571-eO-f30" firstAttribute="centerX" secondItem="G0m-xV-1YQ" secondAttribute="centerX" id="gFl-90-Lvv"/>
                 <constraint firstItem="orc-Ul-ror" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="jWw-3N-w5f"/>
                 <constraint firstItem="oXl-wi-rWi" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="mKt-NV-Shn"/>
                 <constraint firstAttribute="trailing" secondItem="eoa-H2-Kmb" secondAttribute="trailing" constant="8" id="uti-35-Vce"/>
-                <constraint firstItem="571-eO-f30" firstAttribute="top" secondItem="G0m-xV-1YQ" secondAttribute="bottom" constant="2" id="zI9-d9-sjZ"/>
             </constraints>
+            <size key="customSize" width="102" height="164"/>
             <variation key="default">
                 <mask key="constraints">
                     <exclude reference="WAP-ZQ-712"/>
@@ -81,10 +74,10 @@
             <connections>
                 <outlet property="mImg" destination="oXl-wi-rWi" id="t1l-Cj-EQt"/>
                 <outlet property="mLabel" destination="orc-Ul-ror" id="ZIV-gK-oLa"/>
-                <outlet property="mMoney" destination="571-eO-f30" id="1nX-Td-bvF"/>
                 <outlet property="mName" destination="G0m-xV-1YQ" id="12n-Gs-ob9"/>
                 <outlet property="mPayMoney" destination="eoa-H2-Kmb" id="y2P-0L-Ie7"/>
             </connections>
+            <point key="canvasLocation" x="63" y="50"/>
         </collectionViewCell>
     </objects>
     <resources>

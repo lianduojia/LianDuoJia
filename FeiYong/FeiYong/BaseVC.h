@@ -36,13 +36,15 @@
 
 -(void)leftBtnTouched:(id)sender;                       //左边navbar事件
 -(void)rightBtnTouched:(id)sender;                      //右边navbar事件
+-(void)rightBtnTouched2:(id)sender;
 
 -(void)headerBeganRefresh;                              //header刷新
 -(void)footetBeganRefresh;                              //footer刷新
 -(void)headerEndRefresh;                                //header停止刷新
 -(void)footetEndRefresh;                                //footer停止刷新
 
--(void)addEmpty;
+-(void)addEmpty:(CGRect)rect image:(NSString *)img;
+-(void)addEmpty2:(CGRect)rect;
 -(void)removeEmpty;
 
 -(void)pushViewController:(UIViewController *)controller;

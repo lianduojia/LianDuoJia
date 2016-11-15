@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface ShopMallVC : BaseVC
+@property (weak, nonatomic) IBOutlet UIView *mBannerView;
+@property (weak, nonatomic) IBOutlet UITableView *mTableView;
+@property (weak, nonatomic) IBOutlet UIView *mHeadView;
+@property (weak, nonatomic) IBOutlet UISearchBar *mSearchBar;
 
+- (IBAction)mMenuClick:(id)sender;
 @end

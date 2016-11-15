@@ -15,8 +15,12 @@
 @property (nonatomic,strong) SOrder *mOrder;
 @property (nonatomic,strong) NSString *mTitle;
 @property (weak, nonatomic) IBOutlet UICollectionView *mCollectionView;
+@property (weak, nonatomic) IBOutlet UILabel *mGoodsDetail;
+@property (weak, nonatomic) IBOutlet UIButton *mCheck;
 @property (nonatomic,strong) NSArray *mTempArray;
 @property (weak, nonatomic) IBOutlet UILabel *mMoney;
 - (IBAction)PayClick:(id)sender;
+- (IBAction)CheckClick:(id)sender;
 
+- (IBAction)GoShopCarClick:(id)sender;
 @end

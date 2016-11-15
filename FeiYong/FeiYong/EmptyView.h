@@ -11,6 +11,9 @@
 @interface EmptyView : UIViewController
 
 @property (nonatomic,strong) void(^itblock)(BOOL close);
+@property (weak, nonatomic) IBOutlet UIImageView *mImage;
+
+-(void)setImage:(UIImage *)image;
 
 -(void)showInView:(UIView *)view rect:(CGRect)rect block:(void(^)(BOOL close))block;
 

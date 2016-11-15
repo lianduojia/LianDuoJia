@@ -78,7 +78,7 @@
             if (arr.count == 0) {
                 [SVProgressHUD showErrorWithStatus:@"暂无评论"];
                 
-                [self addEmpty];
+                [self addEmpty:CGRectMake(0, 0, DEVICE_Width, 200) image:@"empty_pj"];
 
             }else{
                 [self removeEmpty];
@@ -208,6 +208,11 @@
         return self.tempArray.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+
+    return 50;
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
 
     AuntSectionView *view = [AuntSectionView shareView];
@@ -231,7 +236,7 @@
         
         switch (indexPath.row) {
             case 0:
-                cell.mLabel.text =  [NSString stringWithFormat:@"现居住于%@%@%@",_mAuntInfo.mWork_province,_mAuntInfo.mWork_city,_mAuntInfo.mWork_area];
+                cell.mLabel.text =  [NSString stringWithFormat:@"现居住于%@%@%@",_mAuntInfo.mLiving_province,_mAuntInfo.mLiving_city,_mAuntInfo.mLiving_area];
                 break;
             case 1:
                 cell.mLabel.text =  [NSString stringWithFormat:@"从事%@工作%d年",_mAuntInfo.mWork_type,_mAuntInfo.mWorking_years];

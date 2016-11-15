@@ -10,12 +10,21 @@
 #import "NewPagedFlowView.h"
 #import "PGIndexBannerSubiew.h"
 #import "WebVC.h"
+#import "GoodsListVC.h"
+#import "SDCycleScrollView.h"
+#import "GoodsCell.h"
+#import "GoodsDetailVC.h"
 
 #define Width [UIScreen mainScreen].bounds.size.width
+//NewPagedFlowViewDelegate, NewPagedFlowViewDataSource
 
-@interface ShopMallVC ()<NewPagedFlowViewDelegate, NewPagedFlowViewDataSource>{
-
-    NSMutableArray *_imageArray;
+@interface ShopMallVC ()<SDCycleScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>{
+    
+    SDCycleScrollView *_cycleScrollView;
+    
+    NSArray *_banners;
+    
+    
 }
 
 @end
@@ -36,106 +45,146 @@
     
     self.hiddenBackBtn = YES;
     self.navTitle = @"商城";
+    self.navBar.hidden = YES;
     
-    _imageArray = [NSMutableArray new];
+    _mTableView.delegate = self;
+    _mTableView.dataSource = self;
+    _mSearchBar.delegate = self;
     
-    for (int index = 0; index < 3; index++) {
-        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"banner%d",index+1]];
-        [_imageArray addObject:image];
+    UINib *nib = [UINib nibWithNibName:@"GoodsTwoCell" bundle:nil];
+    [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
+    
+    [_mTableView setTableFooterView:[UIView new]];
+    
+    [self showStatu:@"加载中.."];
+    
+    [SShops getShopData:^(SResBase *retobj, SShops *shops) {
+       
+        if (retobj.msuccess) {
+            [SVProgressHUD dismiss];
+            
+            [self loadData:shops];
+            
+            self.tempArray = (NSMutableArray *)shops.mGoods_recommend;
+            
+            [_mTableView reloadData];
+            
+        }else{
+        
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+    
+    
+}
+
+- (void)loadData:(SShops *)shops{
+
+    NSMutableArray *bannerAry = [[NSMutableArray alloc] initWithCapacity:0];
+    
+    _banners = shops.mGoods_banner;
+    
+    for (SBanner *banner in shops.mGoods_banner) {
+        [bannerAry addObject:banner.mBanner_img_path];
     }
     
-    [self setupUI];
-}
-
-
-- (void)setupUI {
-    
-    
-    NewPagedFlowView *pageFlowView = [[NewPagedFlowView alloc] initWithFrame:CGRectMake(0, 120, Width, DEVICE_InNavTabBar_Height - 120 + 14)];
-    pageFlowView.backgroundColor = [UIColor whiteColor];
-    pageFlowView.delegate = self;
-    pageFlowView.dataSource = self;
-    pageFlowView.minimumPageAlpha = 0;
-    pageFlowView.minimumPageScale = 0.9;
-    pageFlowView.isOpenAutoScroll = NO;
-    
-    //提前告诉有多少页
-    pageFlowView.orginPageCount = _imageArray.count;
-    
-    //初始化pageControl
-    UIPageControl *pageControl = [[UIPageControl alloc] initWithFrame:CGRectMake(0, pageFlowView.frame.size.height - 14 - 8, Width, 8)];
-    pageFlowView.pageControl = pageControl;
-    [pageFlowView addSubview:pageControl];
-    
-    /****************************
-     使用导航控制器(UINavigationController)
-     如果控制器中不存在UIScrollView或者继承自UIScrollView的UI控件
-     请使用UIScrollView作为NewPagedFlowView的容器View,才会显示正常,如下
-     *****************************/
-    
-    UIScrollView *bottomScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-    [bottomScrollView addSubview:pageFlowView];
-    
-    [self.view addSubview:bottomScrollView];
+    _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, DEVICE_Width, DEVICE_Width/75*22) imagesGroup:bannerAry];
+    _cycleScrollView.delegate = self;
+    [_mBannerView addSubview:_cycleScrollView];
     
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
-}
-
-#pragma mark NewPagedFlowView Delegate
-- (CGSize)sizeForPageInFlowView:(NewPagedFlowView *)flowView {
-    return CGSizeMake(Width - 84, DEVICE_InNavTabBar_Height - 120);
-}
-
-- (void)didSelectCell:(UIView *)subView withSubViewIndex:(NSInteger)subIndex {
-    
-    // 构建淘宝客户端协议的 URL
-    NSURL *url = [NSURL URLWithString:@"taobao://www.taobao.com"];
-    // 判断当前系统是否有安装淘宝客户端
-    if ([[UIApplication sharedApplication] canOpenURL:url]) {
-        // 如果已经安装淘宝客户端，就使用客户端打开链接
-        [[UIApplication sharedApplication] openURL:url];
-    } else {
-        // 否则使用 Mobile Safari 或者内嵌 WebView 来显示
-        url=[NSURL URLWithString:@"https://www.taobao.com"];
-        [[UIApplication sharedApplication] openURL:url];
-    }
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+//    NSLog(@"---点击了第%ld张图片", (long)index);
 //    WebVC *web = [[WebVC alloc] init];
-//    web.mName = @"淘宝";
 //    web.isMode = YES;
-//    web.mUrl = @"https://www.taobao.com";
+//    web.mUrl = ((SBanner *)[_banners objectAtIndex:index]).mBanner_url;
 //    [self presentViewController:web animated:YES completion:nil];
-
+    
     
 }
 
-#pragma mark NewPagedFlowView Datasource
-- (NSInteger)numberOfPagesInFlowView:(NewPagedFlowView *)flowView {
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     
-    return _imageArray.count;
-    
+    return 1;
 }
 
-- (UIView *)flowView:(NewPagedFlowView *)flowView cellForPageAtIndex:(NSInteger)index{
-    PGIndexBannerSubiew *bannerView = (PGIndexBannerSubiew *)[flowView dequeueReusableCell];
-    if (!bannerView) {
-        bannerView = [[PGIndexBannerSubiew alloc] initWithFrame:CGRectMake(0, 0, Width - 84, (Width - 84) * DEVICE_InNavTabBar_Height - 120)];
-        bannerView.layer.cornerRadius = 4;
-        bannerView.layer.masksToBounds = YES;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.tempArray.count;
+}
+
+
+
+-(CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return UITableViewAutomaticDimension;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 132;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    GoodsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+     SGoods *goods = [self.tempArray objectAtIndex:indexPath.row];
+    
+    cell.mName.text = goods.mGoods_name;
+    cell.mIntroduction.text = goods.mIntroduction;
+    cell.mImg.backgroundColor = randomColor;
+    [cell.mImg sd_setImageWithURL:[NSURL URLWithString:goods.mPreview_img_path] placeholderImage:[UIImage imageNamed:@"default"]];
+    cell.mRemark.text = @"";
+    cell.mButton.layer.masksToBounds = YES;
+    cell.mButton.layer.cornerRadius = 5;
+    cell.mButton.tag = indexPath.row;
+    [cell.mButton addTarget:self action:@selector(AddCarClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    SGoods *goods = [self.tempArray objectAtIndex:indexPath.row];
+    
+    GoodsDetailVC *gd = [[GoodsDetailVC alloc] initWithNibName:@"GoodsDetailVC" bundle:nil];
+    gd.mGoods = goods;
+    [self pushViewController:gd];
+}
+
+- (void)AddCarClick:(UIButton *)btn{
+    
+    if ([SUser isNeedLogin]) {
+        [self gotoLogin];
+        return;
     }
     
-    bannerView.mainImageView.image = _imageArray[index];
+    int index = (int)btn.tag;
     
-    return bannerView;
+    SGoods *goods = [self.tempArray objectAtIndex:index];
+    
+    [self showStatu:@"操作中.."];
+    [goods addGoods:1 block:^(SResBase *retobj) {
+        
+        if (retobj.msuccess) {
+            [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+        }else{
+            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+        }
+    }];
+    
+    
 }
 
-- (void)didScrollToPage:(NSInteger)pageNumber inFlowView:(NewPagedFlowView *)flowView {
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar{
+
     
-    NSLog(@"ViewController 滚动到了第%ld页",pageNumber);
+    GoodsListVC *goods = [[GoodsListVC alloc] initWithNibName:@"GoodsListVC" bundle:nil];
+    goods.mKey = searchBar.text;
+    [self pushViewController:goods];
 }
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -153,4 +202,32 @@
 }
 */
 
+//全部、洗涤用品、养生保健、清洁工具
+- (IBAction)mMenuClick:(id)sender {
+    
+    UIButton *btn = (UIButton *)sender;
+    
+    GoodsListVC *goods = [[GoodsListVC alloc] initWithNibName:@"GoodsListVC" bundle:nil];
+    
+    
+    switch (btn.tag) {
+        case 10:
+            goods.mType = @"全部";
+            break;
+        case 11:
+            goods.mType = @"洗涤用品";
+            break;
+        case 12:
+            goods.mType = @"养生保健";
+            break;
+        case 13:
+            goods.mType = @"母婴用品";
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self pushViewController:goods];
+}
 @end

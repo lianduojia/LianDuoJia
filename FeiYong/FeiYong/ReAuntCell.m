@@ -31,7 +31,7 @@
     [_mEducationBt setTitle:[NSString stringWithFormat:@"%@",info.mEducation] forState:UIControlStateNormal];
     _mAge.text = [NSString stringWithFormat:@"%d岁",info.mAge];
     _mPlace.text = [NSString stringWithFormat:@"%@人",info.mProvince];
-    _mAddress.text = [NSString stringWithFormat:@"现居住于%@%@%@",info.mWork_province,info.mWork_city,info.mWork_area];
+    _mAddress.text = [NSString stringWithFormat:@"现居住于%@%@%@",info.mLiving_province,info.mLiving_city,info.mLiving_area];
     _mWages.text = [NSString stringWithFormat:@"￥%d/月",info.mPay];
     
     NSMutableArray *array = [[NSMutableArray alloc] initWithObjects:_mStar1,_mStar2,_mStar3,_mStar4,_mStar5, nil];

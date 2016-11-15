@@ -13,7 +13,7 @@
 
 @interface BaseVC ()<UIGestureRecognizerDelegate>{
 
-    UIView *_emptyview;
+    EmptyView *_emptyview;
 }
 
 @end
@@ -105,6 +105,7 @@
     
     [self.navBar.mLeftButton addTarget:self action:@selector(leftBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
     [self.navBar.mRightButton addTarget:self action:@selector(rightBtnTouched:) forControlEvents:UIControlEventTouchUpInside];
+     [self.navBar.mRightButton2 addTarget:self action:@selector(rightBtnTouched2:) forControlEvents:UIControlEventTouchUpInside];
     
     self.tempArray = [[NSMutableArray alloc]init];
     self.page = 0;
@@ -135,6 +136,11 @@
     //todo
 }
 
+-(void)rightBtnTouched2:(id)sender{
+
+
+}
+
 //设置NavTitle
 - (void)setNavTitle:(NSString *)navTitle{
 
@@ -144,7 +150,7 @@
 //设置NavRightText
 - (void)setNavRightText:(NSString *)navRightText{
 
-    self.navBar.mRightButton.titleLabel.text = navRightText;
+    [self.navBar.mRightButton setTitle:navRightText forState:UIControlStateNormal];
 }
 
 - (void)setHiddenBackBtn:(BOOL)hiddenBackBtn{
@@ -171,13 +177,29 @@
     [self.tableView footerEndRefreshing];
 }//footer停止刷新
 
--(void)addEmpty{
-    _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView" bundle:nil].view;
+-(void)addEmpty:(CGRect)rect image:(NSString *)img{
     
-    _emptyview.frame = CGRectMake(0, 0, DEVICE_Width, 150);
+    UIView *view = [[UIView alloc] initWithFrame:rect];
     
-    self.tableView.tableFooterView = _emptyview;
+    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 140, 127)];
+    imgV.image = [UIImage imageNamed:@"empty"];
+    if (img.length>0) {
+        imgV.image = [UIImage imageNamed:img];
+    }
+    imgV.center = view.center;
+    imgV.contentMode = UIViewContentModeScaleAspectFit;
+    [view addSubview:imgV];
+    
+    self.tableView.tableFooterView = view;
 }
+
+-(void)addEmpty2:(CGRect)rect{
+    _emptyview = [[EmptyView alloc] initWithNibName:@"EmptyView2" bundle:nil];
+    _emptyview.view.frame = rect;
+    
+    self.tableView.tableFooterView = _emptyview.view;
+}
+
 -(void)removeEmpty{
     
     self.tableView.tableFooterView = [UIView new];

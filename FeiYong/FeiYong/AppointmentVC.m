@@ -13,11 +13,9 @@
 
 @interface AppointmentVC (){
     
-    YLDatePickerView *_picker;
+    YLDatePickerView *_datepicker;
     BombBoxVC *_mbombbox;
     
-    NSString *_date;
-    NSString *_time;
 }
 
 @end
@@ -30,14 +28,13 @@
     
     self.navTitle = @"预约见面";
     
-    _mbombbox = [[BombBoxVC alloc] initWithNibName:@"BombBoxVC" bundle:nil];
-    _mbombbox.view.frame = CGRectMake(0, 0, DEVICE_Width, DEVICE_Height);
     
-    _picker =  [[[NSBundle mainBundle]loadNibNamed:@"YLDatePickerView" owner:self options:nil]objectAtIndex:0];
     
-    [_picker SetLabelDate:_mTime];
+    _datepicker =  [[[NSBundle mainBundle]loadNibNamed:@"YLDatePickerView" owner:self options:nil]objectAtIndex:0];
     
-    [_picker setDatePickerType:UIDatePickerModeTime dateFormat:@"HH:mm"];
+    [_datepicker SetTextFieldDate:_mTime];
+    
+    [_datepicker setDatePickerType:UIDatePickerModeDateAndTime dateFormat:@"yyyy-MM-dd HH:mm"];
     
     NSString *string = @"";
     
@@ -54,6 +51,21 @@
     }
     
     _mName.text = string;
+    
+    _mDefaultHeight.constant = 0;
+    _mDefaultBottomHeight.constant = 0;
+    
+    [_mOrder getDefaultAddress:^(SResBase *retobj, NSString *address) {
+       
+        if (retobj.msuccess) {
+            
+            if (address.length>0) {
+                _mDefaultBottomHeight.constant = 10;
+                _mDefaultHeight.constant = 500;
+                _mDefaultAddress.text = address;
+            }
+        }
+    }];
 
 }
 
@@ -77,38 +89,32 @@
 }
 */
 
+- (IBAction)mCheckClick:(id)sender {
+    
+    _mCheck.selected = !_mCheck.selected;
+    
+    if (_mCheck.selected) {
+        [_mCheck setImage:[UIImage imageNamed:@"a_quan_select"] forState:UIControlStateNormal];
+        
+        _mAddress.text = _mDefaultAddress.text;
+    }else{
+        [_mCheck setImage:[UIImage imageNamed:@"a_quan"] forState:UIControlStateNormal];
+        _mAddress.text = @"";
+    }
+}
+
 - (IBAction)ChoseDayClick:(id)sender {
     
-    [self.view addSubview:_mbombbox.view];
-    
-    [_mbombbox initCalendarPickView:^(NSInteger day, NSInteger month, NSInteger year) {
-        
-        _mDay.text = [NSString stringWithFormat:@"%ld年%ld月%ld日",year,month,day];
-        
-        _date = [Util getTimeString:[Util getDataString:_mDay.text bfull:YES] bfull:YES];
-        
-        [_mbombbox closeCalendarPickView];
-
-    }];
+    [_datepicker showInView:self.view];
 
 }
 
-- (IBAction)ChoseTimeClick:(id)sender {
-    
-    [_picker showInView:self.view];
-}
+
 
 - (IBAction)SubmitClick:(id)sender {
     
-    _time = _mTime.text;
     
-    if (_date.length == 0) {
-        [SVProgressHUD showErrorWithStatus:@"请选择见面日期"];
-        
-        return;
-    }
-    
-    if ([_time isEqualToString:@"请选择见面时间"]) {
+    if (_mTime.text.length == 0) {
         [SVProgressHUD showErrorWithStatus:@"请选择见面时间"];
         
         return;
@@ -120,7 +126,7 @@
     }
     
     [self showStatu:@"提交中.."];
-    [_mOrder makeAppointment:_date meet_time:_time meet_location:_mAddress.text block:^(SResBase *retobj) {
+    [_mOrder makeAppointment:_mTime.text meet_location:_mAddress.text block:^(SResBase *retobj) {
        
         if (retobj.msuccess) {
             [SVProgressHUD dismiss];
