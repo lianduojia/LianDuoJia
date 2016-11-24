@@ -480,7 +480,8 @@ SAppInfo* g_appinfo = nil;
     order.outTradeNO = orderNo; //订单ID（由商家自行制定）
     order.subject = title; //商品标题
     order.body = detail; //商品描述
-    order.totalFee = [NSString stringWithFormat:@"%.2f",price]; //商品价格
+    order.totalFee = [NSString stringWithFormat:@"%.2f",price
+                      ]; //商品价格
     order.notifyURL =  [NSString stringWithFormat:@"%@alipay-notify-url",[APIClient getDomain]]; //回调URL
     
     order.service = @"mobile.securitypay.pay";
@@ -1426,7 +1427,7 @@ SAppInfo* g_appinfo = nil;
     [param setObject:city forKey:@"city"];
     [param setObject:area forKey:@"area"];
     
-    [[APIClient sharedClient] postUrl:@"query-hour-worker-service-item-price" parameters:param call:^(SResBase *info) {
+    [[APIClient sharedClient] postUrl:@"query-hour-worker-service-item-price-integration" parameters:param call:^(SResBase *info) {
         
         if (info.msuccess) {
             
@@ -1608,6 +1609,61 @@ SAppInfo* g_appinfo = nil;
             block(info,nil);
         }
     }];
+}
+
+
+//定金支付提交信息
++(void)customBill:(NSString *)sex min_age:(int)min_age max_age:(int)max_age star:(int)star type:(NSString *)type work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area work_address:(NSString *)work_address province:(NSString *)province service_time:(NSString *)service_time service_duration:(NSString *)service_duration over_night:(NSString *)over_night care_type:(NSString *)care_type additional:(NSString *)additional block:(void(^)(SResBase* retobj,NSString *bid))block{
+
+    NSMutableDictionary* param = [NSMutableDictionary new];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:@(min_age) forKey:@"min_age"];
+    [param setObject:@(star) forKey:@"star"];
+    if (max_age>0) {
+        [param setObject:@(max_age) forKey:@"max_age"];
+    }
+    if (service_duration){
+        [param setObject:service_duration forKey:@"service_duration"];
+    }
+    if (sex) {
+        [param setObject:sex forKey:@"sex"];
+    }
+    if (type) {
+        [param setObject:type forKey:@"type"];
+    }
+    if (work_province) {
+        [param setObject:work_province forKey:@"work_province"];
+    }
+    if (work_city) {
+        [param setObject:work_city forKey:@"work_city"];
+    }
+    if (work_area) {
+        [param setObject:work_area forKey:@"work_area"];
+    }
+    if (work_address) {
+        [param setObject:work_address forKey:@"work_address"];
+    }
+    if (province) {
+        [param setObject:province forKey:@"province"];
+    }
+    if (service_time) {
+        [param setObject:service_time forKey:@"service_time"];
+    }
+    if (over_night) {
+        [param setObject:over_night forKey:@"over_night"];
+    }
+    if (care_type) {
+        [param setObject:care_type forKey:@"care_type"];
+    }
+    if (additional) {
+        [param setObject:additional forKey:@"additional"];
+    }
+    
+    [[APIClient sharedClient] postUrl:@"custom-bill" parameters:param call:^(SResBase *info) {
+            
+            block(info,[[info.mdata objectForKeyMy:@"id"] stringValue]);
+    }];
+
 }
 
 @end
@@ -1854,6 +1910,54 @@ SAppInfo* g_appinfo = nil;
             
             block(info,nil);
         }
+    }];
+
+}
+
+@end
+
+@implementation SCoupon
+
+//获取会员券列表
++(void)getCoupon:(NSString *)type status:(NSString *)status block:(void(^)(SResBase* retobj,NSArray *arr))block{
+
+    NSMutableDictionary* param = [NSMutableDictionary new];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:status forKey:@"status"];
+    
+    [[APIClient sharedClient] postUrl:@"query-employer-coupon" parameters:param call:^(SResBase *info) {
+        
+        if (info.msuccess) {
+            
+            NSMutableArray *array = [NSMutableArray new];
+            if (info.mdata) {
+                for (NSDictionary *dic in info.mdata) {
+                    
+                    SCoupon *coupon = [[SCoupon alloc] initWithObj:dic];
+                    
+                    [array addObject:coupon];
+                }
+            }
+            block(info,array);
+            
+        }else{
+            
+            block(info,nil);
+        }
+    }];
+ 
+}
+
+//兑换码兑换
++(void)exangeCode:(NSString *)gift_code block:(void(^)(SResBase* retobj))block{
+
+    NSMutableDictionary* param = [NSMutableDictionary new];
+    [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
+    [param setObject:gift_code forKey:@"gift_code"];
+    
+    [[APIClient sharedClient] postUrl:@"exange-gift-code" parameters:param call:^(SResBase *info) {
+        
+        block(info);
     }];
 
 }

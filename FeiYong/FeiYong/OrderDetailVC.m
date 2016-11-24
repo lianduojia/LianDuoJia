@@ -75,7 +75,6 @@
     _mPayPrice.text = [NSString stringWithFormat:@"¥%g",order.mAll_amount];
     
     if(order.mBack_amount == 0){
-    
         _mCjHeight.constant = 0;
     }else{
         _mCjHeight.constant = 48;
@@ -153,11 +152,8 @@
                     
                     [self popViewController];
                 }
-                
             }];
-            
-            
-            
+  
         }else{
             
             [SVProgressHUD showErrorWithStatus:@"支付失败"];

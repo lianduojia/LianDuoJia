@@ -73,9 +73,9 @@
     NSDate *selectTime = [_mPicker date];
     
     NSString *date = [_dateFormatter stringFromDate:selectTime];
-    NSArray *array = [date componentsSeparatedByString:@":"];
     
     if (_mPicker.datePickerMode == UIDatePickerModeTime) {
+        NSArray *array = [date componentsSeparatedByString:@":"];
         int h = [[array objectAtIndex:0] intValue];
         int m = [[array objectAtIndex:1] intValue];
         
@@ -98,8 +98,19 @@
             ((UITextField *)self.m_pTextDate).text = [NSString stringWithFormat:@"%.2d:%.2d",h,m];
         }
         
-    }else{
+    }else if (_mPicker.datePickerMode == UIDatePickerModeDate){
+    
+        if ([self.m_pTextDate isKindOfClass:[UILabel class]]) {
+            ((UILabel *)self.m_pTextDate).text = date;
+        }
         
+        if ([self.m_pTextDate isKindOfClass:[UITextField class]]) {
+            ((UITextField *)self.m_pTextDate).text = date;
+        }
+
+    }
+    else{
+        NSArray *array = [date componentsSeparatedByString:@":"];
         NSString *one = [array objectAtIndex:0];
         NSArray *array2 = [one componentsSeparatedByString:@" "];
         

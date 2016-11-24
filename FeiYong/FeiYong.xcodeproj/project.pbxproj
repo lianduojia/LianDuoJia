@@ -68,6 +68,7 @@
 		B2466AD01D34D0B900911971 /* CityListVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2466ACE1D34D0B900911971 /* CityListVC.xib */; };
 		B2466AD41D34D13B00911971 /* CityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B2466AD21D34D13B00911971 /* CityCell.m */; };
 		B2466AD51D34D13B00911971 /* CityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2466AD31D34D13B00911971 /* CityCell.xib */; };
+		B24731EB1DDC310700A73BC5 /* HourView.m in Sources */ = {isa = PBXBuildFile; fileRef = B24731EA1DDC310700A73BC5 /* HourView.m */; };
 		B24B27711D003F7E001BC50A /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27701D003F7E001BC50A /* libz.tbd */; };
 		B24B27731D003F87001BC50A /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27721D003F87001BC50A /* libc++.tbd */; };
 		B24B27751D003F8F001BC50A /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B24B27741D003F8F001BC50A /* CoreMotion.framework */; };
@@ -92,7 +93,15 @@
 		B24B27A71D00473D001BC50A /* RSADataVerifier.m in Sources */ = {isa = PBXBuildFile; fileRef = B24B279F1D00473D001BC50A /* RSADataVerifier.m */; };
 		B250AAD01D8E908100F392BB /* HealthCareVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B250AACE1D8E908100F392BB /* HealthCareVC.m */; };
 		B250AAD11D8E908100F392BB /* HealthCareVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B250AACF1D8E908100F392BB /* HealthCareVC.xib */; };
+		B25378A71DDC3CEB0022A037 /* HourView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B25378A61DDC3CEB0022A037 /* HourView.xib */; };
+		B25378AC1DDEDA6E0022A037 /* CouponVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B25378AA1DDEDA6E0022A037 /* CouponVC.m */; };
+		B25378AD1DDEDA6E0022A037 /* CouponVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B25378AB1DDEDA6E0022A037 /* CouponVC.xib */; };
 		B263D82F1D8FD1CF006961BE /* EmptyView2.xib in Resources */ = {isa = PBXBuildFile; fileRef = B263D82E1D8FD1CF006961BE /* EmptyView2.xib */; };
+		B26634841DE53CA700FBC30F /* CouponCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B26634821DE53CA700FBC30F /* CouponCell.m */; };
+		B26634851DE53CA700FBC30F /* CouponCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B26634831DE53CA700FBC30F /* CouponCell.xib */; };
+		B26634871DE577B100FBC30F /* CouponOverVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B26634861DE577B100FBC30F /* CouponOverVC.xib */; };
+		B266348B1DE5A23C00FBC30F /* PayDepositVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B26634891DE5A23C00FBC30F /* PayDepositVC.m */; };
+		B266348C1DE5A23C00FBC30F /* PayDepositVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B266348A1DE5A23C00FBC30F /* PayDepositVC.xib */; };
 		B269CC741DD415AE00C3BFA7 /* OrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B269CC721DD415AE00C3BFA7 /* OrderDetailVC.m */; };
 		B269CC751DD415AE00C3BFA7 /* OrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B269CC731DD415AE00C3BFA7 /* OrderDetailVC.xib */; };
 		B291E8561D07CD3A0056C7E1 /* PingJiaCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B291E8541D07CD3A0056C7E1 /* PingJiaCell.m */; };
@@ -382,6 +391,8 @@
 		B2466AD11D34D13B00911971 /* CityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityCell.h; sourceTree = "<group>"; };
 		B2466AD21D34D13B00911971 /* CityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityCell.m; sourceTree = "<group>"; };
 		B2466AD31D34D13B00911971 /* CityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CityCell.xib; sourceTree = "<group>"; };
+		B24731E91DDC310700A73BC5 /* HourView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HourView.h; sourceTree = "<group>"; };
+		B24731EA1DDC310700A73BC5 /* HourView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HourView.m; sourceTree = "<group>"; };
 		B24B27701D003F7E001BC50A /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B24B27721D003F87001BC50A /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B24B27741D003F8F001BC50A /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -490,7 +501,18 @@
 		B250AACD1D8E908100F392BB /* HealthCareVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HealthCareVC.h; sourceTree = "<group>"; };
 		B250AACE1D8E908100F392BB /* HealthCareVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HealthCareVC.m; sourceTree = "<group>"; };
 		B250AACF1D8E908100F392BB /* HealthCareVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HealthCareVC.xib; sourceTree = "<group>"; };
+		B25378A61DDC3CEB0022A037 /* HourView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HourView.xib; sourceTree = "<group>"; };
+		B25378A91DDEDA6E0022A037 /* CouponVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponVC.h; sourceTree = "<group>"; };
+		B25378AA1DDEDA6E0022A037 /* CouponVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponVC.m; sourceTree = "<group>"; };
+		B25378AB1DDEDA6E0022A037 /* CouponVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponVC.xib; sourceTree = "<group>"; };
 		B263D82E1D8FD1CF006961BE /* EmptyView2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyView2.xib; sourceTree = "<group>"; };
+		B26634811DE53CA700FBC30F /* CouponCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CouponCell.h; sourceTree = "<group>"; };
+		B26634821DE53CA700FBC30F /* CouponCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CouponCell.m; sourceTree = "<group>"; };
+		B26634831DE53CA700FBC30F /* CouponCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponCell.xib; sourceTree = "<group>"; };
+		B26634861DE577B100FBC30F /* CouponOverVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CouponOverVC.xib; sourceTree = "<group>"; };
+		B26634881DE5A23C00FBC30F /* PayDepositVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayDepositVC.h; sourceTree = "<group>"; };
+		B26634891DE5A23C00FBC30F /* PayDepositVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayDepositVC.m; sourceTree = "<group>"; };
+		B266348A1DE5A23C00FBC30F /* PayDepositVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PayDepositVC.xib; sourceTree = "<group>"; };
 		B269CC711DD415AE00C3BFA7 /* OrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetailVC.h; sourceTree = "<group>"; };
 		B269CC721DD415AE00C3BFA7 /* OrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetailVC.m; sourceTree = "<group>"; };
 		B269CC731DD415AE00C3BFA7 /* OrderDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderDetailVC.xib; sourceTree = "<group>"; };
@@ -881,6 +903,9 @@
 				B2208E9F1DC9CDE10066BE71 /* HourExplainVC.h */,
 				B2208EA01DC9CDE10066BE71 /* HourExplainVC.m */,
 				B2208EA11DC9CDE10066BE71 /* HourExplainVC.xib */,
+				B24731E91DDC310700A73BC5 /* HourView.h */,
+				B24731EA1DDC310700A73BC5 /* HourView.m */,
+				B25378A61DDC3CEB0022A037 /* HourView.xib */,
 			);
 			name = submit;
 			sourceTree = "<group>";
@@ -1106,6 +1131,20 @@
 				B24B283F1D0049A7001BC50A /* x509v3.h */,
 			);
 			path = openssl;
+			sourceTree = "<group>";
+		};
+		B25378A81DDEDA420022A037 /* coupon */ = {
+			isa = PBXGroup;
+			children = (
+				B25378A91DDEDA6E0022A037 /* CouponVC.h */,
+				B25378AA1DDEDA6E0022A037 /* CouponVC.m */,
+				B25378AB1DDEDA6E0022A037 /* CouponVC.xib */,
+				B26634861DE577B100FBC30F /* CouponOverVC.xib */,
+				B26634811DE53CA700FBC30F /* CouponCell.h */,
+				B26634821DE53CA700FBC30F /* CouponCell.m */,
+				B26634831DE53CA700FBC30F /* CouponCell.xib */,
+			);
+			name = coupon;
 			sourceTree = "<group>";
 		};
 		B291E84D1D07BEFE0056C7E1 /* aunt */ = {
@@ -1358,6 +1397,9 @@
 				B23F4C871D77FCA60063630D /* AddressCitySectionView.h */,
 				B23F4C881D77FCA60063630D /* AddressCitySectionView.m */,
 				B23F4C8A1D77FCB90063630D /* AddressCitySectionView.xib */,
+				B26634881DE5A23C00FBC30F /* PayDepositVC.h */,
+				B26634891DE5A23C00FBC30F /* PayDepositVC.m */,
+				B266348A1DE5A23C00FBC30F /* PayDepositVC.xib */,
 			);
 			name = Shouye;
 			sourceTree = "<group>";
@@ -1588,6 +1630,7 @@
 		B2DDFBBF1CF708EE00D92DEA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				B25378A81DDEDA420022A037 /* coupon */,
 				B216B7A01DCB4745007EB383 /* Shop */,
 				B2D6A6DD1D090ED200899042 /* Order */,
 				B291E8681D0823F80056C7E1 /* Own */,
@@ -1798,6 +1841,7 @@
 				B2CEE2811D0519E30062EC59 /* LoginVC.xib in Resources */,
 				B2CF56281D06ED5F0091B42A /* ReAuntCell.xib in Resources */,
 				B2D6A6E71D091FAF00899042 /* OrderSectionView.xib in Resources */,
+				B26634871DE577B100FBC30F /* CouponOverVC.xib in Resources */,
 				B24B278C1D0044C1001BC50A /* AlipaySDK.bundle in Resources */,
 				B2CF56321D0710B30091B42A /* AuntHeadView.xib in Resources */,
 				B236C19A1DCC635B009DE197 /* GoodsTwoCell.xib in Resources */,
@@ -1810,6 +1854,7 @@
 				B2F379CF1DD2FA1F00CE9F6F /* ShopCartCell.xib in Resources */,
 				B238A6B81DC840330097D33F /* SeniorNurseVC.xib in Resources */,
 				B291E8571D07CD3A0056C7E1 /* PingJiaCell.xib in Resources */,
+				B25378A71DDC3CEB0022A037 /* HourView.xib in Resources */,
 				B2D6A7001D0950DA00899042 /* AppointmentVC.xib in Resources */,
 				B2DDFBAC1CF7001C00D92DEA /* MJRefresh.bundle in Resources */,
 				4FC4FCD21D0C3F490000A9A0 /* province_data.xml in Resources */,
@@ -1827,6 +1872,7 @@
 				B2CEE2861D051F9E0062EC59 /* RegisterVC.xib in Resources */,
 				B2208E9E1DC9BA120066BE71 /* InformationVC.xib in Resources */,
 				B2F9B10A1D6BFDFF00BF138F /* AuntSectionView.xib in Resources */,
+				B26634851DE53CA700FBC30F /* CouponCell.xib in Resources */,
 				B250AAD11D8E908100F392BB /* HealthCareVC.xib in Resources */,
 				B291E8751D0837C00056C7E1 /* EditAddressVC.xib in Resources */,
 				B23F4C861D77FA510063630D /* AddressCityCellTwo.xib in Resources */,
@@ -1837,6 +1883,7 @@
 				B216B7A51DCB477D007EB383 /* GoodsCell.xib in Resources */,
 				B2CEE2DB1D057EED0062EC59 /* ForgetPwdVC.xib in Resources */,
 				B291E8901D084F010056C7E1 /* SettingCell.xib in Resources */,
+				B25378AD1DDEDA6E0022A037 /* CouponVC.xib in Resources */,
 				B2D6A6F61D0940B100899042 /* PayVC.xib in Resources */,
 				B23F4C841D77F9950063630D /* AddressCityCell.xib in Resources */,
 				B23F4C8B1D77FCB90063630D /* AddressCitySectionView.xib in Resources */,
@@ -1853,6 +1900,7 @@
 				B230A80C1D5DC0D900A119C8 /* FindNannyVC.xib in Resources */,
 				B2D6A6FB1D09437700899042 /* payCell.xib in Resources */,
 				B23F4CA51D7830AE0063630D /* MJPhotoBrowser.bundle in Resources */,
+				B266348C1DE5A23C00FBC30F /* PayDepositVC.xib in Resources */,
 				B2D4BD0E1D0E62B000B1E3FA /* YLDatePickerView.xib in Resources */,
 				B231F9041D62BC2D00A291BC /* FindHourVC.xib in Resources */,
 				B2CF56231D06EB270091B42A /* ReAuntVC.xib in Resources */,
@@ -1916,10 +1964,12 @@
 				B2F9E56B1D62F978005AA4F9 /* OhterNeedCell.m in Sources */,
 				B230A80B1D5DC0D900A119C8 /* FindNannyVC.m in Sources */,
 				B2CEE2AF1D0534FE0062EC59 /* IQSegmentedNextPrevious.m in Sources */,
+				B25378AC1DDEDA6E0022A037 /* CouponVC.m in Sources */,
 				B2DDFC071CF7126600D92DEA /* UIImageView+MJWebCache.m in Sources */,
 				B2DDFBAD1CF7001C00D92DEA /* MJRefreshBaseView.m in Sources */,
 				B2CEE2AB1D0534FE0062EC59 /* IQUIView+Hierarchy.m in Sources */,
 				B2CEE2DA1D057EED0062EC59 /* ForgetPwdVC.m in Sources */,
+				B26634841DE53CA700FBC30F /* CouponCell.m in Sources */,
 				B2CF56271D06ED5F0091B42A /* ReAuntCell.m in Sources */,
 				B24B27A51D00473D001BC50A /* openssl_wrapper.m in Sources */,
 				B2DDFBFC1CF7126600D92DEA /* SDWebImageDecoder.m in Sources */,
@@ -2000,6 +2050,7 @@
 				B2457A841D1D3DDB001E979D /* HourWorkPayVC.m in Sources */,
 				B23F4CA61D7830AE0063630D /* MJPhotoBrowser.m in Sources */,
 				B24B27A71D00473D001BC50A /* RSADataVerifier.m in Sources */,
+				B266348B1DE5A23C00FBC30F /* PayDepositVC.m in Sources */,
 				4FC4FCCE1D0C29C70000A9A0 /* YLPickerView.m in Sources */,
 				B2457A6B1D1CE752001E979D /* RSKTouchView.m in Sources */,
 				B23F4C711D77DF0A0063630D /* ShopMallVC.m in Sources */,
@@ -2013,6 +2064,7 @@
 				B2CF56221D06EB270091B42A /* ReAuntVC.m in Sources */,
 				B2DDFB991CF6FC6E00D92DEA /* BaseVC.m in Sources */,
 				B291E8601D07ED5D0056C7E1 /* PingJiaVC.m in Sources */,
+				B24731EB1DDC310700A73BC5 /* HourView.m in Sources */,
 				B23F4C891D77FCA60063630D /* AddressCitySectionView.m in Sources */,
 				B2DD200C1D0FFA9C005F68AB /* ChoseAddress.m in Sources */,
 				B2D62FF11D1B93B90045B2B0 /* ChosePlaceVC.m in Sources */,

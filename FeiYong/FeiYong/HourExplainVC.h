@@ -10,26 +10,11 @@
 
 @interface HourExplainVC : BaseVC
 @property (weak, nonatomic) IBOutlet UIButton *mAddress;
-@property (weak, nonatomic) IBOutlet UIView *mCotentView;
-@property (weak, nonatomic) IBOutlet UIView *mHourView;
-@property (weak, nonatomic) IBOutlet UIView *mBlView;
-@property (weak, nonatomic) IBOutlet UIView *mZfView;
-@property (weak, nonatomic) IBOutlet UIView *mQjjView;
-@property (weak, nonatomic) IBOutlet UIView *mMbView;
-@property (weak, nonatomic) IBOutlet UIView *mKhView;
+@property (weak, nonatomic) IBOutlet UIView *mContentView;
 
-@property (weak, nonatomic) IBOutlet UILabel *mLab1;
-@property (weak, nonatomic) IBOutlet UILabel *mContent1;
-@property (weak, nonatomic) IBOutlet UILabel *mLab2;
-@property (weak, nonatomic) IBOutlet UILabel *mContent2;
-@property (weak, nonatomic) IBOutlet UILabel *mLab3;
-@property (weak, nonatomic) IBOutlet UILabel *mContent3;
-@property (weak, nonatomic) IBOutlet UILabel *mLab4;
-@property (weak, nonatomic) IBOutlet UILabel *mContent4;
-@property (weak, nonatomic) IBOutlet UILabel *mLab5;
-@property (weak, nonatomic) IBOutlet UILabel *mContent5;
-@property (weak, nonatomic) IBOutlet UILabel *mLab6;
-@property (weak, nonatomic) IBOutlet UILabel *mContent6;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mContentHeight;
+@property (weak, nonatomic) IBOutlet UIImageView *mEmpty;
+
 
 - (IBAction)mAddressClick:(id)sender;
 @end

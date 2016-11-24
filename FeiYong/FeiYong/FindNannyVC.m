@@ -18,6 +18,7 @@
 #import "OhterNeedCell.h"
 #import "HourWorkPayVC.h"
 #import "HourExplainVC.h"
+#import "PayDepositVC.h"
 
 @interface FindNannyVC ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -526,9 +527,13 @@
                     _mfwsc = [dic objectForKey:@"hour"];
                     _mfwnum = [dic objectForKey:@"num"];
                     
-                    _minhour =  [[_mfwsc stringByReplacingOccurrencesOfString:@"小时" withString:@""] intValue];
+                    _minhour =  [[dic objectForKeyMy:@"min"] intValue];
                     
-                    _mTime.text = [dic objectForKey:@"time"];
+                    if (_minhour <2) {
+                        _minhour = 2;
+                    }
+                    
+//                    _mTime.text = [dic objectForKey:@"time"];
                     
                     [_mHourBT setTitle:_mfwsc forState:UIControlStateNormal];
                     [_mNumBT setTitle:_mfwnum forState:UIControlStateNormal];
@@ -585,7 +590,7 @@
     
     [_datepicker SetTextFieldDate:_mTime];
     
-    [_datepicker setDatePickerType:UIDatePickerModeDateAndTime dateFormat:@"yyyy-MM-dd HH:mm"];
+    [_datepicker setDatePickerType:UIDatePickerModeDate dateFormat:@"yyyy-MM-dd"];
     
     _picker = [[YLPickerView alloc] initWithNibName:@"YLPickerView" bundle:nil];
     
@@ -940,6 +945,17 @@
     rea.mArea = _area;
     rea.mAddress = _mdetailaddress;
     rea.mRemark = _mRemark.text;
+    
+    //支付定金
+    PayDepositVC *pd = [[PayDepositVC alloc] initWithNibName:@"PayDepositVC" bundle:nil];
+    pd.mType = _mType;
+    pd.work_province = _province;
+    pd.work_city = _city;
+    pd.work_area = _area;
+    pd.work_address = _mdetailaddress;
+    pd.star = _mstar;
+    
+    
     switch (_mType) {
             
         case BUZHUJIABAOMU:
@@ -977,12 +993,6 @@
         case BUZHUJIABAOMU:
         case ZHUJIABAOMU:
         {
-            if (_mStar.text.length == 0) {
-                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
-                
-                return;
-            }
-            
             
             if (_mHuji.text.length == 0) {
                 [SVProgressHUD showErrorWithStatus:@"请选择户籍要求"];
@@ -999,38 +1009,36 @@
             if(_mType == ZHUJIABAOMU)
                 iszhujia = @"住家";
             
-            [self showStatu:@"操作中.."];
-            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia prio_province:_mplace star:_mstar block:^(SResBase *retobj, NSArray *arr) {
-                
-                if (retobj.msuccess) {
-                    
+//            [self showStatu:@"操作中.."];
+//            [SAuntInfo findNurse:0 work_province:_province work_city:_city work_area:_area min_age:_minage max_age:_maxage over_night:iszhujia prio_province:_mplace star:_mstar block:^(SResBase *retobj, NSArray *arr) {
+//                
+//                if (retobj.msuccess) {
+            
                     [self saveInfo];
                     
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
+//                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+//                    _auntarr = arr;
+//            
+//                    rea.mOverNight = iszhujia;
+//                    rea.mTempArray = (NSMutableArray *)_auntarr;
+//                    暂时封存
+//                    [self.navigationController pushViewController:rea animated:YES];
                     
-                    rea.mOverNight = iszhujia;
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                    return;
-                }
-            }];
-            
+                    pd.over_night = iszhujia;
+                    [self pushViewController:pd];
+//                }else{
+//                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+//                    return;
+//                }
+//            }];
+//            
         }
             
             
             break;
             
         case YUESAO:{
-            
-            if (_mStar.text.length == 0) {
-                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
-                
-                return;
-            }
-            
+
             
             if (_mTime.text.length == 0) {
                 [SVProgressHUD showErrorWithStatus:@"请选择预产期时间"];
@@ -1043,36 +1051,33 @@
                 return;
             }
             
-            [self showStatu:@"操作中.."];
-            [SAuntInfo findMatron:0 work_province:_province work_city:_city work_area:_area have_auth:@"" star:_mstar block:^(SResBase *retobj, NSArray *arr) {
-                
-                if (retobj.msuccess) {
-                    
-                    [self saveYueSaoInfo];
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
-                    
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    rea.mServiceTime = _mTime.text;
-                    rea.mServiceDuration = _mTimeLength.text;
-                    
-                    
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                }
-            }];
+//            [self showStatu:@"操作中.."];
+//            [SAuntInfo findMatron:0 work_province:_province work_city:_city work_area:_area have_auth:@"" star:_mstar block:^(SResBase *retobj, NSArray *arr) {
+//                
+//                if (retobj.msuccess) {
+//                    
+//                    [self saveYueSaoInfo];
+//                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+//                    _auntarr = arr;
+//                    
+//                    rea.mTempArray = (NSMutableArray *)_auntarr;
+//                    rea.mServiceTime = _mTime.text;
+//                    rea.mServiceDuration = _mTimeLength.text;
+//                    暂时封存
+//                    [self.navigationController pushViewController:rea animated:YES];
+                    pd.service_time = _mTime.text;
+                    pd.service_duration = _mTimeLength.text;
+                    [self pushViewController:pd];
+//                }else{
+//                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+//                }
+//            }];
 
         }
             
             break;
         case PEIHU:
         {
-            if (_mStar.text.length == 0) {
-                [SVProgressHUD showErrorWithStatus:@"请选择保姆星级"];
-                
-                return;
-            }
             
             NSString *sex = @"";
             NSString *day = @"";
@@ -1098,26 +1103,32 @@
                 type = @"病人";
             }
             
-            [self showStatu:@"操作中.."];
-            [SAuntInfo findAccompany:0 work_province:_province work_city:_city work_area:_area over_night:day sex:sex care_type:type star:_mstar block:^(SResBase *retobj, NSArray *arr) {
-               
-                if (retobj.msuccess) {
-                    
-                    [self saveHuGongInfo];
-                    
-                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
-                    _auntarr = arr;
-                    
-                    rea.mTempArray = (NSMutableArray *)_auntarr;
-                    rea.mOverNight = day;
-                    rea.mCareType = type;
-                    [self.navigationController pushViewController:rea animated:YES];
-                }else{
-                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-                    return;
-                }
-
-            }];
+//            [self showStatu:@"操作中.."];
+//            [SAuntInfo findAccompany:0 work_province:_province work_city:_city work_area:_area over_night:day sex:sex care_type:type star:_mstar block:^(SResBase *retobj, NSArray *arr) {
+//               
+//                if (retobj.msuccess) {
+//                    
+//                    [self saveHuGongInfo];
+//                    
+//                    [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
+//                    _auntarr = arr;
+//                    
+//                    rea.mTempArray = (NSMutableArray *)_auntarr;
+//                    rea.mOverNight = day;
+//                    rea.mCareType = type;
+//                    
+//                    暂时封存
+//                    [self.navigationController pushViewController:rea animated:YES];
+                    pd.over_night = day;
+                    pd.care_type = type;
+                    pd.sex = sex;
+                    [self pushViewController:pd];
+//                }else{
+//                    [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+//                    return;
+//                }
+//
+//            }];
 
         }
             
@@ -1274,6 +1285,7 @@
     [dic setObject:_mdetailaddress forKey:@"detailaddress"];
     [dic setObject:_maddress forKey:@"address"];
     [dic setObject:_mTime.text forKey:@"time"];
+    [dic setObject:@(_minhour) forKey:@"min"];
     
     [dic setObject:_mfwsc forKey:@"hour"];
     [dic setObject:_mfwnum forKey:@"num"];

@@ -41,23 +41,8 @@
     [_mTableView registerNib:nib forCellReuseIdentifier:@"cell"];
     
     _mTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    if (_mGoodsAry.count>0) {
-         self.tempArray = (NSMutableArray *)_mGoodsAry;
-        
-        _price = 0;
-        for (SGoods *g in self.tempArray) {
-            
-            if (g.mCheck) {
-                _price += g.mPrice*g.mCount;
-            }
-        }
-        _mPrice.text = [NSString stringWithFormat:@"¥%g",_price];
-    }else{
-        [self headerBeganRefresh];
-    }
    
-    
+    [self headerBeganRefresh];
 
 }
 
@@ -89,9 +74,32 @@
         if (retobj.msuccess) {
             
             [SVProgressHUD dismiss];
-            self.tempArray = (NSMutableArray *)arr;
             
-            [_mTableView reloadData];
+            self.tempArray = [[NSMutableArray alloc] initWithArray:arr];
+            
+//            if (_mGoodsAry.count == arr.count) {
+//                
+//                self.tempArray = (NSMutableArray *)_mGoodsAry;
+//                
+//                _price = 0;
+//                for (SGoods *g in self.tempArray) {
+//                    
+//                    if (g.mCheck) {
+//                        _price += g.mPrice*g.mCount;
+//                    }
+//                }
+//                _mPrice.text = [NSString stringWithFormat:@"¥%g",_price];
+//            }else{
+            
+                _price = 0;
+                for (SGoods *g in arr) {
+                    
+                    if (g.mCheck) {
+                        _price += g.mPrice*g.mCount;
+                    }
+                }
+                _mPrice.text = [NSString stringWithFormat:@"¥%g",_price];
+//            }
             
             if (arr.count==0) {
                 
@@ -99,14 +107,8 @@
             }else{
                 [self removeEmpty];
             }
-            _price = 0;
-            for (SGoods *g in arr) {
-                
-                if (g.mCheck) {
-                    _price += g.mPrice*g.mCount;
-                }
-            }
-            _mPrice.text = [NSString stringWithFormat:@"¥%g",_price];
+            
+            [_mTableView reloadData];
             
         }else{
         
@@ -211,6 +213,8 @@
     }
     SGoods *goods = [self.tempArray objectAtIndex:indexPath.section];
     
+    NSLog(@"count is %d",goods.mCount);
+    
     cell.mName.text = goods.mGoods_name;
     cell.mPrice.text = [NSString stringWithFormat:@"¥%g",goods.mPrice];
     cell.mImg.backgroundColor = randomColor;
@@ -298,6 +302,7 @@
             [SVProgressHUD showSuccessWithStatus:retobj.mmsg];
             
             [self headerBeganRefresh];
+            
         }else{
             [SVProgressHUD showErrorWithStatus:retobj.mmsg];
         }

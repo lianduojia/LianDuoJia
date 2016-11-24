@@ -19,6 +19,7 @@
 #import "AddressCity.h"
 #import "HealthCareVC.h"
 #import "ShopCartVC.h"
+#import "CouponVC.h"
 
 @interface MainVC ()<SDCycleScrollViewDelegate,UITabBarControllerDelegate,UIScrollViewDelegate>{
 
@@ -154,6 +155,9 @@
         web.isMode = YES;
         web.mUrl = [NSString stringWithFormat:@"%@coupon.html",[APIClient getDomain]];
         [self presentViewController:web animated:YES completion:nil];
+//        CouponVC *cp = [[CouponVC alloc] initWithNibName:@"CouponVC" bundle:nil];
+//        [self pushViewController:cp];
+        
     }
     else if (index == 10){
         

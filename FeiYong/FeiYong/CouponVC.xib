@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CouponVC">
+            <connections>
+                <outlet property="mBanner" destination="z1Q-MU-nhR" id="hRy-sv-Y8X"/>
+                <outlet property="mBt" destination="JFI-5k-OVa" id="oy8-UA-3hc"/>
+                <outlet property="mCode" destination="K2v-QE-rmQ" id="vye-gn-M4J"/>
+                <outlet property="mTableView" destination="pUx-Om-MeL" id="KOT-Ol-lH2"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Y1-J4-Tao">
+                    <rect key="frame" x="0.0" y="64" width="375" height="155"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner_default" translatesAutoresizingMaskIntoConstraints="NO" id="z1Q-MU-nhR">
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="z1Q-MU-nhR" secondAttribute="height" multiplier="25:6" id="D62-Rq-chg"/>
+                            </constraints>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入兑换码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="K2v-QE-rmQ">
+                            <rect key="frame" x="8" y="105" width="249" height="35"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="35" id="0CI-Ch-P3c"/>
+                            </constraints>
+                            <nil key="textColor"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JFI-5k-OVa">
+                            <rect key="frame" x="265" y="105" width="95" height="35"/>
+                            <color key="backgroundColor" red="1" green="0.73725490199999999" blue="0.023529411760000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="95" id="O2E-3d-NME"/>
+                                <constraint firstAttribute="height" constant="35" id="OPC-L9-fAh"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <state key="normal" title="兑换会员券">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="btnClick:" destination="-1" eventType="touchUpInside" id="JYl-SJ-t7B"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="K2v-QE-rmQ" firstAttribute="top" secondItem="z1Q-MU-nhR" secondAttribute="bottom" constant="15" id="0rJ-VG-Q2v"/>
+                        <constraint firstItem="JFI-5k-OVa" firstAttribute="leading" secondItem="K2v-QE-rmQ" secondAttribute="trailing" constant="8" id="8ck-hS-DH3"/>
+                        <constraint firstAttribute="trailing" secondItem="z1Q-MU-nhR" secondAttribute="trailing" id="FAl-3m-UC5"/>
+                        <constraint firstAttribute="bottom" secondItem="K2v-QE-rmQ" secondAttribute="bottom" constant="15" id="P4v-yu-Vbn"/>
+                        <constraint firstItem="K2v-QE-rmQ" firstAttribute="leading" secondItem="8Y1-J4-Tao" secondAttribute="leading" constant="8" id="PTb-rs-xMz"/>
+                        <constraint firstItem="JFI-5k-OVa" firstAttribute="top" secondItem="z1Q-MU-nhR" secondAttribute="bottom" constant="15" id="UZd-MQ-NMy"/>
+                        <constraint firstItem="z1Q-MU-nhR" firstAttribute="top" secondItem="8Y1-J4-Tao" secondAttribute="top" id="ZUp-j9-Fo5"/>
+                        <constraint firstItem="z1Q-MU-nhR" firstAttribute="leading" secondItem="8Y1-J4-Tao" secondAttribute="leading" id="ita-Cq-Gew"/>
+                        <constraint firstAttribute="trailing" secondItem="JFI-5k-OVa" secondAttribute="trailing" constant="15" id="tT2-FC-4lM"/>
+                    </constraints>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pUx-Om-MeL">
+                    <rect key="frame" x="0.0" y="219" width="375" height="398"/>
+                    <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Syn-b4-ne7">
+                    <rect key="frame" x="0.0" y="617" width="375" height="50"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="查看过期券">
+                        <color key="titleColor" red="1" green="0.73333333329999995" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="guoqiClick:" destination="-1" eventType="touchUpInside" id="YK4-do-gAF"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="Syn-b4-ne7" secondAttribute="bottom" id="293-h2-xZO"/>
+                <constraint firstAttribute="trailing" secondItem="pUx-Om-MeL" secondAttribute="trailing" id="77x-3W-aJb"/>
+                <constraint firstAttribute="trailing" secondItem="Syn-b4-ne7" secondAttribute="trailing" id="NUW-uW-V9A"/>
+                <constraint firstItem="8Y1-J4-Tao" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="OL5-w6-Eg2"/>
+                <constraint firstItem="8Y1-J4-Tao" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Ocu-Eb-BDO"/>
+                <constraint firstAttribute="bottom" secondItem="pUx-Om-MeL" secondAttribute="bottom" constant="50" id="PGI-Js-GFy"/>
+                <constraint firstItem="Syn-b4-ne7" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qcp-a7-ELy"/>
+                <constraint firstItem="pUx-Om-MeL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aLd-XT-zvF"/>
+                <constraint firstAttribute="trailing" secondItem="8Y1-J4-Tao" secondAttribute="trailing" id="oKe-c6-5X0"/>
+                <constraint firstItem="Syn-b4-ne7" firstAttribute="top" secondItem="pUx-Om-MeL" secondAttribute="bottom" id="uEw-Oa-7Fb"/>
+                <constraint firstItem="pUx-Om-MeL" firstAttribute="top" secondItem="8Y1-J4-Tao" secondAttribute="bottom" id="v8p-ct-t6h"/>
+            </constraints>
+            <point key="canvasLocation" x="62.5" y="53.5"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="banner_default" width="375" height="110"/>
+    </resources>
+</document>

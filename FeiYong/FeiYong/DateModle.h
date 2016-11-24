@@ -339,8 +339,8 @@
 
 @interface SHour : SAutoEx
 
-@property (nonatomic,assign)                int       mCount;
-@property (nonatomic,strong)                NSString *mService_item;
+@property (nonatomic,strong)                NSString *mLabel;
+@property (nonatomic,strong)                NSString *mContent;
 
 @end
 
@@ -411,6 +411,10 @@
 
 +(void)submitOrder:(NSString *)array work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area service_date:(NSString *)service_date service_address:(NSString *)service_address additional:(NSString *)additional service_time:(NSString *)service_time service_duration:(NSString *)service_duration work_type:(NSString *)work_type over_night:(NSString *)over_night care_type:(NSString *)care_type block:(void(^)(SResBase* retobj,SOrder *order))block;
 
+
+//定金支付提交信息
++(void)customBill:(NSString *)sex min_age:(int)min_age max_age:(int)max_age star:(int)star type:(NSString *)type work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area work_address:(NSString *)work_address province:(NSString *)province service_time:(NSString *)service_time service_duration:(NSString *)service_duration over_night:(NSString *)over_night care_type:(NSString *)care_type additional:(NSString *)additional block:(void(^)(SResBase* retobj,NSString *bid))block;
+
 @end
 
 
@@ -471,6 +475,27 @@
 
 @end
 
+//"face_value":100,"begin_time":"2016-10-10 00:00:00.0","end_time":"2017-01-01 00:00:00.0","status":"已生效","enough_money":500,"type":"满减卷","discount":1,"use_bill_type":"全部" 
+
+//优惠券
+@interface SCoupon : SAutoEx
+
+@property (nonatomic,assign) float     mFace_value;  //金额
+@property (nonatomic,strong) NSString *mBegin_time;  //开始时间
+@property (nonatomic,strong) NSString *mEnd_time;    //结束时间
+@property (nonatomic,strong) NSString *mStatus;      //状态
+@property (nonatomic,assign) float     mEnough_money;//满多少钱可以用
+@property (nonatomic,strong) NSString *mType;        //类型（满减券，打折券）
+@property (nonatomic,assign) float     mDiscount;    //折扣
+@property (nonatomic,strong) NSString *mUse_bill_type;//使用范围
+
+//获取会员券列表
++(void)getCoupon:(NSString *)type status:(NSString *)status block:(void(^)(SResBase* retobj,NSArray *arr))block;
+
+//兑换码兑换
++(void)exangeCode:(NSString *)gift_code block:(void(^)(SResBase* retobj))block;
+
+@end
 
 
 

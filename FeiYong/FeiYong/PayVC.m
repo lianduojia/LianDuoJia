@@ -24,11 +24,58 @@
     NSArray *_goodsarray;
     NSString *_ids;
     NSString *_counts;
+    
+    BOOL _back;
 }
 
 @end
 
 @implementation PayVC
+
+-(void)viewWillAppear:(BOOL)animated{
+
+    [super viewWillAppear:animated];
+    
+    
+    if (!_back) {
+        [self showStatu:@"加载中.."];
+        [SGoods getCartData:^(SResBase *retobj, NSArray *arr) {
+            
+            if (retobj.msuccess) {
+                
+                [SVProgressHUD dismiss];
+                
+                _goodsarray = arr;
+                int count = 0;
+                _ids = @"";
+                _counts = @"";
+                _goodsprice = 0;
+                for (SGoods *g in arr) {
+                    
+                    g.mCheck = YES;
+                    
+                    _goodsprice += g.mPrice*g.mCount;
+                    count+= g.mCount;
+                    
+                    _ids = [_ids stringByAppendingString:[NSString stringWithFormat:@"%d,",g.mGoods_id]];
+                    _counts = [_counts stringByAppendingString:[NSString stringWithFormat:@"%d,",g.mCount]];
+                }
+                
+                if (_ids.length>1) {
+                    _ids = [_ids substringWithRange:NSMakeRange(0, [_ids length] - 1)];
+                    _counts = [_counts substringWithRange:NSMakeRange(0, [_counts length] - 1)];
+                }
+                _mGoodsDetail.text = [NSString stringWithFormat:@"共%d件 ¥%g",count,_goodsprice];
+                
+            }else{
+                
+                [SVProgressHUD showErrorWithStatus:retobj.mmsg];
+            }
+        }];
+
+    }
+    
+}
 
 - (void)viewDidLoad {
     
@@ -64,40 +111,6 @@
         _mCollectionHeight.constant = DEVICE_Width;
     }
     _mMoney.text = [NSString stringWithFormat:@"¥%d",_mOrder.mAmount];
-    
-    
-    [self showStatu:@"加载中.."];
-    [SGoods getCartData:^(SResBase *retobj, NSArray *arr) {
-        
-        if (retobj.msuccess) {
-            
-            [SVProgressHUD dismiss];
-            
-            _goodsarray = arr;
-            int count = 0;
-            for (SGoods *g in arr) {
-                
-                g.mCheck = YES;
-                
-                _goodsprice += g.mPrice*g.mCount;
-                count+= g.mCount;
-                
-                _ids = [_ids stringByAppendingString:[NSString stringWithFormat:@"%d,",g.mGoods_id]];
-                _counts = [_counts stringByAppendingString:[NSString stringWithFormat:@"%d,",g.mCount]];
-            }
-            
-            if (_ids.length>1) {
-                _ids = [_ids substringWithRange:NSMakeRange(0, [_ids length] - 1)];
-                _counts = [_counts substringWithRange:NSMakeRange(0, [_counts length] - 1)];
-            }
-            _mGoodsDetail.text = [NSString stringWithFormat:@"共%d件 ¥%g",count,_goodsprice];
-            
-        }else{
-            
-            [SVProgressHUD showErrorWithStatus:retobj.mmsg];
-        }
-    }];
-
     
 }
 
@@ -258,7 +271,10 @@
     sc.itblock = ^(NSString *content,NSString *ids,NSString *counts,float price){
         _mGoodsDetail.text = content;
         
+        _back = YES;
+        
         if (content.length>0) {
+            
             _counts = counts;
             _goodsprice = price;
             _mMoney.text = [NSString stringWithFormat:@"¥%g",_mOrder.mAmount+price];

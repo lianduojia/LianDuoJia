@@ -8,6 +8,7 @@
 
 #import "HourExplainVC.h"
 #import "ChoseAddress.h"
+#import "HourView.h"
 
 @interface HourExplainVC (){
     NSString *_province;
@@ -25,35 +26,8 @@
     
     self.navTitle = @"资费说明";
     
-    _mHourView.layer.masksToBounds = YES;
-    _mHourView.layer.cornerRadius = 5;
-    _mHourView.layer.borderColor = M_CO.CGColor;
-    _mHourView.layer.borderWidth = 1;
     
-    _mBlView.layer.masksToBounds = YES;
-    _mBlView.layer.cornerRadius = 5;
-    _mBlView.layer.borderColor = M_CO.CGColor;
-    _mBlView.layer.borderWidth = 1;
-    
-    _mZfView.layer.masksToBounds = YES;
-    _mZfView.layer.cornerRadius = 5;
-    _mZfView.layer.borderColor = M_CO.CGColor;
-    _mZfView.layer.borderWidth = 1;
-    
-    _mQjjView.layer.masksToBounds = YES;
-    _mQjjView.layer.cornerRadius = 5;
-    _mQjjView.layer.borderColor = M_CO.CGColor;
-    _mQjjView.layer.borderWidth = 1;
-    
-    _mMbView.layer.masksToBounds = YES;
-    _mMbView.layer.cornerRadius = 5;
-    _mMbView.layer.borderColor = M_CO.CGColor;
-    _mMbView.layer.borderWidth = 1;
-    
-    _mKhView.layer.masksToBounds = YES;
-    _mKhView.layer.cornerRadius = 5;
-    _mKhView.layer.borderColor = M_CO.CGColor;
-    _mKhView.layer.borderWidth = 1;
+
     
     [self loadData];
     
@@ -106,47 +80,55 @@
 
 - (void)loadContent:(NSArray *)arr{
 
-    int min = 0;
-    int price = 0;
-    for (SHour *hour in arr) {
-        if ([hour.mService_item isEqualToString:@"小时工最低时长"]) {
-            min = hour.mCount;
-        }
+    float yy = 0;
+    
+    for (UIView *view in _mContentView.subviews) {
         
-        if ([hour.mService_item isEqualToString:@"小时工"]) {
-            price = hour.mCount;
-            
-            if (hour.mCount == 0) {
-                
-                _mCotentView.hidden = YES;
-            }else{
-                
-                _mCotentView.hidden = NO;
-            }
-        }
-        
-        if ([hour.mService_item isEqualToString:@"擦玻璃"]) {
-            _mContent2.text = [NSString stringWithFormat:@"每小时增加%d元",hour.mCount];
-        }
-        
-        if ([hour.mService_item isEqualToString:@"做饭"]) {
-            _mContent3.text = [NSString stringWithFormat:@"每小时增加%d元",hour.mCount];
-        }
-        
-        if ([hour.mService_item isEqualToString:@"清洁剂"]) {
-            _mContent4.text = [NSString stringWithFormat:@"收费%d元",hour.mCount];
-        }
-        
-        if ([hour.mService_item isEqualToString:@"抹布"]) {
-            _mContent5.text = [NSString stringWithFormat:@"收费%d元",hour.mCount];
-        }
-        
-        if ([hour.mService_item isEqualToString:@"开荒"]) {
-            _mContent6.text = [NSString stringWithFormat:@"每小时增加%d元",hour.mCount];
+        if (![view isKindOfClass:[UIImageView class]]) {
+            [view removeFromSuperview];
         }
     }
+    for (int i = 0;i < arr.count;i++) {
+        
+        SHour *hour = [arr objectAtIndex:i];
+        
+        HourView *hv = [HourView shareView];
+//        hv.backgroundColor = [UIColor redColor];
+
+        hv.layer.masksToBounds = YES;
+        hv.layer.cornerRadius = 5;
+        hv.layer.borderColor = M_CO.CGColor;
+        hv.layer.borderWidth = 1;
+        
+        hv.mLabel.text = hour.mLabel;
+        hv.mContent.text = hour.mContent;
+        
+        if (i == 0) {
+            hv.frame = CGRectMake(15, yy, DEVICE_Width-30, 65);
+            yy +=65+8;
+        }else{
+        
+            if (i%2==0) {
+                hv.frame = CGRectMake(DEVICE_Width/2+4, yy, (DEVICE_Width-30)/2-4, 65);
+            }else{
+                hv.frame = CGRectMake(15, yy, (DEVICE_Width-30)/2-4, 65);
+            }
+
+            yy+=((i+1)%2)*(65+8);
+        }
+        
+        [_mContentView addSubview:hv];
+    }
     
-    _mContent1.text = [NSString stringWithFormat:@"%d小时起做 每小时%d元",min,price];
+    if (arr.count == 0) {
+        _mEmpty.hidden = NO;
+        _mContentHeight.constant = 300;
+    }else{
+        _mEmpty.hidden = YES;
+        _mContentHeight.constant = yy;
+    }
+    
+    
 }
 
 
