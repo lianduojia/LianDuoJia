@@ -23,6 +23,8 @@
     
     _mTelBt.layer.masksToBounds = YES;
     _mTelBt.layer.cornerRadius = 3;
+    
+    _mTelBt.hidden = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

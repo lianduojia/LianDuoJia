@@ -116,13 +116,13 @@
     SShop *shop = [_mTempArray objectAtIndex:indexPath.row];
 
     cell.mName.text = shop.mName;
-    cell.mAddress.text = [NSString stringWithFormat:@"%@%@%@%@",shop.mP_province,shop.mP_city,shop.mP_area,shop.mP_address];
-    
-    if (_flag) {
+    cell.mAddress.text = [NSString stringWithFormat:@"%@%@%@",shop.mP_province,shop.mP_city,shop.mP_area];
+    cell.mDistances.text = shop.mDistance;
+    if (_flag || shop.mDistance.length == 0) {
         cell.mDistances.hidden = YES;
         cell.mImg.hidden = YES;
     }
-    cell.mDistances.text = shop.mDistance;
+    
     cell.mTelBt.tag = indexPath.row;
     [cell.mTelBt addTarget:self action:@selector(TelClick:) forControlEvents:UIControlEventTouchUpInside];
     

@@ -127,6 +127,8 @@
 		B291E88F1D084F010056C7E1 /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B291E88D1D084F010056C7E1 /* SettingCell.m */; };
 		B291E8901D084F010056C7E1 /* SettingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B291E88E1D084F010056C7E1 /* SettingCell.xib */; };
 		B291E8931D0852D60056C7E1 /* OrderVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B291E8921D0852D60056C7E1 /* OrderVC.m */; };
+		B2ABA9E41DFA893000A14C59 /* CustomizedVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2ABA9E21DFA893000A14C59 /* CustomizedVC.m */; };
+		B2ABA9E51DFA893000A14C59 /* CustomizedVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2ABA9E31DFA893000A14C59 /* CustomizedVC.xib */; };
 		B2B060261D65AD80006F9246 /* YLSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B2B060251D65AD80006F9246 /* YLSlider.m */; };
 		B2CD37191DD57C53004C27D8 /* ComplaintVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B2CD37171DD57C53004C27D8 /* ComplaintVC.m */; };
 		B2CD371A1DD57C53004C27D8 /* ComplaintVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2CD37181DD57C53004C27D8 /* ComplaintVC.xib */; };
@@ -552,6 +554,9 @@
 		B291E88E1D084F010056C7E1 /* SettingCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingCell.xib; sourceTree = "<group>"; };
 		B291E8911D0852D60056C7E1 /* OrderVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderVC.h; sourceTree = "<group>"; };
 		B291E8921D0852D60056C7E1 /* OrderVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderVC.m; sourceTree = "<group>"; };
+		B2ABA9E11DFA893000A14C59 /* CustomizedVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomizedVC.h; sourceTree = "<group>"; };
+		B2ABA9E21DFA893000A14C59 /* CustomizedVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomizedVC.m; sourceTree = "<group>"; };
+		B2ABA9E31DFA893000A14C59 /* CustomizedVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomizedVC.xib; sourceTree = "<group>"; };
 		B2B060241D65AD80006F9246 /* YLSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YLSlider.h; sourceTree = "<group>"; };
 		B2B060251D65AD80006F9246 /* YLSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YLSlider.m; sourceTree = "<group>"; };
 		B2CD37161DD57C53004C27D8 /* ComplaintVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ComplaintVC.h; sourceTree = "<group>"; };
@@ -1374,6 +1379,9 @@
 				B2CEE2D71D057EED0062EC59 /* ForgetPwdVC.h */,
 				B2CEE2D81D057EED0062EC59 /* ForgetPwdVC.m */,
 				B2CEE2D91D057EED0062EC59 /* ForgetPwdVC.xib */,
+				B2ABA9E11DFA893000A14C59 /* CustomizedVC.h */,
+				B2ABA9E21DFA893000A14C59 /* CustomizedVC.m */,
+				B2ABA9E31DFA893000A14C59 /* CustomizedVC.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -1856,6 +1864,7 @@
 				B291E8571D07CD3A0056C7E1 /* PingJiaCell.xib in Resources */,
 				B25378A71DDC3CEB0022A037 /* HourView.xib in Resources */,
 				B2D6A7001D0950DA00899042 /* AppointmentVC.xib in Resources */,
+				B2ABA9E51DFA893000A14C59 /* CustomizedVC.xib in Resources */,
 				B2DDFBAC1CF7001C00D92DEA /* MJRefresh.bundle in Resources */,
 				4FC4FCD21D0C3F490000A9A0 /* province_data.xml in Resources */,
 				B2CF562D1D0704480091B42A /* ReAuntDetailVC.xib in Resources */,
@@ -2029,6 +2038,7 @@
 				B291E8791D083E100056C7E1 /* MyInfoVC.m in Sources */,
 				B2DDFBFB1CF7126600D92DEA /* SDWebImageCompat.m in Sources */,
 				B2DDFBB31CF7001C00D92DEA /* UIView+MJExtension.m in Sources */,
+				B2ABA9E41DFA893000A14C59 /* CustomizedVC.m in Sources */,
 				B2CEE2AD1D0534FE0062EC59 /* IQKeyboardManager.m in Sources */,
 				B2CEE2CE1D0550240062EC59 /* SVProgressHUD.m in Sources */,
 				B2DDFBC31CF70A5200D92DEA /* MainVC.m in Sources */,

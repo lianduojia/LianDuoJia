@@ -66,7 +66,7 @@
     }
     
     if (section == 2) {
-        _sectionview.mLabel.text = @"已开通服务城市";
+        _sectionview.mLabel.text = @"城市列表";
     }
     
     return _sectionview;

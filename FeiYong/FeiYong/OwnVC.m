@@ -14,6 +14,8 @@
 #import "OpinionVC.h"
 #import "SettingVC.h"
 #import "ShopCartVC.h"
+#import "WebVC.h"
+#import "CustomizedVC.h"
 #define Height 248
 
 
@@ -147,9 +149,9 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
     if (section == 0) {
-        return 3;
+        return 4;
     }
-    return 2;
+    return 3;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -174,7 +176,7 @@
             cell.mName.textColor = M_TCO;
             switch (indexPath.row) {
                 case 0:
-                    
+                    cell.mJiantou.hidden = YES;
                     cell.mImg.image = [UIImage imageNamed:@"own_dzgl"];
                     cell.mName.text = @"地址管理";
                     
@@ -187,10 +189,16 @@
                     cell.mDetail.text = [NSString stringWithFormat:@"余额：%g",_balance];
                     break;
                 case 2:
-                    
+                    cell.mJiantou.hidden = YES;
                     cell.mImg.image = [UIImage imageNamed:@"own_shopcar"];
                     cell.mName.text = @"购物车";
 
+                    break;
+                case 3:
+                    cell.mJiantou.hidden = YES;
+                    cell.mImg.image = [UIImage imageNamed:@"own_zxdz"];
+                    cell.mName.text = @"专享定制";
+                    
                     break;
                 default:
                     break;
@@ -201,10 +209,9 @@
             cell.mName.textColor = M_TCO2;
             switch (indexPath.row) {
                 case 0:
-                    
-                    cell.mImg.image = [UIImage imageNamed:@"own_yjfk"];
-                    cell.mName.text = @"意见反馈";
-                    
+                    cell.mImg.image = [UIImage imageNamed:@"own_cjwt"];
+                    cell.mName.text = @"常见问题";
+
                     break;
                 case 1:
                     
@@ -212,6 +219,12 @@
                     cell.mName.text = @"系统设置";
                     
                     break;
+                case 2:
+                    cell.mImg.image = [UIImage imageNamed:@"own_yjfk"];
+                    cell.mName.text = @"意见反馈";
+                    
+                    break;
+
                 default:
                     break;
             }
@@ -258,6 +271,12 @@
                     [self pushViewController:sc];
                 }
                     break;
+                case 3:{
+                    
+                    CustomizedVC *custom = [[CustomizedVC alloc] initWithNibName:@"CustomizedVC" bundle:nil];
+                    [self pushViewController:custom];
+                }
+                    break;
                 default:
                     break;
             }
@@ -268,9 +287,12 @@
             switch (indexPath.row) {
                 case 0:
                 {
-                    OpinionVC *opin = [[OpinionVC alloc] initWithNibName:@"OpinionVC" bundle:nil];
-                    
-                    [self.navigationController pushViewController:opin animated:YES];
+                    WebVC *web = [[WebVC alloc] init];
+                    web.mName = @"常见问题";
+                    web.isMode = YES;
+                    web.mUrl = [NSString stringWithFormat:@"%@faq.html",[APIClient getDomain]];
+                    [self presentViewController:web animated:YES completion:nil];
+
                 }
                     
                     break;
@@ -279,6 +301,13 @@
                     SettingVC *setting = [[SettingVC alloc] initWithNibName:@"SettingVC" bundle:nil];
                     
                     [self.navigationController pushViewController:setting animated:YES];
+                }
+                    break;
+                case 2:
+                {
+                    OpinionVC *opin = [[OpinionVC alloc] initWithNibName:@"OpinionVC" bundle:nil];
+                    
+                    [self.navigationController pushViewController:opin animated:YES];
                 }
                     break;
                 default:

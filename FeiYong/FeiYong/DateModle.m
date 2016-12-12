@@ -1613,7 +1613,7 @@ SAppInfo* g_appinfo = nil;
 
 
 //定金支付提交信息
-+(void)customBill:(NSString *)sex min_age:(int)min_age max_age:(int)max_age star:(int)star type:(NSString *)type work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area work_address:(NSString *)work_address province:(NSString *)province service_time:(NSString *)service_time service_duration:(NSString *)service_duration over_night:(NSString *)over_night care_type:(NSString *)care_type additional:(NSString *)additional block:(void(^)(SResBase* retobj,NSString *bid))block{
++(void)customBill:(NSString *)sex min_age:(int)min_age max_age:(int)max_age star:(int)star type:(NSString *)type work_province:(NSString *)work_province work_city:(NSString *)work_city work_area:(NSString *)work_area work_address:(NSString *)work_address province:(NSString *)province service_time:(NSString *)service_time service_duration:(NSString *)service_duration over_night:(NSString *)over_night care_type:(NSString *)care_type additional:(NSString *)additional block:(void(^)(SResBase* retobj,NSString *bid,int day,int num))block{
 
     NSMutableDictionary* param = [NSMutableDictionary new];
     [param setObject:[SUser currentUser].mId forKey:@"employer_id"];
@@ -1661,7 +1661,7 @@ SAppInfo* g_appinfo = nil;
     
     [[APIClient sharedClient] postUrl:@"custom-bill" parameters:param call:^(SResBase *info) {
             
-            block(info,[[info.mdata objectForKeyMy:@"id"] stringValue]);
+            block(info,[[info.mdata objectForKeyMy:@"id"] stringValue],[[info.mdata objectForKeyMy:@"remain_day"] intValue],[[info.mdata objectForKeyMy:@"ranking"] intValue]);
     }];
 
 }

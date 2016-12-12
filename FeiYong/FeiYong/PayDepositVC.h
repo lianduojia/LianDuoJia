@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface PayDepositVC : BaseVC
+
+@property (nonatomic,strong) NSMutableArray *mTempArray;
 @property (nonatomic,assign) int mType;
 
 @property (nonatomic,assign) int min_age;
@@ -26,6 +28,11 @@
 @property (nonatomic,strong) NSString *over_night;
 @property (nonatomic,strong) NSString *care_type;
 @property (nonatomic,strong) NSString *additional;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *mGoAuntHeight;
+
+@property (weak, nonatomic) IBOutlet UILabel *mNum;
+@property (weak, nonatomic) IBOutlet UILabel *mLabel;
+- (IBAction)GoAuntClick:(id)sender;
 
 - (IBAction)PayClick:(id)sender;
 @end

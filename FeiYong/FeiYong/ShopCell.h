@@ -16,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UIView *mBgView;
 @property (weak, nonatomic) IBOutlet UIImageView *mImg;
 
+
 @end
